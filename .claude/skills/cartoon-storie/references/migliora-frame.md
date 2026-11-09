@@ -1,6 +1,6 @@
 # Migliora frame: tarare, rifinire e cercare ciò che manca
 
-Principio: **non stimare, misura.** Ogni valore di luce e colore nasce da un campione del riferimento, ogni modifica si giudica con un numero e con un'immagine affiancata. A occhio si sbaglia: in un test una plancia che sembrava "grigia" era #181d23, e schiarirla aveva peggiorato tutto. Esempio completo del metodo, con 30 iterazioni documentate: `esempi/frame-autostrada/` nel repository del kit (`CAMBIAMENTI.md`).
+Principio: **non stimare, misura.** Ogni valore di luce e colore nasce da un campione del riferimento, ogni modifica si giudica con un numero e con un'immagine affiancata. A occhio si sbaglia: in un test una plancia che sembrava "grigia" era #181d23, e schiarirla aveva peggiorato tutto. Esempio completo del metodo, con 30 iterazioni documentate: `esempi/frame-autostrada/` nella radice del repository del kit (da questa cartella: `../../../../esempi/frame-autostrada/`). **Leggilo prima di iniziare una taratura**: `README.md`, poi `CAMBIAMENTI.md`; le immagini delle iterazioni sono in `confronto/`.
 
 Questa parte della skill serve in tre casi:
 1. l'utente porta un **video o un fotogramma da raggiungere** ("voglio questa luce", un contact sheet di un altro canale) → **taratura** (§1-3);

@@ -55,6 +55,7 @@ Il video si genera solo su un computer con Python, Node e scheda video (Mac: ~0,
 7. **Story file** `kit/stories/<nome>.json` (formato sotto; esempio completo: `esempio_ho_gia_mangiato.json`).
 8. **Anteprima** `python kit/run.py anteprima kit/stories/<nome>.json` → controllo automatico + `out/<nome>/contact.png` (inizio di ogni inquadratura e ogni azione). Correggi il JSON. ⏸ (contact sheet)
 8b. **Taratura su un riferimento** (facoltativa, se l'utente porta un video o un fotogramma da raggiungere) → `references/migliora-frame.md`: `kit/tools/ritaglia.py`, poi `kit/tools/taratura.py storia.json FRAME rif.png itNN` ripetuto, una correzione per giro, e il preset tarato salvato in `look.js` + `luce-colore.md`. ⏸
+   **Prima di tarare, guarda l'esempio svolto** nella radice del repo: `../../../esempi/frame-autostrada/` (`README.md`, poi `CAMBIAMENTI.md` con le iterazioni v1 → v5 e cosa ha funzionato o no; immagini in `confronto/`; `scene.js` contiene `reliefNormal`, l'ombreggiatura vera sulle sagome).
 9. **Video** `python kit/run.py video kit/stories/<nome>.json` → `out/<nome>/<nome>.mp4`. Qualità finale: `"qualita": {"passaggi": 16}` nella storia (ombre morbide e di contatto vere, bordi puliti; molto più lento, vedi `migliora-frame.md` §4).
 10. **Controllo qualità** → `python kit/tools/misura_luce.py out/<nome>/frames` e ritagli a piena risoluzione contro gli aloni (`references/luce-colore.md`). Poi `upload.txt` (3 titoli, descrizione, fonti, 5-8 hashtag) e il tema in `kit/topics/used.txt`.
 
