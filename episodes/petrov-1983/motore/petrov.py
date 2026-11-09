@@ -320,7 +320,7 @@ beat("Il computer non aveva visto cinque missili. Aveva visto il sole.", "bunker
      [pet("hang", "smile")], [{"id": f"missile{i}", "at": "computer", "show": T} for i in range(1, 6)] + [{"id": "luce_mappa", "at": "sole", "on": T}],
      light="interno_notte", mostra={"computer": "mappa", "missili": "mappa", "sole": "mappa"})
 beat("Dopo quella notte, l'Unione Sovietica aggiunse altri satelliti, in un'orbita diversa, per controllare ogni allarme da un secondo punto di vista.", "spazio",
-     cam(("dettaglio_oggetto", "satellite2"), ("arco", "satellite", "controllare")), [], [{"id": "satellite2", "at": "satelliti", "show": T, "from": [12, 18, -4], "dur": 2.5}],
+     cam(("dettaglio_oggetto", "satellite2"), ("arco", "satellite", "controllare")), [], [{"id": "satellite2", "at": "satelliti", "show": T, "from": [7, 14.5, -4], "dur": 1.5}],
      mostra={"satelliti": "satellite2", "orbita": "satellite2", "unione": "terra", "allarme": "satellite"}, non_mostrare=["notte: tempo", "punto: concetto", "vista: concetto"])
 # 5 · dopo
 beat("E Petrov? Nessuna medaglia.", "indagine", cam(("mezza_figura", "petrov"),), [{"id": "petrov", "x": -0.4, "z": 0.4, "pose": "hang", "face": "neutral"}], non_mostrare=["medaglia: non c'è"])
@@ -356,6 +356,56 @@ beat("Quella notte, una macchina disse che il mondo stava finendo.", "bunker", c
 beat("Un uomo, da solo, al buio, disse: no.", "bunker", cam(("primo_piano_finale", "petrov"),),
      [pet("hang", "determined", talk=True)], m5("Un") + [{"id": "lancio", "at": "no", "hide": T}, {"id": "allarme1", "at": "no", "on": False}, {"id": "allarme2", "at": "no", "on": False}] + [{"id": f"missile{i}", "at": "no", "hide": T} for i in range(1, 6)],
      mostra={"uomo": "petrov"}, non_mostrare=["buio: è la scena stessa"])
+
+# ---------- camere fissate a mano dove il refit automatico porta la camera fuori dal set ----------
+K = lambda a, b: [[0] + a, [1] + b]
+MAN = {
+    ("dettaglio_oggetto", "mappa"): K([[-0.5, 1.95, -0.85], [-0.5, 2.0, -3.95], 55], [[-0.5, 1.95, -1.15], [-0.5, 2.0, -3.95], 55]),
+    ("dettaglio_oggetto", "monitor"): K([[-0.5, 1.95, -0.85], [-0.5, 2.0, -3.95], 55], [[-0.5, 1.95, -1.15], [-0.5, 2.0, -3.95], 55]),
+    ("dal_basso_rivela", "lancio"): K([[0, 1.2, -0.9], [0, 2.6, -3.93], 52], [[0, 1.35, -1.2], [0, 3.0, -3.93], 50]),
+    ("dettaglio_oggetto", "lancio"): K([[0, 2.6, -1.4], [0, 3.1, -3.93], 46], [[0, 2.65, -1.65], [0, 3.1, -3.93], 46]),
+    ("dettaglio_oggetto", "affidabilita"): K([[3.25, 1.95, -1.55], [3.6, 2.0, -3.95], 48], [[3.3, 1.95, -1.8], [3.6, 2.0, -3.95], 48]),
+    ("dettaglio_oggetto", "data"): K([[-3.2, 1.75, -1.8], [-3.6, 1.75, -3.95], 45], [[-3.25, 1.75, -2.0], [-3.6, 1.75, -3.95], 45]),
+    ("dettaglio_oggetto", "radar"): K([[3.0, 1.6, -1.5], [4.95, 1.6, -1.6], 45], [[3.25, 1.6, -1.55], [4.95, 1.6, -1.6], 45]),
+    ("dettaglio_oggetto", "telefono"): K([[0.55, 1.2, -0.15], [0.15, 0.85, 0.65], 46], [[0.5, 1.15, 0.0], [0.15, 0.85, 0.65], 46]),
+    ("dettaglio_oggetto", "data_kal"): K([[0, 2.0, 1.8], [0, 2.0, -4], 45], [[0, 2.0, 1.3], [0, 2.0, -4], 45]),
+    ("dettaglio_oggetto", "vittime"): K([[0, 2.0, 1.8], [0, 2.0, -3.9], 45], [[0, 2.0, 1.3], [0, 2.0, -3.9], 45]),
+    ("dettaglio_oggetto", "giornale"): K([[-2.25, 1.6, -0.9], [-2.4, 1.6, -3.45], 45], [[-2.25, 1.6, -1.1], [-2.4, 1.6, -3.45], 45]),
+    ("dettaglio_oggetto", "pravda"): K([[2.25, 1.6, -0.9], [2.4, 1.6, -3.45], 45], [[2.25, 1.6, -1.1], [2.4, 1.6, -3.45], 45]),
+    ("dettaglio_oggetto", "sospetto"): K([[0, 2.1, -1.4], [0, 2.3, -3.45], 45], [[0, 2.1, -1.6], [0, 2.3, -3.45], 45]),
+    ("dettaglio_oggetto", "ryan"): K([[-0.25, 1.35, 0.15], [-0.25, 0.8, -0.25], 45], [[-0.25, 1.25, 0.05], [-0.25, 0.8, -0.25], 45]),
+    ("dall_alto_oggetto", "fascicolo"): K([[-0.1, 1.6, 0.3], [-0.25, 0.8, -0.25], 50], [[-0.15, 1.45, 0.2], [-0.25, 0.8, -0.25], 50]),
+    ("dettaglio_oggetto", "lode"): K([[-1.5, 2.0, -0.6], [-1.6, 2.1, -2.95], 45], [[-1.5, 2.0, -0.8], [-1.6, 2.1, -2.95], 45]),
+    ("dettaglio_oggetto", "memorie"): K([[0, 1.6, -0.2], [0, 1.6, -2.95], 45], [[0, 1.6, -0.5], [0, 1.6, -2.95], 45]),
+    ("dall_alto_oggetto", "registro_vuoto"): K([[0.2, 1.5, 0.1], [0, 0.78, -0.4], 48], [[0.15, 1.4, 0.0], [0, 0.78, -0.4], 48]),
+    ("dettaglio_oggetto", "cassetto"): K([[1.6, 1.3, -0.4], [2.9, 0.8, -2.4], 50], [[1.8, 1.25, -0.7], [2.9, 0.8, -2.4], 50]),
+    ("dettaglio_oggetto", "insegna_onu"): K([[0, 2.6, -0.5], [0, 3.3, -4.95], 50], [[0, 2.7, -1.0], [0, 3.35, -4.95], 50]),
+    ("dettaglio_oggetto", "lettere"): K([[-2.2, 1.25, -0.3], [-1.4, 0.6, -1.2], 50], [[-2.1, 1.2, -0.5], [-1.4, 0.6, -1.2], 50]),
+    ("primo_piano", "generale"): K([[0.6, 1.45, 0.2], [0, 1.35, -1.4], 40], [[0.55, 1.45, 0.0], [0, 1.35, -1.4], 40]),
+    ("dettaglio_oggetto", "premio"): K([[0.65, 1.0, -1.5], [0.75, 0.72, -2.65], 45], [[0.68, 0.95, -1.75], [0.75, 0.72, -2.65], 45]),
+    ("dettaglio_oggetto", "Rockingchair"): K([[0.4, 1.4, 1.2], [-0.6, 0.6, -1.2], 50], [[0.3, 1.3, 0.8], [-0.6, 0.6, -1.2], 50]),
+    ("tilt_cielo", "aereo"): K([[0, 1.5, 4], [0, 9, -8], 60], [[0, 1.8, 3], [-0.5, 6, -6], 55]),
+    ("dettaglio_oggetto", "aereo"): K([[0.5, 5.6, 2.5], [1.5, 6.2, -6.5], 50], [[0.8, 5.7, 1.8], [2.5, 6.2, -6.8], 50]),
+    ("campo_lungo_alto", "aereo"): K([[0, 8.5, 6.5], [1.5, 6, -6], 60], [[0, 8.0, 5.5], [2.5, 6, -6], 60]),
+    ("dettaglio_oggetto", "caccia"): K([[3.2, 6.6, 1.5], [4.5, 7.0, -5], 52], [[3.2, 6.6, 1.0], [3.5, 6.8, -5], 50]),
+    ("dal_basso_rivela", "finestre"): K([[-0.5, 1.0, 2.0], [0.5, 4.5, -10.9], 58], [[-0.5, 1.1, 1.0], [0.5, 6.0, -10.9], 58]),
+    ("campo_lungo_alto", "finestre"): K([[0, 4.0, 7.0], [0.5, 5.0, -10], 58], [[0, 3.5, 5.5], [0.5, 5.0, -10], 58]),
+    ("gru_rivela", "satellite"): K([[1.5, 12.8, 1.5], [0, 12.5, -3], 45], [[4.0, 16.0, 9.0], [0, 11.0, -4], 55]),
+    ("dettaglio_oggetto", "satellite"): K([[3.0, 13.5, 5.0], [0, 12.5, -3], 45], [[2.6, 13.3, 4.0], [0, 12.5, -3], 45]),
+    ("dall_alto_oggetto", "terra"): K([[0, 14.0, 9.0], [0, 8.0, -5], 50], [[0, 12.5, 7.0], [0, 8.0, -5], 50]),
+    ("dettaglio_oggetto", "satellite2"): K([[2.0, 13.5, 4.0], [4.0, 13.2, -4], 50], [[2.2, 13.5, 3.2], [4.0, 13.2, -4], 50]),
+    ("arco", "satellite"): K([[-4.0, 13.0, 5.0], [0, 12.5, -3], 48], [[4.0, 13.5, 5.0], [0, 12.5, -3], 48]),
+    ("tilt_cielo", "riflessi"): K([[0, 1.6, 4.0], [0, 12.0, -20], 60], [[0, 1.6, 3.0], [0, 9.0, -20], 60]),
+    ("dettaglio_oggetto", "silo"): K([[1.5, 2.2, -3.5], [0, 0.3, -7], 50], [[1.3, 2.0, -4.0], [0, 0.3, -7], 50]),
+}
+for b in B:
+    for c in b["camera"]:
+        k = MAN.get((c.get("preset"), c.get("on")))
+        if k: c["keys"] = k
+# modelli con size + w insieme vengono deformati: tengo solo l'altezza
+for pl in places.values():
+    for m in pl.get("models", []):
+        if m.get("m") in ("WoodenTable_02", "Sofa_01") and "w" in m: m.pop("w")
 
 # sedia a dondolo con id per il penultimo dettaglio
 for m in places["casa"]["models"]:
