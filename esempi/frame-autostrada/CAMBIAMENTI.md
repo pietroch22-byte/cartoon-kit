@@ -212,3 +212,47 @@ La zona degli alberi è la migliore di sempre. Le altre peggiorano di poco perch
 - **c07**: vetro e vernice calibrati sui campioni.
 
 **Lezione**: alzare la luminosità delle foto degli alberi non basta, perché il colore resta oliva. Bisogna moltiplicare ogni canale verso il verde campionato. Attenzione anche a `| head` dopo uno script Python: la pipe chiusa l'ha interrotto a metà e solo alcune foto erano state ricolorate.
+
+---
+
+# v4: riflessi reali su abitacolo e personaggio
+
+![abitacolo v3 a sinistra, v4 a destra](confronto/v3-vs-v4-abitacolo.jpg)
+
+Nella v3 il mondo 3D rifletteva il cielo HDR, ma l'abitacolo e il personaggio erano disegni piatti: nessun riflesso poteva toccarli. Nella v4 anche le superfici dipinte ricevono **luce e riflessi calcolati dal motore**, con lo stesso sole e lo stesso cielo del mondo.
+
+**Come funziona** (`reliefNormal` in `scene.js`):
+1. Accanto al disegno si dipingono altre tre mappe con le stesse coordinate: un **rilievo** in grigi (cornici e cromature sporgono, schermi e bocchette rientrano), un'**inclinazione** per zona (cofano e piano della plancia guardano in alto, i pannelli verticali no) e una mappa **rugosità/metallo** (vetro 0,07, vernice 0,2, cornice 0,3, plastica 0,6-0,7, cromo metallico).
+2. Da rilievo e inclinazione si ricava una normal map.
+3. Sopra il disegno si aggiunge uno strato con un materiale fisico nero che produce **solo riflessi** (cielo HDR + sole portato nello spazio della camera) e si somma al dipinto.
+
+| | v3 | v4 | perché |
+|---|---|---|---|
+| Plancia (base) | grigio chiaro quasi ovunque | **scura**, con due sole fasce chiare tra y 1105 e 1215 | campionata a griglia (13 righe × 9 colonne): sotto i LED è #0d1624-#1b2029, non grigia |
+| Cornice del quadro | gradiente dipinto chiaro | base scura + bordo lucido dato dal riflesso sullo smusso | nel riferimento è nera con un filo di luce in alto |
+| Bocchette, manopole, anelli | bianco dipinto | **cromo vero** (metallo, rugosità 0,16) sopra una base blu-acciaio | |
+| Quadranti | puliti | zona rossa luminosa 7-8, bagliori a stella sugli anelli | presenti nel riferimento |
+| Cofano | bianco con riflessi dipinti | vernice lucida che riflette il cielo | |
+| Personaggio | disegno piatto con una mezzaluna grigia dipinta | **ombreggiatura reale** (rilievo a cupola sulla testa e bombato sul busto, illuminato dal sole da destra e moltiplicato sul disegno) + strato di riflessi | nel riferimento la testa passa da #fdfdfc (destra) a #d6d3da (sinistra); ora da #eef5fb a #dde3f3 |
+
+**Metrica** (più basso = più simile):
+
+| | Tutto | Cielo + alberi | Strada + auto | Abitacolo |
+|---|---|---|---|---|
+| v3 (c07) | 42,5 | 30,6 | 43,3 | 45,7 |
+| v4 (d06) | **38,6** | 31,8 | 43,3 | **38,2** |
+
+**Iterazioni d01-d06:**
+- **d01**: riflessi troppo forti, un velo chiaro su tutto. Abitacolo da 45,7 a 59,9: bocciata.
+- **d02**: intensità dell'ambiente da 1,15 a 0,28. Torna a 46,9, ma il confronto ravvicinato mostra che il vero errore è la **base** della plancia, troppo chiara.
+- **d03**: plancia ridipinta sui campioni. Abitacolo a 38,7: il salto più grande dopo la v2.
+- **d04**: cornice scura, cromature, manopole, zona rossa e bagliori.
+- **d05**: ombreggiatura sul personaggio troppo scura (tutta la testa a #b4b9c5): il cartoncino guarda la camera e il sole arriva di lato.
+- **d06**: moltiplicatore a 1,75, così il lato al sole resta pieno. Tolta la mezzaluna dipinta, che stava dal lato sbagliato.
+
+**Lezioni:**
+- Prima di aggiungere riflessi, verificare la base con una griglia di campioni: i riflessi su un colore di base sbagliato non possono sembrare veri.
+- Un riflesso sommato non si vede su una superficie già bianca. Lì serve l'ombreggiatura in moltiplica.
+- Il cielo HDR è molto luminoso: per uno strato di soli riflessi l'intensità giusta è intorno a 0,3, non 1.
+
+**Cosa resta diverso:** il tratto del personaggio (nell'originale il contorno è più spesso), l'auto rossa (serve un modello vero), la pelle del volante (nell'originale ha riflessi più marcati).

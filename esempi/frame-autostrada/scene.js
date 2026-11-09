@@ -26,6 +26,28 @@ function lin(g, x0, y0, x1, y1, stops) { const gr = g.createLinearGradient(x0, y
 function rad(g, x, y, r0, r1, stops) { const gr = g.createRadialGradient(x, y, r0, x, y, r1); stops.forEach(([o, c]) => gr.addColorStop(o, c)); return gr; }
 function poly(g, pts) { g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); }
 
+// Riflessi reali sulle superfici dipinte: da un canvas di RILIEVO (grigio = altezza) e uno di INCLINAZIONE
+// (R,G = normale di base della zona) si ricava una normal map; il materiale fisico la usa per riflettere cielo HDR e sole.
+function reliefNormal(relief, tilt, strength) {
+  const w = relief.width, h = relief.height, H0 = relief.getContext('2d').getImageData(0, 0, w, h).data;
+  const T0 = tilt ? tilt.getContext('2d').getImageData(0, 0, w, h).data : null;
+  const out = document.createElement('canvas'); out.width = w; out.height = h;
+  const g = out.getContext('2d'), id = g.createImageData(w, h), o = id.data;
+  const hh = (x, y) => H0[((y < 0 ? 0 : y >= h ? h - 1 : y) * w + (x < 0 ? 0 : x >= w ? w - 1 : x)) * 4];
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = (y * w + x) * 4;
+    let nx = -(hh(x + 1, y) - hh(x - 1, y)) / 255 * strength, ny = (hh(x, y + 1) - hh(x, y - 1)) / 255 * strength; // y del canvas va in giù
+    if (T0) { nx += (T0[i] - 128) / 127; ny += (T0[i + 1] - 128) / 127; }
+    const l = Math.hypot(nx, ny, 1);
+    o[i] = 128 + 127 * nx / l; o[i + 1] = 128 + 127 * ny / l; o[i + 2] = 128 + 127 / l; o[i + 3] = 255;
+  }
+  g.putImageData(id, 0, 0);
+  const t = new THREE.CanvasTexture(out); t.colorSpace = THREE.NoColorSpace; return t;
+}
+function rawCanvas(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); return c; }
+const tiltCol = (nx, ny) => `rgb(${Math.round(128 + 127 * nx)},${Math.round(128 + 127 * ny)},255)`;
+const dataTex = c => { const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.NoColorSpace; return t; };
+
 // ---------- renderer ----------
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setSize(W, H); renderer.setPixelRatio(1);
@@ -418,7 +440,6 @@ const charTex = canvas(512, 1024, (g, w, h) => {
   const head = () => { g.beginPath(); g.ellipse(256, 198, 176, 188, 0, 0, 7); };
   g.fillStyle = '#fbf8f4'; head(); g.fill();
   g.save(); head(); g.clip();
-  g.fillStyle = 'rgba(160,150,150,.28)'; g.beginPath(); g.ellipse(410, 230, 70, 200, 0, 0, 7); g.fill();
   // capelli castani a calotta (fino a ~1/3 della testa)
   g.fillStyle = '#5f4338';
   g.beginPath(); g.moveTo(70, 190); g.quadraticCurveTo(60, -10, 256, 8); g.quadraticCurveTo(452, -10, 446, 180);
@@ -448,6 +469,28 @@ const charTex = canvas(512, 1024, (g, w, h) => {
   card.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: charTex, alphaTest: .5 });
   card.lookAt(camera.position.x, card.position.y, camera.position.z);
   scene.add(card);
+  // riflessi reali sul personaggio: il disegno resta piatto, ma un rilievo (testa a cupola, busto bombato)
+  // fa calcolare al motore il riflesso del sole e del cielo, sommato sopra il disegno
+  const relief = rawCanvas(512, 1024, g => {
+    g.fillStyle = '#000'; g.fillRect(0, 0, 512, 1024);
+    const dome = (cx, cy, rx, ry) => { g.save(); g.translate(cx, cy); g.scale(rx, ry);
+      g.fillStyle = rad(g, 0, 0, 0, 1, [[0, '#fff'], [.5, '#ddd'], [.8, '#999'], [.95, '#444'], [1, '#000']]); g.beginPath(); g.arc(0, 0, 1, 0, 7); g.fill(); g.restore(); };
+    g.fillStyle = lin(g, 150, 0, 362, 0, [[0, '#000'], [.25, '#888'], [.5, '#bbb'], [.75, '#888'], [1, '#000']]); g.fillRect(150, 340, 212, 300);   // busto
+    dome(256, 198, 176, 188);                                                                                                                  // testa
+  });
+  const maskTex = canvas(512, 1024, g => { g.drawImage(charTex.image, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = '#000'; g.fillRect(0, 0, 512, 1024); });
+  const gloss = new THREE.Mesh(card.geometry, new THREE.MeshPhysicalMaterial({
+    map: maskTex, normalMap: reliefNormal(relief, null, 9), roughness: .3, ior: 1.6, envMapIntensity: .9,
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, fog: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2 }));
+  gloss.position.copy(card.position); gloss.quaternion.copy(card.quaternion); gloss.renderOrder = 3; scene.add(gloss);
+  // ombreggiatura reale: lo stesso rilievo, illuminato dal sole e dal cielo della scena, moltiplicato sul disegno
+  // (lato al sole invariato, lato opposto più scuro: nel riferimento la testa passa da #fdfdfc a #d6d3da)
+  const whiteMask = canvas(512, 1024, g => { g.drawImage(charTex.image, 0, 0); g.globalCompositeOperation = 'source-in'; g.fillStyle = '#fff'; g.fillRect(0, 0, 512, 1024); });
+  const shade = new THREE.Mesh(card.geometry, new THREE.MeshStandardMaterial({
+    map: whiteMask, alphaTest: .5, normalMap: gloss.material.normalMap, roughness: 1, envMapIntensity: .5, color: new THREE.Color().setScalar(1.75),   // >1: il lato al sole resta pieno, l'altro scende a ~0,7
+   
+    transparent: true, blending: THREE.MultiplyBlending, depthWrite: false, fog: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -1 }));
+  shade.position.copy(card.position); shade.quaternion.copy(card.quaternion); shade.renderOrder = 2; scene.add(shade);
 }
 
 // ============ ABITACOLO: livello dipinto a pixel esatti + volante 3D ============
@@ -494,19 +537,19 @@ const cockpitTex = canvas(W, H, (g) => {
   g.fillStyle = '#3f6fe0'; for (let x = 300; x < 800; x += 26) { const y = 1004 - (x - 300) / 500 * 10; g.fillRect(x, y, 12, 5); }
   g.fillStyle = lin(g, 0, 1000, 0, 1220, [[0, '#7a849e'], [.25, '#646d86'], [1, '#4b5367']]); poly(g, [[0, 1010], [W, 995], [W, 1920], [0, 1920]]); g.fill();
   // parte sinistra più chiara (illuminata)
-  g.fillStyle = lin(g, 0, 1000, 220, 1200, [[0, '#c6cbd7'], [.6, '#aab1c2'], [1, 'rgba(150,158,176,0)']]);
-  g.beginPath(); g.moveTo(0, 1008); g.lineTo(230, 1003); g.quadraticCurveTo(200, 1120, 196, 1210); g.lineTo(0, 1215); g.closePath(); g.fill();
+  // (campionata a griglia: fascia chiara solo tra y 1105 e 1215, #bfc1d0 → #8089a1)
+  g.fillStyle = lin(g, 0, 1100, 0, 1215, [[0, '#747a92'], [.12, '#c1c4d3'], [.6, '#b6bbca'], [1, '#8089a1']]); g.fillRect(0, 1100, 192, 115);
   // parte destra
-  g.fillStyle = lin(g, 0, 1075, 0, 1215, [[0, '#9aa2b5'], [1, '#7d859a']]);
-  g.beginPath(); g.moveTo(745, 1078); g.lineTo(W, 1075); g.lineTo(W, 1212); g.lineTo(752, 1212); g.closePath(); g.fill();
+  g.fillStyle = lin(g, 0, 1075, 0, 1212, [[0, '#474d6e'], [.2, '#474d6e'], [.27, '#d1d3dc'], [.75, '#d0d2dc'], [1, '#c4c6d1']]); g.fillRect(748, 1075, 332, 137);
   // strisce LED blu
   g.fillStyle = '#2f6cff'; g.shadowColor = '#3f8cff'; g.shadowBlur = 8;
   g.fillRect(62, 1212, 130, 5); g.fillRect(750, 1207, 330, 5); g.shadowBlur = 0;
   // pannello frontale sotto la linea LED (chiaro ai lati, scuro dietro il volante)
-  g.fillStyle = lin(g, 0, 1218, 0, 1450, [[0, '#a9afbe'], [1, '#7f8699']]); g.fillRect(0, 1218, 196, 232); g.fillRect(748, 1214, 332, 236);
+  g.fillStyle = lin(g, 0, 1218, 0, 1450, [[0, '#1b2437'], [.25, '#0d1624'], [1, '#182029']]); g.fillRect(0, 1218, 196, 232);            // misurato: tutto scuro sotto i LED
+  g.fillStyle = lin(g, 0, 1214, 0, 1450, [[0, '#6a6b7d'], [.12, '#2a2f3b'], [1, '#1b2029']]); g.fillRect(748, 1214, 332, 236);
   g.fillStyle = lin(g, 0, 1335, 0, 1500, [[0, '#1d232c'], [1, '#161b22']]); g.fillRect(190, 1330, 560, 170);   // misurato: #181d23
   g.fillStyle = lin(g, 0, 1440, 0, 1760, [[0, '#1a2129'], [1, '#10151d']]); g.fillRect(0, 1440, W, 330);      // misurato: #172029 → #10121f
-  g.fillStyle = lin(g, 0, 1450, 0, 1760, [[0, '#4a5163'], [1, '#2a3040']]); g.fillRect(860, 1440, 220, 320);
+  g.fillStyle = lin(g, 0, 1450, 0, 1760, [[0, '#1b222b'], [1, '#161b24']]); g.fillRect(860, 1440, 220, 320);
   // pannello basso chiaro (ginocchiera) e piantone a V
   g.fillStyle = lin(g, 0, 1755, 0, 1920, [[0, '#9a99a1'], [1, '#7a7982']]); poly(g, [[0, 1770], [W, 1755], [W, 1920], [0, 1920]]); g.fill();
   g.fillStyle = lin(g, 0, 1700, 0, 1920, [[0, '#3a3f4b'], [1, '#2a2e38']]); poly(g, [[392, 1700], [588, 1700], [560, 1920], [420, 1920]]); g.fill();
@@ -514,7 +557,7 @@ const cockpitTex = canvas(W, H, (g) => {
 
   // --- bocchette (cornice cromata, lamelle)
   const vent = (x, y, w, h) => {
-    g.fillStyle = lin(g, 0, y - 4, 0, y + h + 4, [[0, '#e4e7ee'], [1, '#8e95a6']]); rr(g, x - 5, y - 5, w + 10, h + 10, 18); g.fill();
+    g.fillStyle = lin(g, 0, y - 4, 0, y + h + 4, [[0, '#9fb0d6'], [1, '#4d5a80']]); rr(g, x - 4, y - 4, w + 8, h + 8, 17); g.fill();
     g.fillStyle = '#0f131a'; rr(g, x, y, w, h, 14); g.fill();
     g.strokeStyle = '#3a4252'; g.lineWidth = 4; for (let i = 1; i < 5; i++) { g.beginPath(); g.moveTo(x + 8, y + i * h / 5); g.lineTo(x + w - 8, y + i * h / 5); g.stroke(); }
   };
@@ -526,7 +569,8 @@ const cockpitTex = canvas(W, H, (g) => {
   [['A/C', 875], ['MAX', 935], ['FRONT', 995], ['REAR', 1055]].forEach(([t, x]) => g.fillText(t, x, 1340));
   g.font = '700 19px Inter'; g.fillText('72', 878, 1385); g.fillText('72', 1060, 1385);
   for (const x of [872, 966, 1058]) {
-    g.fillStyle = rad(g, x - 6, 1398, 2, 30, [[0, '#f4f6fa'], [.5, '#a4abba'], [1, '#3a4150']]); g.beginPath(); g.ellipse(x, 1408, 24, 20, 0, 0, 7); g.fill();
+    g.fillStyle = lin(g, x - 24, 0, x + 24, 0, [[0, '#1c2130'], [.35, '#56628a'], [.6, '#2a3146'], [1, '#12151e']]); g.beginPath(); g.ellipse(x, 1412, 24, 20, 0, 0, 7); g.fill();
+    g.fillStyle = rad(g, x - 5, 1398, 1, 22, [[0, '#dfe6f6'], [.6, '#8794b6'], [1, '#4a5474']]); g.beginPath(); g.ellipse(x, 1400, 21, 11, 0, 0, 7); g.fill();
     g.fillStyle = '#20252f'; g.beginPath(); g.ellipse(x, 1424, 24, 9, 0, 0, Math.PI); g.fill();
   }
 
@@ -542,8 +586,8 @@ const cockpitTex = canvas(W, H, (g) => {
   [['HOME', 856], ['AUDIO', 910], ['MAP', 963], ['PHONE', 1016]].forEach(([t, x]) => g.fillText(t, x, 1056));
 
   // --- quadro strumenti
-  g.fillStyle = lin(g, 0, 1040, 0, 1338, [[0, '#8e95a6'], [.07, '#4a5060'], [.5, '#333845'], [1, '#2a2e39']]); rr(g, 190, 1040, 558, 296, 62); g.fill();
-  g.strokeStyle = 'rgba(200,206,220,.35)'; g.lineWidth = 3; rr(g, 192, 1042, 554, 292, 60); g.stroke();
+  g.fillStyle = lin(g, 0, 1040, 0, 1338, [[0, '#4a4f5c'], [.07, '#30343f'], [.5, '#262a33'], [1, '#20232b']]); rr(g, 190, 1040, 558, 296, 62); g.fill();
+  
   g.fillStyle = lin(g, 0, 1080, 0, 1302, [[0, '#0e1424'], [1, '#141a2c']]); rr(g, 218, 1080, 502, 222, 44); g.fill();
   const gauge = (cx, cy, r, ticks, labels, val, red) => {
     g.fillStyle = rad(g, cx, cy, 8, r, [[0, '#1a2440'], [.85, '#0c1222'], [1, '#0a0f1c']]); g.beginPath(); g.arc(cx, cy, r, 0, 7); g.fill();
@@ -566,9 +610,15 @@ const cockpitTex = canvas(W, H, (g) => {
     g.fillStyle = rad(g, cx - 3, cy - 3, 1, 15, [[0, '#9aa4ba'], [1, '#2c3344']]); g.beginPath(); g.arc(cx, cy, 13, 0, 7); g.fill();
   };
   gauge(316, 1190, 92, 16, ['0', '1', '2', '3', '4', '5', '6', '7', '8'], .09, .86);
+  g.strokeStyle = '#ff2a2a'; g.lineWidth = 9; g.shadowColor = '#ff3030'; g.shadowBlur = 14; g.beginPath(); g.arc(316, 1190, 80, Math.PI * 2.02, Math.PI * 2.28); g.stroke(); g.shadowBlur = 0;   // zona rossa
   g.fillStyle = '#9fb2cc'; g.font = '700 9px Inter'; g.fillText('x1000r/min', 316, 1165);
   gauge(630, 1186, 92, 14, ['0', '20', '40', '60', '80', '100', '120', '140'], .135, 0);
   g.fillStyle = '#d0dcef'; g.font = '800 12px Inter'; g.fillText('MPH', 630, 1162);
+  for (const [gx, gy, angs] of [[316, 1190, [3.6, 4.5, 5.6, .5, 2.4]], [630, 1186, [3.9, 5.2, 5.9, .9, 2.2]]]) for (const a of angs) {   // bagliori a stella
+    const x = gx + Math.cos(a) * 90, y = gy + Math.sin(a) * 90;
+    g.fillStyle = rad(g, x, y, 0, 6, [[0, 'rgba(255,255,255,1)'], [1, 'rgba(255,255,255,0)']]); g.beginPath(); g.arc(x, y, 6, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x - 9, y); g.lineTo(x + 9, y); g.moveTo(x, y - 9); g.lineTo(x, y + 9); g.stroke();
+  }
   // display centrale
   g.fillStyle = '#05080f'; rr(g, 412, 1122, 124, 128, 12); g.fill(); g.strokeStyle = '#3d4658'; g.lineWidth = 2; rr(g, 412, 1122, 124, 128, 12); g.stroke();
   g.fillStyle = '#d8e0ee'; g.font = '800 15px Inter'; g.textAlign = 'center'; g.fillText('P  R  N  D', 474, 1146);
@@ -620,6 +670,58 @@ const cockpitTex = canvas(W, H, (g) => {
   g.fillStyle = lin(g, 0, 700, 0, 835, [[0, 'rgba(160,170,190,0)'], [1, 'rgba(160,170,190,.10)']]); g.fillRect(0, 700, W, 135);
 });
 // grana della pellicola + vignettatura, disegnate per ultime su tutto il frame
+// ---------- riflessi reali sull'abitacolo dipinto ----------
+const HOOD = [[W, 836], [360, 840], [300, 845], [232, 858], [182, 884], [148, 930], [118, 985], [100, 1040], [W, 1040]];
+const VENTS = [[103, 1252, 104, 56], [812, 1254, 186, 48], [1012, 1254, 90, 48]], KNOBS = [872, 966, 1058], GAUGES = [[316, 1190], [630, 1186]];
+// inclinazione di base: cofano e piano della plancia guardano in alto (riflettono il cielo), i pannelli verticali quasi no
+const cockTilt = rawCanvas(W, H, g => {
+  g.fillStyle = tiltCol(0, .1); g.fillRect(0, 0, W, H);
+  g.fillStyle = lin(g, 0, 0, W, 0, [[0, tiltCol(-.25, .9)], [.5, tiltCol(0, .95)], [1, tiltCol(.2, .9)]]); poly(g, HOOD); g.fill();
+  g.fillStyle = tiltCol(0, .75); poly(g, [[0, 1008], [W, 993], [W, 1085], [0, 1095]]); g.fill();
+  g.fillStyle = tiltCol(-.2, .55); g.fillRect(0, 1095, 215, 120); g.fillStyle = tiltCol(.1, .5); g.fillRect(748, 1085, 332, 127);
+  g.fillStyle = tiltCol(0, .1); rr(g, 218, 1080, 502, 222, 44); g.fill(); rr(g, 822, 900, 290, 168, 10); g.fill();   // vetri di quadro e radio, inclinati all'indietro
+  g.fillStyle = tiltCol(0, .4); rr(g, 424, 1436, 136, 124, 16); g.fill();
+});
+const cockTiltSoft = rawCanvas(W, H, g => { g.filter = 'blur(5px)'; g.drawImage(cockTilt, 0, 0); });
+// rilievo: cornici e cromature sporgono, schermi e bocchette rientrano
+const cockRelief = rawCanvas(W, H, g => {
+  g.fillStyle = '#808080'; g.fillRect(0, 0, W, H);
+  g.strokeStyle = '#303030'; g.lineWidth = 3; g.beginPath(); g.moveTo(180, 872); g.quadraticCurveTo(140, 910, 112, 962); g.stroke();   // piega del cofano
+  g.fillStyle = '#d0d0d0'; poly(g, [[298, 941], [822, 918], [824, 931], [300, 956]]); g.fill();                                        // tergicristallo
+  g.fillStyle = '#e0e0e0'; rr(g, 190, 1040, 558, 296, 62); g.fill(); g.fillStyle = '#707070'; rr(g, 218, 1080, 502, 222, 44); g.fill();  // cornice e vetro del quadro
+  g.fillStyle = '#d8d8d8'; rr(g, 814, 892, 300, 184, 16); g.fill(); g.fillStyle = '#909090'; rr(g, 822, 900, 290, 168, 10); g.fill();    // radio
+  for (const [x, y] of GAUGES) { g.strokeStyle = '#c8c8c8'; g.lineWidth = 7; g.beginPath(); g.arc(x, y, 89, 0, 7); g.stroke(); }
+  for (const [x, y, w, h] of VENTS) { g.fillStyle = '#f0f0f0'; rr(g, x - 6, y - 6, w + 12, h + 12, 18); g.fill(); g.fillStyle = '#383838'; rr(g, x, y, w, h, 14); g.fill();
+    g.strokeStyle = '#909090'; g.lineWidth = 5; for (let i = 1; i < 5; i++) { g.beginPath(); g.moveTo(x + 8, y + i * h / 5); g.lineTo(x + w - 8, y + i * h / 5); g.stroke(); } }
+  g.fillStyle = '#606060'; rr(g, 822, 1306, 290, 132, 24); g.fill();
+  for (const x of KNOBS) { g.fillStyle = rad(g, x, 1408, 2, 26, [[0, '#ffffff'], [.7, '#d0d0d0'], [1, '#606060']]); g.beginPath(); g.ellipse(x, 1408, 24, 20, 0, 0, 7); g.fill(); }
+  g.fillStyle = '#c0c0c0'; rr(g, 206, 1568, 190, 26, 10); g.fill(); rr(g, 586, 1566, 214, 26, 10); g.fill();
+  g.fillStyle = '#d0d0d0'; rr(g, 388, 1548, 206, 74, 18); g.fill(); g.fillStyle = '#f0f0f0'; rr(g, 424, 1436, 136, 124, 16); g.fill();
+  g.fillStyle = '#a8a8a8'; rr(g, 252, 1655, 118, 66, 10); g.fill(); rr(g, 615, 1650, 116, 62, 10); g.fill();
+});
+const cockReliefSoft = rawCanvas(W, H, g => { g.filter = 'blur(2.5px)'; g.drawImage(cockRelief, 0, 0); });
+// G = rugosità, B = metallo
+const RM = (rough, metal = 0) => `rgb(0,${Math.round(rough * 255)},${Math.round(metal * 255)})`;
+const chrome = (g, col) => {   // cornici delle bocchette, manopole, anelli degli strumenti
+  g.strokeStyle = col; g.fillStyle = col;
+  for (const [x, y, w, h] of VENTS) { g.lineWidth = 6; rr(g, x - 3, y - 3, w + 6, h + 6, 16); g.stroke(); }
+  for (const x of KNOBS) { g.beginPath(); g.ellipse(x, 1408, 24, 20, 0, 0, 7); g.fill(); }
+  for (const [x, y] of GAUGES) { g.lineWidth = 3; g.beginPath(); g.arc(x, y, 90, 0, 7); g.stroke(); }
+};
+const cockRM = rawCanvas(W, H, g => {
+  g.fillStyle = RM(.62); g.fillRect(0, 0, W, H);
+  g.fillStyle = RM(.2); poly(g, HOOD); g.fill();                                   // vernice del cofano
+  g.fillStyle = RM(.72); g.fillRect(0, 1005, W, 210);                              // plastica chiara della plancia
+  g.fillStyle = RM(.3); rr(g, 190, 1040, 558, 296, 62); g.fill();                  // cornice lucida
+  g.fillStyle = RM(.07); rr(g, 218, 1080, 502, 222, 44); g.fill(); rr(g, 822, 900, 290, 168, 10); g.fill();   // vetri
+  g.fillStyle = RM(.35); rr(g, 424, 1436, 136, 124, 16); g.fill(); rr(g, 388, 1548, 206, 74, 18); g.fill();
+  chrome(g, RM(.16, 1));
+});
+// colore speculare: nero = plastica/vernice (riflesso dielettrico), chiaro = cromo. L'alfa è quella dell'abitacolo dipinto.
+const cockSpec = canvas(W, H, g => {
+  g.fillStyle = '#000'; g.fillRect(0, 0, W, H); chrome(g, '#8d94a4');
+  g.globalCompositeOperation = 'destination-in'; g.drawImage(cockpitTex.image, 0, 0);
+});
 const grainTex = canvas(W, H, (g) => {
   const id = g.createImageData(W, H), px = id.data;
   for (let i = 0; i < px.length; i += 4) { const v = rnd() < .5 ? 0 : 255; px[i] = px[i + 1] = px[i + 2] = v; px[i + 3] = 4; }
@@ -631,6 +733,15 @@ const ovScene = new THREE.Scene(), wheelScene = new THREE.Scene(), grainScene = 
   const d = 1, plane = new THREE.Mesh(new THREE.PlaneGeometry(2 * d * TAN * ASP, 2 * d * TAN),
     new THREE.MeshBasicMaterial({ map: cockpitTex, transparent: true, depthWrite: false, depthTest: false, toneMapped: false }));
   plane.position.z = -d; ovScene.add(plane);
+  // secondo strato: solo i riflessi (cielo HDR + sole), calcolati dal motore e sommati al dipinto
+  const rm = dataTex(cockRM);
+  const spec = new THREE.Mesh(plane.geometry, new THREE.MeshPhysicalMaterial({
+    map: cockSpec, normalMap: reliefNormal(cockReliefSoft, cockTiltSoft, 9), roughnessMap: rm, metalnessMap: rm, roughness: 1, metalness: 1,
+    ior: 1.5, envMapIntensity: .28, transparent: true, blending: THREE.AdditiveBlending, depthTest: false, depthWrite: false }));
+  spec.position.z = -d; spec.renderOrder = 1; ovScene.add(spec);
+  ovScene.environment = scene.environment;
+  const sunIn = new THREE.DirectionalLight(0xfff6ea, 2.2);   // lo stesso sole del mondo, portato nello spazio della camera
+  sunIn.position.copy(SUN_DIR.clone().transformDirection(camera.matrixWorldInverse)); ovScene.add(sunIn);
   const gr = new THREE.Mesh(plane.geometry, new THREE.MeshBasicMaterial({ map: grainTex, transparent: true, depthTest: false, depthWrite: false, toneMapped: false }));
   gr.position.z = -d; grainScene.add(gr);
 }

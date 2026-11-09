@@ -72,8 +72,14 @@ Quando forme e colori tornano, le superfici sembrano ancora "plastilina". Allora
 2. **Cielo HDR** del kit come `scene.environment`: i riflessi diventano veri. Abbassa `envMapIntensity` dove il riferimento non riflette (suolo 0,1; vernice 0,4-0,5; vetro scuro 0,1).
 3. **Vegetazione vera con impostori**: i modelli del kit (`kit-modelli-*.zip`) pesano decine di MB, quindi non istanziarli. Copia `bake.html` e `bake.js` nella scena, fotografa i modelli con la stessa direzione del sole, ricolora con `colore_impostori.py` verso il verde campionato e usali come `Sprite` con `center (0.5, 0)` e `alphaTest`. Moltiplica i canali: alzare solo la luminosità lascia il verde oliva.
 4. **Abitacolo e primo piano**: occlusione ambientale dipinta in moltiplica nei bordi e negli incavi, grana leggera (±7) sulle plastiche, riflessi sfocati del cielo sulle carrozzerie dipinte, normal map di tessuto sulla pelle.
-5. **Tutto il frame**: grana di pellicola (alfa ≈4/255) e vignettatura ≤12%, come ultimo passaggio. Di più peggiora sia la metrica sia l'aspetto.
-6. Verifica con il ciclo: la zona dove hai messo asset veri deve migliorare. Il resto può peggiorare di 1-2 punti perché il riferimento compresso è più liscio. Dichiaralo come scambio voluto.
+5. **Riflessi reali sulle superfici dipinte** (abitacolo, HUD, personaggi 2D). Un disegno piatto non riflette nulla, quindi:
+   - prima controlla la **base**: campiona il riferimento a griglia (per esempio 13 righe × 9 colonne con `campiona.py`) e ridipingi i colori sbagliati. I riflessi su una base sbagliata non sembrano mai veri;
+   - dipingi con le stesse coordinate un **rilievo** in grigi (sporgenze chiare, incavi scuri, sfumato 2-3 px), un'**inclinazione** per zona (R,G = normale di base: le superfici che guardano in alto riflettono il cielo) e una mappa **rugosità (G) / metallo (B)**;
+   - ricava la normal map (`reliefNormal` in `esempi/frame-autostrada/scene.js`) e aggiungi sopra il disegno uno strato `MeshPhysicalMaterial` con colore nero, `AdditiveBlending`, `scene.environment` HDR e un sole nella stessa direzione del mondo (`SUN_DIR.transformDirection(camera.matrixWorldInverse)` per ciò che è solidale alla camera). Il cromo ha colore chiaro e metallo 1;
+   - intensità dell'ambiente intorno a **0,3**: a 1 l'HDR stende un velo chiaro su tutto;
+   - sulle superfici **bianche** un riflesso sommato non si vede: aggiungi uno strato in `MultiplyBlending` (materiale bianco illuminato, `color` > 1 perché il lato al sole resti pieno, `alphaTest` sulla sagoma) che scurisce il lato in ombra. Così la testa di un personaggio 2D prende il volume di una sfera.
+6. **Tutto il frame**: grana di pellicola (alfa ≈4/255) e vignettatura ≤12%, come ultimo passaggio. Di più peggiora sia la metrica sia l'aspetto.
+7. Verifica con il ciclo: la zona dove hai messo asset veri deve migliorare. Il resto può peggiorare di 1-2 punti perché il riferimento compresso è più liscio. Dichiaralo come scambio voluto.
 
 ### 6. Documenta (sempre)
 Scrivi o aggiorna `CAMBIAMENTI.md` nella cartella della scena con:
