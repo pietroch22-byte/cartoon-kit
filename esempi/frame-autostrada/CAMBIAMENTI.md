@@ -256,3 +256,48 @@ Nella v3 il mondo 3D rifletteva il cielo HDR, ma l'abitacolo e il personaggio er
 - Il cielo HDR è molto luminoso: per uno strato di soli riflessi l'intensità giusta è intorno a 0,3, non 1.
 
 **Cosa resta diverso:** il tratto del personaggio (nell'originale il contorno è più spesso), l'auto rossa (serve un modello vero), la pelle del volante (nell'originale ha riflessi più marcati).
+
+---
+
+# v5 (prototipo): rendering a passaggi, "alla Blender" senza Blender
+
+![1 passaggio a sinistra, 32 a destra](confronto/passaggi-1-vs-32.jpg)
+
+Blender Cycles calcola la luce sparando molti campioni e facendo la media. Qui si fa lo stesso con three.js: lo stesso frame viene renderizzato N volte con piccole variazioni e alla fine si fa la media (`progressive()` in `scene.js`, attivo con `?passaggi=N`).
+
+A ogni passaggio cambiano tre cose (sequenze di Halton, deterministiche):
+1. **Il sole** si sposta dentro un disco di circa 1,5°: le ombre diventano morbide ai bordi come quelle vere.
+2. Una **luce di cielo con ombre** arriva da una direzione diversa della volta (distribuzione coseno). Sostituisce quasi tutta la luce ambiente piatta: dove il cielo è coperto (sotto l'auto, accanto allo spartitraffico, intorno al personaggio) arriva meno luce. È l'occlusione del cielo di Cycles.
+3. **La camera** si sposta di frazioni di pixel: i bordi escono senza scalette.
+
+**Il colore delle ombre ora viene dalla fisica**, non dalla tinta finta: la luce del cielo è blu (#3a66ff), quindi dove il sole è coperto il suolo è illuminato solo dal cielo e diventa blu da solo.
+
+| | Render singolo | 32 passaggi | Riferimento |
+|---|---|---|---|
+| Ombra dell'auto | #334d88 | **#253771** | #193a71 |
+| Asfalto al sole | #a2a3b7 | #9e9bb2 | #a8aab7 |
+| Tempo per frame (questo server) | 15 s | **95 s** (~2,7 s a passaggio) | — |
+| Metrica totale | 38,6 | 38,7 | — |
+
+La metrica resta uguale perché misura i colori medi. Il guadagno è nella **qualità della luce** (penombre, occlusione, bordi), che una differenza media per pixel quasi non vede.
+
+**Errore trovato:** la prima versione accumulava in un buffer float sulla GPU e mostrava i colori sbagliati. Prima del tutto più chiaro, poi, dopo la "correzione", troppo scuro e saturo. Un **test di controllo** (1 passaggio con le stesse luci del render normale, che deve venire identico) ha mostrato che nessuna delle due varianti era giusta. Soluzione: ogni passaggio usa la catena normale già verificata, e la media si fa sui pixel finali letti dalla GPU. Il test di controllo ora coincide entro 1-2 livelli.
+
+**Comandi:**
+- `npm run render`: qualità, 32 passaggi (~95 s);
+- `npm run render:veloce`: 1 passaggio (~15 s), per le iterazioni.
+
+**Per un video**: 10 s a 30 fps con 32 passaggi = circa 8 ore su questo server; con 8 passaggi, circa 2 ore e mezza.
+
+## Ricerca di modelli d'auto migliori (esito)
+
+L'auto resta la parte meno fedele perché è costruita a mano con scatole smussate. Ho cercato modelli liberi:
+- **Kit della libreria GitHub** (release v1 del cartoon-kit): nessuna auto, solo `covered_car` (un'auto coperta da un telo).
+- **GitHub (raggiungibile da questa sessione):**
+  - Kenney Car Kit (CC0): trovato, ma è *low-poly giocattolo*, meno realistico della nostra;
+  - un modello di berlina più dettagliato in un altro repository: **senza licenza dichiarata**, non usato;
+  - due collezioni di auto: salvate con Git LFS, che questa sessione non può scaricare.
+- **Siti con modelli realistici** (Poly Haven, Kenney, Sketchfab, Poly Pizza, OpenGameArt): **bloccati dalla rete di questa sessione**. Vanno aggiunti agli host consentiti nelle impostazioni dell'ambiente, oppure si scaricano a mano e si mettono nel kit.
+- Il **CarConcept** di Khronos (CC-BY 4.0) è un'auto concept futuristica, non adatta.
+
+Prossimo passo consigliato: aggiungere al kit (release GitHub) una o più berline realistiche con licenza CC0 o CC-BY, così la skill le trova da sola.

@@ -6,7 +6,7 @@ const srv = http.createServer((q, r) => { const f = path.join(root, decodeURICom
 const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
 p.on('console', m => console.log('console:', m.text())); p.on('pageerror', e => console.log('ERR', e.message));
-await p.goto('http://localhost:8765/index.html');
+await p.goto('http://localhost:8765/index.html' + (process.argv[3] ? '?' + process.argv[3] : ''));
 await p.waitForFunction('window.DONE', null, { timeout: 180000 });
-await p.locator('#wrap').screenshot({ path: out });
+await p.locator('#wrap').screenshot({ path: out, timeout: 1800000 });
 await b.close(); srv.close(); console.log('ok', out);

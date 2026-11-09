@@ -1,3 +1,13 @@
-{ "name": "frame-autostrada", "private": true, "type": "module",
-  "scripts": { "render": "node render.mjs frame.png" },
-  "dependencies": { "three": "0.160.0" } }
+{
+ "name": "frame-autostrada",
+ "private": true,
+ "type": "module",
+ "scripts": {
+  "render": "node render.mjs frame.png passaggi=32",
+  "render:veloce": "node render.mjs frame.png",
+  "render:qualita": "node render.mjs frame.png passaggi=32"
+ },
+ "dependencies": {
+  "three": "0.160.0"
+ }
+}

@@ -81,7 +81,24 @@ Quando forme e colori tornano, le superfici sembrano ancora "plastilina". Allora
 6. **Tutto il frame**: grana di pellicola (alfa ≈4/255) e vignettatura ≤12%, come ultimo passaggio. Di più peggiora sia la metrica sia l'aspetto.
 7. Verifica con il ciclo: la zona dove hai messo asset veri deve migliorare. Il resto può peggiorare di 1-2 punti perché il riferimento compresso è più liscio. Dichiaralo come scambio voluto.
 
-### 6. Documenta (sempre)
+### 6. Rendering a passaggi (qualità "alla Blender" senza Blender)
+Quando la luce sembra "da videogioco" (ombre nette, niente occlusione, bordi a scalette), renderizza lo stesso frame N volte e fai la media. Implementazione di riferimento: `progressive()` in `esempi/frame-autostrada/scene.js`, attivo con `?passaggi=N`.
+- A ogni passaggio, con sequenze di Halton deterministiche: sole spostato in un disco di ~1,5° (penombre); **luce di cielo con ombre** da una direzione casuale della volta (distribuzione coseno), che sostituisce quasi tutta la luce ambiente piatta (emisfera ≈0,05, IBL del suolo ≈0,03); camera spostata di frazioni di pixel con `setViewOffset` (anti-aliasing).
+- **Colore della luce di cielo = colore delle ombre del riferimento**: con #3a66ff le ombre blu escono da sole, senza tinte finte.
+- **La media va fatta sui pixel finali** (`readPixels` dopo la catena normale), non in un buffer float intermedio: quest'ultimo ha dato colori sbagliati.
+- **Test di controllo obbligatorio**: 1 passaggio con le stesse luci del render normale deve dare gli stessi pixel (entro 1-2 livelli). Se non torna, la catena di accumulo è sbagliata: non tarare le luci finché il test non passa.
+- Tempi su un server da 4 core senza GPU: ~2,7 s a passaggio a 1080×1920. Usa 1 passaggio per le iterazioni e 16-32 per il risultato finale.
+
+### 7. Modelli 3D mancanti: cercali ogni volta
+Se il riferimento contiene un oggetto importante (auto, mezzo, edificio, mobile, animale…) che la libreria non ha, **non costruirlo con scatole prima di aver cercato un modello vero**:
+1. **Prima la libreria collegata alla skill**: la release GitHub del cartoon-kit (`pietroch22-byte/cartoon-kit`, release v1). Consulta `indice.json` (dentro `kit-texture-cieli-indice.zip`) cercando nei campi `categorie` e `tag`.
+2. **Se non c'è, cerca sul web** un modello glTF/GLB, in quest'ordine: Poly Haven (CC0), Kenney (CC0), Quaternius (CC0), Khronos glTF-Sample-Assets (CC0/CC-BY, licenza per modello in `metadata.json`), Poly Pizza, Sketchfab con filtro "downloadable" + licenza CC, GitHub (`gh api -X GET search/code -f q='filename:<nome>.glb'`).
+3. **Licenza obbligatoria**: usa solo CC0, CC-BY (con attribuzione) o licenze che permettono l'uso. Un modello senza licenza dichiarata **non si usa**, anche se è bello. Annota fonte, autore e licenza in `CREDITI.md` nella cartella della scena.
+4. **Valuta prima di adottare**: renderizza un'anteprima con la luce della scena (da dietro 3/4, come nel frame). Adottalo solo se è più vicino al riferimento di ciò che hai già.
+5. **Limiti dell'ambiente**: se un sito non risponde (host bloccato) o i file su GitHub sono puntatori Git LFS da ~130 byte, dillo all'utente. Va aggiunto l'host alle impostazioni di rete, oppure l'utente scarica il modello e lo carica nella release del kit: così la volta successiva la skill lo trova al passo 1.
+6. Proponi all'utente di **aggiungere al kit** ogni modello buono trovato, per arricchire la libreria.
+
+### 8. Documenta (sempre)
 Scrivi o aggiorna `CAMBIAMENTI.md` nella cartella della scena con:
 - immagine prima/dopo affiancata (solo i tuoi render: lo screenshot del riferimento non va nel repository);
 - tabella della metrica per versione;

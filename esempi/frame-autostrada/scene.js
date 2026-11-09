@@ -10,6 +10,7 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 const W = 1080, H = 1920;
+const PASSES = +(new URLSearchParams(location.search).get('passaggi') ?? 0);   // rendering a passaggi: vedi progressive()
 
 // ---------- utilità deterministiche ----------
 let seed = 12345;
@@ -127,8 +128,18 @@ function cloudTex(seedN) {
   });
 
 // ---------- luci: sole da destra-dietro, ombre blu sature come nel riferimento ----------
-scene.add(new THREE.HemisphereLight(0xd6e4ff, 0x6f6a5c, .8));
-const sun = new THREE.DirectionalLight(0xfff6ea, 3.1);
+// Rendering a passaggi (?passaggi=N, 0 = render singolo come prima): ogni passaggio sposta il sole dentro il suo disco,
+// aggiunge una "luce di cielo" con ombre da una direzione casuale della volta e sposta la camera di frazioni di pixel;
+// la media dà ombre morbide, occlusione dal cielo (sotto l'auto, tra gli alberi) e bordi senza scalette, come Cycles.
+const hemi = new THREE.HemisphereLight(0xd6e4ff, 0x6f6a5c, PASSES ? 0.05 : .8); scene.add(hemi);
+const skyLight = new THREE.DirectionalLight(0x3a66ff, 0);   // colore del cielo misurato; attiva solo nel rendering a passaggi
+if (PASSES) {
+  skyLight.intensity = 1.6; skyLight.castShadow = true; skyLight.shadow.mapSize.set(2048, 2048);
+  Object.assign(skyLight.shadow.camera, { left: -24, right: 24, top: 24, bottom: -24, near: 1, far: 160 });
+  skyLight.shadow.bias = -0.0004; skyLight.shadow.normalBias = .03; skyLight.target.position.set(0, 0, -14);
+  scene.add(skyLight, skyLight.target);
+}
+const sun = new THREE.DirectionalLight(PASSES ? 0xffefd8 : 0xfff6ea, PASSES ? 3.0 : 3.1);
 sun.target.position.set(0, 0, -14); sun.position.copy(sun.target.position).addScaledVector(SUN_DIR, 60);
 sun.castShadow = true; sun.shadow.mapSize.set(4096, 4096);
 Object.assign(sun.shadow.camera, { left: -26, right: 26, top: 26, bottom: -26, near: 1, far: 160 });
@@ -157,7 +168,7 @@ function blueShadows(mat) {
     sh.fragmentShader = 'uniform vec3 uTint;\n' + sh.fragmentShader.replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.indirectDiffuse *= uTint;');
   };
   mat.customProgramCacheKey = () => 'blueShadows';
-  mat.envMapIntensity = .12;
+  mat.envMapIntensity = PASSES ? .03 : .12;   // nel rendering a passaggi la luce ambiente arriva dalla luce di cielo con ombre
   return mat;
 }
 const grassTex = canvas(512, 512, (g, w, h) => {
@@ -774,8 +785,38 @@ const composer = new EffectComposer(renderer, rt);
 composer.addPass(new RenderPass(scene, camera));
 composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), .3, .45, .95));
 composer.addPass(new OutputPass());
-document.fonts.ready.then(() => {
-  composer.render();
+async function progressive(n) {
+  // ogni passaggio usa la catena normale (render + bloom + conversione sRGB, già verificata);
+  // si leggono i pixel finali e si fa la media
+  const gl = renderer.getContext(), buf = new Uint8Array(W * H * 4), acc = new Float32Array(W * H * 3);
+  const base = sun.position.clone().sub(sun.target.position), up = new THREE.Vector3(0, 1, 0);
+  const halton = (i, b) => { let f = 1, r = 0; while (i > 0) { f /= b; r += f * (i % b); i = Math.floor(i / b); } return r; };
+  const t0 = performance.now();
+  for (let i = 0; i < n; i++) {
+    const a = halton(i + 1, 2), b = halton(i + 1, 3), c = halton(i + 1, 5);
+    // sole: disco di ~1,5° (penombra morbida)
+    const side = new THREE.Vector3().crossVectors(base, up).normalize(), up2 = new THREE.Vector3().crossVectors(side, base).normalize();
+    const rr2 = Math.sqrt(a) * .026, th = b * 6.283;
+    sun.position.copy(sun.target.position).add(base.clone().normalize().addScaledVector(side, Math.cos(th) * rr2).addScaledVector(up2, Math.sin(th) * rr2).normalize().multiplyScalar(base.length()));
+    // cielo: direzione con distribuzione coseno sulla volta
+    const ph = c * 6.283, ct = Math.sqrt(1 - a);
+    skyLight.position.set(Math.cos(ph) * Math.sqrt(1 - ct * ct), ct, Math.sin(ph) * Math.sqrt(1 - ct * ct)).multiplyScalar(60).add(skyLight.target.position);
+    camera.setViewOffset(W, H, a - .5, b - .5, W, H);   // camera spostata di frazioni di pixel
+    composer.render();
+    gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+    for (let p = 0, q = 0; p < buf.length; p += 4, q += 3) { acc[q] += buf[p]; acc[q + 1] += buf[p + 1]; acc[q + 2] += buf[p + 2]; }
+  }
+  camera.clearViewOffset();
+  const out = new Uint8Array(W * H * 4);
+  for (let p = 0, q = 0; p < out.length; p += 4, q += 3) { out[p] = acc[q] / n; out[p + 1] = acc[q + 1] / n; out[p + 2] = acc[q + 2] / n; out[p + 3] = 255; }
+  const tex = new THREE.DataTexture(out, W, H); tex.colorSpace = THREE.SRGBColorSpace; tex.needsUpdate = true;   // readPixels parte dal basso: niente flipY
+  const q = new THREE.Scene(); q.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false, depthTest: false })));
+  renderer.render(q, new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1));
+  window.TEMPO_PASSAGGI = ((performance.now() - t0) / 1000).toFixed(1);
+  console.log(`rendering a passaggi: ${n} passaggi in ${window.TEMPO_PASSAGGI} s`);
+}
+document.fonts.ready.then(async () => {
+  if (PASSES) await progressive(PASSES); else composer.render();
   renderer.autoClear = false; renderer.clearDepth(); renderer.render(ovScene, ovCam); renderer.clearDepth(); renderer.render(wheelScene, ovCam); renderer.render(grainScene, ovCam); renderer.autoClear = true;
   window.DONE = true;
 });
