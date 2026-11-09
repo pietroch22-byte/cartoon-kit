@@ -4,13 +4,25 @@
   html,body{margin:0;background:#000;overflow:hidden}
   #wrap{position:relative;width:1080px;height:1920px}
   canvas{display:block}
-  #cap{position:absolute;left:0;right:0;top:1230px;text-align:center;
-       font:900 118px 'Inter';color:#fff;letter-spacing:-1px;
-       -webkit-text-stroke:14px #000;paint-order:stroke fill;
-       text-shadow:0 6px 10px rgba(0,0,0,.45)}
+  #cap{position:absolute;left:0;top:0;white-space:nowrap;
+       font-family:'Inter';font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1;
+       -webkit-text-stroke:9px #000;paint-order:stroke fill;
+       text-shadow:0 4px 8px rgba(0,0,0,.55)}
 </style>
 <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
 </head><body>
-<div id="wrap"><div id="cap">il suo collo</div></div>
+<div id="wrap"><div id="cap">his neck</div></div>
+<script>
+  // sottotitolo: larghezza e linea di base misurate sul riferimento (x 385→695, base a 1378 px)
+  document.fonts.ready.then(() => {
+    const cap = document.getElementById('cap'), BOX = [385, 695], BASE = 1378;
+    cap.style.fontSize = '100px';
+    const w = cap.getBoundingClientRect().width, size = 100 * (BOX[1] - BOX[0]) / w;
+    cap.style.fontSize = size + 'px';
+    const r = cap.getBoundingClientRect();
+    cap.style.left = (BOX[0] + BOX[1]) / 2 - r.width / 2 + 'px';
+    cap.style.top = BASE - size * .8 + 'px';   // ~0,8 em dalla cima del box alla linea di base (Inter, line-height 1)
+  });
+</script>
 <script type="module" src="./scene.js"></script>
 </body></html>
