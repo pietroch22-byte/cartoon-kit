@@ -1,0 +1,8881 @@
+{
+ "title": "La notte in cui il mondo non finì",
+ "facts": "storia vera, fonti in episodes/petrov-1983/SOURCES.md",
+ "voice": {
+  "file": "/tmp/claude-0/-home-user-cartoon-kit/2bd09bc3-b9bc-5f62-9d4d-95e36f5a87d9/scratchpad/work/voce.mp3",
+  "words": "/tmp/claude-0/-home-user-cartoon-kit/2bd09bc3-b9bc-5f62-9d4d-95e36f5a87d9/scratchpad/work/words.json"
+ },
+ "music": {
+  "mood": "mystery",
+  "bpm": 72,
+  "gain": 0.07
+ },
+ "cast": {
+  "petrov": {
+   "h": 1.76,
+   "w": 0.44,
+   "skin": "#e8b894",
+   "top": "#5d6a4a",
+   "pants": "#3e4434",
+   "hair": "tuft",
+   "hairC": "#2a1e16",
+   "shoes": "#1a1a1a",
+   "nose": 1.05,
+   "blush": 0.3
+  },
+  "petrov_anziano": {
+   "h": 1.72,
+   "w": 0.48,
+   "skin": "#e8b894",
+   "top": "#6a5a4a",
+   "pants": "#3a3a40",
+   "hair": "tuft",
+   "hairC": "#c8c8c8",
+   "shoes": "#2a1a1a",
+   "nose": 1.1,
+   "blush": 0.4,
+   "glasses": true
+  },
+  "operatore": {
+   "h": 1.72,
+   "w": 0.42,
+   "skin": "#efc4a0",
+   "top": "#6c7658",
+   "pants": "#3e4434",
+   "hair": "tuft",
+   "hairC": "#7a5a3a",
+   "shoes": "#1a1a1a",
+   "nose": 1,
+   "blush": 0.4
+  },
+  "operatore2": {
+   "h": 1.66,
+   "w": 0.44,
+   "skin": "#e2b08a",
+   "top": "#6c7658",
+   "pants": "#3e4434",
+   "hair": "bob",
+   "hairC": "#3a2a1a",
+   "shoes": "#1a1a1a",
+   "nose": 1,
+   "blush": 0.6
+  },
+  "kgb": {
+   "h": 1.74,
+   "w": 0.5,
+   "skin": "#efc8a8",
+   "top": "#3a3e48",
+   "pants": "#2a2e38",
+   "hair": "tuft",
+   "hairC": "#9a9aa0",
+   "shoes": "#111",
+   "nose": 1.2,
+   "blush": 0.5,
+   "glasses": true
+  },
+  "spia": {
+   "h": 1.78,
+   "w": 0.46,
+   "skin": "#e8bc98",
+   "top": "#7a6a50",
+   "pants": "#3a3a3a",
+   "hair": "tuft",
+   "hairC": "#1a1a1a",
+   "shoes": "#111",
+   "nose": 1.1,
+   "blush": 0.2
+  },
+  "generale": {
+   "h": 1.7,
+   "w": 0.52,
+   "skin": "#efc4a4",
+   "top": "#4a5a3a",
+   "pants": "#3a4430",
+   "hair": "tuft",
+   "hairC": "#d0d0d0",
+   "shoes": "#111",
+   "nose": 1.2,
+   "blush": 0.7
+  },
+  "diplomatica": {
+   "type": "zia2"
+  },
+  "diplomatico": {
+   "type": "marco"
+  },
+  "ospite": {
+   "type": "zia1"
+  }
+ },
+ "places": {
+  "bunker": {
+   "type": "room",
+   "w": 10,
+   "d": 8,
+   "h": 3.6,
+   "light": "interno_notte",
+   "floor": {
+    "tex": "concrete_floor_painted",
+    "tint": "#9aa59a",
+    "rep": 5
+   },
+   "wall": {
+    "tex": "painted_plaster_wall",
+    "tint": "#7f9a8c",
+    "rep": [
+     3,
+     1.2
+    ]
+   },
+   "ceiling": {
+    "color": "#5a625c"
+   },
+   "boards": [
+    {
+     "id": "mappa",
+     "text": "SISTEMA OKO\n\n\n",
+     "at": [
+      0,
+      1.95,
+      -3.95
+     ],
+     "w": 5.2,
+     "h": 2.2,
+     "bg": "#0b1c14",
+     "ink": "#38e07a",
+     "border": "#2a6a44",
+     "frame": "#2a2e2a"
+    },
+    {
+     "id": "lancio",
+     "text": "LANCIO",
+     "at": [
+      0,
+      3.3,
+      -3.93
+     ],
+     "w": 1.9,
+     "h": 0.42,
+     "bg": "#2a0303",
+     "ink": "#ff2a2a",
+     "border": "#ff2a2a",
+     "frame": "#1a1a1a",
+     "hidden": true
+    },
+    {
+     "id": "affidabilita",
+     "text": "AFFIDABILITÀ\nMASSIMA",
+     "at": [
+      3.6,
+      1.7,
+      -3.95
+     ],
+     "w": 1.1,
+     "h": 0.7,
+     "bg": "#0b1c14",
+     "ink": "#ffd23a",
+     "border": "#2a6a44",
+     "frame": "#2a2e2a",
+     "hidden": true
+    },
+    {
+     "id": "data",
+     "text": "26 SETTEMBRE 1983\nORE 00:15",
+     "at": [
+      -3.6,
+      1.7,
+      -3.95
+     ],
+     "w": 1.2,
+     "h": 0.6,
+     "bg": "#0b1c14",
+     "ink": "#38e07a",
+     "border": "#2a6a44",
+     "frame": "#2a2e2a"
+    },
+    {
+     "id": "radar",
+     "text": "RADAR\nNESSUN\nBERSAGLIO",
+     "at": [
+      4.95,
+      1.6,
+      -1.6
+     ],
+     "ry": -90,
+     "w": 1.0,
+     "h": 0.8,
+     "bg": "#061a0e",
+     "ink": "#38e07a",
+     "border": "#38e07a",
+     "frame": "#2a2e2a"
+    },
+    {
+     "id": "missili5",
+     "text": "MISSILI: 5",
+     "at": [
+      3.6,
+      2.6,
+      -3.95
+     ],
+     "w": 1.1,
+     "h": 0.42,
+     "bg": "#2a0303",
+     "ink": "#ff2a2a",
+     "border": "#ff2a2a",
+     "frame": "#1a1a1a",
+     "hidden": true
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      0,
+      3.3,
+      0.5
+     ],
+     "intensity": 2.2,
+     "color": "#cfe8ff",
+     "bulb": false
+    },
+    {
+     "id": "allarme1",
+     "at": [
+      -4.6,
+      3.1,
+      -3.6
+     ],
+     "intensity": 9,
+     "range": 12,
+     "color": "#ff2a20",
+     "on": false
+    },
+    {
+     "id": "allarme2",
+     "at": [
+      4.6,
+      3.1,
+      -3.6
+     ],
+     "intensity": 9,
+     "range": 12,
+     "color": "#ff2a20",
+     "on": false
+    },
+    {
+     "id": "luce_mappa",
+     "at": [
+      0,
+      1.9,
+      -3.2
+     ],
+     "intensity": 2.5,
+     "range": 6,
+     "color": "#40ff90",
+     "bulb": false
+    }
+   ],
+   "models": [
+    {
+     "m": "metal_office_desk",
+     "at": [
+      -1.6,
+      0,
+      -1.2
+     ],
+     "size": 0.76,
+     "ry": 0
+    },
+    {
+     "m": "television_02",
+     "at": [
+      -1.9500000000000002,
+      0.76,
+      -1.3
+     ],
+     "size": 0.38,
+     "ry": 0,
+     "color": "#c8c4b8"
+    },
+    {
+     "m": "vintage_radio_transceiver",
+     "at": [
+      -1.3,
+      0.76,
+      -1.3199999999999998
+     ],
+     "w": 0.42,
+     "ry": 0
+    },
+    {
+     "m": "SchoolChair_01",
+     "at": [
+      -1.6,
+      0,
+      -0.44999999999999996
+     ],
+     "size": 0.85,
+     "ry": 180
+    },
+    {
+     "m": "metal_office_desk",
+     "at": [
+      1.6,
+      0,
+      -1.2
+     ],
+     "size": 0.76,
+     "ry": 0
+    },
+    {
+     "m": "television_02",
+     "at": [
+      1.25,
+      0.76,
+      -1.3
+     ],
+     "size": 0.38,
+     "ry": 0,
+     "color": "#c8c4b8"
+    },
+    {
+     "m": "vintage_radio_transceiver",
+     "at": [
+      1.9000000000000001,
+      0.76,
+      -1.3199999999999998
+     ],
+     "w": 0.42,
+     "ry": 0
+    },
+    {
+     "m": "SchoolChair_01",
+     "at": [
+      1.6,
+      0,
+      -0.44999999999999996
+     ],
+     "size": 0.85,
+     "ry": 180
+    },
+    {
+     "m": "metal_office_desk",
+     "at": [
+      0,
+      0,
+      0.6
+     ],
+     "size": 0.76,
+     "w": 1.5,
+     "id": "banco_petrov"
+    },
+    {
+     "m": "Television_01",
+     "at": [
+      -0.4,
+      0.76,
+      0.45
+     ],
+     "size": 0.42,
+     "ry": 180,
+     "id": "monitor"
+    },
+    {
+     "m": "desk_lamp_arm_01",
+     "at": [
+      0.55,
+      0.76,
+      0.45
+     ],
+     "size": 0.45,
+     "ry": 200
+    },
+    {
+     "id": "telefono",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.08,
+        0.18
+       ],
+       "at": [
+        0,
+        0.04,
+        0
+       ],
+       "color": "#b01e1e",
+       "rough": 0.3
+      },
+      {
+       "shape": "cyl",
+       "r": 0.03,
+       "h": 0.24,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        0,
+        0.11,
+        0
+       ],
+       "color": "#b01e1e",
+       "rough": 0.3
+      },
+      {
+       "shape": "cyl",
+       "r": 0.05,
+       "h": 0.01,
+       "at": [
+        0,
+        0.081,
+        0.05
+       ],
+       "rot": [
+        -20,
+        0,
+        0
+       ],
+       "color": "#eeeeee"
+      }
+     ],
+     "at": [
+      0.15,
+      0.76,
+      0.65
+     ],
+     "ry": 180
+    },
+    {
+     "m": "office_notepads",
+     "at": [
+      -0.05,
+      0.76,
+      0.8
+     ],
+     "w": 0.25,
+     "id": "registro"
+    },
+    {
+     "m": "wall_clock",
+     "at": [
+      -2.6,
+      2.6,
+      -3.95
+     ],
+     "size": 0.42,
+     "id": "orologio"
+    },
+    {
+     "m": "SchoolChair_01",
+     "at": [
+      0,
+      0,
+      1.35
+     ],
+     "size": 0.85,
+     "ry": 180
+    },
+    {
+     "m": "steel_frame_shelves_01",
+     "at": [
+      -4.6,
+      0,
+      -1.6
+     ],
+     "size": 2.0,
+     "ry": 90
+    },
+    {
+     "m": "drawer_cabinet",
+     "at": [
+      -4.6,
+      0,
+      0.6
+     ],
+     "size": 1.2,
+     "ry": 90
+    },
+    {
+     "m": "power_box_01",
+     "at": [
+      4.9,
+      1.5,
+      0.8
+     ],
+     "size": 0.6,
+     "ry": -90
+    },
+    {
+     "m": "fire_alarm",
+     "at": [
+      4.95,
+      1.4,
+      -3.0
+     ],
+     "size": 0.2,
+     "ry": -90
+    },
+    {
+     "m": "modular_airduct_circular_01",
+     "at": [
+      -3,
+      3.3,
+      -2.5
+     ],
+     "w": 2.0
+    },
+    {
+     "m": "mounted_fluorescent_lights",
+     "at": [
+      0,
+      3.5,
+      -1.5
+     ],
+     "w": 1.3
+    },
+    {
+     "m": "mounted_fluorescent_lights",
+     "at": [
+      0,
+      3.5,
+      1.5
+     ],
+     "w": 1.3
+    },
+    {
+     "m": "clipboard",
+     "at": [
+      -1.3,
+      0.76,
+      -1.1
+     ],
+     "w": 0.25
+    },
+    {
+     "m": "retro_multimeter",
+     "at": [
+      1.95,
+      0.76,
+      -1.05
+     ],
+     "w": 0.2
+    },
+    {
+     "id": "missile1",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.07,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff3b30"
+      }
+     ],
+     "at": [
+      -1.2,
+      2.35,
+      -3.88
+     ],
+     "hidden": true
+    },
+    {
+     "id": "missile2",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.07,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff3b30"
+      }
+     ],
+     "at": [
+      -0.85,
+      2.23,
+      -3.88
+     ],
+     "hidden": true
+    },
+    {
+     "id": "missile3",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.07,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff3b30"
+      }
+     ],
+     "at": [
+      -0.5,
+      2.1100000000000003,
+      -3.88
+     ],
+     "hidden": true
+    },
+    {
+     "id": "missile4",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.07,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff3b30"
+      }
+     ],
+     "at": [
+      -0.15000000000000013,
+      1.9900000000000002,
+      -3.88
+     ],
+     "hidden": true
+    },
+    {
+     "id": "missile5",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.07,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff3b30"
+      }
+     ],
+     "at": [
+      0.19999999999999996,
+      1.87,
+      -3.88
+     ],
+     "hidden": true
+    },
+    {
+     "id": "centinaia",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -2.2,
+        1.3,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.83,
+        1.53,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.4600000000000002,
+        1.76,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.0900000000000003,
+        1.9900000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.7200000000000002,
+        2.22,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.3500000000000001,
+        2.45,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.019999999999999574,
+        2.68,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.3899999999999997,
+        1.5100000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.7599999999999998,
+        1.7400000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.13,
+        1.9700000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.5,
+        2.2,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.87,
+        2.4300000000000006,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -2.160000000000001,
+        2.66,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.790000000000001,
+        1.4900000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.4200000000000008,
+        1.7200000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.0500000000000007,
+        1.9500000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.6800000000000006,
+        2.1800000000000006,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.3100000000000005,
+        2.41,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.05999999999999961,
+        2.6400000000000006,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.4299999999999997,
+        1.4700000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.7999999999999998,
+        1.7000000000000008,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.169999999999999,
+        1.9300000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.54,
+        2.160000000000001,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.9099999999999993,
+        2.3900000000000006,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -2.120000000000002,
+        2.620000000000001,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.7500000000000009,
+        1.4500000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.3800000000000017,
+        1.6800000000000008,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.0100000000000007,
+        1.9100000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.6400000000000015,
+        2.1400000000000006,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.27000000000000046,
+        2.37,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.09999999999999876,
+        2.6000000000000005,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.46999999999999975,
+        1.4300000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.839999999999999,
+        1.6600000000000008,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.2099999999999982,
+        1.8900000000000012,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.5799999999999992,
+        2.120000000000001,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.9499999999999984,
+        2.3500000000000014,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -2.080000000000001,
+        2.580000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.7100000000000017,
+        1.4100000000000004,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.3400000000000007,
+        1.6400000000000008,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.9700000000000015,
+        1.8700000000000012,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.6000000000000005,
+        2.1000000000000014,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.23000000000000131,
+        2.33,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.1399999999999979,
+        2.5600000000000005,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.5099999999999989,
+        1.3900000000000012,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.8799999999999999,
+        1.6200000000000017,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.2499999999999973,
+        1.8500000000000003,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.6199999999999983,
+        2.080000000000001,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.9899999999999993,
+        2.3100000000000014,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -2.0400000000000036,
+        2.540000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.6700000000000026,
+        1.370000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -1.3000000000000016,
+        1.6000000000000008,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.9300000000000006,
+        1.8300000000000012,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.5600000000000032,
+        2.0600000000000014,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        -0.19000000000000217,
+        2.290000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.17999999999999883,
+        2.5200000000000005,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.5499999999999998,
+        1.3500000000000012,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        0.9199999999999973,
+        1.5800000000000016,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.2899999999999983,
+        1.810000000000002,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        1.6599999999999993,
+        2.040000000000001,
+        0
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "glow": 3.0,
+       "color": "#ff6a30",
+       "at": [
+        2.0299999999999967,
+        2.2700000000000014,
+        0
+       ]
+      }
+     ],
+     "at": [
+      0,
+      0,
+      -3.88
+     ],
+     "hidden": true
+    }
+   ]
+  },
+  "mare": {
+   "type": "outdoor",
+   "light": "notte",
+   "floor": {
+    "color": "#071325"
+   },
+   "models": [
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 1.92,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.4400000000000002,
+       "at": [
+        2.08,
+        -0.32000000000000006,
+        0.2
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.2800000000000002,
+       "at": [
+        -1.92,
+        -0.4,
+        -0.1
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      }
+     ],
+     "at": [
+      -6,
+      5.5,
+      -10
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 2.4,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.8,
+       "at": [
+        2.6,
+        -0.4,
+        0.2
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.6,
+       "at": [
+        -2.4,
+        -0.5,
+        -0.1
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      }
+     ],
+     "at": [
+      5,
+      7.0,
+      -14
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 1.2,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#aab4c8",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 0.9,
+       "at": [
+        1.3,
+        -0.2,
+        0.2
+       ],
+       "color": "#aab4c8",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 0.8,
+       "at": [
+        -1.2,
+        -0.25,
+        -0.1
+       ],
+       "color": "#aab4c8",
+       "rough": 1
+      }
+     ],
+     "at": [
+      0,
+      4.0,
+      -6
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 1.56,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.1700000000000002,
+       "at": [
+        1.6900000000000002,
+        -0.26,
+        0.2
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.04,
+       "at": [
+        -1.56,
+        -0.325,
+        -0.1
+       ],
+       "color": "#cfd6e6",
+       "rough": 1
+      }
+     ],
+     "at": [
+      9,
+      4.5,
+      -8
+     ]
+    },
+    {
+     "id": "aereo",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.35,
+       "h": 5.0,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#e8e8ec",
+       "metal": 0.3
+      },
+      {
+       "shape": "sphere",
+       "r": 0.35,
+       "at": [
+        2.5,
+        0,
+        0
+       ],
+       "color": "#e8e8ec",
+       "scale": [
+        1.4,
+        1,
+        1
+       ]
+      },
+      {
+       "shape": "cone",
+       "r": 0.35,
+       "h": 0.9,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        -2.95,
+        0.05,
+        0
+       ],
+       "color": "#e8e8ec"
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.2,
+        0.06,
+        5.2
+       ],
+       "at": [
+        0.2,
+        -0.1,
+        0
+       ],
+       "color": "#e8e8ec",
+       "metal": 0.3
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.6,
+        0.9,
+        0.06
+       ],
+       "at": [
+        -2.9,
+        0.55,
+        0
+       ],
+       "color": "#2a5aa8"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.5,
+        0.05,
+        1.8
+       ],
+       "at": [
+        -2.9,
+        0.1,
+        0
+       ],
+       "color": "#e8e8ec"
+      },
+      {
+       "shape": "box",
+       "size": [
+        4.2,
+        0.12,
+        0.02
+       ],
+       "at": [
+        0.2,
+        0.1,
+        0.355
+       ],
+       "color": "#ffe9a8",
+       "glow": 1.6
+      },
+      {
+       "shape": "sphere",
+       "r": 0.08,
+       "at": [
+        0.2,
+        -0.1,
+        2.6
+       ],
+       "glow": 3.0,
+       "color": "#ff3030"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.08,
+       "at": [
+        0.2,
+        -0.1,
+        -2.6
+       ],
+       "glow": 3.0,
+       "color": "#30ff60"
+      }
+     ],
+     "at": [
+      -3,
+      6,
+      -6
+     ],
+     "hidden": false
+    },
+    {
+     "id": "caccia",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.16,
+       "h": 2.6,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#7d8790",
+       "metal": 0.5
+      },
+      {
+       "shape": "cone",
+       "r": 0.16,
+       "h": 0.7,
+       "rot": [
+        0,
+        0,
+        -90
+       ],
+       "at": [
+        1.65,
+        0,
+        0
+       ],
+       "color": "#7d8790"
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.0,
+        0.04,
+        1.9
+       ],
+       "at": [
+        -0.3,
+        0,
+        0
+       ],
+       "color": "#6a747c"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.5,
+        0.6,
+        0.04
+       ],
+       "at": [
+        -1.1,
+        0.3,
+        0
+       ],
+       "color": "#6a747c"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.12,
+       "at": [
+        -1.35,
+        0,
+        0
+       ],
+       "glow": 4.0,
+       "color": "#ffae40"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.06,
+       "at": [
+        -0.3,
+        0,
+        0.95
+       ],
+       "glow": 3.0,
+       "color": "#ff3030"
+      }
+     ],
+     "at": [
+      3.5,
+      6.8,
+      -5.0
+     ],
+     "hidden": true
+    },
+    {
+     "id": "aereo_luci",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.25,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "glow": 2.5,
+       "color": "#ffe9a8"
+      }
+     ],
+     "at": [
+      -3,
+      6,
+      -6
+     ],
+     "hidden": true
+    }
+   ],
+   "boards": [
+    {
+     "id": "data_kal",
+     "text": "1 SETTEMBRE\n1983",
+     "at": [
+      0,
+      2.0,
+      -4
+     ],
+     "w": 2.4,
+     "h": 1.2,
+     "bg": "#0b0b12",
+     "ink": "#f2f2f2",
+     "border": "#f2f2f2",
+     "frame": "#111"
+    },
+    {
+     "id": "vittime",
+     "text": "269\nPERSONE A BORDO",
+     "at": [
+      0,
+      2.0,
+      -3.9
+     ],
+     "w": 2.4,
+     "h": 1.2,
+     "bg": "#0b0b12",
+     "ink": "#ff5a4a",
+     "border": "#ff5a4a",
+     "frame": "#111",
+     "hidden": true
+    }
+   ]
+  },
+  "cremlino": {
+   "type": "room",
+   "w": 8,
+   "d": 7,
+   "h": 3.6,
+   "light": "interno_notte",
+   "floor": {
+    "tex": "wood_floor",
+    "tint": "#c89a7a",
+    "rep": 4
+   },
+   "wall": {
+    "tex": "painted_plaster_wall",
+    "tint": "#c9b48a",
+    "rep": [
+     3,
+     1.2
+    ]
+   },
+   "lamps": [
+    {
+     "at": [
+      0,
+      3.0,
+      0
+     ],
+     "intensity": 2.5,
+     "color": "#ffc98a"
+    },
+    {
+     "at": [
+      0.9,
+      1.3,
+      -0.3
+     ],
+     "intensity": 2.0,
+     "range": 4,
+     "color": "#ffd9a0",
+     "bulb": false
+    }
+   ],
+   "boards": [
+    {
+     "id": "giornale",
+     "text": "WASHINGTON\nACCUSA\nMOSCA",
+     "at": [
+      -2.4,
+      1.6,
+      -3.45
+     ],
+     "w": 1.0,
+     "h": 1.2,
+     "bg": "#efe8d6",
+     "ink": "#1a1a1a",
+     "border": "#1a1a1a",
+     "frame": "#6a4022"
+    },
+    {
+     "id": "pravda",
+     "text": "MOSCA:\n«ERA UN\nAEREO SPIA»",
+     "at": [
+      2.4,
+      1.6,
+      -3.45
+     ],
+     "w": 1.0,
+     "h": 1.2,
+     "bg": "#efe8d6",
+     "ink": "#b01e1e",
+     "border": "#b01e1e",
+     "frame": "#6a4022"
+    },
+    {
+     "id": "sospetto",
+     "text": "ATTACCO\nA SORPRESA?",
+     "at": [
+      0,
+      2.3,
+      -3.45
+     ],
+     "w": 1.4,
+     "h": 0.8,
+     "bg": "#2a0a0a",
+     "ink": "#ff5a4a",
+     "border": "#ff5a4a",
+     "frame": "#3a2a1a",
+     "hidden": true
+    },
+    {
+     "id": "ryan",
+     "text": "RYAN",
+     "at": [
+      -0.25,
+      0.8,
+      -0.25
+     ],
+     "w": 0.28,
+     "h": 0.12,
+     "bg": "#f2e6c8",
+     "ink": "#b01e1e",
+     "border": "#b01e1e",
+     "frame": "#b5402a",
+     "rot": [
+      -90,
+      0,
+      0
+     ]
+    }
+   ],
+   "models": [
+    {
+     "m": "WoodenTable_02",
+     "at": [
+      0,
+      0,
+      -0.4
+     ],
+     "size": 0.78,
+     "w": 1.8
+    },
+    {
+     "m": "ArmChair_01",
+     "at": [
+      0,
+      0,
+      -1.4
+     ],
+     "size": 1.0
+    },
+    {
+     "m": "desk_lamp_arm_01",
+     "at": [
+      0.7,
+      0.78,
+      -0.55
+     ],
+     "size": 0.5,
+     "ry": -30
+    },
+    {
+     "m": "Chandelier_01",
+     "at": [
+      0,
+      2.6,
+      0
+     ],
+     "size": 0.9
+    },
+    {
+     "m": "wooden_bookshelf_worn",
+     "at": [
+      -3.4,
+      0,
+      -2.6
+     ],
+     "size": 2.0,
+     "ry": 90
+    },
+    {
+     "m": "ClassicConsole_01",
+     "at": [
+      3.3,
+      0,
+      -2.9
+     ],
+     "size": 0.85
+    },
+    {
+     "m": "mantel_clock_01",
+     "at": [
+      3.3,
+      0.85,
+      -2.9
+     ],
+     "size": 0.3
+    },
+    {
+     "m": "fancy_picture_frame_01",
+     "at": [
+      3.95,
+      1.6,
+      -0.5
+     ],
+     "size": 0.8,
+     "ry": -90
+    },
+    {
+     "id": "bandiera",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.9,
+        0.6,
+        0.02
+       ],
+       "at": [
+        0.45,
+        1.75,
+        0
+       ],
+       "color": "#c8102e"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 2.1,
+       "at": [
+        0,
+        1.05,
+        0
+       ],
+       "color": "#c9a24a",
+       "metal": 1
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.12,
+        0.12,
+        0.025
+       ],
+       "at": [
+        0.15,
+        1.92,
+        0
+       ],
+       "color": "#ffd23a",
+       "glow": 0.6
+      }
+     ],
+     "at": [
+      -1.8,
+      0,
+      -3.2
+     ]
+    },
+    {
+     "id": "fascicolo",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.34,
+        0.03,
+        0.46
+       ],
+       "at": [
+        0,
+        0.015,
+        0
+       ],
+       "color": "#b5402a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.3,
+        0.032,
+        0.1
+       ],
+       "at": [
+        0,
+        0.02,
+        -0.1
+       ],
+       "color": "#f2e6c8"
+      }
+     ],
+     "at": [
+      -0.25,
+      0.78,
+      -0.25
+     ],
+     "ry": 10
+    },
+    {
+     "id": "telefono_k",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.08,
+        0.18
+       ],
+       "at": [
+        0,
+        0.04,
+        0
+       ],
+       "color": "#1a1a1a",
+       "rough": 0.3
+      },
+      {
+       "shape": "cyl",
+       "r": 0.03,
+       "h": 0.24,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        0,
+        0.11,
+        0
+       ],
+       "color": "#1a1a1a"
+      }
+     ],
+     "at": [
+      0.35,
+      0.78,
+      -0.15
+     ]
+    }
+   ]
+  },
+  "washington": {
+   "type": "outdoor",
+   "light": "notte",
+   "floor": {
+    "tex": "asphalt_02",
+    "tint": "#9a9aa8",
+    "rep": 24
+   },
+   "facades": [
+    {
+     "at": [
+      -6,
+      0,
+      -9
+     ],
+     "w": 6,
+     "h": 10,
+     "color": "#cfc6b4"
+    },
+    {
+     "at": [
+      0.5,
+      0,
+      -11
+     ],
+     "w": 7,
+     "h": 12,
+     "color": "#e6e0d0"
+    },
+    {
+     "id": "finestre",
+     "at": [
+      0.5,
+      0,
+      -10.9
+     ],
+     "w": 7,
+     "h": 12,
+     "color": "#e6e0d0",
+     "lit": true,
+     "hidden": true
+    },
+    {
+     "at": [
+      7,
+      0,
+      -9
+     ],
+     "w": 6,
+     "h": 9,
+     "color": "#bfb6a6",
+     "lit": true
+    },
+    {
+     "at": [
+      -9.5,
+      0,
+      -2
+     ],
+     "w": 6,
+     "h": 8,
+     "color": "#c9bfa8",
+     "lit": true,
+     "ry": 90
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      -4.5,
+      3.6,
+      -3.5
+     ],
+     "intensity": 6,
+     "range": 14,
+     "color": "#ffc477"
+    },
+    {
+     "at": [
+      4.5,
+      3.6,
+      -3.5
+     ],
+     "intensity": 6,
+     "range": 14,
+     "color": "#ffc477"
+    }
+   ],
+   "boards": [
+    {
+     "id": "ospedale",
+     "text": "OSPEDALE",
+     "at": [
+      7,
+      3.2,
+      -8.75
+     ],
+     "w": 2.2,
+     "h": 0.6,
+     "bg": "#f2f2f2",
+     "ink": "#c8102e",
+     "border": "#c8102e",
+     "frame": "#333"
+    },
+    {
+     "id": "guerra",
+     "text": "SI PREPARANO\nALLA GUERRA?",
+     "at": [
+      0,
+      2.4,
+      -2.5
+     ],
+     "w": 1.8,
+     "h": 0.9,
+     "bg": "#2a0a0a",
+     "ink": "#ff5a4a",
+     "border": "#ff5a4a",
+     "frame": "#111",
+     "hidden": true
+    }
+   ],
+   "models": [
+    {
+     "m": "street_lamp_02",
+     "at": [
+      -4.5,
+      0,
+      -3.5
+     ],
+     "size": 3.8
+    },
+    {
+     "m": "street_lamp_02",
+     "at": [
+      4.5,
+      0,
+      -3.5
+     ],
+     "size": 3.8
+    },
+    {
+     "m": "fire_hydrant",
+     "at": [
+      2.6,
+      0,
+      -2.6
+     ],
+     "size": 0.75
+    },
+    {
+     "m": "water_manhole_cover",
+     "at": [
+      0,
+      0.01,
+      -0.5
+     ],
+     "w": 0.8
+    },
+    {
+     "m": "utility_box_01",
+     "at": [
+      -2.8,
+      0,
+      -4.0
+     ],
+     "size": 1.2
+    },
+    {
+     "id": "sangue",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.16,
+        0.26,
+        0.05
+       ],
+       "at": [
+        -0.4,
+        0.13,
+        0
+       ],
+       "color": "#8a0d14",
+       "rough": 0.2
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.16,
+        0.26,
+        0.05
+       ],
+       "at": [
+        -0.2,
+        0.13,
+        0
+       ],
+       "color": "#8a0d14",
+       "rough": 0.2
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.16,
+        0.26,
+        0.05
+       ],
+       "at": [
+        0.0,
+        0.13,
+        0
+       ],
+       "color": "#8a0d14",
+       "rough": 0.2
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.16,
+        0.26,
+        0.05
+       ],
+       "at": [
+        0.2,
+        0.13,
+        0
+       ],
+       "color": "#8a0d14",
+       "rough": 0.2
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.16,
+        0.26,
+        0.05
+       ],
+       "at": [
+        0.4,
+        0.13,
+        0
+       ],
+       "color": "#8a0d14",
+       "rough": 0.2
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.1,
+        0.03,
+        0.3
+       ],
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#d8d8d8",
+       "metal": 0.6
+      }
+     ],
+     "at": [
+      6.0,
+      1.0,
+      -5.0
+     ],
+     "hidden": true
+    }
+   ]
+  },
+  "spazio": {
+   "type": "room",
+   "w": 30,
+   "d": 30,
+   "h": 24,
+   "light": "tramonto",
+   "floor": {
+    "color": "#010205"
+   },
+   "wall": {
+    "color": "#010205"
+   },
+   "ceiling": {
+    "color": "#010205"
+   },
+   "lamps": [
+    {
+     "at": [
+      12,
+      14,
+      6
+     ],
+     "intensity": 40,
+     "range": 60,
+     "color": "#fff2d8"
+    }
+   ],
+   "models": [
+    {
+     "id": "terra",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 6,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#1d4f9a",
+       "rough": 0.6
+      },
+      {
+       "shape": "sphere",
+       "r": 1.3,
+       "at": [
+        -4.5,
+        3.2,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 1.7000000000000002,
+       "at": [
+        -2.2,
+        3.7,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 2.1,
+       "at": [
+        0.09999999999999964,
+        4.2,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 1.3,
+       "at": [
+        2.3999999999999995,
+        4.7,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 1.7000000000000002,
+       "at": [
+        -4.300000000000001,
+        3.2,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 2.1,
+       "at": [
+        -2.0,
+        3.7,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 1.3,
+       "at": [
+        0.29999999999999893,
+        4.2,
+        4.2
+       ],
+       "color": "#eef2f6",
+       "rough": 1,
+       "scale": [
+        1.6,
+        0.25,
+        1
+       ]
+      },
+      {
+       "shape": "sphere",
+       "r": 2.2,
+       "at": [
+        -2.5,
+        2.5,
+        4.6
+       ],
+       "color": "#3a7a3a",
+       "scale": [
+        1.6,
+        0.5,
+        0.4
+       ]
+      }
+     ],
+     "at": [
+      0,
+      4.5,
+      -8
+     ]
+    },
+    {
+     "id": "satellite",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.35,
+       "h": 1.2,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#c9a24a",
+       "metal": 0.8,
+       "rough": 0.3
+      },
+      {
+       "shape": "cone",
+       "r": 0.25,
+       "h": 0.5,
+       "rot": [
+        180,
+        0,
+        0
+       ],
+       "at": [
+        0,
+        -0.85,
+        0
+       ],
+       "color": "#8a8a90",
+       "metal": 0.8
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.9,
+        0.6,
+        0.03
+       ],
+       "at": [
+        -1.3,
+        0.1,
+        0
+       ],
+       "color": "#1e3a8a",
+       "metal": 0.4,
+       "rough": 0.25
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.9,
+        0.6,
+        0.03
+       ],
+       "at": [
+        1.3,
+        0.1,
+        0
+       ],
+       "color": "#1e3a8a",
+       "metal": 0.4,
+       "rough": 0.25
+      },
+      {
+       "shape": "cyl",
+       "r": 0.03,
+       "h": 0.8,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        0,
+        0.1,
+        0
+       ],
+       "color": "#aaaaaa",
+       "metal": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 0.06,
+       "at": [
+        0,
+        0.65,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff4040"
+      }
+     ],
+     "at": [
+      0,
+      12.5,
+      -3
+     ],
+     "hidden": false
+    },
+    {
+     "id": "satellite2",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.27999999999999997,
+       "h": 0.96,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#c9a24a",
+       "metal": 0.8,
+       "rough": 0.3
+      },
+      {
+       "shape": "cone",
+       "r": 0.2,
+       "h": 0.4,
+       "rot": [
+        180,
+        0,
+        0
+       ],
+       "at": [
+        0,
+        -0.68,
+        0
+       ],
+       "color": "#8a8a90",
+       "metal": 0.8
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.52,
+        0.48,
+        0.024
+       ],
+       "at": [
+        -1.04,
+        0.08000000000000002,
+        0
+       ],
+       "color": "#1e3a8a",
+       "metal": 0.4,
+       "rough": 0.25
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.52,
+        0.48,
+        0.024
+       ],
+       "at": [
+        1.04,
+        0.08000000000000002,
+        0
+       ],
+       "color": "#1e3a8a",
+       "metal": 0.4,
+       "rough": 0.25
+      },
+      {
+       "shape": "cyl",
+       "r": 0.024,
+       "h": 0.6400000000000001,
+       "rot": [
+        0,
+        0,
+        90
+       ],
+       "at": [
+        0,
+        0.08000000000000002,
+        0
+       ],
+       "color": "#aaaaaa",
+       "metal": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 0.048,
+       "at": [
+        0,
+        0.52,
+        0
+       ],
+       "glow": 3.0,
+       "color": "#ff4040"
+      }
+     ],
+     "at": [
+      4,
+      13.2,
+      -4
+     ],
+     "hidden": true
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -14.0,
+        2.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -10.3,
+        3.9,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -6.6,
+        5.8,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -2.8999999999999986,
+        7.699999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        0.8000000000000007,
+        9.6,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        4.5,
+        11.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        8.200000000000003,
+        13.399999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        11.900000000000002,
+        15.299999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -12.399999999999999,
+        17.2,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -8.699999999999996,
+        19.099999999999998,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -5.0,
+        21.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -1.2999999999999972,
+        2.8999999999999986,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        2.4000000000000057,
+        4.799999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        6.100000000000001,
+        6.699999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        9.800000000000004,
+        8.599999999999998,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        13.5,
+        10.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -10.799999999999997,
+        12.399999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -7.099999999999994,
+        14.299999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -3.3999999999999915,
+        16.199999999999996,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        0.29999999999999716,
+        18.1,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        4.0,
+        20.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        7.700000000000003,
+        21.9,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        11.400000000000006,
+        3.799999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -12.899999999999991,
+        5.699999999999996,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -9.199999999999989,
+        7.599999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -5.5,
+        9.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -1.7999999999999972,
+        11.399999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        1.9000000000000057,
+        13.299999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        5.6000000000000085,
+        15.199999999999996,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        9.300000000000011,
+        17.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        13.0,
+        19.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -11.299999999999997,
+        20.9,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -7.599999999999994,
+        2.799999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -3.8999999999999915,
+        4.699999999999996,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -0.19999999999998863,
+        6.599999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        3.5,
+        8.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        7.200000000000017,
+        10.399999999999991,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        10.900000000000006,
+        12.299999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -13.400000000000006,
+        14.200000000000003,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -9.699999999999989,
+        16.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -6.0,
+        18.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -2.299999999999983,
+        19.89999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        1.4000000000000057,
+        21.799999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        5.099999999999994,
+        3.700000000000003,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        8.800000000000011,
+        5.599999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        12.5,
+        7.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -11.799999999999983,
+        9.399999999999991,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -8.099999999999994,
+        11.299999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -4.399999999999977,
+        13.199999999999989,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -0.6999999999999886,
+        15.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        3.0,
+        17.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        6.700000000000017,
+        18.89999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        10.400000000000006,
+        20.799999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -13.899999999999977,
+        2.6999999999999886,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -10.199999999999989,
+        4.599999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -6.5,
+        6.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -2.799999999999983,
+        8.399999999999991,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        0.9000000000000057,
+        10.299999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        4.600000000000023,
+        12.199999999999989,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        8.300000000000011,
+        14.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        12.0,
+        16.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -12.299999999999983,
+        17.89999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -8.599999999999994,
+        19.799999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -4.899999999999977,
+        21.69999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -1.1999999999999886,
+        3.5999999999999943,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        2.5,
+        5.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        6.200000000000017,
+        7.3999999999999915,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        9.900000000000006,
+        9.299999999999997,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        13.600000000000023,
+        11.199999999999989,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -10.699999999999989,
+        13.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -7.0,
+        15.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -3.3000000000000114,
+        16.900000000000006,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        0.4000000000000341,
+        18.799999999999983,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        4.100000000000023,
+        20.69999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        7.800000000000011,
+        2.5999999999999943,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        11.5,
+        4.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -12.800000000000011,
+        6.400000000000006,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -9.099999999999966,
+        8.299999999999983,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -5.399999999999977,
+        10.199999999999989,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -1.6999999999999886,
+        12.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        2.0,
+        14.0,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        5.699999999999989,
+        15.900000000000006,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        9.400000000000034,
+        17.799999999999983,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        13.100000000000023,
+        19.69999999999999,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -11.199999999999989,
+        21.599999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -7.5,
+        3.5,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -3.8000000000000114,
+        5.400000000000006,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        -0.0999999999999659,
+        7.299999999999983,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        3.6000000000000227,
+        9.199999999999989,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        7.300000000000011,
+        11.099999999999994,
+        0
+       ],
+       "glow": 2.0,
+       "color": "#ffffff"
+      }
+     ],
+     "at": [
+      0,
+      0,
+      -14.8
+     ]
+    },
+    {
+     "id": "raggio",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.03,
+       "h": 6,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#ffe07a",
+       "glow": 2.0,
+       "rot": [
+        25,
+        0,
+        0
+       ]
+      }
+     ],
+     "at": [
+      0,
+      9.5,
+      -4.5
+     ],
+     "hidden": true
+    }
+   ]
+  },
+  "pianure": {
+   "type": "outdoor",
+   "light": "tramonto",
+   "floor": {
+    "tex": "grass_ground",
+    "tint": "#c8b890",
+    "rep": 30
+   },
+   "models": [
+    {
+     "m": "modular_chainlink_fence",
+     "at": [
+      -3,
+      0,
+      -4
+     ],
+     "w": 3
+    },
+    {
+     "m": "modular_chainlink_fence",
+     "at": [
+      0,
+      0,
+      -4
+     ],
+     "w": 3
+    },
+    {
+     "m": "modular_chainlink_fence",
+     "at": [
+      3,
+      0,
+      -4
+     ],
+     "w": 3
+    },
+    {
+     "m": "modular_electricity_poles",
+     "at": [
+      -7,
+      0,
+      -9
+     ],
+     "size": 7
+    },
+    {
+     "m": "boulder_01",
+     "at": [
+      5,
+      0,
+      -2
+     ],
+     "size": 0.8
+    },
+    {
+     "m": "grass_medium_01",
+     "at": [
+      -2,
+      0,
+      -1
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "grass_medium_01",
+     "at": [
+      1.5,
+      0,
+      -2
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "grass_medium_01",
+     "at": [
+      3.5,
+      0,
+      0.5
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "grass_medium_01",
+     "at": [
+      -4,
+      0,
+      1
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "grass_medium_01",
+     "at": [
+      0,
+      0,
+      1.5
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "shrub_01",
+     "at": [
+      -5,
+      0,
+      -3
+     ],
+     "size": 1.0
+    },
+    {
+     "id": "silo",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 1.3,
+       "h": 0.4,
+       "at": [
+        0,
+        0.2,
+        0
+       ],
+       "color": "#8a8a84"
+      },
+      {
+       "shape": "cyl",
+       "r": 1.0,
+       "h": 0.15,
+       "at": [
+        0,
+        0.47,
+        0
+       ],
+       "color": "#6a6a66",
+       "metal": 0.5
+      }
+     ],
+     "at": [
+      0,
+      0,
+      -7
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 2.88,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 2.16,
+       "at": [
+        3.12,
+        -0.48,
+        0.2
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.92,
+       "at": [
+        -2.88,
+        -0.6,
+        -0.1
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      }
+     ],
+     "at": [
+      -8,
+      14,
+      -20
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 2.88,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 2.16,
+       "at": [
+        3.12,
+        -0.48,
+        0.2
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.92,
+       "at": [
+        -2.88,
+        -0.6,
+        -0.1
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      }
+     ],
+     "at": [
+      -4,
+      15,
+      -22
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 2.88,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 2.16,
+       "at": [
+        3.12,
+        -0.48,
+        0.2
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.92,
+       "at": [
+        -2.88,
+        -0.6,
+        -0.1
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      }
+     ],
+     "at": [
+      0,
+      14,
+      -24
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 2.88,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 2.16,
+       "at": [
+        3.12,
+        -0.48,
+        0.2
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.92,
+       "at": [
+        -2.88,
+        -0.6,
+        -0.1
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      }
+     ],
+     "at": [
+      4,
+      15,
+      -20
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 2.88,
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 2.16,
+       "at": [
+        3.12,
+        -0.48,
+        0.2
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      },
+      {
+       "shape": "sphere",
+       "r": 1.92,
+       "at": [
+        -2.88,
+        -0.6,
+        -0.1
+       ],
+       "color": "#ffd6b0",
+       "rough": 1
+      }
+     ],
+     "at": [
+      8,
+      14,
+      -22
+     ]
+    },
+    {
+     "id": "riflessi",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.5,
+       "at": [
+        -8,
+        13,
+        1.5
+       ],
+       "glow": 4.5,
+       "color": "#fff1c0"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.5,
+       "at": [
+        -4,
+        14,
+        1.5
+       ],
+       "glow": 4.5,
+       "color": "#fff1c0"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.5,
+       "at": [
+        0,
+        13,
+        1.5
+       ],
+       "glow": 4.5,
+       "color": "#fff1c0"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.5,
+       "at": [
+        4,
+        14,
+        1.5
+       ],
+       "glow": 4.5,
+       "color": "#fff1c0"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.5,
+       "at": [
+        8,
+        13,
+        1.5
+       ],
+       "glow": 4.5,
+       "color": "#fff1c0"
+      }
+     ],
+     "at": [
+      0,
+      0,
+      -20
+     ],
+     "hidden": true
+    }
+   ]
+  },
+  "indagine": {
+   "type": "room",
+   "w": 7,
+   "d": 6,
+   "h": 3.2,
+   "light": "interno",
+   "floor": {
+    "tex": "concrete_floor_painted",
+    "tint": "#b8b4a8",
+    "rep": 4
+   },
+   "wall": {
+    "tex": "painted_plaster_wall",
+    "tint": "#a8b0a0",
+    "rep": [
+     3,
+     1.2
+    ]
+   },
+   "lamps": [
+    {
+     "at": [
+      0,
+      2.8,
+      0
+     ],
+     "intensity": 2.8,
+     "color": "#f2f0e0"
+    }
+   ],
+   "boards": [
+    {
+     "id": "lode",
+     "text": "LODE",
+     "at": [
+      -1.6,
+      2.1,
+      -2.95
+     ],
+     "w": 1.1,
+     "h": 0.5,
+     "bg": "#f2ecd8",
+     "ink": "#2a7a3a",
+     "border": "#2a7a3a",
+     "frame": "#555",
+     "hidden": true
+    },
+    {
+     "id": "rimprovero",
+     "text": "RIMPROVERO",
+     "at": [
+      1.6,
+      2.1,
+      -2.95
+     ],
+     "w": 1.4,
+     "h": 0.5,
+     "bg": "#f2ecd8",
+     "ink": "#b01e1e",
+     "border": "#b01e1e",
+     "frame": "#555",
+     "hidden": true
+    },
+    {
+     "id": "memorie",
+     "text": "MEMORIE\nGEN. VOTINTSEV\n1998",
+     "at": [
+      0,
+      1.6,
+      -2.95
+     ],
+     "w": 1.0,
+     "h": 1.3,
+     "bg": "#3a2a1a",
+     "ink": "#e8d8a8",
+     "border": "#c9a24a",
+     "frame": "#2a1a0a",
+     "hidden": true
+    }
+   ],
+   "models": [
+    {
+     "m": "metal_office_desk",
+     "at": [
+      0,
+      0,
+      -0.6
+     ],
+     "size": 0.76,
+     "w": 1.6
+    },
+    {
+     "m": "SchoolChair_01",
+     "at": [
+      0,
+      0,
+      -1.4
+     ],
+     "size": 0.85
+    },
+    {
+     "m": "SchoolChair_01",
+     "at": [
+      -0.4,
+      0,
+      0.4
+     ],
+     "size": 0.85,
+     "ry": 180
+    },
+    {
+     "m": "hanging_industrial_lamp",
+     "at": [
+      0,
+      2.4,
+      -0.6
+     ],
+     "size": 0.7
+    },
+    {
+     "m": "drawer_cabinet",
+     "at": [
+      2.9,
+      0,
+      -2.4
+     ],
+     "size": 1.3,
+     "id": "cassetto"
+    },
+    {
+     "m": "vintage_stapler",
+     "at": [
+      0.6,
+      0.76,
+      -0.55
+     ],
+     "w": 0.18
+    },
+    {
+     "m": "clipboard",
+     "at": [
+      -0.6,
+      0.76,
+      -0.55
+     ],
+     "w": 0.24
+    },
+    {
+     "id": "registro_vuoto",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.4,
+        0.03,
+        0.3
+       ],
+       "at": [
+        0,
+        0.015,
+        0
+       ],
+       "color": "#f4f0e4"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.035,
+        0.3
+       ],
+       "at": [
+        0,
+        0.017,
+        0
+       ],
+       "color": "#7a5a3a"
+      }
+     ],
+     "at": [
+      0,
+      0.76,
+      -0.4
+     ]
+    },
+    {
+     "id": "timbro",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.05,
+       "h": 0.1,
+       "at": [
+        0,
+        0.05,
+        0
+       ],
+       "color": "#b01e1e"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.05,
+       "at": [
+        0,
+        0.13,
+        0
+       ],
+       "color": "#2a1a1a"
+      }
+     ],
+     "at": [
+      0.15,
+      0.79,
+      -0.35
+     ],
+     "hidden": true
+    }
+   ]
+  },
+  "casa": {
+   "type": "room",
+   "w": 7,
+   "d": 6,
+   "h": 2.8,
+   "light": "interno",
+   "floor": {
+    "tex": "wood_floor",
+    "tint": "#d8b090",
+    "rep": 4
+   },
+   "wall": {
+    "tex": "painted_plaster_wall",
+    "tint": "#e8cfa0",
+    "rep": [
+     3,
+     1.2
+    ]
+   },
+   "windows": [
+    {
+     "x": 1.6,
+     "y": 1.6,
+     "w": 1.0,
+     "h": 1.0,
+     "view": "sera"
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      -1.2,
+      1.4,
+      -1.5
+     ],
+     "intensity": 2.0,
+     "range": 5,
+     "color": "#ffc98a"
+    }
+   ],
+   "models": [
+    {
+     "m": "Rockingchair_01",
+     "at": [
+      -0.6,
+      0,
+      -1.2
+     ],
+     "size": 1.05,
+     "id": "Rockingchair"
+    },
+    {
+     "m": "Sofa_01",
+     "at": [
+      2.2,
+      0,
+      -2.4
+     ],
+     "size": 0.85,
+     "w": 1.9
+    },
+    {
+     "m": "side_table_01",
+     "at": [
+      -1.4,
+      0,
+      -1.4
+     ],
+     "size": 0.55
+    },
+    {
+     "m": "desk_lamp_arm_01",
+     "at": [
+      -1.4,
+      0.55,
+      -1.5
+     ],
+     "size": 0.4
+    },
+    {
+     "m": "Television_01",
+     "at": [
+      -2.8,
+      0,
+      -2.3
+     ],
+     "size": 0.6,
+     "ry": 30
+    },
+    {
+     "m": "hanging_picture_frame_01",
+     "at": [
+      -0.6,
+      1.7,
+      -2.95
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "ClassicNightstand_01",
+     "at": [
+      0.6,
+      0,
+      -2.7
+     ],
+     "size": 0.6
+    },
+    {
+     "m": "mantel_clock_01",
+     "at": [
+      0.6,
+      0.6,
+      -2.7
+     ],
+     "size": 0.25
+    },
+    {
+     "id": "lettere",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        -0.2,
+        0.0,
+        0.0
+       ],
+       "rot": [
+        0,
+        0,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        -0.08000000000000002,
+        0.01,
+        0.0
+       ],
+       "rot": [
+        0,
+        23,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        0.03999999999999998,
+        0.02,
+        0.0
+       ],
+       "rot": [
+        0,
+        46,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        0.15999999999999998,
+        0.03,
+        0.0
+       ],
+       "rot": [
+        0,
+        69,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        -0.2,
+        0.04,
+        0.1
+       ],
+       "rot": [
+        0,
+        92,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        -0.08000000000000002,
+        0.05,
+        0.1
+       ],
+       "rot": [
+        0,
+        115,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        0.03999999999999998,
+        0.06,
+        0.1
+       ],
+       "rot": [
+        0,
+        138,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        0.15999999999999998,
+        0.07,
+        0.1
+       ],
+       "rot": [
+        0,
+        161,
+        0
+       ],
+       "color": "#f6f0e0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.22,
+        0.01,
+        0.15
+       ],
+       "at": [
+        -0.2,
+        0.08,
+        0.2
+       ],
+       "rot": [
+        0,
+        184,
+        0
+       ],
+       "color": "#f6f0e0"
+      }
+     ],
+     "at": [
+      -1.4,
+      0.56,
+      -1.2
+     ],
+     "hidden": true
+    },
+    {
+     "id": "premio",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.06,
+       "h": 0.03,
+       "at": [
+        0,
+        0.015,
+        0
+       ],
+       "color": "#3a2a1a"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.03,
+       "h": 0.2,
+       "at": [
+        0,
+        0.13,
+        0
+       ],
+       "color": "#d8b04a",
+       "metal": 1,
+       "rough": 0.2
+      },
+      {
+       "shape": "sphere",
+       "r": 0.06,
+       "at": [
+        0,
+        0.26,
+        0
+       ],
+       "color": "#d8b04a",
+       "metal": 1,
+       "rough": 0.2
+      }
+     ],
+     "at": [
+      0.75,
+      0.6,
+      -2.65
+     ],
+     "hidden": true
+    },
+    {
+     "id": "giornalisti",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.14,
+        0.09,
+        0.08
+       ],
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#1a1a1a"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.05,
+       "at": [
+        0,
+        0.06,
+        0.05
+       ],
+       "glow": 5.0,
+       "color": "#ffffff"
+      }
+     ],
+     "at": [
+      1.4,
+      1.5,
+      0.6
+     ],
+     "hidden": true
+    }
+   ]
+  },
+  "onu": {
+   "type": "room",
+   "w": 14,
+   "d": 10,
+   "h": 5,
+   "light": "interno",
+   "floor": {
+    "tex": "marble_tiles",
+    "tint": "#d8d4cc",
+    "rep": 6
+   },
+   "wall": {
+    "tex": "painted_plaster_wall",
+    "tint": "#b8c8d8",
+    "rep": [
+     4,
+     1.5
+    ]
+   },
+   "lamps": [
+    {
+     "at": [
+      0,
+      4.5,
+      0
+     ],
+     "intensity": 3.5,
+     "color": "#fff0d8"
+    }
+   ],
+   "boards": [
+    {
+     "id": "insegna_onu",
+     "text": "NAZIONI UNITE\nNEW YORK · 2006",
+     "at": [
+      0,
+      3.4,
+      -4.95
+     ],
+     "w": 3.6,
+     "h": 1.2,
+     "bg": "#1d4f9a",
+     "ink": "#ffffff",
+     "border": "#ffffff",
+     "frame": "#123"
+    }
+   ],
+   "models": [
+    {
+     "m": "WoodenTable_02",
+     "at": [
+      0,
+      0,
+      -3.2
+     ],
+     "size": 0.9,
+     "w": 2.4,
+     "id": "podio"
+    },
+    {
+     "m": "projector_screen",
+     "at": [
+      -4.5,
+      0,
+      -4.6
+     ],
+     "size": 2.6
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      -3,
+      0,
+      1.6
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      -3,
+      0,
+      2.8
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      -1.8,
+      0,
+      1.6
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      -1.8,
+      0,
+      2.8
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      -0.6,
+      0,
+      1.6
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      -0.6,
+      0,
+      2.8
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      0.6,
+      0,
+      1.6
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      0.6,
+      0,
+      2.8
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      1.8,
+      0,
+      1.6
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      1.8,
+      0,
+      2.8
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      3,
+      0,
+      1.6
+     ],
+     "size": 0.95,
+     "ry": 180
+    },
+    {
+     "m": "dining_chair_02",
+     "at": [
+      3,
+      0,
+      2.8
+     ],
+     "size": 0.95,
+     "ry": 180
+    }
+   ]
+  }
+ },
+ "beats": [
+  {
+   "say": "Mezzanotte passata.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "light": "interno_notte"
+  },
+  {
+   "say": "In un bunker vicino a Mosca, una sirena comincia a urlare.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "sirena"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral",
+     "change": [
+      {
+       "at": "sirena",
+       "face": "shock"
+      }
+     ]
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral",
+     "change": [
+      {
+       "at": "urlare",
+       "face": "worried"
+      }
+     ]
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "do": [
+    {
+     "id": "allarme1",
+     "at": "sirena",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "sirena",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "bunker": "mappa"
+   }
+  },
+  {
+   "say": "Sulla parete si accende una sola parola, in rosso: LANCIO.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "rivela_dal_viso",
+     "on": "petrov"
+    },
+    {
+     "preset": "dal_basso_rivela",
+     "on": "lancio",
+     "at": "LANCIO"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "worried"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "worried"
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "LANCIO",
+     "pop": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Sulla",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Sulla",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "parete": "mappa",
+    "parola": "lancio"
+   }
+  },
+  {
+   "say": "Secondo il computer, un missile nucleare americano è appena partito verso l'Unione Sovietica.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "monitor"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa",
+     "at": "missile"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "worried"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "missile",
+     "pop": true
+    },
+    {
+     "id": "lancio",
+     "at": "Secondo",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Secondo",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Secondo",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "computer": "monitor",
+    "missile": "missile1",
+    "unione": "mappa"
+   }
+  },
+  {
+   "say": "L'uomo seduto davanti a quello schermo ha pochi minuti per capire se è l'inizio della fine del mondo.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov",
+     "at": "minuti"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "fine"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "worried",
+     "change": [
+      {
+       "at": "fine",
+       "face": "nervous"
+      }
+     ]
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "uomo",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "uomo",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "uomo",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "uomo",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "uomo": "petrov",
+    "schermo": "monitor",
+    "mondo": "mappa"
+   },
+   "non_mostrare": [
+    "minuti: è il tempo, lo dice il viso"
+   ]
+  },
+  {
+   "say": "Per capire perché quella notte faceva così paura, bisogna tornare indietro di tre settimane.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "vertigine",
+     "on": "petrov"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio",
+     "at": "tornare"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "Per",
+     "show": true
+    },
+    {
+     "id": "orologio",
+     "at": "tornare",
+     "spin": -3,
+     "dur": 2.0
+    },
+    {
+     "id": "allarme1",
+     "at": "Per",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Per",
+     "on": true
+    }
+   ],
+   "non_mostrare": [
+    "notte: siamo nel bunker di notte"
+   ]
+  },
+  {
+   "say": "Primo settembre 1983.",
+   "place": "mare",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "data_kal"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "data_kal",
+     "at": "Primo",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "settembre": "data_kal"
+   }
+  },
+  {
+   "say": "Un aereo di linea coreano, partito da New York, finisce fuori rotta sopra il territorio sovietico.",
+   "place": "mare",
+   "camera": [
+    {
+     "preset": "tilt_cielo",
+     "on": "aereo"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "aereo",
+     "at": "rotta"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "data_kal",
+     "at": "Un",
+     "hide": true
+    },
+    {
+     "id": "aereo",
+     "at": "aereo",
+     "move": [
+      3,
+      6.3,
+      -7
+     ],
+     "dur": 6.5
+    }
+   ],
+   "mostra": {
+    "aereo": "aereo",
+    "territorio": "aereo"
+   },
+   "non_mostrare": [
+    "new york: è solo il punto di partenza"
+   ]
+  },
+  {
+   "say": "È notte. Un caccia sovietico lo raggiunge.",
+   "place": "mare",
+   "camera": [
+    {
+     "preset": "campo_lungo_alto",
+     "on": "aereo"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "caccia",
+     "at": "caccia"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "data_kal",
+     "at": "notte",
+     "hide": true
+    },
+    {
+     "id": "caccia",
+     "at": "caccia",
+     "show": true,
+     "from": [
+      9,
+      7.5,
+      -4
+     ],
+     "dur": 1.5
+    },
+    {
+     "id": "aereo",
+     "at": "notte",
+     "move": [
+      3.6,
+      6.3,
+      -7.2
+     ],
+     "dur": 4
+    }
+   ],
+   "mostra": {
+    "caccia": "caccia",
+    "notte": "aereo"
+   }
+  },
+  {
+   "say": "E lo abbatte.",
+   "place": "mare",
+   "camera": [
+    {
+     "preset": "campo_lungo_alto",
+     "on": "aereo"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "data_kal",
+     "at": "abbatte",
+     "hide": true
+    },
+    {
+     "id": "caccia",
+     "at": "E",
+     "show": true,
+     "move": [
+      8,
+      8.5,
+      -6
+     ],
+     "dur": 1.5
+    },
+    {
+     "id": "aereo",
+     "at": "abbatte",
+     "hide": true
+    },
+    {
+     "id": "aereo_luci",
+     "at": "abbatte",
+     "pop": true,
+     "move": [
+      3.6,
+      2.0,
+      -7.2
+     ],
+     "dur": 2.5
+    }
+   ],
+   "non_mostrare": [
+    "abbatte: niente violenza, l'aereo sparisce nel buio"
+   ]
+  },
+  {
+   "say": "Muoiono tutte le duecentosessantanove persone a bordo.",
+   "place": "mare",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "vittime"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "vittime",
+     "at": "Muoiono",
+     "show": true
+    },
+    {
+     "id": "aereo",
+     "at": "Muoiono",
+     "hide": true
+    }
+   ],
+   "mostra": {
+    "persone": "vittime"
+   },
+   "non_mostrare": [
+    "bordo: le vittime non si mostrano"
+   ]
+  },
+  {
+   "say": "Il mondo è sotto shock. Washington accusa Mosca.",
+   "place": "cremlino",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "giornale",
+     "at": "Washington"
+    }
+   ],
+   "cast": [
+    {
+     "id": "kgb",
+     "x": 0,
+     "z": -1.0,
+     "pose": "hang",
+     "face": "shock"
+    }
+   ],
+   "mostra": {
+    "mondo": "giornale",
+    "mosca": "giornale"
+   }
+  },
+  {
+   "say": "Mosca risponde che quello era un aereo spia.",
+   "place": "cremlino",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "pravda"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "kgb",
+     "at": "spia"
+    }
+   ],
+   "cast": [
+    {
+     "id": "kgb",
+     "x": 0,
+     "z": -1.0,
+     "pose": "point",
+     "face": "determined"
+    }
+   ],
+   "mostra": {
+    "mosca": "pravda",
+    "aereo": "pravda",
+    "spia": "pravda"
+   }
+  },
+  {
+   "say": "E al Cremlino cresce un sospetto: gli americani stanno preparando un attacco a sorpresa.",
+   "place": "cremlino",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "kgb"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "sospetto",
+     "at": "attacco"
+    }
+   ],
+   "cast": [
+    {
+     "id": "kgb",
+     "x": 0,
+     "z": -1.0,
+     "pose": "hang",
+     "face": "sly",
+     "change": [
+      {
+       "at": "attacco",
+       "face": "worried"
+      }
+     ]
+    }
+   ],
+   "do": [
+    {
+     "id": "sospetto",
+     "at": "attacco",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "cremlino": "bandiera",
+    "sospetto": "sospetto",
+    "americani": "sospetto"
+   }
+  },
+  {
+   "say": "Da due anni il KGB porta avanti un'operazione segreta per scoprirlo in anticipo.",
+   "place": "cremlino",
+   "camera": [
+    {
+     "preset": "tre_quarti",
+     "on": "kgb"
+    },
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "fascicolo",
+     "at": "operazione"
+    }
+   ],
+   "cast": [
+    {
+     "id": "kgb",
+     "x": 0,
+     "z": -1.0,
+     "pose": "point",
+     "face": "sly"
+    }
+   ],
+   "do": [
+    {
+     "id": "sospetto",
+     "at": "Da",
+     "show": true
+    }
+   ],
+   "mostra": {
+    "kgb": "kgb",
+    "operazione": "fascicolo"
+   },
+   "non_mostrare": [
+    "anni: è una durata",
+    "porta"
+   ]
+  },
+  {
+   "say": "Si chiama RYAN.",
+   "place": "cremlino",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "ryan"
+    }
+   ],
+   "cast": [
+    {
+     "id": "kgb",
+     "x": 0,
+     "z": -1.0,
+     "pose": "hang",
+     "face": "sly"
+    }
+   ],
+   "do": [
+    {
+     "id": "ryan",
+     "at": "RYAN",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "ryan": "ryan"
+   }
+  },
+  {
+   "say": "Le spie sovietiche all'estero devono osservare segnali strani:",
+   "place": "washington",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "mezza_figura",
+     "on": "spia",
+     "at": "osservare"
+    }
+   ],
+   "cast": [
+    {
+     "id": "spia",
+     "x": -1.0,
+     "z": -1.5,
+     "pose": "hip",
+     "face": "sly",
+     "change": [
+      {
+       "at": "osservare",
+       "pose": "point",
+       "face": "determined"
+      }
+     ]
+    }
+   ],
+   "mostra": {
+    "spie": "spia",
+    "segnali": "finestre"
+   }
+  },
+  {
+   "say": "le finestre accese di notte negli uffici del governo,",
+   "place": "washington",
+   "camera": [
+    {
+     "preset": "dal_basso_rivela",
+     "on": "finestre"
+    }
+   ],
+   "cast": [
+    {
+     "id": "spia",
+     "x": -1.0,
+     "z": -1.5,
+     "pose": "point",
+     "face": "determined"
+    }
+   ],
+   "do": [
+    {
+     "id": "finestre",
+     "at": "accese",
+     "show": true
+    }
+   ],
+   "mostra": {
+    "finestre": "finestre",
+    "uffici": "finestre",
+    "governo": "finestre"
+   }
+  },
+  {
+   "say": "le scorte di sangue negli ospedali.",
+   "place": "washington",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "sangue"
+    }
+   ],
+   "cast": [
+    {
+     "id": "spia",
+     "x": -1.0,
+     "z": -1.5,
+     "pose": "point",
+     "face": "sly"
+    }
+   ],
+   "do": [
+    {
+     "id": "finestre",
+     "at": "le",
+     "show": true
+    },
+    {
+     "id": "sangue",
+     "at": "sangue",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "scorte": "sangue",
+    "sangue": "sangue",
+    "ospedali": "ospedale"
+   }
+  },
+  {
+   "say": "Ogni luce accesa a Washington può voler dire una cosa sola: si preparano alla guerra.",
+   "place": "washington",
+   "camera": [
+    {
+     "preset": "campo_lungo_alto",
+     "on": "finestre"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "spia",
+     "at": "guerra"
+    }
+   ],
+   "cast": [
+    {
+     "id": "spia",
+     "x": -1.0,
+     "z": -1.5,
+     "pose": "hang",
+     "face": "worried",
+     "change": [
+      {
+       "at": "guerra",
+       "face": "shock"
+      }
+     ]
+    }
+   ],
+   "do": [
+    {
+     "id": "finestre",
+     "at": "Ogni",
+     "show": true
+    },
+    {
+     "id": "guerra",
+     "at": "guerra",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "luce": "finestre",
+    "washington": "finestre",
+    "guerra": "guerra"
+   }
+  },
+  {
+   "say": "Quell'autunno, da una parte e dall'altra, migliaia di testate nucleari sono pronte.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    },
+    {
+     "preset": "ambiente",
+     "at": "migliaia"
+    }
+   ],
+   "cast": [
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "do": [
+    {
+     "id": "centinaia",
+     "at": "migliaia",
+     "pop": true
+    },
+    {
+     "id": "centinaia",
+     "at": "pronte",
+     "hide": true
+    }
+   ],
+   "light": "interno",
+   "mostra": {
+    "testate": "centinaia"
+   },
+   "non_mostrare": [
+    "autunno: è un tempo"
+   ]
+  },
+  {
+   "say": "Basta un errore.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "lancio"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "Basta",
+     "pop": true
+    },
+    {
+     "id": "lancio",
+     "at": "errore",
+     "shake": 0.05
+    }
+   ],
+   "light": "interno_notte",
+   "mostra": {
+    "errore": "lancio"
+   }
+  },
+  {
+   "say": "Stanislav Petrov ha quarantaquattro anni.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "rivela_dal_viso",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": -2.5,
+     "z": 1.8,
+     "pose": "hang",
+     "face": "neutral",
+     "enter": "Stanislav",
+     "move": {
+      "at": "Petrov",
+      "to": [
+       0,
+       1.3
+      ],
+      "dur": 2.5
+     }
+    }
+   ],
+   "light": "interno",
+   "non_mostrare": [
+    "anni: è l'età"
+   ]
+  },
+  {
+   "say": "È nato a Vladivostok.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hip",
+     "face": "smile"
+    }
+   ],
+   "light": "interno",
+   "non_mostrare": [
+    "vladivostok: è un luogo citato"
+   ]
+  },
+  {
+   "say": "È tenente colonnello della difesa aerea, ma prima di tutto è un ingegnere.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "monitor",
+     "at": "ingegnere"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hip",
+     "face": "determined",
+     "change": [
+      {
+       "at": "ingegnere",
+       "pose": "point",
+       "face": "smile"
+      }
+     ]
+    }
+   ],
+   "light": "interno",
+   "mostra": {
+    "colonnello": "petrov",
+    "ingegnere": "petrov",
+    "difesa": "petrov"
+   },
+   "non_mostrare": [
+    "aerea",
+    "aereo"
+   ]
+  },
+  {
+   "say": "Lavora a Serpukhov-15, il centro che riceve i dati di Oko:",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa",
+     "at": "Oko"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "light": "interno",
+   "mostra": {
+    "centro": "mappa",
+    "dati": "mappa",
+    "oko": "mappa"
+   }
+  },
+  {
+   "say": "una rete di satelliti che guarda le basi missilistiche americane, giorno e notte.",
+   "place": "spazio",
+   "camera": [
+    {
+     "preset": "gru_rivela",
+     "on": "satellite"
+    },
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "terra",
+     "at": "basi"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "satellite",
+     "at": "satelliti",
+     "spin": 0.3,
+     "dur": 4
+    }
+   ],
+   "mostra": {
+    "rete": "satellite",
+    "satelliti": "satellite",
+    "basi": "terra"
+   },
+   "non_mostrare": [
+    "giorno: è una durata"
+   ]
+  },
+  {
+   "say": "Il loro compito è vedere il fuoco dei motori di un missile appena partito.",
+   "place": "spazio",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "satellite"
+    },
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "terra",
+     "at": "fuoco"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "raggio",
+     "at": "vedere",
+     "show": true
+    },
+    {
+     "id": "raggio",
+     "at": "missile",
+     "hide": true
+    }
+   ],
+   "mostra": {
+    "fuoco": "raggio",
+    "motori": "raggio",
+    "missile": "raggio"
+   },
+   "non_mostrare": [
+    "compito: concetto"
+   ]
+  },
+  {
+   "say": "Così Mosca avrebbe qualche minuto in più per reagire.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio"
+    },
+    {
+     "preset": "mezza_figura",
+     "on": "petrov",
+     "at": "reagire"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "light": "interno",
+   "mostra": {
+    "mosca": "mappa"
+   },
+   "non_mostrare": [
+    "minuto: tempo"
+   ]
+  },
+  {
+   "say": "Petrov conosce bene quel sistema. Sa che è nuovo.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "passaggio",
+     "on": "petrov",
+     "verso": "monitor",
+     "parola": "nuovo"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "point",
+     "face": "smile"
+    }
+   ],
+   "light": "interno",
+   "mostra": {
+    "sistema": "monitor"
+   }
+  },
+  {
+   "say": "E sa che non è perfetto.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "sly"
+    }
+   ],
+   "light": "interno"
+  },
+  {
+   "say": "La notte tra il 25 e il 26 settembre è lui l'ufficiale di turno.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "data"
+    },
+    {
+     "preset": "mezza_figura",
+     "on": "petrov",
+     "at": "ufficiale"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "light": "interno_notte",
+   "mostra": {
+    "notte": "data",
+    "settembre": "data",
+    "ufficiale": "petrov"
+   },
+   "non_mostrare": [
+    "turno: è il suo ruolo"
+   ]
+  },
+  {
+   "say": "Poco dopo mezzanotte, la sirena.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "sirena"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral",
+     "change": [
+      {
+       "at": "sirena",
+       "face": "shock"
+      }
+     ]
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "do": [
+    {
+     "id": "allarme1",
+     "at": "sirena",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "sirena",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "mezzanotte": "orologio"
+   }
+  },
+  {
+   "say": "Sullo schermo: un missile partito da una base negli Stati Uniti.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    },
+    {
+     "preset": "dal_basso_rivela",
+     "on": "lancio",
+     "at": "partito"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "shock"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "missile",
+     "pop": true
+    },
+    {
+     "id": "lancio",
+     "at": "partito",
+     "pop": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Sullo",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Sullo",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "schermo": "mappa",
+    "missile": "missile1",
+    "base": "mappa",
+    "stati": "mappa"
+   }
+  },
+  {
+   "say": "Il sistema indica il livello di affidabilità più alto.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "affidabilita"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "shock"
+    }
+   ],
+   "do": [
+    {
+     "id": "affidabilita",
+     "at": "affidabilità",
+     "pop": true
+    },
+    {
+     "id": "lancio",
+     "at": "Il",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "Il",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Il",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Il",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "sistema": "affidabilita",
+    "livello": "affidabilita"
+   }
+  },
+  {
+   "say": "I suoi uomini si girano verso di lui. Aspettano un ordine.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "due_figure_tavolo",
+     "on": "operatore"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "Aspettano"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "worried"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "shock",
+     "flip": true,
+     "change": [
+      {
+       "at": "girano",
+       "flip": false
+      }
+     ]
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "worried",
+     "flip": true,
+     "change": [
+      {
+       "at": "girano",
+       "flip": false
+      }
+     ]
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "I",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "I",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "I",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "I",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "uomini": "operatore"
+   },
+   "non_mostrare": [
+    "ordine: non arriva, si vede l'attesa"
+   ]
+  },
+  {
+   "say": "Il protocollo è chiaro: se l'attacco è vero, va avvisato subito il comando.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "telefono"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov",
+     "at": "comando"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "Il",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "Il",
+     "show": true
+    },
+    {
+     "id": "telefono",
+     "at": "comando",
+     "shake": 0.02
+    },
+    {
+     "id": "allarme1",
+     "at": "Il",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Il",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "protocollo": "registro",
+    "comando": "telefono",
+    "attacco": "lancio"
+   }
+  },
+  {
+   "say": "E lassù, con pochissimi minuti, qualcuno potrebbe decidere di rispondere.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dal_basso_rivela",
+     "on": "lancio"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "rispondere"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "E",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "E",
+     "on": true
+    }
+   ],
+   "non_mostrare": [
+    "qualcuno: i vertici restano fuori campo",
+    "minuti: tempo"
+   ]
+  },
+  {
+   "say": "Petrov resta seduto. Il telefono in una mano, il microfono nell'altra.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "telefono",
+     "at": "telefono"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "phone",
+     "face": "determined",
+     "prop": "phone"
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "telefono",
+     "at": "telefono",
+     "hop": 0.04
+    },
+    {
+     "id": "allarme1",
+     "at": "Petrov",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Petrov",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "telefono": "telefono",
+    "microfono": "telefono",
+    "mano": "petrov"
+   }
+  },
+  {
+   "say": "Poi il sistema segnala un secondo missile.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "phone",
+     "face": "shock",
+     "prop": "phone"
+    }
+   ],
+   "do": [
+    {
+     "id": "lancio",
+     "at": "Poi",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "Poi",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "secondo",
+     "pop": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Poi",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Poi",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "sistema": "mappa",
+    "missile": "missile2"
+   }
+  },
+  {
+   "say": "Un terzo. Un quarto. Un quinto.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "quinto"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "phone",
+     "face": "shock",
+     "prop": "phone"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "terzo",
+     "pop": true
+    },
+    {
+     "id": "missile4",
+     "at": "quarto",
+     "pop": true
+    },
+    {
+     "id": "missile5",
+     "at": "quinto",
+     "pop": true
+    },
+    {
+     "id": "missili5",
+     "at": "quinto",
+     "pop": true
+    },
+    {
+     "id": "lancio",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Un",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Un",
+     "on": true
+    }
+   ]
+  },
+  {
+   "say": "Qualcosa non torna.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano_finale",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "phone",
+     "face": "determined",
+     "prop": "phone"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Qualcosa",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Qualcosa",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Qualcosa",
+     "on": true
+    }
+   ]
+  },
+  {
+   "say": "Se gli Stati Uniti volessero davvero colpire per primi, non manderebbero cinque missili.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa",
+     "at": "cinque"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "determined"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Se",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Se",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "stati": "mappa",
+    "missili": "mappa"
+   }
+  },
+  {
+   "say": "Ne manderebbero centinaia, tutti insieme, per non lasciare all'avversario la possibilità di rispondere.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov",
+     "at": "possibilità"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "point",
+     "face": "determined"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Ne",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Ne",
+     "on": true
+    },
+    {
+     "id": "centinaia",
+     "at": "centinaia",
+     "pop": true
+    },
+    {
+     "id": "centinaia",
+     "at": "possibilità",
+     "hide": true
+    }
+   ],
+   "mostra": {
+    "centinaia": "centinaia",
+    "avversario": "mappa"
+   }
+  },
+  {
+   "say": "E c'è un altro dettaglio. I radar a terra non vedono niente.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano",
+     "on": "petrov"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "radar",
+     "at": "radar"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "sly"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "E",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "E",
+     "on": true
+    },
+    {
+     "id": "radar",
+     "at": "niente",
+     "shake": 0.01
+    }
+   ],
+   "mostra": {
+    "dettaglio": "radar",
+    "radar": "radar",
+    "terra": "radar"
+   }
+  },
+  {
+   "say": "Petrov chiama l'ufficiale di servizio al comando.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "telefono"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov",
+     "at": "comando"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "phone",
+     "face": "determined",
+     "prop": "phone"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Petrov",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Petrov",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Petrov",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "ufficiale": "telefono",
+    "comando": "telefono",
+    "servizio": "telefono"
+   }
+  },
+  {
+   "say": "E dice: è un guasto del sistema.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano_finale",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "phone",
+     "face": "determined",
+     "prop": "phone",
+     "talk": true
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "E",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "E",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "guasto": "petrov",
+    "sistema": "mappa"
+   }
+  },
+  {
+   "say": "Anni dopo racconterà che non ne era affatto sicuro. Per lui era cinquanta e cinquanta.",
+   "place": "casa",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov_anziano"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov_anziano",
+     "at": "cinquanta"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov_anziano",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "shrug",
+     "face": "neutral",
+     "talk": true,
+     "change": [
+      {
+       "at": "cinquanta",
+       "face": "sly"
+      }
+     ]
+    }
+   ],
+   "non_mostrare": [
+    "anni: tempo"
+   ]
+  },
+  {
+   "say": "Ora non resta che aspettare.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "vertigine",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Ora",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Ora",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Ora",
+     "on": true
+    }
+   ]
+  },
+  {
+   "say": "Se ha ragione, non succederà niente.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Se",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Se",
+     "on": true
+    }
+   ],
+   "non_mostrare": [
+    "ragione: concetto"
+   ]
+  },
+  {
+   "say": "Se ha torto, i missili arriveranno tra pochi minuti.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "minuti"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "teary"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Se",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Se",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Se",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "missili": "mappa"
+   },
+   "non_mostrare": [
+    "minuti: tempo",
+    "torto",
+    "torta"
+   ]
+  },
+  {
+   "say": "E nessuno sarà stato avvisato.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "telefono"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "teary"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "E",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "E",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "E",
+     "on": true
+    }
+   ]
+  },
+  {
+   "say": "Nel bunker cala il silenzio.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "ambiente"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "nervous"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Nel",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Nel",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Nel",
+     "on": true
+    }
+   ],
+   "mostra": {
+    "silenzio": "petrov"
+   }
+  },
+  {
+   "say": "Gli occhi vanno all'orologio. Poi allo schermo. Poi di nuovo all'orologio.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa",
+     "at": "schermo"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio",
+     "at": "nuovo"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Gli",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Gli",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Gli",
+     "on": true
+    },
+    {
+     "id": "orologio",
+     "at": "nuovo",
+     "shake": 0.01
+    }
+   ],
+   "mostra": {
+    "occhi": "petrov",
+    "schermo": "mappa"
+   }
+  },
+  {
+   "say": "Passa un minuto.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Passa",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Passa",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Passa",
+     "on": true
+    },
+    {
+     "id": "orologio",
+     "at": "minuto",
+     "spin": 0.05,
+     "dur": 1
+    }
+   ]
+  },
+  {
+   "say": "Ne passano dieci. Venti.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio"
+    },
+    {
+     "preset": "ecu",
+     "on": "petrov",
+     "at": "Venti"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "teary"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Ne",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Ne",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Ne",
+     "on": true
+    },
+    {
+     "id": "orologio",
+     "at": "dieci",
+     "spin": 0.1,
+     "dur": 1.2
+    }
+   ]
+  },
+  {
+   "say": "Niente esplode.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "ambiente"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "nervous"
+    },
+    {
+     "id": "operatore",
+     "x": 1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "nervous"
+    },
+    {
+     "id": "operatore2",
+     "x": -1.6,
+     "z": -0.45,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Niente",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Niente",
+     "on": false
+    },
+    {
+     "id": "allarme2",
+     "at": "Niente",
+     "on": false
+    }
+   ]
+  },
+  {
+   "say": "Nessun missile arriva.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Nessun",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Nessun",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Nessun",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Nessun",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Nessun",
+     "show": true
+    },
+    {
+     "id": "missile1",
+     "at": "arriva",
+     "hide": true
+    },
+    {
+     "id": "missile2",
+     "at": "arriva",
+     "hide": true
+    },
+    {
+     "id": "missile3",
+     "at": "arriva",
+     "hide": true
+    },
+    {
+     "id": "missile4",
+     "at": "arriva",
+     "hide": true
+    },
+    {
+     "id": "missile5",
+     "at": "arriva",
+     "hide": true
+    },
+    {
+     "id": "lancio",
+     "at": "Nessun",
+     "hide": true
+    }
+   ],
+   "mostra": {
+    "missile": "mappa"
+   }
+  },
+  {
+   "say": "Petrov aveva ragione.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano_finale",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "blissful"
+    }
+   ]
+  },
+  {
+   "say": "Ma allora, cosa avevano visto i satelliti?",
+   "place": "spazio",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "satellite"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "satellite",
+     "at": "visto",
+     "spin": 0.25,
+     "dur": 3
+    }
+   ],
+   "mostra": {
+    "satelliti": "satellite"
+   }
+  },
+  {
+   "say": "Quella notte il sole, le nuvole sopra gli Stati Uniti e i satelliti si erano allineati in un modo rarissimo.",
+   "place": "spazio",
+   "camera": [
+    {
+     "preset": "gru_rivela",
+     "on": "satellite"
+    },
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "terra",
+     "at": "nuvole"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "raggio",
+     "at": "allineati",
+     "show": true
+    }
+   ],
+   "mostra": {
+    "sole": "raggio",
+    "nuvole": "terra",
+    "stati": "terra",
+    "satelliti": "satellite"
+   },
+   "non_mostrare": [
+    "notte: tempo",
+    "modo: concetto"
+   ]
+  },
+  {
+   "say": "La luce del sole rimbalzava su nuvole molto alte, proprio sopra le basi missilistiche.",
+   "place": "pianure",
+   "camera": [
+    {
+     "preset": "tilt_cielo",
+     "on": "riflessi"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "silo",
+     "at": "basi"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "riflessi",
+     "at": "rimbalzava",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "luce": "riflessi",
+    "sole": "riflessi",
+    "nuvole": "riflessi",
+    "basi": "silo"
+   }
+  },
+  {
+   "say": "E dallo spazio, quei riflessi sembravano il fuoco dei motori.",
+   "place": "spazio",
+   "camera": [
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "terra"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "satellite",
+     "at": "fuoco"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "raggio",
+     "at": "riflessi",
+     "show": true
+    }
+   ],
+   "mostra": {
+    "spazio": "terra",
+    "riflessi": "raggio",
+    "fuoco": "raggio",
+    "motori": "raggio"
+   }
+  },
+  {
+   "say": "Il computer non aveva visto cinque missili. Aveva visto il sole.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "mappa"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov",
+     "at": "sole"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "smile"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "computer",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "computer",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "computer",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "computer",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "computer",
+     "show": true
+    },
+    {
+     "id": "luce_mappa",
+     "at": "sole",
+     "on": true
+    }
+   ],
+   "light": "interno_notte",
+   "mostra": {
+    "computer": "mappa",
+    "missili": "mappa",
+    "sole": "mappa"
+   }
+  },
+  {
+   "say": "Dopo quella notte, l'Unione Sovietica aggiunse altri satelliti, in un'orbita diversa, per controllare ogni allarme da un secondo punto di vista.",
+   "place": "spazio",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "satellite2"
+    },
+    {
+     "preset": "arco",
+     "on": "satellite",
+     "at": "controllare"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "satellite2",
+     "at": "satelliti",
+     "show": true,
+     "from": [
+      12,
+      18,
+      -4
+     ],
+     "dur": 2.5
+    }
+   ],
+   "mostra": {
+    "satelliti": "satellite2",
+    "orbita": "satellite2",
+    "unione": "terra",
+    "allarme": "satellite"
+   },
+   "non_mostrare": [
+    "notte: tempo",
+    "punto: concetto",
+    "vista: concetto"
+   ]
+  },
+  {
+   "say": "E Petrov? Nessuna medaglia.",
+   "place": "indagine",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": -0.4,
+     "z": 0.4,
+     "pose": "hang",
+     "face": "neutral"
+    }
+   ],
+   "non_mostrare": [
+    "medaglia: non c'è"
+   ]
+  },
+  {
+   "say": "Ci fu un'indagine. All'inizio lo lodarono.",
+   "place": "indagine",
+   "camera": [
+    {
+     "preset": "due_figure_tavolo",
+     "on": "petrov"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "lode",
+     "at": "lodarono"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": -0.4,
+     "z": 0.4,
+     "pose": "hang",
+     "face": "smile",
+     "flip": true
+    },
+    {
+     "id": "generale",
+     "x": 0,
+     "z": -1.4,
+     "pose": "hip",
+     "face": "smile"
+    }
+   ],
+   "do": [
+    {
+     "id": "lode",
+     "at": "lodarono",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "indagine": "generale"
+   }
+  },
+  {
+   "say": "Poi lo rimproverarono: in quelle ore non aveva compilato il registro di servizio.",
+   "place": "indagine",
+   "camera": [
+    {
+     "preset": "primo_piano",
+     "on": "generale"
+    },
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "registro_vuoto",
+     "at": "registro"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": -0.4,
+     "z": 0.4,
+     "pose": "hang",
+     "face": "worried",
+     "flip": true
+    },
+    {
+     "id": "generale",
+     "x": 0,
+     "z": -1.4,
+     "pose": "point",
+     "face": "determined"
+    }
+   ],
+   "do": [
+    {
+     "id": "lode",
+     "at": "Poi",
+     "hide": true
+    },
+    {
+     "id": "rimprovero",
+     "at": "rimproverarono",
+     "pop": true
+    },
+    {
+     "id": "timbro",
+     "at": "registro",
+     "show": true,
+     "from": [
+      0.15,
+      1.3,
+      -0.35
+     ],
+     "dur": 0.5
+    }
+   ],
+   "mostra": {
+    "registro": "registro_vuoto",
+    "servizio": "registro_vuoto"
+   },
+   "non_mostrare": [
+    "ore: tempo"
+   ]
+  },
+  {
+   "say": "La storia finì in un cassetto.",
+   "place": "indagine",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "cassetto"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "registro_vuoto",
+     "at": "storia",
+     "move": [
+      2.9,
+      1.35,
+      -2.4
+     ],
+     "dur": 1.2
+    },
+    {
+     "id": "cassetto",
+     "at": "cassetto",
+     "shake": 0.02
+    }
+   ],
+   "mostra": {
+    "storia": "registro_vuoto",
+    "cassetto": "cassetto"
+   }
+  },
+  {
+   "say": "Per quindici anni nessuno ne seppe niente.",
+   "place": "indagine",
+   "camera": [
+    {
+     "preset": "ambiente"
+    }
+   ],
+   "cast": [],
+   "non_mostrare": [
+    "anni: tempo"
+   ]
+  },
+  {
+   "say": "Solo nel 1998 il suo comandante di allora, il generale Votintsev, la raccontò nelle sue memorie.",
+   "place": "indagine",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "generale"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "memorie",
+     "at": "memorie"
+    }
+   ],
+   "cast": [
+    {
+     "id": "generale",
+     "x": 0,
+     "z": -1.4,
+     "pose": "hang",
+     "face": "smile"
+    }
+   ],
+   "do": [
+    {
+     "id": "memorie",
+     "at": "Solo",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "comandante": "generale",
+    "generale": "generale",
+    "votintsev": "memorie",
+    "memorie": "memorie"
+   }
+  },
+  {
+   "say": "Poi arrivarono i giornalisti, le lettere, i premi.",
+   "place": "casa",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov_anziano"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "lettere",
+     "at": "lettere"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "premio",
+     "at": "premi"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov_anziano",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "shock"
+    }
+   ],
+   "do": [
+    {
+     "id": "giornalisti",
+     "at": "giornalisti",
+     "pop": true
+    },
+    {
+     "id": "lettere",
+     "at": "lettere",
+     "show": true,
+     "from": [
+      -1.4,
+      2.4,
+      1.5
+     ],
+     "dur": 0.8
+    },
+    {
+     "id": "premio",
+     "at": "premi",
+     "pop": true
+    }
+   ],
+   "mostra": {
+    "giornalisti": "giornalisti",
+    "lettere": "lettere",
+    "premi": "premio"
+   }
+  },
+  {
+   "say": "Nel 2006 fu ricevuto alle Nazioni Unite, a New York.",
+   "place": "onu",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "insegna_onu",
+     "at": "Nazioni"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov_anziano",
+     "x": 0,
+     "z": -2.4,
+     "pose": "wave",
+     "face": "smile"
+    },
+    {
+     "id": "diplomatica",
+     "x": -1.8,
+     "z": 2.0,
+     "pose": "up",
+     "face": "smile",
+     "flip": true
+    },
+    {
+     "id": "diplomatico",
+     "x": 1.8,
+     "z": 2.0,
+     "pose": "up",
+     "face": "grin",
+     "flip": true
+    },
+    {
+     "id": "ospite",
+     "x": 0.6,
+     "z": 3.2,
+     "pose": "up",
+     "face": "smile",
+     "flip": true
+    }
+   ],
+   "mostra": {
+    "nazioni": "insegna_onu",
+    "new": "insegna_onu",
+    "york": "insegna_onu"
+   }
+  },
+  {
+   "say": "Lui ripeteva sempre la stessa cosa: non sono un eroe, ero solo la persona giusta nel posto giusto.",
+   "place": "casa",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "petrov_anziano"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov_anziano",
+     "at": "eroe"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov_anziano",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "shrug",
+     "face": "smile",
+     "talk": true
+    }
+   ],
+   "do": [
+    {
+     "id": "lettere",
+     "at": "Lui",
+     "show": true
+    },
+    {
+     "id": "premio",
+     "at": "Lui",
+     "show": true
+    }
+   ],
+   "mostra": {
+    "persona": "petrov_anziano",
+    "eroe": "petrov_anziano"
+   },
+   "non_mostrare": [
+    "posto: concetto",
+    "cosa: concetto"
+   ]
+  },
+  {
+   "say": "Stanislav Petrov morì nel maggio 2017, vicino a Mosca.",
+   "place": "casa",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "Rockingchair"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "lettere",
+     "at": "Stanislav",
+     "show": true
+    },
+    {
+     "id": "premio",
+     "at": "Stanislav",
+     "show": true
+    }
+   ],
+   "non_mostrare": [
+    "petrov: è morto, resta la sedia vuota",
+    "mosca: luogo citato",
+    "maggio: data"
+   ]
+  },
+  {
+   "say": "Il mondo lo scoprì solo mesi dopo.",
+   "place": "casa",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "premio"
+    }
+   ],
+   "cast": [],
+   "do": [
+    {
+     "id": "lettere",
+     "at": "Il",
+     "show": true
+    },
+    {
+     "id": "premio",
+     "at": "Il",
+     "show": true
+    }
+   ],
+   "non_mostrare": [
+    "mondo: concetto",
+    "mesi: tempo"
+   ]
+  },
+  {
+   "say": "Quella notte, una macchina disse che il mondo stava finendo.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "dal_basso_rivela",
+     "on": "lancio"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "petrov",
+     "at": "finendo"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "determined"
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Quella",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Quella",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Quella",
+     "on": true
+    }
+   ],
+   "light": "interno_notte",
+   "mostra": {
+    "macchina": "mappa",
+    "mondo": "mappa"
+   },
+   "non_mostrare": [
+    "notte: tempo"
+   ]
+  },
+  {
+   "say": "Un uomo, da solo, al buio, disse: no.",
+   "place": "bunker",
+   "camera": [
+    {
+     "preset": "primo_piano_finale",
+     "on": "petrov"
+    }
+   ],
+   "cast": [
+    {
+     "id": "petrov",
+     "x": 0,
+     "z": 1.3,
+     "pose": "hang",
+     "face": "determined",
+     "talk": true
+    }
+   ],
+   "do": [
+    {
+     "id": "missile1",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missile2",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missile3",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missile4",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missile5",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "lancio",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "missili5",
+     "at": "Un",
+     "show": true
+    },
+    {
+     "id": "allarme1",
+     "at": "Un",
+     "on": true
+    },
+    {
+     "id": "allarme2",
+     "at": "Un",
+     "on": true
+    },
+    {
+     "id": "lancio",
+     "at": "no",
+     "hide": true
+    },
+    {
+     "id": "allarme1",
+     "at": "no",
+     "on": false
+    },
+    {
+     "id": "allarme2",
+     "at": "no",
+     "on": false
+    },
+    {
+     "id": "missile1",
+     "at": "no",
+     "hide": true
+    },
+    {
+     "id": "missile2",
+     "at": "no",
+     "hide": true
+    },
+    {
+     "id": "missile3",
+     "at": "no",
+     "hide": true
+    },
+    {
+     "id": "missile4",
+     "at": "no",
+     "hide": true
+    },
+    {
+     "id": "missile5",
+     "at": "no",
+     "hide": true
+    }
+   ],
+   "mostra": {
+    "uomo": "petrov"
+   },
+   "non_mostrare": [
+    "buio: è la scena stessa"
+   ]
+  }
+ ]
+}
