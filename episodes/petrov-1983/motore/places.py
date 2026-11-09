@@ -11,8 +11,8 @@ bunker = {"type": "room", "w": 10, "d": 8, "h": 3.6, "light": "interno_notte",
   "wall": {"tex": "painted_plaster_wall", "tint": "#7f9a8c", "rep": [3, 1.2]},
   "ceiling": {"color": "#5a625c"},
   "boards": [
-    {"id": "mappa", "text": "SISTEMA OKO\n\n\n", "at": [0, 1.95, -3.95], "w": 5.2, "h": 2.2, "bg": "#0b1c14", "ink": "#38e07a", "border": "#2a6a44", "frame": "#2a2e2a"},
-    {"id": "lancio", "text": "LANCIO", "at": [0, 3.3, -3.93], "w": 1.9, "h": 0.42, "bg": "#2a0303", "ink": "#ff2a2a", "border": "#ff2a2a", "frame": "#1a1a1a", "hidden": True},
+    {"id": "mappa", "text": "SISTEMA OKO\n\n\n", "at": [0, 1.8, -3.95], "w": 5.2, "h": 1.9, "bg": "#0b1c14", "ink": "#38e07a", "border": "#2a6a44", "frame": "#2a2e2a"},
+    {"id": "lancio", "text": "LANCIO", "at": [0, 3.2, -3.93], "w": 1.9, "h": 0.42, "bg": "#2a0303", "ink": "#ff2a2a", "border": "#ff2a2a", "frame": "#1a1a1a", "hidden": True},
     {"id": "affidabilita", "text": "AFFIDABILITÀ\nMASSIMA", "at": [3.6, 1.7, -3.95], "w": 1.1, "h": 0.7, "bg": "#0b1c14", "ink": "#ffd23a", "border": "#2a6a44", "frame": "#2a2e2a", "hidden": True},
     {"id": "data", "text": "26 SETTEMBRE 1983\nORE 00:15", "at": [-3.6, 1.7, -3.95], "w": 1.2, "h": 0.6, "bg": "#0b1c14", "ink": "#38e07a", "border": "#2a6a44", "frame": "#2a2e2a"},
     {"id": "radar", "text": "RADAR\nNESSUN\nBERSAGLIO", "at": [4.95, 1.6, -1.6], "ry": -90, "w": 1.0, "h": 0.8, "bg": "#061a0e", "ink": "#38e07a", "border": "#38e07a", "frame": "#2a2e2a"}],
@@ -41,6 +41,6 @@ bunker = {"type": "room", "w": 10, "d": 8, "h": 3.6, "light": "interno_notte",
     {"m": "mounted_fluorescent_lights", "at": [0, 3.5, 1.5], "w": 1.3},
     {"m": "clipboard", "at": [-1.3, 0.76, -1.1], "w": 0.25},
     {"m": "retro_multimeter", "at": [1.95, 0.76, -1.05], "w": 0.2},
-    *[dot(i + 1, -1.2 + 0.35 * i, 2.35 - 0.12 * i) for i in range(5)],
-    {"id": "centinaia", "parts": [{"shape": "sphere", "r": 0.04, "glow": 3.0, "color": "#ff6a30", "at": [(-2.2 + (k * 0.37) % 4.4), 1.3 + (k * 0.23) % 1.4, 0]} for k in range(60)], "at": [0, 0, -3.88], "hidden": True}]}
+    *[dot(i + 1, -1.2 + 0.35 * i, 2.1 - 0.1 * i) for i in range(5)],
+    {"id": "centinaia", "parts": [{"shape": "sphere", "r": 0.04, "glow": 3.0, "color": "#ff6a30", "at": [(-2.2 + (k * 0.37) % 4.4), 1.0 + (k * 0.23) % 1.5, 0]} for k in range(60)], "at": [0, 0, -3.88], "hidden": True}]}
 json.dump({"bunker": bunker}, open(__file__.replace("places.py", "places.json"), "w"), ensure_ascii=False, indent=1)

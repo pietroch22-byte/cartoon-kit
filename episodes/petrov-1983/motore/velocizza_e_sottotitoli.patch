@@ -1,0 +1,65 @@
+--- upload/cartoon-storie/kit/engine/film.py	2026-11-09 11:12:56.000000000 +0000
++++ skill/kit/engine/film.py	2026-11-09 13:28:39.385723595 +0000
+@@ -12,7 +12,8 @@
+ 
+ from . import audio as A
+ from . import render as R
+-from .hybrid import karaoke_at, compose
++from .hybrid import karaoke_at, compose as _compose
++from . import draw as D
+ 
+ KIT_ENGINE = Path(__file__).resolve().parent.parent
+ SKILL = KIT_ENGINE.parent
+@@ -387,6 +388,22 @@
+     return story, tl, clips, sfx_events, chunks, total, kit
+ 
+ 
++LOW = []   # frame ranges whose shot frames a sign/board: captions go lower so they never cover its text
++
++
++def compose(c, img, chunks, t, captions=True):
++    if img.width() != W:   # frames rendered at reduced resolution (RES_SCALE): scale up to 1080x1920
++        c.drawImageRect(img, skia.Rect.MakeWH(W, H), skia.SamplingOptions(skia.FilterMode.kLinear))
++        img = None
++    f = int(round(t * FPS)); low = any(a <= f < b for a, b in LOW)
++    if img is not None:
++        c.drawImage(img, 0, 0)
++    D.vignette(c, 0.35)
++    k = karaoke_at(chunks, t) if captions else None
++    if k:
++        D.draw_karaoke(c, *k, y=1690 if low else 1385)
++
++
+ def render3d(work, fdir, kit, frames=None):
+     if not (ENGINE3D / "node_modules" / "playwright").exists():
+         raise SystemExit(f'3D engine not installed. Run once:  cd "{ENGINE3D}" && npm install && npx playwright install chromium')
+@@ -406,6 +423,8 @@
+     log(f"[1/4] Timing, places, direction -> {work}")
+     story, tl, clips, sfx_events, chunks, total, kit = build_timeline(story_path, work, preview)
+     fdir = work / "frames"
++    boards = {it["id"] for P in tl["places"].values() for it in P.get("boards", []) if it.get("id")}
++    LOW[:] = [(c["f0"], c["f1"]) for b in tl["beats"] for c in b["cams"] if c.get("on") in boards]
+     if preview:
+         frames = sorted({f for b in tl["beats"] for f in [b["f0"] + 3, b["f1"] - 4] + [c["f0"] + 5 for c in b["cams"][1:]] + b["evf"]
+                                      + [x for c in b["cams"] for s in c.get("stops", [])[1:] for x in ((s["f0"] + s["arr"]) // 2, s["arr"] + 2)]})
+--- upload/cartoon-storie/engine3d/web/engine.js	2026-11-09 00:38:32.000000000 +0000
++++ skill/engine3d/web/engine.js	2026-11-09 13:28:39.386224016 +0000
+@@ -4,7 +4,7 @@
+ 
+ export const W = 1080, H = 1920;
+ export const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
+-renderer.setPixelRatio(1);
++renderer.setPixelRatio(window.RES_SCALE || 1);
+ renderer.setSize(W, H);
+ renderer.outputColorSpace = THREE.SRGBColorSpace;
+ renderer.shadowMap.enabled = true;
+--- upload/cartoon-storie/engine3d/render.mjs	2026-11-09 00:38:32.000000000 +0000
++++ skill/engine3d/render.mjs	2026-11-09 13:28:39.386709843 +0000
+@@ -19,6 +19,7 @@
+ const page = await browser.newPage({ viewport: { width: tl.width, height: tl.height } });
+ page.on('pageerror', e => console.error('[pageerror]', e.message));
+ page.on('console', m => { if (m.type() === 'error') console.error('[page]', m.text()); });
++if (process.env.RES_SCALE) await page.addInitScript(s => { window.RES_SCALE = s; }, Number(process.env.RES_SCALE));
+ await page.goto(`http://127.0.0.1:${server.address().port}/web/index.html`);
+ await page.waitForFunction('window.ready === true', null, { timeout: 300000 });
+ const t0 = Date.now(); let n = 0;

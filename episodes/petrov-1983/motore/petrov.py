@@ -185,7 +185,7 @@ beat("Secondo il computer, un missile nucleare americano è appena partito verso
      mostra={"computer": "monitor", "missile": "missile1", "unione": "mappa"})
 beat("L'uomo seduto davanti a quello schermo ha pochi minuti per capire se è l'inizio della fine del mondo.", "bunker",
      cam(("mezza_figura", "petrov"), ("primo_piano", "petrov", "minuti"), ("ecu", "petrov", "fine")),
-     [pet(face="worried", change=[{"at": "fine", "face": "nervous"}])], [{"id": "lancio", "at": "uomo", "show": T}, {"id": "missile1", "at": "uomo", "show": T}] + alarm("uomo"),
+     [pet(face="worried", change=[{"at": "fine", "face": "nervous"}])], [{"id": "lancio", "at": "seduto", "show": T}, {"id": "missile1", "at": "seduto", "show": T}] + alarm("seduto"),
      mostra={"uomo": "petrov", "schermo": "monitor", "mondo": "mappa"}, non_mostrare=["minuti: è il tempo, lo dice il viso"])
 beat("Per capire perché quella notte faceva così paura, bisogna tornare indietro di tre settimane.", "bunker",
      cam(("vertigine", "petrov"), ("dettaglio_oggetto", "orologio", "tornare")),
@@ -212,7 +212,7 @@ beat("E al Cremlino cresce un sospetto: gli americani stanno preparando un attac
      cam(("mezza_figura", "kgb"), ("dettaglio_oggetto", "sospetto", "attacco")),
      [{"id": "kgb", "x": 0, "z": -1.0, "pose": "hang", "face": "sly", "change": [{"at": "attacco", "face": "worried"}]}], [{"id": "sospetto", "at": "attacco", "pop": T}],
      mostra={"cremlino": "bandiera", "sospetto": "sospetto", "americani": "sospetto"})
-beat("Da due anni il KGB porta avanti un'operazione segreta per scoprirlo in anticipo.", "cremlino", cam(("tre_quarti", "kgb"), ("dall_alto_oggetto", "fascicolo", "operazione")),
+beat("Da due anni il KGB porta avanti un'operazione segreta per scoprirlo in anticipo.", "cremlino", cam(("tre_quarti", "kgb"), ("dall_alto_oggetto", "fascicolo", "segreta")),
      [{"id": "kgb", "x": 0, "z": -1.0, "pose": "point", "face": "sly"}], [{"id": "sospetto", "at": "Da", "show": T}], mostra={"kgb": "kgb", "operazione": "fascicolo"}, non_mostrare=["anni: è una durata", "porta"])
 beat("Si chiama RYAN.", "cremlino", cam(("dettaglio_oggetto", "ryan")), [{"id": "kgb", "x": 0, "z": -1.0, "pose": "hang", "face": "sly"}], [{"id": "ryan", "at": "RYAN", "pop": T}], mostra={"ryan": "ryan"})
 beat("Le spie sovietiche all'estero devono osservare segnali strani:", "washington", cam(("ambiente",), ("mezza_figura", "spia", "osservare")),
@@ -244,7 +244,7 @@ beat("Così Mosca avrebbe qualche minuto in più per reagire.", "bunker", cam(("
 beat("Petrov conosce bene quel sistema. Sa che è nuovo.", "bunker", cam(("passaggio", "petrov"),), [pet("point", "smile")], light="interno", mostra={"sistema": "monitor"})
 B[-1]["camera"] = [{"preset": "passaggio", "on": "petrov", "verso": "monitor", "parola": "nuovo"}]
 beat("E sa che non è perfetto.", "bunker", cam(("primo_piano", "petrov")), [pet("hang", "sly")], light="interno")
-beat("La notte tra il 25 e il 26 settembre è lui l'ufficiale di turno.", "bunker", cam(("dettaglio_oggetto", "data"), ("mezza_figura", "petrov", "ufficiale")),
+beat("La notte tra il 25 e il 26 settembre è lui l'ufficiale di turno.", "bunker", cam(("dettaglio_oggetto", "data"), ("mezza_figura", "petrov", "lui")),
      [pet("hang", "neutral"), op1(), op2()], light="interno_notte", mostra={"notte": "data", "settembre": "data", "ufficiale": "petrov"}, non_mostrare=["turno: è il suo ruolo"])
 # 3 · i minuti
 beat("Poco dopo mezzanotte, la sirena.", "bunker", cam(("dettaglio_oggetto", "orologio"), ("ecu", "petrov", "sirena")),
