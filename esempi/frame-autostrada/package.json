@@ -1,0 +1,3 @@
+{ "name": "frame-autostrada", "private": true, "type": "module",
+  "scripts": { "render": "node render.mjs frame.png" },
+  "dependencies": { "three": "0.160.0" } }
