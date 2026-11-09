@@ -1,0 +1,243 @@
+{
+ "nome": "frigorifero anni '60 con anta che si apre (fronte verso +z)",
+ "tag": [
+  "frigo",
+  "frigorifero",
+  "fridge",
+  "cucina"
+ ],
+ "altezza_m": 1.7,
+ "cerniere": {
+  "anta": {
+   "at": [
+    -0.38,
+    0,
+    0.37
+   ],
+   "asse": "y"
+  }
+ },
+ "uso": "\"do\": [{\"id\": \"frigo\", \"at\": \"parola\", \"open\": \"anta\"}] apre l'anta; \"close\": \"anta\" la chiude. Ripiani interni a y 0.55, 0.92, 1.3 (relativi al frigo).",
+ "parts": [
+  {
+   "shape": "box",
+   "size": [
+    0.76,
+    0.04,
+    0.68
+   ],
+   "at": [
+    0,
+    0.12,
+    0
+   ],
+   "color": "#c4b894"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.76,
+    0.04,
+    0.68
+   ],
+   "at": [
+    0,
+    1.68,
+    0
+   ],
+   "color": "#c4b894",
+   "rough": 0.35
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.04,
+    1.7,
+    0.68
+   ],
+   "at": [
+    -0.36,
+    0.85,
+    0
+   ],
+   "color": "#c4b894",
+   "rough": 0.35
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.04,
+    1.7,
+    0.68
+   ],
+   "at": [
+    0.36,
+    0.85,
+    0
+   ],
+   "color": "#c4b894",
+   "rough": 0.35
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.76,
+    1.7,
+    0.04
+   ],
+   "at": [
+    0,
+    0.85,
+    -0.32
+   ],
+   "color": "#b8c2c4"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.76,
+    0.12,
+    0.68
+   ],
+   "at": [
+    0,
+    0.06,
+    0
+   ],
+   "color": "#c8c8c0"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.68,
+    0.015,
+    0.6200000000000001
+   ],
+   "at": [
+    0,
+    0.55,
+    0
+   ],
+   "color": "#dfeff4",
+   "rough": 0.1
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.68,
+    0.015,
+    0.6200000000000001
+   ],
+   "at": [
+    0,
+    0.92,
+    0
+   ],
+   "color": "#dfeff4",
+   "rough": 0.1
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.68,
+    0.015,
+    0.6200000000000001
+   ],
+   "at": [
+    0,
+    1.3,
+    0
+   ],
+   "color": "#dfeff4",
+   "rough": 0.1
+  },
+  {
+   "shape": "sphere",
+   "r": 0.035,
+   "at": [
+    0,
+    1.6199999999999999,
+    0.1
+   ],
+   "color": "#c4b894"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.76,
+    1.58,
+    0.06
+   ],
+   "at": [
+    0,
+    0.91,
+    0.37
+   ],
+   "color": "#c4b894",
+   "rough": 0.3,
+   "gruppo": "anta"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.035,
+    0.45,
+    0.05
+   ],
+   "at": [
+    0.31,
+    1.05,
+    0.43000000000000005
+   ],
+   "color": "#c0c6cc",
+   "metal": 0.9,
+   "rough": 0.25,
+   "gruppo": "anta"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.66,
+    0.03,
+    0.08
+   ],
+   "at": [
+    0,
+    0.7,
+    0.31000000000000005
+   ],
+   "color": "#dfeff4",
+   "gruppo": "anta"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.66,
+    0.03,
+    0.08
+   ],
+   "at": [
+    0,
+    1.15,
+    0.31000000000000005
+   ],
+   "color": "#dfeff4",
+   "gruppo": "anta"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.18,
+    0.06,
+    0.01
+   ],
+   "at": [
+    0,
+    1.55,
+    0.405
+   ],
+   "color": "#c8303c",
+   "gruppo": "anta"
+  }
+ ]
+}

@@ -1,0 +1,933 @@
+{
+ "title": "Ho già mangiato (ibrido)",
+ "facts": "commedia",
+ "voice": {
+  "file": "../../work/voce.mp3",
+  "words": "../../work/words.json"
+ },
+ "music": {
+  "mood": "warm",
+  "bpm": 96
+ },
+ "cast": {
+  "nonna": {
+   "body": "dress",
+   "coat": "#6A3D9A",
+   "hair": "bun",
+   "hair_color": "#D8D8DC",
+   "glasses": true
+  },
+  "marco": {
+   "body": "shirt",
+   "coat": "#3E9E6A",
+   "hair": "spiky",
+   "hair_color": "#6B4426"
+  },
+  "vicina": {
+   "body": "dress",
+   "coat": "#D9504A",
+   "hair": "long",
+   "hair_color": "#8A4A2A"
+  },
+  "zia1": {
+   "body": "dress",
+   "coat": "#3A7AC8",
+   "hair": "bun",
+   "hair_color": "#3A2A20"
+  },
+  "zia2": {
+   "body": "dress",
+   "coat": "#E0A030",
+   "hair": "side",
+   "hair_color": "#5A3A2A",
+   "glasses": true
+  },
+  "zia3": {
+   "body": "dress",
+   "coat": "#4AA87A",
+   "hair": "long",
+   "hair_color": "#2A1A10"
+  }
+ },
+ "places": {
+  "cucina": {
+   "type": "room",
+   "w": 8,
+   "d": 7,
+   "h": 3,
+   "wall": "#F2B24A",
+   "floor": "terracotta",
+   "tiles": 1.3,
+   "beams": true,
+   "light": "warm",
+   "models": [
+    {
+     "m": "tableCloth",
+     "at": [
+      0,
+      0,
+      0.2
+     ],
+     "size": 0.8
+    },
+    {
+     "m": "chair",
+     "at": [
+      -1.25,
+      0,
+      0.3
+     ],
+     "size": 0.95,
+     "ry": 90
+    },
+    {
+     "m": "chair",
+     "at": [
+      1.25,
+      0,
+      0.3
+     ],
+     "size": 0.95,
+     "ry": -90
+    },
+    {
+     "m": "pizza",
+     "at": [
+      0.3,
+      0.8,
+      0.35
+     ],
+     "w": 0.34
+    },
+    {
+     "m": "loaf-baguette",
+     "at": [
+      -0.2,
+      0.8,
+      0.1
+     ],
+     "w": 0.45
+    },
+    {
+     "m": "wine-red",
+     "at": [
+      0.62,
+      0.8,
+      0.0
+     ],
+     "size": 0.3
+    },
+    {
+     "m": "salad",
+     "at": [
+      -0.5,
+      0.8,
+      0.4
+     ],
+     "w": 0.26
+    },
+    {
+     "m": "glass-wine",
+     "at": [
+      0.45,
+      0.8,
+      0.5
+     ],
+     "size": 0.16
+    },
+    {
+     "m": "pottedPlant",
+     "at": [
+      -3.4,
+      0,
+      -1.0
+     ],
+     "size": 0.95
+    },
+    {
+     "m": "lampSquareCeiling",
+     "at": [
+      0,
+      2.55,
+      0.2
+     ],
+     "size": 0.45
+    }
+   ],
+   "decor": [
+    {
+     "type": "stove",
+     "at": [
+      -2.5,
+      0,
+      -3.3
+     ],
+     "id": "fornelli",
+     "animate": true,
+     "states": {
+      "off": {
+       "fire": 0
+      },
+      "on": {
+       "fire": 1.8
+      }
+     },
+     "state": "off"
+    },
+    {
+     "type": "pot",
+     "at": [
+      0.75,
+      0.88,
+      -3.25
+     ],
+     "animate": true
+    },
+    {
+     "type": "pan",
+     "at": [
+      -0.6,
+      0.88,
+      -3.25
+     ]
+    },
+    {
+     "type": "counter",
+     "at": [
+      0.2,
+      0,
+      -3.3
+     ],
+     "w": 520
+    },
+    {
+     "type": "sink",
+     "at": [
+      0.2,
+      0.88,
+      -3.25
+     ]
+    },
+    {
+     "type": "bread",
+     "at": [
+      -0.25,
+      0.88,
+      -3.25
+     ]
+    },
+    {
+     "type": "fridge",
+     "at": [
+      3.1,
+      0,
+      -3.2
+     ]
+    },
+    {
+     "type": "cat",
+     "at": [
+      3.1,
+      1.83,
+      -3.15
+     ],
+     "animate": true
+    },
+    {
+     "type": "upper_cabinet",
+     "wall": "back",
+     "at": [
+      -2.5,
+      2.1
+     ]
+    },
+    {
+     "type": "shelf",
+     "wall": "back",
+     "at": [
+      1.0,
+      1.75
+     ],
+     "w": 360
+    },
+    {
+     "type": "shelf",
+     "wall": "back",
+     "at": [
+      1.0,
+      2.35
+     ],
+     "w": 340,
+     "items": "jars"
+    },
+    {
+     "type": "garlic",
+     "wall": "back",
+     "at": [
+      -1.1,
+      2.1
+     ]
+    },
+    {
+     "type": "peppers",
+     "wall": "back",
+     "at": [
+      -0.85,
+      2.1
+     ]
+    },
+    {
+     "type": "frame_pic",
+     "wall": "left",
+     "at": [
+      -1.0,
+      1.9
+     ]
+    },
+    {
+     "type": "wall_clock",
+     "wall": "back",
+     "at": [
+      2.3,
+      2.3
+     ],
+     "id": "orologio"
+    },
+    {
+     "id": "lasagna",
+     "type": "plate_food",
+     "scale": 4.5,
+     "at": [
+      0,
+      0.8,
+      0.35
+     ],
+     "hidden": true
+    },
+    {
+     "id": "porta",
+     "type": "door",
+     "at": [
+      3.85,
+      0,
+      1.6
+     ],
+     "ry": -90,
+     "text": ""
+    }
+   ]
+  },
+  "piazza": {
+   "type": "outdoor",
+   "floor": "street",
+   "light": "night",
+   "sky": "#1C2550",
+   "backdrop": "town_night",
+   "decor": [
+    {
+     "type": "house",
+     "at": [
+      -4.2,
+      0,
+      -5.5
+     ],
+     "scale": 3.0,
+     "lit": true
+    },
+    {
+     "type": "house",
+     "at": [
+      0.3,
+      0,
+      -6.5
+     ],
+     "scale": 3.4,
+     "lit": true,
+     "color": "#C9A27A"
+    },
+    {
+     "type": "house",
+     "at": [
+      4.6,
+      0,
+      -5.5
+     ],
+     "scale": 3.0,
+     "lit": true,
+     "color": "#B8C4A0"
+    },
+    {
+     "type": "street_lamp",
+     "at": [
+      -2.6,
+      0,
+      -2
+     ]
+    },
+    {
+     "type": "street_lamp",
+     "at": [
+      2.8,
+      0,
+      -2.5
+     ]
+    },
+    {
+     "type": "cart",
+     "at": [
+      3.6,
+      0,
+      -1
+     ]
+    },
+    {
+     "type": "tree",
+     "at": [
+      -4.4,
+      0,
+      -3
+     ]
+    },
+    {
+     "type": "well",
+     "at": [
+      0,
+      0,
+      -3.6
+     ]
+    }
+   ],
+   "floor_color": "#5A6488",
+   "models": [
+    {
+     "id": "elicottero",
+     "m": "elicottero",
+     "at": [
+      0.5,
+      4.0,
+      -3.0
+     ],
+     "ry": -25,
+     "hidden": true
+    },
+    {
+     "id": "formaggio",
+     "m": "forma_parmigiano",
+     "parent": "elicottero",
+     "at": [
+      0,
+      -1.75,
+      0
+     ]
+    }
+   ]
+  }
+ },
+ "beats": [
+  {
+   "say": "Mai dire a una nonna italiana: «Ho già mangiato».",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "establish"
+    },
+    {
+     "preset": "push_face",
+     "on": "nonna",
+     "at": "nonna"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.7,
+     "z": -0.5,
+     "face": "smile",
+     "change": [
+      {
+       "at": "mangiato",
+       "face": "shock"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.5,
+     "face": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "Marco ci prova. Sono le otto di sera. Errore.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "closeup",
+     "on": "marco"
+    },
+    {
+     "preset": "insert",
+     "on": "orologio",
+     "at": "otto"
+    },
+    {
+     "preset": "punch",
+     "on": "marco",
+     "at": "Errore"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.7,
+     "z": -0.5,
+     "face": "smile"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.5,
+     "face": "smile",
+     "pose": "shrug",
+     "change": [
+      {
+       "at": "Errore",
+       "face": "shock",
+       "pose": "facepalm"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Nonna Pina sorride. Poi accende tutti e quattro i fuochi.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "push_face",
+     "on": "nonna"
+    },
+    {
+     "preset": "push_on",
+     "on": "fornelli",
+     "at": "accende"
+    }
+   ],
+   "do": [
+    {
+     "id": "fornelli",
+     "at": "fuochi",
+     "state": "on"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.7,
+     "z": -0.5,
+     "face": "smile",
+     "change": [
+      {
+       "at": "sorride",
+       "face": "grin"
+      },
+      {
+       "at": "accende",
+       "pose": "point"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.5,
+     "face": "worried"
+    }
+   ]
+  },
+  {
+   "say": "«Solo un assaggio, nonna.» Arriva una lasagna grande come una porta.",
+   "place": "cucina",
+   "speaker": "marco",
+   "camera": [
+    {
+     "preset": "closeup",
+     "on": "marco"
+    },
+    {
+     "preset": "reveal",
+     "on": "lasagna",
+     "at": "Arriva"
+    }
+   ],
+   "do": [
+    {
+     "id": "lasagna",
+     "at": "lasagna",
+     "pop": true
+    },
+    {
+     "id": "fornelli",
+     "at": "Solo",
+     "state": "on"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.7,
+     "z": -0.5,
+     "face": "laugh",
+     "pose": "show_hands"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.5,
+     "face": "worried",
+     "pose": "beg",
+     "change": [
+      {
+       "at": "porta",
+       "face": "shock"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "«Basta, sono pieno.» Lei chiama la vicina. La vicina chiama il paese.",
+   "place": "cucina",
+   "speaker": "marco",
+   "camera": [
+    {
+     "preset": "closeup",
+     "on": "marco"
+    },
+    {
+     "preset": "truck_right",
+     "at": "chiama"
+    },
+    {
+     "preset": "dolly_out",
+     "at": "paese"
+    }
+   ],
+   "do": [
+    {
+     "id": "lasagna",
+     "at": "Basta",
+     "show": true
+    },
+    {
+     "id": "fornelli",
+     "at": "Basta",
+     "state": "on"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.7,
+     "z": -0.5,
+     "face": "grin",
+     "change": [
+      {
+       "at": "chiama",
+       "pose": "point"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.5,
+     "face": "sad",
+     "pose": "arms_crossed"
+    },
+    {
+     "id": "vicina",
+     "x": 2.3,
+     "z": 0.7,
+     "face": "smile",
+     "pose": "wave",
+     "enter": "vicina",
+     "change": [
+      {
+       "at": "paese",
+       "pose": "cheer",
+       "face": "laugh"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Alle nove c'è una fila di zie con le teglie fino in piazza.",
+   "place": "piazza",
+   "camera": [
+    {
+     "preset": "crane_down"
+    },
+    {
+     "preset": "dolly_out",
+     "at": "piazza"
+    }
+   ],
+   "cast": [
+    {
+     "id": "zia1",
+     "x": -1.0,
+     "z": 1.2,
+     "face": "smile",
+     "pose": "hold"
+    },
+    {
+     "id": "zia2",
+     "x": -0.3,
+     "z": -0.2,
+     "face": "grin",
+     "pose": "hold"
+    },
+    {
+     "id": "zia3",
+     "x": 0.4,
+     "z": -1.6,
+     "face": "smile",
+     "pose": "hold"
+    },
+    {
+     "id": "vicina",
+     "x": 1.1,
+     "z": -3.0,
+     "face": "laugh",
+     "pose": "hold"
+    },
+    {
+     "id": "nonna",
+     "x": -2.3,
+     "z": 0.4,
+     "face": "laugh",
+     "pose": "cheer",
+     "enter": "piazza"
+    }
+   ]
+  },
+  {
+   "say": "Il parmigiano arriva in elicottero.",
+   "place": "piazza",
+   "camera": [
+    {
+     "preset": "low_angle",
+     "on": "zia2"
+    },
+    {
+     "preset": "wide",
+     "on": "elicottero",
+     "at": "arriva",
+     "el": [
+      -14,
+      -6
+     ],
+     "dist": [
+      10,
+      8.5
+     ],
+     "az": [
+      -20,
+      10
+     ]
+    },
+    {
+     "preset": "low_angle",
+     "on": "zia2",
+     "at": "elicottero",
+     "blend": 10
+    }
+   ],
+   "cast": [
+    {
+     "id": "zia1",
+     "x": -0.9,
+     "z": 0.3,
+     "face": "shock",
+     "pose": "point_up"
+    },
+    {
+     "id": "zia2",
+     "x": 0.2,
+     "z": -0.2,
+     "face": "shock",
+     "pose": "arms_up"
+    },
+    {
+     "id": "zia3",
+     "x": 1.2,
+     "z": 0.2,
+     "face": "scared",
+     "pose": "point_up"
+    }
+   ],
+   "do": [
+    {
+     "id": "elicottero",
+     "at": "Il",
+     "show": true,
+     "from": [
+      -12,
+      9,
+      -8
+     ],
+     "dur": 40
+    }
+   ]
+  },
+  {
+   "say": "Marco mangia tutto, per educazione, e rotola verso la porta.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "push_face",
+     "on": "marco"
+    },
+    {
+     "preset": "push_on",
+     "on": "porta",
+     "at": "rotola"
+    }
+   ],
+   "do": [
+    {
+     "id": "lasagna",
+     "at": "Marco",
+     "show": true
+    },
+    {
+     "id": "lasagna",
+     "at": "tutto",
+     "hide": true
+    },
+    {
+     "id": "fornelli",
+     "at": "Marco",
+     "state": "on"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.7,
+     "z": -0.5,
+     "face": "smile"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.5,
+     "face": "sleepy",
+     "change": [
+      {
+       "at": "educazione",
+       "face": "sad"
+      }
+     ],
+     "move": {
+      "at": "rotola",
+      "to": [
+       3.2,
+       1.6
+      ],
+      "dur": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "say": "Nonna lo ferma, preoccupata:",
+   "place": "cucina",
+   "camera": {
+    "preset": "dolly_in",
+    "on": "nonna"
+   },
+   "do": [
+    {
+     "id": "fornelli",
+     "at": "Nonna",
+     "state": "on"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 1.0,
+     "z": 0.6,
+     "face": "worried",
+     "move": {
+      "at": "ferma",
+      "to": [
+       2.5,
+       1.6
+      ],
+      "dur": 0.5
+     },
+     "change": [
+      {
+       "at": "ferma",
+       "pose": "show_hands"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 3.2,
+     "z": 1.6,
+     "face": "sad"
+    }
+   ]
+  },
+  {
+   "say": "«Amore… ma tu hai mangiato?»",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "push_face",
+     "on": "nonna"
+    },
+    {
+     "preset": "punch",
+     "on": "marco",
+     "at": "mangiato"
+    }
+   ],
+   "do": [
+    {
+     "id": "fornelli",
+     "at": "Amore",
+     "state": "on"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 2.5,
+     "z": 1.6,
+     "face": "worried",
+     "pose": "beg"
+    },
+    {
+     "id": "marco",
+     "x": 3.2,
+     "z": 1.6,
+     "face": "sad",
+     "change": [
+      {
+       "at": "mangiato",
+       "face": "shock"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

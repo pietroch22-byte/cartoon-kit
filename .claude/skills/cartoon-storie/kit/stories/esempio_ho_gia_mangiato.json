@@ -1,0 +1,1696 @@
+{
+ "title": "Ho già mangiato",
+ "facts": "commedia",
+ "voice": {
+  "file": "../../work/voce.mp3",
+  "words": "../../work/words.json"
+ },
+ "music": {
+  "mood": "warm",
+  "bpm": 96
+ },
+ "cast": {
+  "nonna": {
+   "type": "nonna"
+  },
+  "marco": {
+   "type": "marco"
+  },
+  "vicina": {
+   "type": "vicina"
+  },
+  "zia1": {
+   "type": "zia1"
+  },
+  "zia2": {
+   "type": "zia2"
+  },
+  "zia3": {
+   "type": "zia3"
+  },
+  "zia4": {
+   "type": "zia4"
+  },
+  "zia5": {
+   "type": "zia5"
+  }
+ },
+ "places": {
+  "ingresso": {
+   "type": "room",
+   "w": 8,
+   "d": 7,
+   "h": 3,
+   "light": "interno",
+   "floor": {
+    "tex": "terracotta_floor_tiles",
+    "tint": "#ffd2bc",
+    "rep": 4
+   },
+   "wall": {
+    "tex": "yellow_plaster",
+    "tint": "#ffd77a",
+    "rep": [
+     3,
+     1.3
+    ]
+   },
+   "boards": [
+    {
+     "id": "ricamo",
+     "text": "MAI DIRE:\n«HO GIÀ\nMANGIATO»",
+     "at": [
+      -1.4,
+      1.75,
+      -3.46
+     ],
+     "w": 0.8,
+     "h": 1.0,
+     "size": 1.0
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      0,
+      2.55,
+      0.3
+     ],
+     "intensity": 3.5,
+     "color": "#ffc98a"
+    }
+   ],
+   "models": [
+    {
+     "m": "vintage_grandfather_clock_01",
+     "at": [
+      -3.45,
+      0,
+      -3.1
+     ],
+     "size": 2.0
+    },
+    {
+     "m": "ArmChair_01",
+     "at": [
+      -3.1,
+      0,
+      0.8
+     ],
+     "size": 0.95,
+     "ry": 90
+    },
+    {
+     "m": "side_table_tall_01",
+     "at": [
+      -1.4,
+      0,
+      -3.2
+     ],
+     "size": 0.8
+    },
+    {
+     "m": "mantel_clock_01",
+     "at": [
+      -1.15,
+      0.8,
+      -3.2
+     ],
+     "size": 0.24
+    },
+    {
+     "m": "brass_candleholders",
+     "at": [
+      -1.7,
+      0.8,
+      -3.2
+     ],
+     "size": 0.22
+    },
+    {
+     "m": "potted_plant_02",
+     "at": [
+      3.4,
+      0,
+      -3.0
+     ],
+     "size": 1.1
+    },
+    {
+     "m": "Shelf_01",
+     "at": [
+      3.6,
+      0,
+      0.9
+     ],
+     "size": 1.6,
+     "ry": -90
+    },
+    {
+     "m": "ornate_mirror_01",
+     "at": [
+      3.9,
+      1.0,
+      -1.0
+     ],
+     "size": 0.9,
+     "ry": -90
+    },
+    {
+     "m": "hanging_picture_frame_02",
+     "at": [
+      2.9,
+      1.3,
+      -3.46
+     ],
+     "size": 0.55
+    },
+    {
+     "m": "wall_clock",
+     "at": [
+      1.4,
+      1.85,
+      -3.45
+     ],
+     "size": 0.4,
+     "id": "orologio"
+    },
+    {
+     "m": "fancy_picture_frame_01",
+     "at": [
+      -3.92,
+      1.3,
+      -1.2
+     ],
+     "size": 0.6,
+     "ry": 90
+    },
+    {
+     "m": "wooden_bucket_01",
+     "at": [
+      -2.6,
+      0,
+      1.4
+     ],
+     "size": 0.35
+    },
+    {
+     "m": "hanging_industrial_lamp",
+     "at": [
+      0,
+      2.2,
+      0.3
+     ],
+     "size": 0.8
+    },
+    {
+     "id": "porta",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        1.2,
+        2.2,
+        0.08
+       ],
+       "at": [
+        0,
+        1.1,
+        0
+       ],
+       "color": "#4f7d3f"
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.45,
+        0.12,
+        0.2
+       ],
+       "at": [
+        0,
+        2.26,
+        0
+       ],
+       "color": "#f4efe2"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.12,
+        2.3,
+        0.2
+       ],
+       "at": [
+        -0.66,
+        1.15,
+        0
+       ],
+       "color": "#f4efe2"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.12,
+        2.3,
+        0.2
+       ],
+       "at": [
+        0.66,
+        1.15,
+        0
+       ],
+       "color": "#f4efe2"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.04,
+       "at": [
+        0.45,
+        1.05,
+        0.06
+       ],
+       "color": "#d8b04a",
+       "metal": 1
+      }
+     ],
+     "at": [
+      2.6,
+      0,
+      -3.42
+     ]
+    }
+   ]
+  },
+  "cucina": {
+   "type": "room",
+   "w": 8,
+   "d": 7,
+   "h": 3,
+   "light": "interno",
+   "beams": true,
+   "floor": {
+    "tex": "terracotta_floor_tiles",
+    "tint": "#ffd2bc",
+    "rep": 4
+   },
+   "wall": {
+    "tex": "yellow_plaster",
+    "tint": "#ffc95a",
+    "rep": [
+     3,
+     1.3
+    ]
+   },
+   "tiles": {
+    "tex": "square_tiled_wall",
+    "tint": "#d8efe8",
+    "rep": [
+     6,
+     1.4
+    ],
+    "h": 1.3
+   },
+   "windows": [
+    {
+     "x": 0.4,
+     "y": 1.85,
+     "w": 1.2,
+     "h": 1.0,
+     "view": "sera"
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      0,
+      2.3,
+      0.4
+     ],
+     "intensity": 3,
+     "color": "#ffc98a"
+    }
+   ],
+   "fires": [
+    {
+     "id": "fornelli",
+     "at": [
+      -1.9,
+      0.92,
+      -3.0
+     ],
+     "burners": 4,
+     "gap": 0.26,
+     "scale": 0.6
+    }
+   ],
+   "steam": [
+    {
+     "at": [
+      2.6,
+      1.2,
+      -3.0
+     ]
+    }
+   ],
+   "models": [
+    {
+     "m": "electric_stove",
+     "at": [
+      -1.9,
+      0,
+      -3.05
+     ],
+     "size": 0.92
+    },
+    {
+     "m": "dining_table",
+     "at": [
+      0,
+      0,
+      0.2
+     ],
+     "size": 0.78
+    },
+    {
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        1.75,
+        0.02,
+        1.05
+       ],
+       "at": [
+        0,
+        0.79,
+        0
+       ],
+       "color": "#e8b8b0"
+      }
+     ],
+     "at": [
+      0,
+      0,
+      0.2
+     ]
+    },
+    {
+     "m": "painted_wooden_chair_01",
+     "at": [
+      -1.15,
+      0,
+      0.25
+     ],
+     "size": 0.95,
+     "ry": 90
+    },
+    {
+     "m": "painted_wooden_chair_01",
+     "at": [
+      1.15,
+      0,
+      0.25
+     ],
+     "size": 0.95,
+     "ry": -90
+    },
+    {
+     "m": "painted_wooden_cabinet",
+     "at": [
+      2.7,
+      0,
+      -3.1
+     ],
+     "size": 1.0,
+     "w": 1.6
+    },
+    {
+     "m": "brass_pot_01",
+     "at": [
+      2.6,
+      1.0,
+      -3.0
+     ],
+     "w": 0.42
+    },
+    {
+     "m": "wine_bottles_01",
+     "at": [
+      3.2,
+      1.0,
+      -3.1
+     ],
+     "size": 0.34
+    },
+    {
+     "m": "CheeseBox_01",
+     "at": [
+      2.15,
+      1.0,
+      -3.0
+     ],
+     "w": 0.3
+    },
+    {
+     "m": "pot_enamel_01",
+     "at": [
+      -3.3,
+      0,
+      -3.0
+     ],
+     "w": 0.35
+    },
+    {
+     "m": "brass_pan_01",
+     "at": [
+      -0.9,
+      1.6,
+      -3.45
+     ],
+     "w": 0.4,
+     "rot": [
+      90,
+      0,
+      0
+     ]
+    },
+    {
+     "m": "wicker_basket_01",
+     "at": [
+      -0.4,
+      0.8,
+      0.1
+     ],
+     "w": 0.34
+    },
+    {
+     "m": "food_apple_01",
+     "at": [
+      -0.38,
+      0.9,
+      0.08
+     ],
+     "size": 0.08
+    },
+    {
+     "m": "lemon",
+     "at": [
+      0.35,
+      0.8,
+      -0.05
+     ],
+     "size": 0.07
+    },
+    {
+     "m": "yellow_onion",
+     "at": [
+      0.25,
+      0.8,
+      0.35
+     ],
+     "size": 0.08
+    },
+    {
+     "m": "antique_ceramic_vase_01",
+     "at": [
+      0.55,
+      0.8,
+      0.15
+     ],
+     "size": 0.3
+    },
+    {
+     "m": "potted_plant_01",
+     "at": [
+      -3.45,
+      0,
+      -1.0
+     ],
+     "size": 1.0
+    },
+    {
+     "m": "ceramic_pot",
+     "at": [
+      -3.4,
+      0,
+      0.9
+     ],
+     "size": 0.35
+    },
+    {
+     "m": "wicker_basket_01",
+     "at": [
+      3.4,
+      0,
+      0.6
+     ],
+     "w": 0.5
+    },
+    {
+     "id": "lasagna",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        1.5,
+        0.06,
+        0.95
+       ],
+       "at": [
+        0,
+        0.03,
+        0
+       ],
+       "color": "#b9c4cc",
+       "metal": 0.8,
+       "rough": 0.3
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.4,
+        0.12,
+        0.85
+       ],
+       "at": [
+        0,
+        0.12,
+        0
+       ],
+       "color": "#f2c14a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.4,
+        0.08,
+        0.85
+       ],
+       "at": [
+        0,
+        0.22,
+        0
+       ],
+       "color": "#d9502e"
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.4,
+        0.1,
+        0.85
+       ],
+       "at": [
+        0,
+        0.31,
+        0
+       ],
+       "color": "#f4e4b0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        1.4,
+        0.08,
+        0.85
+       ],
+       "at": [
+        0,
+        0.4,
+        0
+       ],
+       "color": "#c8402a"
+      }
+     ],
+     "at": [
+      0,
+      0.81,
+      0.2
+     ],
+     "hidden": true,
+     "focus": [
+      0,
+      1.0,
+      0.2
+     ]
+    }
+   ]
+  },
+  "tetti": {
+   "type": "outdoor",
+   "light": "tramonto",
+   "floor": {
+    "tex": "clay_roof_tiles_02",
+    "tint": "#f0b090",
+    "rep": 10
+   },
+   "facades": [
+    {
+     "at": [
+      0,
+      0,
+      -2.2
+     ],
+     "w": 6,
+     "h": 7,
+     "color": "#f2c48a",
+     "lit": true
+    },
+    {
+     "at": [
+      -6.5,
+      0,
+      -4
+     ],
+     "w": 5,
+     "h": 9,
+     "color": "#e8a070"
+    },
+    {
+     "at": [
+      6.5,
+      0,
+      -4.5
+     ],
+     "w": 5,
+     "h": 8,
+     "color": "#f4d4a4"
+    }
+   ],
+   "models": [
+    {
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        2.4,
+        0.08,
+        0.06
+       ],
+       "at": [
+        0,
+        1.0,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "box",
+       "size": [
+        2.4,
+        0.06,
+        0.06
+       ],
+       "at": [
+        0,
+        0.05,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        -1.15,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        -0.9199999999999999,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        -0.69,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        -0.45999999999999985,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        -0.22999999999999987,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        2.220446049250313e-16,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        0.2300000000000002,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        0.4600000000000002,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        0.6900000000000002,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        0.9200000000000004,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      },
+      {
+       "shape": "cyl",
+       "r": 0.02,
+       "h": 1.0,
+       "at": [
+        1.1500000000000004,
+        0.5,
+        0
+       ],
+       "color": "#2a2a2a",
+       "metal": 0.8
+      }
+     ],
+     "at": [
+      0,
+      0,
+      0.4
+     ]
+    },
+    {
+     "m": "planter_pot_clay",
+     "at": [
+      0.95,
+      0,
+      0.1
+     ],
+     "size": 0.45
+    },
+    {
+     "m": "flower_gazania",
+     "at": [
+      0.95,
+      0.4,
+      0.1
+     ],
+     "size": 0.3
+    },
+    {
+     "m": "potted_plant_04",
+     "at": [
+      -0.95,
+      0,
+      0.0
+     ],
+     "size": 0.8
+    }
+   ]
+  },
+  "piazza": {
+   "type": "outdoor",
+   "light": "notte",
+   "floor": {
+    "tex": "cobblestone_floor_01",
+    "tint": "#f2e6d8",
+    "rep": 28
+   },
+   "facades": [
+    {
+     "at": [
+      -6,
+      0,
+      -9
+     ],
+     "w": 6,
+     "h": 9,
+     "color": "#e8b080",
+     "lit": true
+    },
+    {
+     "at": [
+      0.5,
+      0,
+      -11
+     ],
+     "w": 7,
+     "h": 10,
+     "color": "#efe2c4",
+     "lit": true
+    },
+    {
+     "at": [
+      7,
+      0,
+      -9
+     ],
+     "w": 6,
+     "h": 8,
+     "color": "#d89a70",
+     "lit": true
+    },
+    {
+     "at": [
+      -9,
+      0,
+      -2
+     ],
+     "w": 6,
+     "h": 8,
+     "color": "#f0c890",
+     "lit": true,
+     "ry": 90
+    }
+   ],
+   "strings": [
+    {
+     "from": [
+      -6,
+      4.2,
+      -5
+     ],
+     "to": [
+      6,
+      4.2,
+      -5
+     ],
+     "n": 20
+    },
+    {
+     "from": [
+      -6,
+      4.0,
+      -1
+     ],
+     "to": [
+      6,
+      4.0,
+      -1
+     ],
+     "n": 20
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      -5.5,
+      3.4,
+      -3.6
+     ],
+     "intensity": 6,
+     "range": 14,
+     "color": "#ffc477"
+    },
+    {
+     "at": [
+      5.5,
+      3.4,
+      -3.6
+     ],
+     "intensity": 6,
+     "range": 14,
+     "color": "#ffc477"
+    }
+   ],
+   "models": [
+    {
+     "m": "street_lamp_01",
+     "at": [
+      -5.5,
+      0,
+      -3.6
+     ],
+     "size": 3.6
+    },
+    {
+     "m": "street_lamp_01",
+     "at": [
+      5.5,
+      0,
+      -3.6
+     ],
+     "size": 3.6
+    },
+    {
+     "m": "wine_barrel_01",
+     "at": [
+      6.6,
+      0,
+      -0.4
+     ],
+     "size": 0.95
+    },
+    {
+     "m": "wooden_crate_01",
+     "at": [
+      7.4,
+      0,
+      -0.1
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "planter_pot_clay",
+     "at": [
+      -3,
+      0,
+      -7.2
+     ],
+     "size": 0.7
+    },
+    {
+     "m": "flower_gazania",
+     "at": [
+      -3,
+      0.62,
+      -7.2
+     ],
+     "size": 0.4
+    },
+    {
+     "m": "planter_pot_clay",
+     "at": [
+      3,
+      0,
+      -7.2
+     ],
+     "size": 0.7
+    },
+    {
+     "m": "flower_gazania",
+     "at": [
+      3,
+      0.62,
+      -7.2
+     ],
+     "size": 0.4
+    },
+    {
+     "m": "jacaranda_tree",
+     "at": [
+      -8.5,
+      0,
+      -11
+     ],
+     "size": 6.5
+    },
+    {
+     "m": "CoffeeCart_01",
+     "at": [
+      -7.4,
+      0,
+      -6
+     ],
+     "size": 1.6,
+     "ry": 90
+    },
+    {
+     "m": "painted_wooden_bench",
+     "at": [
+      4.4,
+      0,
+      -8.5
+     ],
+     "size": 0.85
+    },
+    {
+     "m": "outdoor_table_chair_set_01",
+     "at": [
+      5.8,
+      0,
+      2.6
+     ],
+     "size": 0.95,
+     "ry": -20
+    },
+    {
+     "m": "planter_box_02",
+     "at": [
+      -6.8,
+      0,
+      -3.6
+     ],
+     "size": 0.8,
+     "ry": 90
+    },
+    {
+     "m": "modular_street_seating",
+     "at": [
+      -3.6,
+      0,
+      -8.8
+     ],
+     "size": 0.5
+    },
+    {
+     "m": "wooden_bucket_01",
+     "at": [
+      6.2,
+      0,
+      0.5
+     ],
+     "size": 0.35
+    },
+    {
+     "m": "potted_plant_04",
+     "at": [
+      -6.2,
+      0,
+      -1.2
+     ],
+     "size": 1.1
+    },
+    {
+     "id": "fontana",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 2.0,
+       "h": 0.5,
+       "at": [
+        0,
+        0.25,
+        0
+       ],
+       "color": "#d8cfc0"
+      },
+      {
+       "shape": "cyl",
+       "r": 1.85,
+       "h": 0.05,
+       "at": [
+        0,
+        0.48,
+        0
+       ],
+       "color": "#4a90c0",
+       "rough": 0.1
+      },
+      {
+       "shape": "cyl",
+       "r": 0.3,
+       "r_top": 0.25,
+       "h": 1.4,
+       "at": [
+        0,
+        0.7,
+        0
+       ],
+       "color": "#d8cfc0"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.9,
+       "r_top": 0.5,
+       "h": 0.25,
+       "at": [
+        0,
+        1.45,
+        0
+       ],
+       "color": "#d8cfc0"
+      }
+     ],
+     "at": [
+      0,
+      0,
+      -5.5
+     ]
+    },
+    {
+     "id": "elicottero",
+     "m": "elicottero",
+     "at": [
+      0.5,
+      4.6,
+      -3.0
+     ],
+     "ry": -25,
+     "hidden": true,
+     "focus": [
+      0.5,
+      5.4,
+      -3.0
+     ]
+    },
+    {
+     "id": "formaggio",
+     "m": "forma_parmigiano",
+     "parent": "elicottero",
+     "at": [
+      0,
+      -1.75,
+      0
+     ]
+    }
+   ]
+  }
+ },
+ "beats": [
+  {
+   "say": "Mai dire a una nonna italiana: «Ho già mangiato».",
+   "place": "ingresso",
+   "camera": [
+    {
+     "preset": "rivela_dal_viso",
+     "on": "nonna"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.5,
+     "z": -1.8,
+     "pose": "hip",
+     "face": "smile",
+     "change": [
+      {
+       "at": "mangiato",
+       "face": "sly"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Marco ci prova. Sono le otto di sera. Errore.",
+   "place": "ingresso",
+   "camera": [
+    {
+     "preset": "due_figure_soglia"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "orologio",
+     "at": "otto"
+    },
+    {
+     "preset": "ecu",
+     "on": "nonna",
+     "at": "Errore"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.3,
+     "z": -1.6,
+     "pose": "hip",
+     "face": "smile"
+    },
+    {
+     "id": "marco",
+     "x": 1.6,
+     "z": -2.2,
+     "pose": "wave",
+     "face": "smile",
+     "change": [
+      {
+       "at": "Errore",
+       "face": "nervous",
+       "pose": "defend"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Nonna Pina sorride. Poi accende tutti e quattro i fuochi.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "fornelli",
+     "at": "accende"
+    }
+   ],
+   "do": [
+    {
+     "id": "fornelli",
+     "at": "fuochi",
+     "on": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -1.0,
+     "z": -2.0,
+     "pose": "hip",
+     "face": "smile",
+     "change": [
+      {
+       "at": "sorride",
+       "face": "grin"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "worried"
+    }
+   ]
+  },
+  {
+   "say": "«Solo un assaggio, nonna.» Arriva una lasagna grande come una porta.",
+   "place": "cucina",
+   "speaker": "marco",
+   "camera": [
+    {
+     "preset": "due_figure_tavolo"
+    },
+    {
+     "preset": "dal_basso_rivela",
+     "on": "lasagna",
+     "at": "Arriva"
+    }
+   ],
+   "do": [
+    {
+     "id": "lasagna",
+     "at": "lasagna",
+     "pop": true
+    },
+    {
+     "id": "fornelli",
+     "at": "Solo",
+     "on": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "tray",
+     "face": "grin"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "stop",
+     "face": "nervous",
+     "change": [
+      {
+       "at": "porta",
+       "face": "shock"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "«Basta, sono pieno.» Lei chiama la vicina.",
+   "place": "cucina",
+   "speaker": "marco",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "marco"
+    },
+    {
+     "preset": "primo_piano",
+     "on": "nonna",
+     "at": "Lei"
+    }
+   ],
+   "do": [
+    {
+     "id": "fornelli",
+     "at": "Basta",
+     "on": true
+    },
+    {
+     "id": "lasagna",
+     "at": "Basta",
+     "hide": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "sly",
+     "change": [
+      {
+       "at": "chiama",
+       "pose": "phone",
+       "prop": "phone"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "belly",
+     "face": "stuffed"
+    }
+   ]
+  },
+  {
+   "say": "La vicina chiama il paese.",
+   "place": "tetti",
+   "camera": [
+    {
+     "preset": "gru_rivela",
+     "on": "vicina"
+    }
+   ],
+   "cast": [
+    {
+     "id": "vicina",
+     "x": 0,
+     "z": -0.2,
+     "pose": "phone",
+     "prop": "phone",
+     "face": "shock",
+     "change": [
+      {
+       "at": "paese",
+       "face": "grin",
+       "pose": "up"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Alle nove c'è una fila di zie con le teglie fino in piazza.",
+   "place": "piazza",
+   "camera": [
+    {
+     "preset": "campo_lungo_alto",
+     "on": "fontana"
+    },
+    {
+     "preset": "carrello_fila",
+     "on": "zia1",
+     "at": "teglie"
+    }
+   ],
+   "cast": [
+    {
+     "id": "zia1",
+     "x": -1.5,
+     "z": 0.7000000000000002,
+     "pose": "tray",
+     "tray": "lasagna",
+     "face": "smile"
+    },
+    {
+     "id": "zia2",
+     "x": -0.5999999999999999,
+     "z": -0.7999999999999998,
+     "pose": "tray",
+     "tray": "pie",
+     "face": "smile"
+    },
+    {
+     "id": "zia3",
+     "x": 0.30000000000000027,
+     "z": -2.3,
+     "pose": "tray",
+     "tray": "cake",
+     "face": "smile"
+    },
+    {
+     "id": "zia4",
+     "x": 1.2000000000000002,
+     "z": -3.8,
+     "pose": "tray",
+     "tray": "lasagna",
+     "face": "smile"
+    },
+    {
+     "id": "zia5",
+     "x": 2.1,
+     "z": -5.3,
+     "pose": "tray",
+     "tray": "pie",
+     "face": "smile"
+    }
+   ]
+  },
+  {
+   "say": "Il parmigiano arriva in elicottero.",
+   "place": "piazza",
+   "camera": [
+    {
+     "preset": "tilt_cielo"
+    }
+   ],
+   "do": [
+    {
+     "id": "elicottero",
+     "at": "Il",
+     "show": true,
+     "from": [
+      -12,
+      9,
+      -8
+     ],
+     "dur": 1.3
+    }
+   ],
+   "cast": [
+    {
+     "id": "zia1",
+     "x": -1.5,
+     "z": 0.7000000000000002,
+     "pose": "up",
+     "tray": "lasagna",
+     "face": "shock"
+    },
+    {
+     "id": "zia2",
+     "x": -0.5999999999999999,
+     "z": -0.7999999999999998,
+     "pose": "up",
+     "tray": "pie",
+     "face": "shock"
+    },
+    {
+     "id": "zia3",
+     "x": 0.30000000000000027,
+     "z": -2.3,
+     "pose": "up",
+     "tray": "cake",
+     "face": "shock"
+    }
+   ]
+  },
+  {
+   "say": "Marco mangia tutto, per educazione, e rotola verso la porta.",
+   "place": "ingresso",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "marco"
+    },
+    {
+     "preset": "carrello_basso_segue",
+     "on": "marco",
+     "at": "rotola"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -1.6,
+     "z": -0.8,
+     "pose": "hip",
+     "face": "blissful"
+    },
+    {
+     "id": "marco",
+     "x": 0.2,
+     "z": -0.4,
+     "pose": "belly",
+     "face": "chew",
+     "anim": [
+      {
+       "at": "mangia",
+       "prop": "fat",
+       "to": 0.9,
+       "dur": 1.4
+      },
+      {
+       "at": "rotola",
+       "prop": "roll",
+       "to": 9,
+       "dur": 1.6
+      }
+     ],
+     "move": {
+      "at": "rotola",
+      "to": [
+       2.3,
+       -2.4
+      ],
+      "dur": 1.6
+     },
+     "change": [
+      {
+       "at": "educazione",
+       "face": "stuffed"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Nonna lo ferma, preoccupata:",
+   "place": "ingresso",
+   "light": "interno_notte",
+   "camera": [
+    {
+     "preset": "tre_quarti"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 0.6,
+     "z": -1.0,
+     "pose": "hip",
+     "face": "worried",
+     "move": {
+      "at": "ferma",
+      "to": [
+       1.6,
+       -1.9
+      ],
+      "dur": 0.5
+     },
+     "change": [
+      {
+       "at": "ferma",
+       "pose": "stop"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 2.4,
+     "z": -2.5,
+     "pose": "hang",
+     "face": "stuffed",
+     "fat": 0.9,
+     "roll": 9
+    }
+   ]
+  },
+  {
+   "say": "«Amore… ma tu hai mangiato?»",
+   "place": "ingresso",
+   "light": "interno_notte",
+   "speaker": "nonna",
+   "camera": [
+    {
+     "preset": "primo_piano_finale",
+     "on": "nonna"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 1.6,
+     "z": -1.9,
+     "pose": "cheek",
+     "face": "teary"
+    },
+    {
+     "id": "marco",
+     "x": 2.4,
+     "z": -2.5,
+     "pose": "hang",
+     "face": "shock",
+     "fat": 0.9,
+     "roll": 9
+    }
+   ]
+  }
+ ]
+}

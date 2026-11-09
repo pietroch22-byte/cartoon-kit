@@ -1,0 +1,81 @@
+{
+ "nome": "forma di formaggio stagionato",
+ "tag": [
+  "parmigiano",
+  "formaggio",
+  "forma",
+  "cibo",
+  "grana"
+ ],
+ "altezza_m": 0.3,
+ "parts": [
+  {
+   "shape": "cyl",
+   "r": 0.46,
+   "h": 0.3,
+   "at": [
+    0,
+    0.15,
+    0
+   ],
+   "color": "#D99A3A"
+  },
+  {
+   "shape": "cyl",
+   "r": 0.43,
+   "h": 0.302,
+   "at": [
+    0,
+    0.15,
+    0
+   ],
+   "color": "#F2CC6A"
+  },
+  {
+   "shape": "torus",
+   "r": 0.445,
+   "tube": 0.03,
+   "rot": [
+    90,
+    0,
+    0
+   ],
+   "at": [
+    0,
+    0.3,
+    0
+   ],
+   "color": "#C9862E"
+  },
+  {
+   "shape": "torus",
+   "r": 0.445,
+   "tube": 0.03,
+   "rot": [
+    90,
+    0,
+    0
+   ],
+   "at": [
+    0,
+    0.0,
+    0
+   ],
+   "color": "#C9862E"
+  },
+  {
+   "shape": "box",
+   "size": [
+    0.34,
+    0.1,
+    0.012
+   ],
+   "at": [
+    0,
+    0.15,
+    0.462
+   ],
+   "color": "#F4EFE2"
+  }
+ ]
+}

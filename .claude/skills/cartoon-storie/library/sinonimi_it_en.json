@@ -1,0 +1,593 @@
+{
+"forchetta": [
+"fork"
+],
+"coltello": [
+"knife"
+],
+"cucchiaio": [
+"spoon"
+],
+"cucchiaino": [
+"spoon"
+],
+"piatto": [
+"plate",
+"dish"
+],
+"bicchiere": [
+"glass",
+"cup"
+],
+"tazza": [
+"cup",
+"mug"
+],
+"tazzina": [
+"cup"
+],
+"bottiglia": [
+"bottle"
+],
+"caraffa": [
+"jug",
+"pitcher"
+],
+"pentola": [
+"pot"
+],
+"tegame": [
+"pan",
+"pot"
+],
+"padella": [
+"pan",
+"frying"
+],
+"coperchio": [
+"lid"
+],
+"mestolo": [
+"ladle"
+],
+"tagliere": [
+"cutting",
+"board"
+],
+"grattugia": [
+"grater"
+],
+"frusta": [
+"whisk"
+],
+"scolapasta": [
+"colander",
+"strainer"
+],
+"ciotola": [
+"bowl"
+],
+"zuppiera": [
+"bowl",
+"tureen"
+],
+"vassoio": [
+"tray"
+],
+"teglia": [
+"tray",
+"baking"
+],
+"forno": [
+"oven",
+"stove"
+],
+"fornelli": [
+"stove"
+],
+"cucina": [
+"stove",
+"kitchen"
+],
+"frigo": [
+"fridge",
+"refrigerator"
+],
+"frigorifero": [
+"fridge",
+"refrigerator"
+],
+"lavello": [
+"sink"
+],
+"rubinetto": [
+"tap",
+"faucet"
+],
+"grembiule": [
+"apron"
+],
+"tovaglia": [
+"tablecloth",
+"cloth"
+],
+"tovagliolo": [
+"napkin"
+],
+"tavolo": [
+"table"
+],
+"sedia": [
+"chair"
+],
+"sgabello": [
+"stool"
+],
+"divano": [
+"sofa",
+"couch"
+],
+"poltrona": [
+"armchair"
+],
+"letto": [
+"bed"
+],
+"armadio": [
+"wardrobe",
+"cabinet"
+],
+"credenza": [
+"cabinet",
+"sideboard"
+],
+"mensola": [
+"shelf"
+],
+"libreria": [
+"bookshelf",
+"shelf"
+],
+"libro": [
+"book"
+],
+"lampada": [
+"lamp"
+],
+"lampadario": [
+"chandelier",
+"lamp"
+],
+"candela": [
+"candle"
+],
+"orologio": [
+"clock"
+],
+"specchio": [
+"mirror"
+],
+"quadro": [
+"picture",
+"frame",
+"painting"
+],
+"tappeto": [
+"rug",
+"carpet"
+],
+"tenda": [
+"curtain"
+],
+"finestra": [
+"window"
+],
+"porta": [
+"door"
+],
+"telefono": [
+"phone",
+"telephone"
+],
+"radio": [
+"radio"
+],
+"televisore": [
+"tv",
+"television"
+],
+"tv": [
+"tv",
+"television"
+],
+"computer": [
+"computer",
+"laptop"
+],
+"pianta": [
+"plant"
+],
+"vaso": [
+"vase",
+"pot"
+],
+"fiore": [
+"flower"
+],
+"fiori": [
+"flower"
+],
+"albero": [
+"tree"
+],
+"cespuglio": [
+"bush",
+"shrub"
+],
+"erba": [
+"grass"
+],
+"sasso": [
+"rock",
+"stone"
+],
+"pietra": [
+"rock",
+"stone"
+],
+"secchio": [
+"bucket"
+],
+"cesto": [
+"basket"
+],
+"cestino": [
+"basket",
+"bin"
+],
+"scatola": [
+"box"
+],
+"cassa": [
+"crate",
+"box"
+],
+"botte": [
+"barrel"
+],
+"barile": [
+"barrel"
+],
+"sacco": [
+"bag",
+"sack"
+],
+"borsa": [
+"bag"
+],
+"valigia": [
+"suitcase"
+],
+"ombrello": [
+"umbrella"
+],
+"cappello": [
+"hat"
+],
+"scarpa": [
+"shoe"
+],
+"chiave": [
+"key"
+],
+"lampione": [
+"street",
+"lamp"
+],
+"panchina": [
+"bench"
+],
+"fontana": [
+"fountain"
+],
+"bicicletta": [
+"bicycle",
+"bike"
+],
+"bici": [
+"bicycle",
+"bike"
+],
+"motorino": [
+"scooter",
+"moped"
+],
+"auto": [
+"car"
+],
+"macchina": [
+"car"
+],
+"camion": [
+"truck"
+],
+"furgone": [
+"van"
+],
+"autobus": [
+"bus"
+],
+"treno": [
+"train"
+],
+"barca": [
+"boat"
+],
+"nave": [
+"ship"
+],
+"aereo": [
+"airplane",
+"plane"
+],
+"elicottero": [
+"helicopter"
+],
+"carretto": [
+"cart"
+],
+"carriola": [
+"wheelbarrow"
+],
+"scala": [
+"ladder",
+"stairs"
+],
+"martello": [
+"hammer"
+],
+"chiodo": [
+"nail"
+],
+"cacciavite": [
+"screwdriver"
+],
+"pasta": [
+"pasta",
+"spaghetti",
+"noodle"
+],
+"spaghetti": [
+"spaghetti",
+"pasta"
+],
+"carbonara": [
+"pasta",
+"spaghetti"
+],
+"lasagna": [
+"lasagna"
+],
+"pizza": [
+"pizza"
+],
+"pane": [
+"bread",
+"loaf"
+],
+"panino": [
+"sandwich",
+"bread"
+],
+"formaggio": [
+"cheese"
+],
+"pecorino": [
+"cheese"
+],
+"parmigiano": [
+"cheese",
+"parmesan"
+],
+"mozzarella": [
+"cheese",
+"mozzarella"
+],
+"uovo": [
+"egg"
+],
+"uova": [
+"egg"
+],
+"latte": [
+"milk",
+"carton"
+],
+"panna": [
+"cream",
+"carton"
+],
+"burro": [
+"butter"
+],
+"olio": [
+"oil",
+"bottle"
+],
+"aceto": [
+"vinegar"
+],
+"sale": [
+"salt"
+],
+"pepe": [
+"pepper"
+],
+"zucchero": [
+"sugar"
+],
+"farina": [
+"flour",
+"bag"
+],
+"guanciale": [
+"bacon",
+"ham"
+],
+"prosciutto": [
+"ham"
+],
+"salame": [
+"salami",
+"sausage"
+],
+"salsiccia": [
+"sausage"
+],
+"carne": [
+"meat"
+],
+"pollo": [
+"chicken"
+],
+"pesce": [
+"fish"
+],
+"pomodoro": [
+"tomato"
+],
+"cipolla": [
+"onion"
+],
+"aglio": [
+"garlic"
+],
+"patata": [
+"potato"
+],
+"carota": [
+"carrot"
+],
+"insalata": [
+"salad",
+"lettuce"
+],
+"mela": [
+"apple"
+],
+"arancia": [
+"orange"
+],
+"limone": [
+"lemon"
+],
+"banana": [
+"banana"
+],
+"uva": [
+"grape"
+],
+"anguria": [
+"watermelon"
+],
+"torta": [
+"cake"
+],
+"biscotto": [
+"cookie"
+],
+"gelato": [
+"ice",
+"cream"
+],
+"caffè": [
+"coffee"
+],
+"caffettiera": [
+"coffee",
+"moka",
+"pot"
+],
+"tè": [
+"tea"
+],
+"vino": [
+"wine"
+],
+"birra": [
+"beer"
+],
+"acqua": [
+"water",
+"bottle"
+],
+"cane": [
+"dog"
+],
+"gatto": [
+"cat"
+],
+"uccello": [
+"bird"
+],
+"gallina": [
+"chicken",
+"hen"
+],
+"mucca": [
+"cow"
+],
+"cavallo": [
+"horse"
+],
+"pecora": [
+"sheep"
+],
+"topo": [
+"mouse",
+"rat"
+],
+"casa": [
+"house",
+"building"
+],
+"palazzo": [
+"building"
+],
+"chiesa": [
+"church"
+],
+"negozio": [
+"shop",
+"store"
+],
+"bancone": [
+"counter",
+"bar"
+],
+"insegna": [
+"sign"
+],
+"cartello": [
+"sign"
+],
+"lettera": [
+"letter",
+"envelope"
+],
+"giornale": [
+"newspaper"
+],
+"soldi": [
+"money",
+"coin"
+],
+"moneta": [
+"coin"
+],
+"regalo": [
+"gift",
+"present",
+"box"
+]
+}

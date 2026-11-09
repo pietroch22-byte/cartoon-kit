@@ -1,0 +1,1274 @@
+{
+ "title": "Ho già mangiato (2D test)",
+ "facts": "commedia, nessun fatto",
+ "voice": {
+  "file": "../../work/voce.mp3",
+  "words": "../../work/words.json"
+ },
+ "music": {
+  "mood": "warm",
+  "bpm": 96
+ },
+ "cast": {
+  "nonna": {
+   "body": "dress",
+   "coat": "#6A3D9A",
+   "hair": "bun",
+   "hair_color": "#D8D8DC",
+   "glasses": true
+  },
+  "marco": {
+   "body": "shirt",
+   "coat": "#3E9E6A",
+   "hair": "spiky",
+   "hair_color": "#6B4426"
+  }
+ },
+ "places": {
+  "cucina": {
+   "preset": "study",
+   "wall": "#F2B24A",
+   "floor": "checker",
+   "window": "none",
+   "lamp": "none"
+  },
+  "porta": {
+   "preset": "study",
+   "wall": "#E8C98A",
+   "floor": "wood",
+   "window": "square",
+   "window_x": 640
+  }
+ },
+ "beats": [
+  {
+   "say": "Mai dire a una nonna italiana: «Ho già mangiato».",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "smile",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "neutral",
+     "pose": "idle"
+    }
+   ]
+  },
+  {
+   "say": "Marco ci prova. Sono le otto di sera. Errore.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "smile",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "confused",
+     "pose": "shrug"
+    }
+   ],
+   "camera": {
+    "preset": "push_face",
+    "on": "marco"
+   }
+  },
+  {
+   "say": "Nonna Pina sorride. Poi accende tutti e quattro i fuochi.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "grin",
+     "pose": "hands_hips"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "worried",
+     "pose": "idle"
+    }
+   ]
+  },
+  {
+   "say": "«Solo un assaggio, nonna.» Arriva una lasagna grande come una porta.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "laugh",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "worried",
+     "pose": "shrug"
+    }
+   ],
+   "camera": {
+    "preset": "pull_reveal"
+   }
+  },
+  {
+   "say": "«Basta, sono pieno.» Lei chiama la vicina. La vicina chiama il paese.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "smile",
+     "pose": "hands_hips"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "shock",
+     "pose": "shrug"
+    }
+   ],
+   "camera": {
+    "preset": "swing"
+   }
+  },
+  {
+   "say": "Alle nove c'è una fila di zie con le teglie fino in piazza.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "grin",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "shock",
+     "pose": "idle"
+    }
+   ]
+  },
+  {
+   "say": "Il parmigiano arriva in elicottero.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "laugh",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "shock",
+     "pose": "idle"
+    }
+   ],
+   "camera": {
+    "preset": "punch",
+    "on": "marco"
+   }
+  },
+  {
+   "say": "Marco mangia tutto, per educazione, e rotola verso la porta.",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "smile",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "sad",
+     "pose": "idle"
+    }
+   ]
+  },
+  {
+   "say": "Nonna lo ferma, preoccupata:",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "worried",
+     "pose": "hands_hips"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "sad",
+     "pose": "idle"
+    }
+   ],
+   "camera": {
+    "preset": "push_face",
+    "on": "nonna"
+   }
+  },
+  {
+   "say": "«Amore… ma tu hai mangiato?»",
+   "shot": "wide",
+   "place": "cucina",
+   "props": [
+    {
+     "type": "backsplash",
+     "x": 0,
+     "y": 1000,
+     "h": 400
+    },
+    {
+     "type": "beams",
+     "x": 0,
+     "y": 0
+    },
+    {
+     "type": "upper_cabinet",
+     "x": 20,
+     "y": 560,
+     "w": 300,
+     "h": 230
+    },
+    {
+     "type": "pendant",
+     "x": 540,
+     "y": 0
+    },
+    {
+     "type": "shelf",
+     "x": 720,
+     "y": 760,
+     "w": 360
+    },
+    {
+     "type": "garlic",
+     "x": 340,
+     "y": 400
+    },
+    {
+     "type": "peppers",
+     "x": 390,
+     "y": 420
+    },
+    {
+     "type": "stove",
+     "x": 190,
+     "y": 1430
+    },
+    {
+     "type": "pot",
+     "x": 115,
+     "y": 1008
+    },
+    {
+     "type": "pan",
+     "x": 255,
+     "y": 1008
+    },
+    {
+     "type": "counter",
+     "x": 600,
+     "y": 1430,
+     "w": 420
+    },
+    {
+     "type": "sink",
+     "x": 600,
+     "y": 1006
+    },
+    {
+     "type": "fridge",
+     "x": 960,
+     "y": 1440
+    },
+    {
+     "type": "cat",
+     "x": 930,
+     "y": 622
+    },
+    {
+     "type": "table_front",
+     "x": 540,
+     "y": 1920,
+     "h": 470,
+     "w": 980,
+     "items": [
+      {
+       "type": "plate_food",
+       "x": 400
+      },
+      {
+       "type": "bread",
+       "x": 560
+      },
+      {
+       "type": "plate_food",
+       "x": 700,
+       "food": "pizza"
+      },
+      {
+       "type": "bottle",
+       "x": 920
+      }
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": 330,
+     "face": "worried",
+     "pose": "idle"
+    },
+    {
+     "id": "marco",
+     "x": 750,
+     "face": "shock",
+     "pose": "idle"
+    }
+   ],
+   "camera": {
+    "preset": "push_face",
+    "on": "nonna"
+   }
+  }
+ ]
+}

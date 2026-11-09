@@ -1,0 +1,756 @@
+{
+ "title": "Why Churches Stopped Ringing Bells in Storms",
+ "facts": "For centuries Europeans rang church bells during thunderstorms, believing it drove lightning away; many bells were inscribed 'fulgura frango' (I break the lightning). Bell towers were usually the tallest buildings, so they were struck often. A 1784 study by Johann Fischer counted 386 church towers struck by lightning and 103 bell ringers killed in Germany over 33 years. In the 1750s Benjamin Franklin proposed pointed iron rods on roofs connected by a wire to the ground. Some clergy objected; after the 1755 Cape Ann earthquake, Boston minister Thomas Prince suggested Franklin's iron points might have caused it. Many churches were slow to install rods. In 1769 lightning struck the church of San Nazaro in Brescia, Italy, igniting gunpowder stored in its vaults; the explosion destroyed a large part of the city and killed many people (often cited as about 3,000). Lightning follows the easiest conductive path to ground; the rod and wire give it one that bypasses the building.",
+ "voice": {
+  "name": "joe",
+  "speed": 1.05
+ },
+ "music": {
+  "mood": "mystery",
+  "bpm": 92
+ },
+ "cast": {
+  "ringer": {
+   "body": "shirt",
+   "coat": "#8C6A4A",
+   "hat": "cap",
+   "hat_color": "#5B4A3A",
+   "hair": "side",
+   "hair_color": "#3B2A1E"
+  },
+  "franklin": {
+   "coat": "#6B4A2E",
+   "hair": "long",
+   "hair_color": "#C8C8C8",
+   "glasses": true,
+   "tie": "#F4F1EA"
+  },
+  "preacher": {
+   "body": "robe",
+   "coat": "#24242A",
+   "hair": "side",
+   "hair_color": "#9A9A9A",
+   "belt": "#24242A",
+   "beard": true
+  },
+  "today": {
+   "body": "shirt",
+   "coat": "#E07A5F",
+   "hair": "spiky",
+   "hair_color": "#2B2B2B"
+  }
+ },
+ "places": {
+  "storm": {
+   "preset": "storm"
+  },
+  "square": {
+   "preset": "town_day"
+  },
+  "study": {
+   "preset": "study"
+  },
+  "vault": {
+   "preset": "tavern",
+   "wall": "#5E5A52",
+   "window": "none",
+   "floor": "stone"
+  }
+ },
+ "beats": [
+  {
+   "say": "When a storm rolled in, people climbed the church tower and *rang the bells.*",
+   "shot": "wide",
+   "place": "storm",
+   "camera": "pull_out",
+   "props": [
+    {
+     "type": "church",
+     "x": 600,
+     "y": 1560,
+     "scale": 0.85,
+     "bell_swing": 25,
+     "behind": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "ringer",
+     "x": 250,
+     "pose": "arms_up",
+     "face": "determined"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "thunder",
+     "at_word": "storm"
+    },
+    {
+     "type": "ding",
+     "at_word": "rang"
+    },
+    {
+     "type": "ding",
+     "at_word": "bells"
+    }
+   ]
+  },
+  {
+   "say": "They believed the sound would *break the lightning.*",
+   "shot": "wide",
+   "place": "storm",
+   "camera": {
+    "preset": "punch",
+    "focus": [
+     600,
+     700
+    ],
+    "from": 1.3,
+    "to": 1.6
+   },
+   "props": [
+    {
+     "type": "church",
+     "x": 600,
+     "y": 1560,
+     "scale": 0.85,
+     "bell_swing": 25,
+     "behind": true
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain"
+    },
+    {
+     "type": "lightning",
+     "at_word": "lightning",
+     "x": 300,
+     "target_y": 1000
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding"
+    },
+    {
+     "type": "thunder",
+     "at_word": "lightning"
+    }
+   ]
+  },
+  {
+   "say": "Some bells even had it carved on them.",
+   "shot": "card",
+   "place": "storm",
+   "camera": "still",
+   "card": {
+    "text": "\"I BREAK THE LIGHTNING\"",
+    "sub": "carved on old church bells"
+   },
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "ding",
+     "at_word": "carved"
+    }
+   ]
+  },
+  {
+   "say": "But the tallest thing in town was the bell tower.",
+   "shot": "wide",
+   "place": "storm",
+   "camera": "pan_up",
+   "props": [
+    {
+     "type": "house",
+     "x": 140,
+     "y": 1620,
+     "scale": 0.8,
+     "lit": true,
+     "behind": true
+    },
+    {
+     "type": "house",
+     "x": 950,
+     "y": 1640,
+     "scale": 0.8,
+     "lit": true,
+     "behind": true
+    },
+    {
+     "type": "church",
+     "x": 540,
+     "y": 1600,
+     "scale": 0.9,
+     "behind": true
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain"
+    },
+    {
+     "type": "lightning",
+     "at_word": "tower",
+     "x": 540,
+     "target_y": 460
+    }
+   ],
+   "sfx": [
+    {
+     "type": "thunder",
+     "at_word": "tower"
+    }
+   ],
+   "shake": {
+    "at_word": "tower",
+    "strength": 0.6
+   }
+  },
+  {
+   "say": "One count found 386 towers hit in 33 years,",
+   "shot": "board",
+   "place": "study",
+   "camera": "slow_push",
+   "board": {
+    "title": "IN 33 YEARS",
+    "write": [
+     {
+      "text": "386 towers hit",
+      "at_word": "386",
+      "slot": 0,
+      "size": 120
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "ringer",
+     "x": 860,
+     "scale": 1.9,
+     "face": "worried",
+     "pose": "point_up",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "chalk",
+     "at_word": "386"
+    }
+   ]
+  },
+  {
+   "say": "and 103 *bell ringers killed.*",
+   "continue": true,
+   "camera": {
+    "preset": "push_in",
+    "focus": [
+     520,
+     860
+    ],
+    "from": 1.1,
+    "to": 1.18
+   },
+   "board": {
+    "write": [
+     {
+      "text": "103 ringers dead",
+      "at_word": "103",
+      "slot": 1,
+      "size": 120,
+      "color": "#FF8A80"
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "ringer",
+     "x": 860,
+     "scale": 1.9,
+     "face": "scared",
+     "pose": "idle",
+     "facing": -1,
+     "anim": "shiver"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "chalk",
+     "at_word": "103"
+    },
+    {
+     "type": "sting",
+     "at_word": "killed"
+    }
+   ]
+  },
+  {
+   "say": "Then Benjamin Franklin said: *forget the bells.*",
+   "shot": "wide",
+   "place": "study",
+   "camera": "push_in",
+   "transition": "whip",
+   "props": [
+    {
+     "type": "bookshelf",
+     "x": 880,
+     "y": 1760,
+     "behind": true
+    },
+    {
+     "type": "desk",
+     "x": 300,
+     "y": 1820
+    }
+   ],
+   "cast": [
+    {
+     "id": "franklin",
+     "x": 600,
+     "pose": "point",
+     "face": "smug",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "pop",
+     "at_word": "forget"
+    }
+   ]
+  },
+  {
+   "say": "Put a pointed iron rod on the roof, with a wire down to the ground.",
+   "shot": "wide",
+   "place": "square",
+   "camera": "pull_out",
+   "props": [
+    {
+     "type": "church",
+     "x": 660,
+     "y": 1480,
+     "scale": 0.68,
+     "rod": true,
+     "behind": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "franklin",
+     "x": 250,
+     "pose": "point_up",
+     "face": "determined"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "ding",
+     "at_word": "rod"
+    }
+   ]
+  },
+  {
+   "say": "People were horrified.",
+   "shot": "wide",
+   "place": "square",
+   "camera": "pull_out",
+   "crowd": {
+    "n": 5,
+    "face": "scared",
+    "y": 1720,
+    "scale": 1.6,
+    "seed": 7,
+    "pose": "arms_up"
+   },
+   "sfx": [
+    {
+     "type": "sting",
+     "at_word": "horrified"
+    }
+   ]
+  },
+  {
+   "say": "A Boston preacher even suggested his rods had *caused an earthquake.*",
+   "shot": "closeup",
+   "place": "square",
+   "camera": "push_in",
+   "cast": [
+    {
+     "id": "preacher",
+     "face": "angry",
+     "pose": "point"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "rumble",
+     "at_word": "caused"
+    }
+   ],
+   "shake": {
+    "at_word": "earthquake",
+    "strength": 0.8,
+    "time": 0.9
+   }
+  },
+  {
+   "say": "Many churches refused to put one up.",
+   "shot": "wide",
+   "place": "square",
+   "camera": "slow_push",
+   "props": [
+    {
+     "type": "church",
+     "x": 700,
+     "y": 1540,
+     "scale": 0.8,
+     "behind": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "preacher",
+     "x": 300,
+     "pose": "arms_crossed",
+     "face": "smug"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ]
+  },
+  {
+   "say": "Then in 1769, lightning struck a church in Brescia, Italy.",
+   "shot": "card",
+   "place": "storm",
+   "camera": "still",
+   "transition": "flash",
+   "card": {
+    "text": "1769",
+    "sub": "Brescia, Italy"
+   },
+   "fx": [
+    {
+     "type": "rain"
+    },
+    {
+     "type": "lightning",
+     "at_word": "struck",
+     "x": 540,
+     "target_y": 700
+    }
+   ],
+   "sfx": [
+    {
+     "type": "thunder",
+     "at_word": "struck"
+    }
+   ],
+   "shake": {
+    "at_word": "struck",
+    "strength": 0.7
+   }
+  },
+  {
+   "say": "Its basement was full of the *army's gunpowder.*",
+   "shot": "wide",
+   "place": "vault",
+   "camera": "pan_right",
+   "props": [
+    {
+     "type": "barrel",
+     "x": 200,
+     "y": 1760
+    },
+    {
+     "type": "barrel",
+     "x": 420,
+     "y": 1800
+    },
+    {
+     "type": "crate",
+     "x": 660,
+     "y": 1780,
+     "size": 230
+    },
+    {
+     "type": "barrel",
+     "x": 880,
+     "y": 1760
+    },
+    {
+     "type": "sign",
+     "x": 560,
+     "y": 1560,
+     "text": "POWDER",
+     "behind": true
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "sting",
+     "at_word": "gunpowder"
+    }
+   ]
+  },
+  {
+   "say": "The blast wiped out a huge part of the city.",
+   "shot": "wide",
+   "place": "storm",
+   "camera": "pull_out",
+   "transition": "flash",
+   "props": [
+    {
+     "type": "house",
+     "x": 220,
+     "y": 1640,
+     "scale": 0.85,
+     "behind": true
+    },
+    {
+     "type": "house",
+     "x": 860,
+     "y": 1660,
+     "scale": 0.85,
+     "behind": true
+    }
+   ],
+   "fx": [
+    {
+     "type": "explosion",
+     "x": 540,
+     "y": 1450
+    },
+    {
+     "type": "smoke",
+     "x": 540,
+     "y": 1450,
+     "strength": 1.5
+    },
+    {
+     "type": "dark",
+     "strength": 0.3
+    }
+   ],
+   "sfx": [
+    {
+     "type": "crash"
+    },
+    {
+     "type": "rumble",
+     "at": 0.2
+    }
+   ],
+   "shake": {
+    "strength": 1.2,
+    "time": 1.2
+   }
+  },
+  {
+   "say": "Here's what Franklin understood.",
+   "shot": "closeup",
+   "place": "study",
+   "camera": "punch",
+   "cast": [
+    {
+     "id": "franklin",
+     "face": "smile",
+     "pose": "think"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ]
+  },
+  {
+   "say": "Lightning always takes the *easiest path* to the ground.",
+   "shot": "board",
+   "place": "study",
+   "camera": "slow_push",
+   "board": {
+    "title": "LIGHTNING",
+    "write": [
+     {
+      "text": "takes the easiest",
+      "at_word": "easiest",
+      "slot": 0,
+      "size": 100
+     },
+     {
+      "text": "path down",
+      "at_word": "path",
+      "slot": 1,
+      "size": 100
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "franklin",
+     "x": 850,
+     "scale": 1.9,
+     "face": "determined",
+     "pose": "point_up",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "chalk",
+     "at_word": "easiest"
+    }
+   ]
+  },
+  {
+   "say": "The rod gives it a metal road around the tower,",
+   "continue": true,
+   "board": {
+    "write": [
+     {
+      "text": "rod + wire = safe",
+      "at_word": "rod",
+      "slot": 2,
+      "size": 100,
+      "color": "#FFE27A"
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "franklin",
+     "x": 850,
+     "scale": 1.9,
+     "face": "grin",
+     "pose": "arms_up",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "chalk",
+     "at_word": "rod"
+    },
+    {
+     "type": "chime",
+     "at_word": "tower"
+    }
+   ],
+   "camera": {
+    "preset": "push_in",
+    "focus": [
+     520,
+     800
+    ],
+    "from": 1.1,
+    "to": 1.18
+   }
+  },
+  {
+   "say": "instead of through the wet rope in *your hands.*",
+   "shot": "closeup",
+   "place": "storm",
+   "camera": "push_in",
+   "cast": [
+    {
+     "id": "ringer",
+     "face": "shock",
+     "pose": "show_hands"
+    }
+   ],
+   "fx": [
+    {
+     "type": "rain"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "sting",
+     "at_word": "your"
+    }
+   ]
+  },
+  {
+   "say": "Look at the top of almost any tall building.",
+   "shot": "wide",
+   "place": {
+    "preset": "city_street"
+   },
+   "camera": "pan_up",
+   "cast": [
+    {
+     "id": "today",
+     "x": 380,
+     "pose": "point_up",
+     "face": "smile",
+     "hold": "phone"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ],
+   "props": [
+    {
+     "type": "tower_building",
+     "x": 820,
+     "y": 1560,
+     "behind": true
+    }
+   ]
+  },
+  {
+   "say": "His rod is *still up there.*",
+   "continue": true,
+   "camera": {
+    "preset": "punch",
+    "focus": [
+     760,
+     500
+    ],
+    "from": 1.1,
+    "to": 1.35
+   },
+   "cast": [
+    {
+     "id": "today",
+     "x": 380,
+     "pose": "point_up",
+     "face": "grin"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "ding",
+     "at_word": "still"
+    }
+   ]
+  }
+ ]
+}

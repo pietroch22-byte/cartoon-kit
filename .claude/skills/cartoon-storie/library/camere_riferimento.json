@@ -1,0 +1,1054 @@
+{
+ "rivela_dal_viso": {
+  "rif": "inquadratura 1 «hook board» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "primo piano che resta un attimo e poi si allontana rivelando ciò che il personaggio guarda",
+  "durata_rif_s": 2.2,
+  "keys": [
+   [
+    0.0,
+    [
+     -0.7,
+     0.18,
+     1.55
+    ],
+    [
+     -0.05,
+     0.06,
+     0.0
+    ],
+    40
+   ],
+   [
+    0.152,
+    [
+     -0.7,
+     0.18,
+     1.5
+    ],
+    [
+     -0.05,
+     0.06,
+     0.0
+    ],
+    40
+   ],
+   [
+    0.848,
+    [
+     -0.4,
+     0.16,
+     3.7
+    ],
+    [
+     -0.4,
+     0.01,
+     -0.7
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     -0.4,
+     0.16,
+     3.62
+    ],
+    [
+     -0.4,
+     0.01,
+     -0.7
+    ],
+    40
+   ]
+  ]
+ },
+ "due_figure_soglia": {
+  "rif": "inquadratura 2 «doorstep two-shot» del video di riferimento",
+  "ancora": "group",
+  "descrizione": "due personaggi a figura intera, lento avvicinamento di 1 m",
+  "durata_rif_s": 2.9,
+  "keys": [
+   [
+    0.0,
+    [
+     -0.2,
+     0.05,
+     5.0
+    ],
+    [
+     0.05,
+     -0.3,
+     0.0
+    ],
+    42
+   ],
+   [
+    1.0,
+    [
+     -0.05,
+     0.0,
+     4.0
+    ],
+    [
+     0.1,
+     -0.3,
+     0.0
+    ],
+    42
+   ]
+  ]
+ },
+ "dettaglio_oggetto": {
+  "rif": "inquadratura 3 «clock insert» del video di riferimento",
+  "ancora": "object",
+  "descrizione": "dettaglio di un oggetto a parete o sul mobile, quasi fermo",
+  "durata_rif_s": 1.4,
+  "keys": [
+   [
+    0.0,
+    [
+     -0.15,
+     0.15,
+     1.4
+    ],
+    [
+     0.0,
+     0.0,
+     0.0
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     -0.07,
+     0.17,
+     1.2
+    ],
+    [
+     0.0,
+     0.01,
+     0.0
+    ],
+    40
+   ]
+  ]
+ },
+ "ecu": {
+  "rif": "inquadratura 4 «nonna glint ECU» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "primissimo piano frontale, piccola spinta",
+  "durata_rif_s": 0.8,
+  "keys": [
+   [
+    0.0,
+    [
+     0.0,
+     -0.02,
+     2.2
+    ],
+    [
+     0.0,
+     -0.06,
+     0.0
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     0.0,
+     -0.04,
+     1.9
+    ],
+    [
+     0.0,
+     -0.06,
+     0.0
+    ],
+    40
+   ]
+  ]
+ },
+ "ambiente": {
+  "rif": "inquadratura 5 «kitchen wide» del video di riferimento",
+  "ancora": "group",
+  "descrizione": "campo largo del luogo dall'alto della stanza, lenta spinta in diagonale",
+  "durata_rif_s": 1.5,
+  "keys": [
+   [
+    0.0,
+    [
+     1.925,
+     0.3,
+     7.475
+    ],
+    [
+     -0.175,
+     -0.35,
+     -0.525
+    ],
+    50
+   ],
+   [
+    1.0,
+    [
+     1.525,
+     0.25,
+     6.675
+    ],
+    [
+     -0.275,
+     -0.35,
+     -0.525
+    ],
+    50
+   ]
+  ]
+ },
+ "dall_alto_oggetto": {
+  "rif": "inquadratura 6 «stove insert» del video di riferimento",
+  "ancora": "object",
+  "descrizione": "dall'alto sopra un oggetto (fornelli, piatto), poi si alza e si apre a 3/4",
+  "durata_rif_s": 2.7,
+  "keys": [
+   [
+    0.0,
+    [
+     0.0,
+     1.37,
+     1.85
+    ],
+    [
+     0.0,
+     0.0,
+     0.0
+    ],
+    44
+   ],
+   [
+    0.671,
+    [
+     0.05,
+     1.22,
+     2.0
+    ],
+    [
+     0.05,
+     0.07,
+     0.0
+    ],
+    44
+   ],
+   [
+    1.0,
+    [
+     0.6,
+     0.82,
+     4.0
+    ],
+    [
+     0.3,
+     0.27,
+     0.2
+    ],
+    46
+   ]
+  ]
+ },
+ "due_figure_tavolo": {
+  "rif": "inquadratura 7 «over-table two-shot» del video di riferimento",
+  "ancora": "group",
+  "descrizione": "due personaggi dietro un tavolo, frontale, lenta spinta",
+  "durata_rif_s": 2.1,
+  "keys": [
+   [
+    0.0,
+    [
+     0.125,
+     0.1,
+     3.675
+    ],
+    [
+     0.025,
+     -0.2,
+     0.075
+    ],
+    42
+   ],
+   [
+    1.0,
+    [
+     0.075,
+     0.08,
+     3.175
+    ],
+    [
+     0.025,
+     -0.18,
+     0.075
+    ],
+    42
+   ]
+  ]
+ },
+ "dal_basso_rivela": {
+  "rif": "inquadratura 8 «lasagna low angle» del video di riferimento",
+  "ancora": "object",
+  "descrizione": "camera bassa che si inclina verso l'alto seguendo un oggetto che cresce o arriva",
+  "durata_rif_s": 2.8,
+  "keys": [
+   [
+    0.0,
+    [
+     0.1,
+     -0.45,
+     3.9
+    ],
+    [
+     0.0,
+     0,
+     0.0
+    ],
+    52
+   ],
+   [
+    0.6,
+    [
+     0.2,
+     -0.5,
+     4.2
+    ],
+    [
+     0.2,
+     0.3,
+     0.0
+    ],
+    54
+   ],
+   [
+    0.918,
+    [
+     0.2,
+     -0.55,
+     4.5
+    ],
+    [
+     0.2,
+     0.75,
+     0.0
+    ],
+    56
+   ],
+   [
+    1.0,
+    [
+     0.2,
+     -0.55,
+     4.55
+    ],
+    [
+     0.2,
+     0.78,
+     0.0
+    ],
+    56
+   ]
+  ]
+ },
+ "mezza_figura": {
+  "rif": "inquadratura 9 «marco stuffed MCU» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "mezza figura frontale, piccola spinta",
+  "durata_rif_s": 1.6,
+  "keys": [
+   [
+    0.0,
+    [
+     0.0,
+     -0.11,
+     2.7
+    ],
+    [
+     0.0,
+     -0.26,
+     0.0
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     0.0,
+     -0.11,
+     2.4
+    ],
+    [
+     0.0,
+     -0.24,
+     0.0
+    ],
+    40
+   ]
+  ]
+ },
+ "primo_piano": {
+  "rif": "inquadratura 10 «nonna on the phone» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "primo piano leggermente di lato",
+  "durata_rif_s": 1.7,
+  "keys": [
+   [
+    0.0,
+    [
+     -0.17,
+     0.06,
+     2.25
+    ],
+    [
+     0.13,
+     -0.09,
+     -0.15
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     -0.12,
+     0.06,
+     2.0
+    ],
+    [
+     0.13,
+     -0.07,
+     -0.15
+    ],
+    40
+   ]
+  ]
+ },
+ "gru_rivela": {
+  "rif": "inquadratura 11 «rooftops chain» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "parte sul personaggio e sale all'indietro rivelando tutto il paesaggio",
+  "durata_rif_s": 1.7,
+  "keys": [
+   [
+    0.0,
+    [
+     0.2,
+     -0.03,
+     2.95
+    ],
+    [
+     0.0,
+     -0.38,
+     -0.05
+    ],
+    40
+   ],
+   [
+    0.385,
+    [
+     0.2,
+     0.17,
+     3.95
+    ],
+    [
+     0.0,
+     -0.23,
+     -0.05
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     0.8,
+     3.77,
+     13.55
+    ],
+    [
+     0.3,
+     1.77,
+     -9.45
+    ],
+    46
+   ]
+  ]
+ },
+ "campo_lungo_alto": {
+  "rif": "inquadratura 12 «piazza queue wide» del video di riferimento",
+  "ancora": "object",
+  "descrizione": "campo lungo dall'alto che scende verso la scena",
+  "durata_rif_s": 2.1,
+  "keys": [
+   [
+    0.0,
+    [
+     6.0,
+     6.7,
+     17
+    ],
+    [
+     0.0,
+     0.0,
+     0
+    ],
+    46
+   ],
+   [
+    1.0,
+    [
+     4.7,
+     4.4,
+     14.5
+    ],
+    [
+     -0.5,
+     0.0,
+     0
+    ],
+    46
+   ]
+  ]
+ },
+ "carrello_fila": {
+  "rif": "inquadratura 13 «trays dolly» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "carrello laterale lungo una fila di persone: ancora sulla persona all'inizio della fila",
+  "durata_rif_s": 1.7,
+  "keys": [
+   [
+    0.0,
+    [
+     2.642,
+     0.13,
+     -0.836
+    ],
+    [
+     0.342,
+     -0.27,
+     0.664
+    ],
+    42
+   ],
+   [
+    1.0,
+    [
+     0.442,
+     0.13,
+     -3.436
+    ],
+    [
+     -1.858,
+     -0.27,
+     -1.836
+    ],
+    42
+   ]
+  ],
+  "direzione_fila_rif": -2.3157
+ },
+ "tilt_cielo": {
+  "rif": "inquadratura 14 «helicopter parmesan» del video di riferimento",
+  "ancora": "group",
+  "descrizione": "camera bassa che parte guardando il cielo e scende seguendo ciò che arriva dall'alto fino al gruppo a terra",
+  "durata_rif_s": 2.2,
+  "keys": [
+   [
+    0.0,
+    [
+     3.3,
+     -0.2,
+     6.0
+    ],
+    [
+     3.3,
+     7.8,
+     -5.5
+    ],
+    50
+   ],
+   [
+    0.627,
+    [
+     3.2,
+     -0.2,
+     5.7
+    ],
+    [
+     0.8,
+     3.8,
+     -2.5
+    ],
+    50
+   ],
+   [
+    1.0,
+    [
+     3.1,
+     -0.1,
+     5.5
+    ],
+    [
+     0.0,
+     0.0,
+     0.0
+    ],
+    50
+   ]
+  ]
+ },
+ "due_figure_frontale": {
+  "rif": "inquadratura 15 «marco eating» del video di riferimento",
+  "ancora": "group",
+  "descrizione": "due personaggi frontali, spinta lenta",
+  "durata_rif_s": 2.3,
+  "keys": [
+   [
+    0.0,
+    [
+     0.475,
+     0.2,
+     4.15
+    ],
+    [
+     0.475,
+     -0.3,
+     0.35
+    ],
+    42
+   ],
+   [
+    1.0,
+    [
+     0.475,
+     0.15,
+     3.65
+    ],
+    [
+     0.475,
+     -0.25,
+     0.35
+    ],
+    42
+   ]
+  ]
+ },
+ "carrello_basso_segue": {
+  "rif": "inquadratura 16 «marco rolls» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "camera bassa che avanza seguendo un personaggio che si muove o rotola",
+  "durata_rif_s": 1.7,
+  "keys": [
+   [
+    0.0,
+    [
+     0.6,
+     -0.76,
+     4.1
+    ],
+    [
+     0.0,
+     -0.86,
+     -4.0
+    ],
+    44
+   ],
+   [
+    1.0,
+    [
+     0.4,
+     -0.71,
+     2.7
+    ],
+    [
+     0.0,
+     -0.76,
+     -4.0
+    ],
+    44
+   ]
+  ]
+ },
+ "tre_quarti": {
+  "rif": "inquadratura 17 «nonna stops him» del video di riferimento",
+  "ancora": "group",
+  "descrizione": "tre quarti diagonale su due personaggi, lieve spinta",
+  "durata_rif_s": 2.4,
+  "keys": [
+   [
+    0.0,
+    [
+     -3.1,
+     -0.15,
+     2.325
+    ],
+    [
+     -0.2,
+     -0.55,
+     -0.175
+    ],
+    44
+   ],
+   [
+    1.0,
+    [
+     -2.8,
+     -0.15,
+     2.025
+    ],
+    [
+     -0.2,
+     -0.52,
+     -0.175
+    ],
+    44
+   ]
+  ]
+ },
+ "primo_piano_finale": {
+  "rif": "inquadratura 18 «payoff CU + loop» del video di riferimento",
+  "ancora": "actor",
+  "descrizione": "primo piano frontale stretto, spinta minima (finale)",
+  "durata_rif_s": 1.6,
+  "keys": [
+   [
+    0.0,
+    [
+     -0.05,
+     -0.04,
+     1.85
+    ],
+    [
+     0.0,
+     -0.14,
+     0.0
+    ],
+    40
+   ],
+   [
+    1.0,
+    [
+     -0.05,
+     -0.04,
+     1.6
+    ],
+    [
+     0.0,
+     -0.14,
+     0.0
+    ],
+    40
+   ]
+  ]
+ },
+ "zoom_comico": {
+  "ancora": "actor",
+  "descrizione": "zoom di scatto sul viso (crash zoom): sorpresa, battuta, shock comico",
+  "keys": [
+   [
+    0,
+    [
+     0,
+     0.0,
+     2.6
+    ],
+    [
+     0,
+     0,
+     -2
+    ],
+    46
+   ],
+   [
+    0.12,
+    [
+     0,
+     0.0,
+     2.6
+    ],
+    [
+     0,
+     0,
+     -2
+    ],
+    27
+   ],
+   [
+    1,
+    [
+     0,
+     0.0,
+     2.55
+    ],
+    [
+     0,
+     0,
+     -2
+    ],
+    27
+   ]
+  ],
+  "rif": "inquadratura classica (non presente nel video di riferimento)",
+  "durata_rif_s": 2.0
+ },
+ "vertigine": {
+  "ancora": "actor",
+  "descrizione": "effetto vertigine (dolly zoom): il soggetto resta uguale, lo sfondo si allarga; realizzazione improvvisa, panico",
+  "keys": [
+   [
+    0,
+    [
+     0,
+     0.0,
+     3.6
+    ],
+    [
+     0,
+     0,
+     -2
+    ],
+    18.5
+   ],
+   [
+    1,
+    [
+     0,
+     0.0,
+     1.8
+    ],
+    [
+     0,
+     0,
+     -2
+    ],
+    36
+   ]
+  ],
+  "rif": "inquadratura classica (non presente nel video di riferimento)",
+  "durata_rif_s": 2.0
+ },
+ "arco": {
+  "ancora": "actor",
+  "descrizione": "arco lento attorno al personaggio (circa 45°): momento importante, eroe, decisione",
+  "keys": [
+   [
+    0,
+    [
+     -1.0,
+     0.1,
+     2.3
+    ],
+    [
+     0,
+     -0.05,
+     0
+    ],
+    40
+   ],
+   [
+    1,
+    [
+     1.0,
+     0.1,
+     2.3
+    ],
+    [
+     0,
+     -0.05,
+     0
+    ],
+    40
+   ]
+  ],
+  "rif": "inquadratura classica (non presente nel video di riferimento)",
+  "durata_rif_s": 2.0
+ },
+ "dall_alto_vulnerabile": {
+  "ancora": "actor",
+  "descrizione": "dall'alto sul personaggio: piccolo, sopraffatto, in difficoltà",
+  "keys": [
+   [
+    0,
+    [
+     0,
+     0.85,
+     2.1
+    ],
+    [
+     0,
+     -0.25,
+     0
+    ],
+    42
+   ],
+   [
+    1,
+    [
+     0,
+     0.78,
+     1.9
+    ],
+    [
+     0,
+     -0.25,
+     0
+    ],
+    42
+   ]
+  ],
+  "rif": "inquadratura classica (non presente nel video di riferimento)",
+  "durata_rif_s": 2.0
+ },
+ "dal_basso_eroe": {
+  "ancora": "actor",
+  "descrizione": "dal basso sul personaggio: potere, minaccia, trionfo (diverso da dal_basso_rivela, che segue un oggetto)",
+  "keys": [
+   [
+    0,
+    [
+     0.3,
+     -0.75,
+     2.0
+    ],
+    [
+     0,
+     0.15,
+     0
+    ],
+    44
+   ],
+   [
+    1,
+    [
+     0.3,
+     -0.75,
+     1.8
+    ],
+    [
+     0,
+     0.15,
+     0
+    ],
+    44
+   ]
+  ],
+  "rif": "inquadratura classica (non presente nel video di riferimento)",
+  "durata_rif_s": 2.0
+ },
+ "accompagna": {
+  "ancora": "actor",
+  "continuo": true,
+  "descrizione": "carrello laterale all'altezza degli occhi che accompagna un personaggio da un punto all'altro (move), a distanza costante, con un po' di spazio davanti a chi cammina; si ferma con lui",
+  "rif": "movimento continuo (estende «marco rolls» e «trays dolly» del video di riferimento)",
+  "durata_rif_s": 2.5,
+  "keys": [
+   [
+    0,
+    [
+     0,
+     0,
+     2.9
+    ],
+    [
+     0,
+     -0.2,
+     0
+    ],
+    44
+   ],
+   [
+    1,
+    [
+     0,
+     0,
+     2.7
+    ],
+    [
+     0,
+     -0.2,
+     0
+    ],
+    44
+   ]
+  ]
+ },
+ "passaggio": {
+  "ancora": "continuo",
+  "continuo": true,
+  "descrizione": "senza stacco da un soggetto (on) a un altro (verso), es. dal personaggio all'oggetto che nomina: la camera arriva sul secondo sulla sua parola (parola) con una planata morbida di 0,8-2,5 s",
+  "rif": "movimento continuo (inquadrature del riferimento unite da una planata)",
+  "durata_rif_s": 2.5,
+  "keys": [
+   [
+    0,
+    [
+     0,
+     0,
+     2.7
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    44
+   ],
+   [
+    1,
+    [
+     0,
+     0,
+     2.7
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    44
+   ]
+  ]
+ },
+ "piano_sequenza": {
+  "ancora": "continuo",
+  "continuo": true,
+  "descrizione": "piano sequenza che attraversa il luogo seguendo l'azione: una lista di tappe (soggetto + inquadratura del riferimento + parola d'arrivo), planate morbide tra una tappa e l'altra, ogni tappa almeno 1 s; una tappa può essere 'accompagna'",
+  "rif": "movimento continuo (inquadrature del riferimento unite da planate)",
+  "durata_rif_s": 6,
+  "keys": [
+   [
+    0,
+    [
+     0,
+     0,
+     2.7
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    44
+   ],
+   [
+    1,
+    [
+     0,
+     0,
+     2.7
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    44
+   ]
+  ]
+ }
+}

@@ -16,7 +16,7 @@ npm install
 npm run render        # → frame.png (Playwright + Chromium headless)
 ```
 
-La v3 usa asset reali del kit (Poly Haven, CC0): asfalto, erba e cemento PBR, cielo HDR per i riflessi e alberi veri come "impostori". Per migliorare un frame in automatico c'è la skill `migliora-frame` in `.claude/skills/`.
+La v3 usa asset reali del kit (Poly Haven, CC0): asfalto, erba e cemento PBR, cielo HDR per i riflessi e alberi veri come "impostori". Il metodo (taratura su un riferimento, rendering a passaggi, impostori, ricerca dei modelli) è ora parte della skill `cartoon-storie`: `.claude/skills/cartoon-storie/references/migliora-frame.md`.
 
 - [`CAMBIAMENTI.md`](CAMBIAMENTI.md): cosa è cambiato dalla v1 al finale e perché (metodo, misure, tabelle prima/dopo, 14 iterazioni, errori trovati, differenze residue).
 - `strumenti/`: `misura.mjs` (camera e posizioni dai pixel), `confronta.py` (immagini affiancate e sovrapposte), `metrica.py` (differenza per zona).

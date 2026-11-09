@@ -1,0 +1,1731 @@
+{
+ "title": "La panna nella carbonara",
+ "facts": "commedia",
+ "voice": {
+  "file": "../../work/carbonara/voce.mp3",
+  "words": "../../work/carbonara/words.json"
+ },
+ "music": {
+  "mood": "warm",
+  "bpm": 96
+ },
+ "cast": {
+  "nonna": {
+   "type": "nonna"
+  },
+  "marco": {
+   "type": "marco"
+  }
+ },
+ "places": {
+  "cucina": {
+   "type": "room",
+   "w": 8,
+   "d": 7,
+   "h": 3,
+   "light": "interno_notte",
+   "beams": true,
+   "floor": {
+    "tex": "terracotta_floor_tiles",
+    "tint": "#ffd2bc",
+    "rep": 4
+   },
+   "wall": {
+    "tex": "yellow_plaster",
+    "tint": "#ffc95a",
+    "rep": [
+     3,
+     1.3
+    ]
+   },
+   "tiles": {
+    "tex": "square_tiled_wall",
+    "tint": "#d8efe8",
+    "rep": [
+     6,
+     1.4
+    ],
+    "h": 1.3
+   },
+   "windows": [
+    {
+     "x": 0.4,
+     "y": 1.85,
+     "w": 1.2,
+     "h": 1.0,
+     "view": "sera"
+    }
+   ],
+   "lamps": [
+    {
+     "at": [
+      0,
+      2.3,
+      0.4
+     ],
+     "intensity": 3,
+     "color": "#ffc98a"
+    }
+   ],
+   "fires": [
+    {
+     "id": "fornelli",
+     "at": [
+      -1.9,
+      0.92,
+      -3.0
+     ],
+     "burners": 4,
+     "gap": 0.26,
+     "scale": 0.6
+    }
+   ],
+   "steam": [
+    {
+     "at": [
+      2.6,
+      1.2,
+      -3.0
+     ]
+    }
+   ],
+   "models": [
+    {
+     "m": "electric_stove",
+     "at": [
+      -1.9,
+      0,
+      -3.05
+     ],
+     "size": 0.92
+    },
+    {
+     "m": "dining_table",
+     "at": [
+      0,
+      0,
+      0.2
+     ],
+     "size": 0.78
+    },
+    {
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        1.75,
+        0.02,
+        1.05
+       ],
+       "at": [
+        0,
+        0.79,
+        0
+       ],
+       "color": "#e8b8b0"
+      }
+     ],
+     "at": [
+      0,
+      0,
+      0.2
+     ]
+    },
+    {
+     "m": "painted_wooden_chair_01",
+     "at": [
+      -1.15,
+      0,
+      0.25
+     ],
+     "size": 0.95,
+     "ry": 90
+    },
+    {
+     "m": "painted_wooden_chair_01",
+     "at": [
+      1.15,
+      0,
+      0.25
+     ],
+     "size": 0.95,
+     "ry": -90
+    },
+    {
+     "m": "painted_wooden_cabinet",
+     "at": [
+      2.7,
+      0,
+      -3.1
+     ],
+     "size": 1.0,
+     "w": 1.6
+    },
+    {
+     "m": "brass_pot_01",
+     "at": [
+      2.6,
+      1.0,
+      -3.0
+     ],
+     "w": 0.42
+    },
+    {
+     "m": "wine_bottles_01",
+     "at": [
+      3.2,
+      1.0,
+      -3.1
+     ],
+     "size": 0.34
+    },
+    {
+     "m": "CheeseBox_01",
+     "at": [
+      2.15,
+      1.0,
+      -3.0
+     ],
+     "w": 0.3
+    },
+    {
+     "m": "pot_enamel_01",
+     "at": [
+      -3.3,
+      0,
+      -3.0
+     ],
+     "w": 0.35
+    },
+    {
+     "m": "brass_pan_01",
+     "at": [
+      -0.9,
+      1.6,
+      -3.45
+     ],
+     "w": 0.4,
+     "rot": [
+      90,
+      0,
+      0
+     ]
+    },
+    {
+     "m": "potted_plant_01",
+     "at": [
+      -3.45,
+      0,
+      -1.0
+     ],
+     "size": 1.0
+    },
+    {
+     "m": "ceramic_pot",
+     "at": [
+      -3.4,
+      0,
+      0.9
+     ],
+     "size": 0.35
+    },
+    {
+     "m": "wicker_basket_01",
+     "at": [
+      3.4,
+      0,
+      0.6
+     ],
+     "w": 0.5
+    },
+    {
+     "at": [
+      3.2,
+      0,
+      -2.2
+     ],
+     "ry": -90,
+     "id": "frigo",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.8,
+        1.8,
+        0.7
+       ],
+       "at": [
+        0,
+        0.9,
+        0
+       ],
+       "color": "#f1ede4",
+       "rough": 0.4
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.03,
+        0.5,
+        0.04
+       ],
+       "at": [
+        -0.33,
+        1.25,
+        0.37
+       ],
+       "color": "#b9c4cc",
+       "metal": 0.8
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.03,
+        0.3,
+        0.04
+       ],
+       "at": [
+        -0.33,
+        0.55,
+        0.37
+       ],
+       "color": "#b9c4cc",
+       "metal": 0.8
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.78,
+        0.02,
+        0.02
+       ],
+       "at": [
+        0,
+        1.0,
+        0.36
+       ],
+       "color": "#cfc8bb"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.12,
+        0.12,
+        0.02
+       ],
+       "at": [
+        0.15,
+        1.4,
+        0.36
+       ],
+       "color": "#e04a3a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.1,
+        0.1,
+        0.02
+       ],
+       "at": [
+        0.25,
+        1.2,
+        0.36
+       ],
+       "color": "#3a7fd0"
+      }
+     ]
+    },
+    {
+     "at": [
+      -0.2,
+      0.81,
+      0.35
+     ],
+     "w": 0.5,
+     "id": "tagliere",
+     "m": "wooden_cutting_board"
+    },
+    {
+     "at": [
+      -0.35,
+      0.83,
+      0.35
+     ],
+     "w": 0.2,
+     "id": "guanciale",
+     "hidden": true,
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.2,
+        0.05,
+        0.1
+       ],
+       "at": [
+        0,
+        0.025,
+        0
+       ],
+       "color": "#e9b9a6"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.2,
+        0.02,
+        0.1
+       ],
+       "at": [
+        0,
+        0.06,
+        0
+       ],
+       "color": "#f6e8dc"
+      }
+     ]
+    },
+    {
+     "at": [
+      0.25,
+      0.81,
+      0.4
+     ],
+     "size": 0.2,
+     "id": "pepe",
+     "parts": [
+      {
+       "shape": "cylinder",
+       "r": 0.035,
+       "h": 0.2,
+       "at": [
+        0,
+        0.1,
+        0
+       ],
+       "color": "#5a3a22"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.03,
+       "at": [
+        0,
+        0.22,
+        0
+       ],
+       "color": "#3a2616"
+      }
+     ]
+    },
+    {
+     "id": "piatto_marco",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.13,
+       "h": 0.015,
+       "at": [
+        0,
+        0.008,
+        0
+       ],
+       "color": "#f7f5ef",
+       "rough": 0.3
+      },
+      {
+       "shape": "cyl",
+       "r": 0.09,
+       "h": 0.02,
+       "at": [
+        0,
+        0.02,
+        0
+       ],
+       "color": "#e9e4d8"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.075,
+       "h": 0.04,
+       "at": [
+        0,
+        0.04,
+        0
+       ],
+       "color": "#f3e2a8"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.05,
+       "h": 0.03,
+       "at": [
+        0,
+        0.07,
+        0
+       ],
+       "color": "#f3e2a8"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        0.03,
+        0.085,
+        0.02
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        -0.03,
+        0.085,
+        0.01
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        0.0,
+        0.085,
+        -0.035
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        0.04,
+        0.085,
+        -0.02
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        -0.02,
+        0.085,
+        0.04
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.06,
+       "h": 0.008,
+       "at": [
+        0,
+        0.088,
+        0
+       ],
+       "color": "#fbf8ee"
+      }
+     ],
+     "at": [
+      0.45,
+      0.81,
+      0.05
+     ]
+    },
+    {
+     "id": "forchetta_marco",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.012,
+        0.004,
+        0.13
+       ],
+       "at": [
+        0,
+        0.003,
+        0
+       ],
+       "color": "#c9ced3",
+       "metal": 0.9,
+       "rough": 0.25
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.03,
+        0.004,
+        0.04
+       ],
+       "at": [
+        0,
+        0.003,
+        -0.08
+       ],
+       "color": "#c9ced3",
+       "metal": 0.9,
+       "rough": 0.25
+      }
+     ],
+     "at": [
+      0.63,
+      0.81,
+      0.05
+     ],
+     "ry": 10
+    },
+    {
+     "id": "piatto_nonna",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.13,
+       "h": 0.015,
+       "at": [
+        0,
+        0.008,
+        0
+       ],
+       "color": "#f7f5ef",
+       "rough": 0.3
+      },
+      {
+       "shape": "cyl",
+       "r": 0.09,
+       "h": 0.02,
+       "at": [
+        0,
+        0.02,
+        0
+       ],
+       "color": "#e9e4d8"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.075,
+       "h": 0.04,
+       "at": [
+        0,
+        0.04,
+        0
+       ],
+       "color": "#f2c94c"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.05,
+       "h": 0.03,
+       "at": [
+        0,
+        0.07,
+        0
+       ],
+       "color": "#f2c94c"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        0.03,
+        0.085,
+        0.02
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        -0.03,
+        0.085,
+        0.01
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        0.0,
+        0.085,
+        -0.035
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        0.04,
+        0.085,
+        -0.02
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.02,
+        0.012,
+        0.015
+       ],
+       "at": [
+        -0.02,
+        0.085,
+        0.04
+       ],
+       "color": "#c46b4a"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.004,
+       "at": [
+        0.02,
+        0.09,
+        0.0
+       ],
+       "color": "#222"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.004,
+       "at": [
+        -0.02,
+        0.09,
+        -0.02
+       ],
+       "color": "#222"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.004,
+       "at": [
+        0.0,
+        0.09,
+        0.03
+       ],
+       "color": "#222"
+      }
+     ],
+     "at": [
+      -0.4,
+      0.81,
+      0.05
+     ],
+     "hidden": true
+    },
+    {
+     "id": "forchetta_nonna",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.012,
+        0.004,
+        0.13
+       ],
+       "at": [
+        0,
+        0.003,
+        0
+       ],
+       "color": "#c9ced3",
+       "metal": 0.9,
+       "rough": 0.25
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.03,
+        0.004,
+        0.04
+       ],
+       "at": [
+        0,
+        0.003,
+        -0.08
+       ],
+       "color": "#c9ced3",
+       "metal": 0.9,
+       "rough": 0.25
+      }
+     ],
+     "at": [
+      -0.58,
+      0.81,
+      0.05
+     ]
+    },
+    {
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.05,
+        0.3,
+        0.05
+       ],
+       "at": [
+        0,
+        0.15,
+        0
+       ],
+       "color": "#3f6b2f",
+       "rough": 0.4
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.06,
+        0.06,
+        0.06
+       ],
+       "at": [
+        0,
+        0.33,
+        0
+       ],
+       "color": "#2a2a2a"
+      }
+     ],
+     "at": [
+      0.05,
+      0.81,
+      0.4
+     ]
+    },
+    {
+     "m": "jug_01",
+     "at": [
+      -0.1,
+      0.81,
+      0.45
+     ],
+     "size": 0.2
+    },
+    {
+     "m": "wooden_bowl_01",
+     "at": [
+      0.25,
+      0.81,
+      0.5
+     ],
+     "w": 0.2
+    },
+    {
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.035,
+       "h": 0.09,
+       "at": [
+        0,
+        0.045,
+        0
+       ],
+       "color": "#e8e2d4"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.03,
+       "h": 0.01,
+       "at": [
+        0,
+        0.095,
+        0
+       ],
+       "color": "#bbb",
+       "metal": 0.8
+      }
+     ],
+     "at": [
+      -0.2,
+      0.81,
+      0.55
+     ]
+    },
+    {
+     "id": "tegame",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.15,
+       "h": 0.05,
+       "at": [
+        0,
+        0.025,
+        0
+       ],
+       "color": "#2b2b2e",
+       "metal": 0.6,
+       "rough": 0.4
+      },
+      {
+       "shape": "cyl",
+       "r": 0.135,
+       "h": 0.02,
+       "at": [
+        0,
+        0.04,
+        0
+       ],
+       "color": "#f3e2a8"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.3,
+        0.02,
+        0.035
+       ],
+       "at": [
+        0.29,
+        0.04,
+        0
+       ],
+       "color": "#1d1d1f"
+      }
+     ],
+     "at": [
+      -2.03,
+      0.93,
+      -2.95
+     ]
+    },
+    {
+     "m": "pot_enamel_01",
+     "at": [
+      -1.62,
+      0.93,
+      -3.05
+     ],
+     "w": 0.3
+    },
+    {
+     "id": "pecorino",
+     "parts": [
+      {
+       "shape": "cyl",
+       "r": 0.09,
+       "h": 0.09,
+       "at": [
+        0,
+        0.045,
+        0
+       ],
+       "color": "#f0dca0"
+      },
+      {
+       "shape": "cyl",
+       "r": 0.092,
+       "h": 0.02,
+       "at": [
+        0,
+        0.085,
+        0
+       ],
+       "color": "#3a2a1c"
+      }
+     ],
+     "at": [
+      -0.05,
+      0.83,
+      0.35
+     ],
+     "hidden": true
+    },
+    {
+     "id": "frigo",
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.75,
+        1.6,
+        0.65
+       ],
+       "at": [
+        0,
+        0.8,
+        0
+       ],
+       "color": "#efe8d6",
+       "rough": 0.35
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.04,
+        0.35,
+        0.05
+       ],
+       "at": [
+        0.3,
+        1.15,
+        0.34
+       ],
+       "color": "#b9c4cc",
+       "metal": 0.8
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.74,
+        0.015,
+        0.01
+       ],
+       "at": [
+        0,
+        1.0,
+        0.33
+       ],
+       "color": "#cfc6b2"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.1,
+        0.1,
+        0.01
+       ],
+       "at": [
+        -0.15,
+        1.35,
+        0.33
+       ],
+       "color": "#e04a3a"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.09,
+        0.09,
+        0.01
+       ],
+       "at": [
+        -0.05,
+        1.2,
+        0.33
+       ],
+       "color": "#3a7fd0"
+      },
+      {
+       "shape": "box",
+       "size": [
+        0.12,
+        0.08,
+        0.01
+       ],
+       "at": [
+        0.1,
+        1.45,
+        0.33
+       ],
+       "color": "#f2c14a"
+      }
+     ],
+     "at": [
+      3.4,
+      0,
+      -1.8
+     ],
+     "ry": -90
+    },
+    {
+     "m": "Shelf_01",
+     "at": [
+      -3.75,
+      0,
+      -2.0
+     ],
+     "size": 1.7,
+     "ry": 90
+    },
+    {
+     "m": "ceramic_vase_01",
+     "at": [
+      -3.7,
+      1.2,
+      -2.0
+     ],
+     "size": 0.25
+    },
+    {
+     "m": "brass_pot_02",
+     "at": [
+      -3.7,
+      0.85,
+      -2.3
+     ],
+     "w": 0.25
+    },
+    {
+     "m": "wall_clock",
+     "at": [
+      -0.9,
+      2.2,
+      -3.45
+     ],
+     "size": 0.35
+    },
+    {
+     "m": "vintage_radio_transceiver",
+     "at": [
+      3.0,
+      1.0,
+      -3.1
+     ],
+     "size": 0.25
+    },
+    {
+     "m": "wooden_bowl_02",
+     "at": [
+      2.3,
+      1.0,
+      -3.0
+     ],
+     "w": 0.3
+    },
+    {
+     "m": "yellow_onion",
+     "at": [
+      2.35,
+      1.05,
+      -3.0
+     ],
+     "size": 0.08
+    },
+    {
+     "m": "lemon",
+     "at": [
+      2.25,
+      1.05,
+      -2.95
+     ],
+     "size": 0.07
+    },
+    {
+     "parts": [
+      {
+       "shape": "box",
+       "size": [
+        0.5,
+        0.02,
+        0.02
+       ],
+       "at": [
+        0,
+        0,
+        0
+       ],
+       "color": "#7a4a2a"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.03,
+       "at": [
+        -0.18,
+        -0.05,
+        0
+       ],
+       "color": "#f2eedf"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.03,
+       "at": [
+        -0.09,
+        -0.07,
+        0
+       ],
+       "color": "#f2eedf"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.03,
+       "at": [
+        0.0,
+        -0.05,
+        0
+       ],
+       "color": "#f2eedf"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.03,
+       "at": [
+        0.09000000000000002,
+        -0.07,
+        0
+       ],
+       "color": "#f2eedf"
+      },
+      {
+       "shape": "sphere",
+       "r": 0.03,
+       "at": [
+        0.18,
+        -0.05,
+        0
+       ],
+       "color": "#f2eedf"
+      }
+     ],
+     "at": [
+      1.2,
+      1.9,
+      -3.45
+     ]
+    },
+    {
+     "m": "wicker_basket_02",
+     "at": [
+      3.4,
+      0,
+      0.9
+     ],
+     "w": 0.45
+    },
+    {
+     "id": "uovo0",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.06,
+       "at": [
+        0,
+        0.06,
+        0
+       ],
+       "color": "#f4ead8"
+      }
+     ],
+     "at": [
+      3.0,
+      0.0,
+      -1.6
+     ]
+    },
+    {
+     "id": "uovo1",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.06,
+       "at": [
+        0,
+        0.06,
+        0
+       ],
+       "color": "#f4ead8"
+      }
+     ],
+     "at": [
+      3.0,
+      0.0,
+      -1.8
+     ]
+    },
+    {
+     "id": "uovo2",
+     "parts": [
+      {
+       "shape": "sphere",
+       "r": 0.06,
+       "at": [
+        0,
+        0.06,
+        0
+       ],
+       "color": "#f4ead8"
+      }
+     ],
+     "at": [
+      3.0,
+      0.0,
+      -2.0
+     ]
+    }
+   ]
+  }
+ },
+ "beats": [
+  {
+   "say": "Nonna, ho fatto la carbonara... con la panna.",
+   "place": "cucina",
+   "speaker": "marco",
+   "camera": [
+    {
+     "preset": "rivela_dal_viso",
+     "on": "marco"
+    },
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "piatto_marco",
+     "at": "carbonara"
+    },
+    {
+     "preset": "due_figure_tavolo",
+     "at": "con"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "smile",
+     "change": [
+      {
+       "at": "panna",
+       "face": "shock"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "grin",
+     "change": [
+      {
+       "at": "panna",
+       "face": "smile",
+       "pose": "point"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "La forchetta di nonna si ferma a mezz'aria.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "primo_piano",
+     "on": "nonna"
+    },
+    {
+     "preset": "ecu",
+     "on": "nonna",
+     "at": "ferma"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "eat",
+     "prop": "fork",
+     "face": "chew",
+     "change": [
+      {
+       "at": "ferma",
+       "face": "shock"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "smile"
+    }
+   ]
+  },
+  {
+   "say": "Il tegame trema!",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "dall_alto_oggetto",
+     "on": "tegame"
+    }
+   ],
+   "do": [
+    {
+     "id": "fornelli",
+     "at": "Il",
+     "on": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "nervous"
+    }
+   ]
+  },
+  {
+   "say": "Le uova scappano dal frigo!",
+   "place": "cucina",
+   "camera": [
+    {
+     "keys": [
+      [
+       0,
+       [
+        1.5,
+        1.1,
+        -0.6
+       ],
+       [
+        3.2,
+        0.7,
+        -1.8
+       ],
+       50
+      ],
+      [
+       1,
+       [
+        1.7,
+        0.9,
+        -0.8
+       ],
+       [
+        3.0,
+        0.3,
+        -1.6
+       ],
+       50
+      ]
+     ]
+    },
+    {
+     "preset": "carrello_basso_segue",
+     "on": "uovo1",
+     "at": "dal"
+    }
+   ],
+   "do": [
+    {
+     "id": "uovo0",
+     "at": "scappano",
+     "move": [
+      1.4,
+      0.0,
+      -0.9
+     ],
+     "dur": 1.4
+    },
+    {
+     "id": "uovo1",
+     "at": "scappano",
+     "move": [
+      1.0999999999999999,
+      0.0,
+      -0.75
+     ],
+     "dur": 1.4
+    },
+    {
+     "id": "uovo2",
+     "at": "scappano",
+     "move": [
+      0.7999999999999999,
+      0.0,
+      -0.6000000000000001
+     ],
+     "dur": 1.4
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "shock"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "defend",
+     "face": "nervous"
+    }
+   ]
+  },
+  {
+   "say": "Nonna si alza e si allaccia il grembiule.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "ambiente"
+    },
+    {
+     "preset": "mezza_figura",
+     "on": "nonna",
+     "at": "allaccia"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "determined",
+     "change": [
+      {
+       "at": "alza",
+       "pose": "up"
+      },
+      {
+       "at": "allaccia",
+       "pose": "apron"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "worried"
+    }
+   ]
+  },
+  {
+   "say": "Guanciale, pecorino,",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "tagliere"
+    }
+   ],
+   "do": [
+    {
+     "id": "guanciale",
+     "at": "Guanciale",
+     "show": true,
+     "from": [
+      -2,
+      2.5,
+      -1
+     ],
+     "dur": 0.6
+    },
+    {
+     "id": "pecorino",
+     "at": "pecorino",
+     "show": true,
+     "from": [
+      2,
+      2.5,
+      -1
+     ],
+     "dur": 0.6
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "determined"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "worried"
+    }
+   ]
+  },
+  {
+   "say": "pepe, nient'altro.",
+   "place": "cucina",
+   "speaker": "nonna",
+   "camera": [
+    {
+     "preset": "mezza_figura",
+     "on": "nonna"
+    }
+   ],
+   "do": [
+    {
+     "id": "piatto_marco",
+     "at": "pepe",
+     "hide": true
+    },
+    {
+     "id": "piatto_nonna",
+     "at": "nient",
+     "pop": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "determined",
+     "change": [
+      {
+       "at": "nient",
+       "pose": "stop",
+       "face": "sly"
+      }
+     ]
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "hang",
+     "face": "worried"
+    }
+   ]
+  },
+  {
+   "say": "Marco assaggia e piange.",
+   "place": "cucina",
+   "camera": [
+    {
+     "preset": "dettaglio_oggetto",
+     "on": "piatto_nonna"
+    },
+    {
+     "preset": "zoom_comico",
+     "on": "marco",
+     "at": "piange"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "sly"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "eat",
+     "prop": "fork",
+     "face": "chew",
+     "change": [
+      {
+       "at": "piange",
+       "face": "teary"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "say": "Nonna, e la panna?",
+   "place": "cucina",
+   "speaker": "marco",
+   "camera": [
+    {
+     "preset": "tre_quarti"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "sly"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "shrug",
+     "face": "teary"
+    }
+   ]
+  },
+  {
+   "say": "Quale panna?",
+   "place": "cucina",
+   "speaker": "nonna",
+   "camera": [
+    {
+     "preset": "primo_piano_finale",
+     "on": "nonna"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nonna",
+     "x": -0.6,
+     "z": -0.6,
+     "pose": "hip",
+     "face": "sly"
+    },
+    {
+     "id": "marco",
+     "x": 0.7,
+     "z": -0.6,
+     "pose": "shrug",
+     "face": "blissful"
+    }
+   ]
+  }
+ ]
+}

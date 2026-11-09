@@ -1,0 +1,744 @@
+{
+ "title": "The Doctor Who Said Wash Your Hands",
+ "facts": "Ignaz Semmelweis, Vienna General Hospital. Two maternity clinics: the First (doctors and students) had about 10% of mothers die of childbed fever in the 1840s; the Second (midwives) had less than half that. Women begged not to be admitted to the First Clinic. In 1847 his colleague Jakob Kolletschka was cut by a student's scalpel during an autopsy and died of a similar illness. Doctors went from autopsies to deliveries without washing. From May 1847 Semmelweis made staff wash in chlorinated lime; the First Clinic's death rate fell to about 1-2% (1.27% in 1848). Many colleagues rejected and ridiculed the idea; his appointment was not renewed in 1849 and he left Vienna. Germ theory (Pasteur, Lister) explained it in the 1860s. Semmelweis noticed that women who gave birth on the way to the hospital ('street births') rarely got the fever.",
+ "voice": {
+  "name": "joe",
+  "speed": 1.05
+ },
+ "music": {
+  "mood": "mystery",
+  "bpm": 100
+ },
+ "cast": {
+  "hero": {
+   "coat": "#2E7D7A",
+   "hair": "receding",
+   "hair_color": "#6B4226",
+   "mustache": true
+  },
+  "doc1": {
+   "coat": "#2B2B33",
+   "hat": "top",
+   "hair": "side",
+   "hair_color": "#9A9A9A",
+   "mustache": true
+  },
+  "doc2": {
+   "coat": "#4A3A5C",
+   "hat": "top",
+   "hair": "side",
+   "hair_color": "#3B2A1E",
+   "monocle": true
+  },
+  "friend": {
+   "coat": "#3A4A3A",
+   "hair": "bald",
+   "hair_color": "#BDBDBD",
+   "beard": true
+  },
+  "mom1": {
+   "body": "dress",
+   "coat": "#B5838D",
+   "hair": "long",
+   "hair_color": "#6B4226"
+  },
+  "mom2": {
+   "body": "dress",
+   "coat": "#6D8EA0",
+   "hair": "bun",
+   "hair_color": "#3B2A1E"
+  },
+  "nurse": {
+   "body": "shirt",
+   "coat": "#5DADE2",
+   "hair": "bun",
+   "hair_color": "#C99A3C",
+   "lanyard": true
+  }
+ },
+ "places": {
+  "hall": {
+   "preset": "hospital"
+  },
+  "ward": {
+   "preset": "ward"
+  },
+  "morgue": {
+   "preset": "hospital",
+   "wall": "#9AA39A",
+   "window": "none",
+   "night": true
+  },
+  "today": {
+   "preset": "office",
+   "wall": "#F2F5F7",
+   "floor": "marble"
+  }
+ },
+ "beats": [
+  {
+   "say": "In 1847, a young doctor put a bowl of chlorine water by the hospital door,",
+   "shot": "wide",
+   "place": "hall",
+   "camera": "push_in",
+   "cast": [
+    {
+     "id": "hero",
+     "x": 330,
+     "face": "determined",
+     "pose": "place"
+    }
+   ],
+   "props": [
+    {
+     "type": "basin",
+     "x": 730,
+     "y": 1800,
+     "scale": 1.45
+    },
+    {
+     "type": "door",
+     "x": 860,
+     "y": 1400,
+     "scale": 1.2,
+     "text": "WARD 1"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "splash",
+     "at_word": "water"
+    }
+   ]
+  },
+  {
+   "say": "and told every doctor: *wash your hands.*",
+   "continue": true,
+   "camera": {
+    "preset": "punch",
+    "focus": [
+     400,
+     1180
+    ],
+    "from": 1.2,
+    "to": 1.45
+   },
+   "cast": [
+    {
+     "id": "hero",
+     "x": 330,
+     "face": "smile",
+     "pose": "point"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "pop",
+     "at_word": "wash"
+    }
+   ]
+  },
+  {
+   "say": "His hospital had two maternity wards.",
+   "shot": "wide",
+   "place": "hall",
+   "camera": "pan_right",
+   "transition": "whip",
+   "props": [
+    {
+     "type": "door",
+     "x": 280,
+     "y": 1400,
+     "scale": 1.1,
+     "text": "WARD 1"
+    },
+    {
+     "type": "door",
+     "x": 800,
+     "y": 1400,
+     "scale": 1.1,
+     "text": "WARD 2"
+    }
+   ],
+   "cast": [
+    {
+     "id": "hero",
+     "x": 540,
+     "face": "neutral",
+     "pose": "shrug"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ]
+  },
+  {
+   "say": "In the one run by doctors, about *one in ten* new mothers died of fever.",
+   "shot": "board",
+   "place": "ward",
+   "camera": "slow_push",
+   "board": {
+    "title": "DEATHS",
+    "write": [
+     {
+      "text": "Doctors: 1 in 10",
+      "at_word": "one",
+      "slot": 0,
+      "size": 110
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "hero",
+     "x": 860,
+     "scale": 1.9,
+     "face": "worried",
+     "pose": "point_up",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "chalk",
+     "at_word": "one"
+    }
+   ]
+  },
+  {
+   "say": "In the one run by midwives, less than half as many.",
+   "continue": true,
+   "board": {
+    "write": [
+     {
+      "text": "Midwives: under half",
+      "at_word": "less",
+      "slot": 1,
+      "size": 110,
+      "color": "#BFE3F2"
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "hero",
+     "x": 860,
+     "scale": 1.9,
+     "face": "confused",
+     "pose": "think",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "chalk",
+     "at_word": "less"
+    }
+   ],
+   "camera": {
+    "preset": "push_in",
+    "focus": [
+     420,
+     800
+    ],
+    "from": 1.12,
+    "to": 1.22
+   }
+  },
+  {
+   "say": "Women begged to be sent to the other ward.",
+   "shot": "wide",
+   "place": "hall",
+   "camera": {
+    "preset": "pull_out",
+    "focus": [
+     540,
+     1250
+    ],
+    "from": 1.12,
+    "to": 1.0
+   },
+   "props": [
+    {
+     "type": "door",
+     "x": 880,
+     "y": 1400,
+     "scale": 1.1,
+     "text": "WARD 2"
+    }
+   ],
+   "cast": [
+    {
+     "id": "mom1",
+     "x": 250,
+     "face": "scared",
+     "pose": "beg",
+     "facing": 1,
+     "scale": 1.85
+    },
+    {
+     "id": "mom2",
+     "x": 620,
+     "y": 1840,
+     "face": "worried",
+     "pose": "beg",
+     "facing": 1,
+     "scale": 1.85
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ]
+  },
+  {
+   "say": "Some even chose to give birth in the street instead.",
+   "shot": "wide",
+   "place": {
+    "preset": "town_day"
+   },
+   "camera": "pan_left",
+   "props": [
+    {
+     "type": "street_lamp",
+     "x": 880,
+     "y": 1700,
+     "lit": false
+    },
+    {
+     "type": "cart",
+     "x": 250,
+     "y": 1640,
+     "scale": 0.9
+    }
+   ],
+   "cast": [
+    {
+     "id": "mom1",
+     "x": 600,
+     "walk_to": 420,
+     "walk_time": 2.2,
+     "face": "determined"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ]
+  },
+  {
+   "say": "Then his friend cut his finger during an autopsy,",
+   "shot": "closeup",
+   "place": "morgue",
+   "camera": "push_in",
+   "transition": "flash",
+   "cast": [
+    {
+     "id": "friend",
+     "face": "shock",
+     "pose": "show_hands"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "sting",
+     "at_word": "cut"
+    }
+   ]
+  },
+  {
+   "say": "and died of the *exact same fever.*",
+   "shot": "wide",
+   "place": "morgue",
+   "camera": "slow_push",
+   "cast": [
+    {
+     "id": "hero",
+     "x": 540,
+     "face": "shock",
+     "pose": "idle"
+    }
+   ],
+   "fx": [
+    {
+     "type": "dark",
+     "strength": 0.6
+    }
+   ],
+   "sfx": [
+    {
+     "type": "rumble"
+    }
+   ]
+  },
+  {
+   "say": "The doctors were walking straight from the dead to the mothers.",
+   "shot": "wide",
+   "place": "hall",
+   "camera": "pan_right",
+   "props": [
+    {
+     "type": "door",
+     "x": 860,
+     "y": 1400,
+     "scale": 1.2,
+     "text": "WARD 1"
+    }
+   ],
+   "cast": [
+    {
+     "id": "doc1",
+     "x": 120,
+     "walk_to": 620,
+     "walk_time": 2.6,
+     "face": "smug"
+    },
+    {
+     "id": "doc2",
+     "x": -150,
+     "y": 1850,
+     "walk_to": 330,
+     "walk_time": 2.6,
+     "face": "neutral"
+    }
+   ]
+  },
+  {
+   "say": "So he made everyone wash in chlorine.",
+   "shot": "closeup",
+   "place": "hall",
+   "camera": "pull_out",
+   "transition": "whip",
+   "hands": "clean",
+   "cast": [
+    {
+     "id": "hero",
+     "face": "determined"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "splash",
+     "at_word": "chlorine"
+    }
+   ]
+  },
+  {
+   "say": "The other doctors were insulted.",
+   "shot": "wide",
+   "place": "hall",
+   "camera": "push_in",
+   "cast": [
+    {
+     "id": "doc1",
+     "x": 195,
+     "y": 1790,
+     "scale": 1.85,
+     "face": "offended",
+     "pose": "arms_crossed"
+    },
+    {
+     "id": "doc2",
+     "x": 540,
+     "y": 1840,
+     "scale": 1.95,
+     "face": "angry",
+     "pose": "hands_hips"
+    },
+    {
+     "id": "friend",
+     "x": 885,
+     "y": 1790,
+     "scale": 1.85,
+     "face": "offended",
+     "pose": "arms_crossed",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "sting",
+     "at_word": "insulted"
+    }
+   ]
+  },
+  {
+   "say": "Their hands? *Dirty?*",
+   "shot": "closeup",
+   "place": "hall",
+   "camera": "push_in",
+   "hands": "germs",
+   "germs_at_word": "dirty",
+   "cast": [
+    {
+     "id": "doc2",
+     "face": "shock"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "squish",
+     "at_word": "dirty"
+    }
+   ]
+  },
+  {
+   "say": "But in his ward, deaths fell from one in ten,",
+   "shot": "board",
+   "place": "ward",
+   "camera": {
+    "preset": "push_in",
+    "focus": [
+     480,
+     1000
+    ],
+    "from": 1.0,
+    "to": 1.08
+   },
+   "board": {
+    "title": "DEATHS",
+    "write": [
+     {
+      "text": "1 in 10",
+      "at_word": "deaths",
+      "slot": 0
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "hero",
+     "x": 790,
+     "scale": 1.9,
+     "face": "determined",
+     "pose": "point_up",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "chalk",
+     "at_word": "deaths"
+    }
+   ]
+  },
+  {
+   "say": "to about *one in a hundred.*",
+   "continue": true,
+   "board": {
+    "write": [
+     {
+      "text": "1 in 100",
+      "at_word": "one",
+      "slot": 2,
+      "color": "#FFE27A",
+      "strike": 0
+     }
+    ]
+   },
+   "cast": [
+    {
+     "id": "hero",
+     "x": 790,
+     "scale": 1.9,
+     "face": "grin",
+     "pose": "arms_up",
+     "facing": -1
+    }
+   ],
+   "sfx": [
+    {
+     "type": "chalk",
+     "at_word": "one"
+    },
+    {
+     "type": "chime",
+     "at_word": "hundred"
+    }
+   ]
+  },
+  {
+   "say": "And they still pushed him out of the hospital.",
+   "shot": "wide",
+   "place": "hall",
+   "camera": "pull_out",
+   "props": [
+    {
+     "type": "door",
+     "x": 860,
+     "y": 1400,
+     "scale": 1.2,
+     "text": "EXIT"
+    }
+   ],
+   "crowd": {
+    "n": 4,
+    "face": "laugh",
+    "y": 1520,
+    "scale": 1.35,
+    "seed": 4,
+    "hats": [
+     "top",
+     "none",
+     "bowler"
+    ]
+   },
+   "cast": [
+    {
+     "id": "hero",
+     "x": 300,
+     "walk_to": 760,
+     "walk_time": 2.4,
+     "face": "sad",
+     "hold": "book"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "laugh",
+     "at_word": "pushed"
+    }
+   ]
+  },
+  {
+   "say": "About twenty years later, scientists finally saw why.",
+   "shot": "card",
+   "place": "hall",
+   "camera": "still",
+   "card": {
+    "text": "20 YEARS LATER"
+   },
+   "sfx": [
+    {
+     "type": "whoosh"
+    },
+    {
+     "type": "tick",
+     "at": 0.5
+    },
+    {
+     "type": "tick",
+     "at": 1.0
+    }
+   ]
+  },
+  {
+   "say": "Tiny germs were riding on the doctors' hands.",
+   "shot": "closeup",
+   "place": "hall",
+   "camera": "push_in",
+   "hands": "germs",
+   "germs_at_word": "germs",
+   "cast": [
+    {
+     "id": "doc1",
+     "face": "scared"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "squish",
+     "at_word": "germs"
+    }
+   ]
+  },
+  {
+   "say": "Chlorine kills them.",
+   "continue": true,
+   "clean_at_word": "kills",
+   "cast": [
+    {
+     "id": "doc1",
+     "face": "grin"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "splash",
+     "at_word": "kills"
+    },
+    {
+     "type": "ding",
+     "at_word": "them"
+    }
+   ]
+  },
+  {
+   "say": "Today, every hospital has his bowl.",
+   "shot": "wide",
+   "place": "today",
+   "camera": "push_in",
+   "transition": "flash",
+   "props": [
+    {
+     "type": "basin",
+     "x": 720,
+     "y": 1800,
+     "scale": 1.45
+    }
+   ],
+   "cast": [
+    {
+     "id": "nurse",
+     "x": 340,
+     "face": "smile",
+     "pose": "place"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "whoosh"
+    }
+   ]
+  },
+  {
+   "say": "They just call it a *sink.*",
+   "continue": true,
+   "camera": {
+    "preset": "punch",
+    "focus": [
+     420,
+     1180
+    ],
+    "from": 1.15,
+    "to": 1.4
+   },
+   "cast": [
+    {
+     "id": "nurse",
+     "x": 340,
+     "face": "smug",
+     "pose": "point"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "boing",
+     "at_word": "sink"
+    }
+   ]
+  }
+ ]
+}

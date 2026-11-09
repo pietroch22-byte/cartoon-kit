@@ -1,0 +1,5 @@
+{"fov": 62, "altezza": 1.8, "W": 1080, "H": 1920, "fuga": [452, 515],
+ "suolo": {"linea gialla a": [60, 950], "linea gialla b": [165, 840], "linea gialla c": [340, 640], "piedi personaggio": [422, 797]},
+ "altezza_nota": {"paraurti sinistro": [497, 785, 0.32]},
+ "sopra": {"cima della testa": [[422, 797], [422, 543]]},
+ "profondita": {"portale": [215, 440, -140]}}

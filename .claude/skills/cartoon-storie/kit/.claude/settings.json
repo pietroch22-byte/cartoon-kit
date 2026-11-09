@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 run.py:*)",
+      "Bash(py run.py:*)",
+      "Bash(python run.py:*)",
+      "WebSearch",
+      "WebFetch",
+      "Edit(./stories/**)",
+      "Edit(./topics/**)",
+      "Edit(./out/**)"
+    ]
+  }
+}

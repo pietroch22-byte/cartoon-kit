@@ -1,0 +1,849 @@
+{
+ "versione": 1,
+ "stile": "references/libreria-oggetti.md#ricetta-di-stile",
+ "oggetti": [
+  {
+   "id": "basin",
+   "nome": "bacinella su treppiede",
+   "tag": [
+    "bacinella",
+    "lavabo",
+    "acqua",
+    "ospedale"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#basin",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "door",
+   "nome": "porta doppia con targhetta",
+   "tag": [
+    "porta",
+    "ingresso",
+    "stanza"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#door",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "bed",
+   "nome": "letto",
+   "tag": [
+    "letto",
+    "camera",
+    "ospedale",
+    "dormire"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#bed",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "table",
+   "nome": "tavolo",
+   "tag": [
+    "tavolo",
+    "cucina",
+    "taverna"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#table",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "desk",
+   "nome": "scrivania con fogli",
+   "tag": [
+    "scrivania",
+    "ufficio",
+    "studio"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#desk",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "chair",
+   "nome": "sedia",
+   "tag": [
+    "sedia",
+    "seduta"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#chair",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "crate",
+   "nome": "cassa di legno",
+   "tag": [
+    "cassa",
+    "magazzino",
+    "porto"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#crate",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "barrel",
+   "nome": "botte",
+   "tag": [
+    "botte",
+    "barile",
+    "vino",
+    "taverna"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#barrel",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "sign",
+   "nome": "cartello con testo",
+   "tag": [
+    "cartello",
+    "insegna",
+    "testo"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#sign",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "money_bag",
+   "nome": "sacco di soldi",
+   "tag": [
+    "soldi",
+    "denaro",
+    "ricchezza"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#money_bag",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "wall_clock",
+   "nome": "orologio da parete",
+   "tag": [
+    "orologio",
+    "tempo",
+    "parete"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#wall_clock",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "painting",
+   "nome": "quadro",
+   "tag": [
+    "quadro",
+    "arte",
+    "parete"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#painting",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "bookshelf",
+   "nome": "libreria",
+   "tag": [
+    "libri",
+    "biblioteca",
+    "studio"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#bookshelf",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "street_lamp",
+   "nome": "lampione",
+   "tag": [
+    "lampione",
+    "strada",
+    "notte"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#street_lamp",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "bell",
+   "nome": "campana appesa",
+   "tag": [
+    "campana",
+    "chiesa",
+    "suono"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#bell",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "tree",
+   "nome": "albero",
+   "tag": [
+    "albero",
+    "natura",
+    "parco"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#tree",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "rock",
+   "nome": "roccia",
+   "tag": [
+    "roccia",
+    "sasso",
+    "natura"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#rock",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "boat",
+   "nome": "barca a vela",
+   "tag": [
+    "barca",
+    "mare",
+    "porto"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#boat",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "water",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "cart",
+   "nome": "carretto",
+   "tag": [
+    "carretto",
+    "mercato",
+    "trasporto"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#cart",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "campfire",
+   "nome": "falò",
+   "tag": [
+    "fuoco",
+    "falò",
+    "campo"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#campfire",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "house",
+   "nome": "casa",
+   "tag": [
+    "casa",
+    "paese",
+    "città"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#house",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "church",
+   "nome": "chiesa (opz. parafulmine)",
+   "tag": [
+    "chiesa",
+    "campanile",
+    "paese"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#church",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "well",
+   "nome": "pozzo",
+   "tag": [
+    "pozzo",
+    "acqua",
+    "paese"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#well",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "jar",
+   "nome": "giara",
+   "tag": [
+    "giara",
+    "vaso",
+    "anfora"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#jar",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "chalkboard",
+   "nome": "lavagna",
+   "tag": [
+    "lavagna",
+    "numeri",
+    "scuola"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#chalkboard",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "tower_building",
+   "nome": "torre/palazzo",
+   "tag": [
+    "torre",
+    "palazzo",
+    "città"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/props.py#tower_building",
+   "licenza": "codice ricostruito (nostro)",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "backsplash",
+   "nome": "piastrelle cucina a parete",
+   "tag": [
+    "piastrelle",
+    "cucina",
+    "parete"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#backsplash",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "stove",
+   "nome": "cucina a gas con fiamme animate",
+   "tag": [
+    "fornelli",
+    "cucina",
+    "fuoco",
+    "forno"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#stove",
+   "licenza": "codice nostro",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "counter",
+   "nome": "mobile base cucina con piano",
+   "tag": [
+    "mobile",
+    "bancone",
+    "cucina",
+    "credenza"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#counter",
+   "licenza": "codice nostro",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "sink",
+   "nome": "lavello con rubinetto",
+   "tag": [
+    "lavello",
+    "rubinetto",
+    "acqua",
+    "cucina"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#sink",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "fridge",
+   "nome": "frigorifero con calamite",
+   "tag": [
+    "frigo",
+    "frigorifero",
+    "cucina",
+    "elettrodomestico"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#fridge",
+   "licenza": "codice nostro",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "upper_cabinet",
+   "nome": "pensile",
+   "tag": [
+    "pensile",
+    "armadietto",
+    "cucina"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#upper_cabinet",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "pendant",
+   "nome": "lampada a sospensione con alone",
+   "tag": [
+    "lampada",
+    "luce",
+    "sospensione"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#pendant",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "beams",
+   "nome": "travi in legno del soffitto",
+   "tag": [
+    "travi",
+    "soffitto",
+    "rustico",
+    "legno"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#beams",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "shelf",
+   "nome": "mensola con piatti o barattoli e tazze",
+   "tag": [
+    "mensola",
+    "piatti",
+    "barattoli",
+    "tazze"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#shelf",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "garlic",
+   "nome": "treccia d'aglio",
+   "tag": [
+    "aglio",
+    "treccia",
+    "cucina"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#garlic",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "peppers",
+   "nome": "peperoncini appesi",
+   "tag": [
+    "peperoncino",
+    "appeso",
+    "cucina"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#peppers",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "pot",
+   "nome": "pentola che fuma",
+   "tag": [
+    "pentola",
+    "vapore",
+    "cucinare"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#pot",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "pan",
+   "nome": "padella con uovo",
+   "tag": [
+    "padella",
+    "uovo",
+    "cucinare"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#pan",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "bottle",
+   "nome": "bottiglia (vino/olio)",
+   "tag": [
+    "bottiglia",
+    "vino",
+    "olio"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#bottle",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "bread",
+   "nome": "pagnotta",
+   "tag": [
+    "pane",
+    "pagnotta",
+    "cibo"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#bread",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "fruit_bowl",
+   "nome": "cesto di frutta",
+   "tag": [
+    "frutta",
+    "cesto",
+    "cibo"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#fruit_bowl",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "plate_food",
+   "nome": "piatto con lasagna o pizza",
+   "tag": [
+    "piatto",
+    "lasagna",
+    "pizza",
+    "cibo"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#plate_food",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "glass",
+   "nome": "calice di vino",
+   "tag": [
+    "bicchiere",
+    "calice",
+    "vino"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#glass",
+   "licenza": "codice nostro",
+   "ancora": "top",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "table_front",
+   "nome": "tavola con tovaglia a quadri davanti ai personaggi (items = cibo sopra)",
+   "tag": [
+    "tavola",
+    "tovaglia",
+    "pranzo",
+    "cena"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#table_front",
+   "licenza": "codice nostro",
+   "ancora": "front",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "rug",
+   "nome": "tappeto a righe",
+   "tag": [
+    "tappeto",
+    "pavimento",
+    "casa"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#rug",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "plant",
+   "nome": "pianta in vaso",
+   "tag": [
+    "pianta",
+    "vaso",
+    "casa"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#plant",
+   "licenza": "codice nostro",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "cat",
+   "nome": "gatto che dorme",
+   "tag": [
+    "gatto",
+    "animale",
+    "casa"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#cat",
+   "licenza": "codice nostro",
+   "ancora": "floor",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  },
+  {
+   "id": "frame_pic",
+   "nome": "quadretto paesaggio",
+   "tag": [
+    "quadro",
+    "cornice",
+    "parete"
+   ],
+   "fonte": "codice",
+   "file": "kit/engine/kitchen2d.py#frame_pic",
+   "licenza": "codice nostro",
+   "ancora": "wall",
+   "parametri": "vedi firma funzione",
+   "approvato": true
+  }
+ ],
+ "luoghi": [
+  {
+   "id": "hospital",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "ward",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "office",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "palace",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "study",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "tavern",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "field",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "town_day",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "town_night",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "storm",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "sea",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "sea_storm",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "desert",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "city_street",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "snowfield",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  },
+  {
+   "id": "canyon",
+   "fonte": "codice",
+   "file": "kit/engine/places.py",
+   "approvato": true
+  }
+ ]
+}
