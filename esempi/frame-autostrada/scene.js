@@ -6,6 +6,8 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 const W = 1080, H = 1920;
 
@@ -30,6 +32,21 @@ renderer.setSize(W, H); renderer.setPixelRatio(1);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.NoToneMapping;   // colori prevedibili: si confrontano 1:1 con il riferimento
 document.getElementById('wrap').prepend(renderer.domElement);
+
+// ---------- asset reali del kit (Poly Haven, CC0): texture PBR e cielo HDR ----------
+const TL = new THREE.TextureLoader();
+const loadTex = (p, srgb = false) => new Promise((ok, ko) => TL.load(p, t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 16; if (srgb) t.colorSpace = THREE.SRGBColorSpace; ok(t); }, undefined, ko));
+// diffusa ricolorata sul colore misurato del riferimento (strumenti/tinta.py) + normali e ARM originali
+async function pbr(diff, name) {
+  const b = `./assets/texture/${name}/${name}`;
+  const [map, normalMap, arm] = await Promise.all([loadTex(diff, true), loadTex(b + '_nor.jpg'), loadTex(b + '_arm.jpg')]);
+  return { map, normalMap, roughnessMap: arm, aoMap: arm };
+}
+const [ASPH, GRASS, CONC, FABRIC_N, HDR] = await Promise.all([
+  pbr('./assets/proc/asphalt.jpg', 'asphalt_02'), pbr('./assets/proc/grass.jpg', 'leafy_grass'),
+  pbr('./assets/proc/concrete.jpg', 'concrete_floor_painted'), loadTex('./assets/texture/fabric_pattern_07/fabric_pattern_07_nor.jpg'),
+  new RGBELoader().loadAsync('./assets/hdri/kloofendal_48d_partly_cloudy_puresky.hdr')]);
+const withRepeat = (set, rx, ry) => Object.fromEntries(Object.entries(set).map(([k, t]) => { const c = t.clone(); c.repeat.set(rx, ry); c.needsUpdate = true; return [k, c]; }));
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(new THREE.Color(0xd2e2f0), 0.0017);   // ~50% di foschia a 500 m, come gli alberi lontani del riferimento
@@ -103,7 +120,9 @@ scene.add(sun, sun.target);
     fragmentShader: `varying vec3 vd; void main(){ float h = vd.y;
       vec3 c = h > 0. ? mix(vec3(.16,.2,.27), vec3(.55,.75,1.), smoothstep(.0,.35,h)) : mix(vec3(.12,.12,.13), vec3(.02,.02,.025), smoothstep(0.,.1,-h));
       gl_FragColor = vec4(c,1.); }` })));
-  scene.environment = pm.fromScene(es, 0.02).texture;
+  HDR.mapping = THREE.EquirectangularReflectionMapping;
+  scene.environment = pm.fromEquirectangular(HDR).texture;   // riflessi da un cielo fotografato vero
+  void es;
 }
 
 // ---------- terreno e strada ----------
@@ -125,7 +144,8 @@ const grassTex = canvas(512, 512, (g, w, h) => {
   for (let i = 0; i < 900; i++) { g.fillStyle = `hsl(${R(48, 58)},90%,${R(55, 70)}%)`; g.fillRect(R(0, w), R(0, h), 2, 2); } // fiori gialli
 });
 grassTex.wrapS = grassTex.wrapT = THREE.RepeatWrapping; grassTex.repeat.set(140, 280);
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(1400, 2800), blueShadows(new THREE.MeshStandardMaterial({ map: grassTex, roughness: 1 })));
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(1400, 2800), blueShadows(new THREE.MeshStandardMaterial({ ...withRepeat(GRASS, 350, 700), normalScale: new THREE.Vector2(1.2, 1.2) })));
+void grassTex;
 ground.rotation.x = -Math.PI / 2; ground.position.set(0, -0.03, -1200); ground.receiveShadow = true; scene.add(ground);
 
 const asphaltTex = canvas(512, 512, (g, w, h) => {
@@ -134,14 +154,16 @@ const asphaltTex = canvas(512, 512, (g, w, h) => {
 });
 asphaltTex.wrapS = asphaltTex.wrapT = THREE.RepeatWrapping;
 function road(x0, x1) {
-  const t = asphaltTex.clone(); t.needsUpdate = true; t.repeat.set((x1 - x0) / 4, 2400 / 4);
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(x1 - x0, 2400), blueShadows(new THREE.MeshStandardMaterial({ map: t, roughness: .95 })));
+  // asfalto PBR vero: grana, crepe e rugosità dalla texture; 1 ripetizione ogni 3 m
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(x1 - x0, 2400), blueShadows(new THREE.MeshStandardMaterial({ ...withRepeat(ASPH, (x1 - x0) / 4, 2400 / 4), normalScale: new THREE.Vector2(.8, .8) })));
+  void asphaltTex;
   m.rotation.x = -Math.PI / 2; m.position.set((x0 + x1) / 2, 0, -1195); m.receiveShadow = true; scene.add(m);
 }
 road(-2.95, 13.2);   // nostra carreggiata (dalla base dello spartitraffico alla corsia d'emergenza destra)
 road(-40, -3.75);    // carreggiata opposta (4 corsie + emergenza)
 
-const lineMat = c => blueShadows(new THREE.MeshStandardMaterial({ color: c, roughness: .8, polygonOffset: true, polygonOffsetFactor: -2 }));
+const LINE_N = withRepeat({ n: ASPH.normalMap, r: ASPH.roughnessMap }, 1, 1);
+const lineMat = c => blueShadows(new THREE.MeshStandardMaterial({ color: c, roughness: .75, normalMap: LINE_N.n, normalScale: new THREE.Vector2(.9, .9), polygonOffset: true, polygonOffsetFactor: -2 }));
 function solid(x, w, c, z0 = 5, z1 = -2400) {
   const m = new THREE.Mesh(new THREE.PlaneGeometry(w, z0 - z1), lineMat(c));
   m.rotation.x = -Math.PI / 2; m.position.set(x, .006, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m);
@@ -174,7 +196,8 @@ for (const x of [-7.8, -11.5]) dashed(x, 0xf0f0f0);
   const pr = [[0, 0], [.9, 0], [.75, .3], [.62, 1.05], [.24, 1.05], [.1, .3]];
   const s = new THREE.Shape(pr.map(([x, y]) => new THREE.Vector2(x, y)));
   const g = new THREE.ExtrudeGeometry(s, { depth: 2400, bevelEnabled: false });
-  const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0xf0eee8, roughness: .95 }));
+  const cc = withRepeat(CONC, .5, .5); delete cc.aoMap;   // l'estrusione ha UV in metri
+  const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ ...cc, normalScale: new THREE.Vector2(.8, .8), envMapIntensity: .35 }));
   m.rotation.y = Math.PI; m.position.set(-2.95, 0, 5); // la faccia interna guarda verso la nostra corsia (+x)
   m.castShadow = m.receiveShadow = true; scene.add(m);
 }
@@ -196,37 +219,27 @@ for (const x of [-7.8, -11.5]) dashed(x, 0xf0f0f0);
   }
 }
 
-// ---------- alberi: chiome a grappoli, istanziate ----------
+// ---------- alberi: "impostori" dei modelli veri del kit (Poly Haven) ----------
+// Ogni albero glTF è stato fotografato da 3 lati con la luce della scena (bake.js); qui diventa un cartoncino
+// sempre rivolto alla camera. Aspetto fotografico, costo di un quadrato per albero.
 {
-  const trunks = [], crowns = [];
-  const zone = (xa, xb, za, zb, n, h0, h1) => { for (let i = 0; i < n; i++) trunks.push([R(xa, xb), -R(za, zb), R(h0, h1)]); };
-  zone(24, 85, 48, 700, 700, 6, 11); zone(30, 60, 28, 48, 25, 6, 9);       // destra, oltre l'erba fiorita
-  zone(-80, -42, 30, 700, 800, 15, 23); zone(-140, -80, 30, 700, 300, 14, 20);   // sinistra, oltre la carreggiata opposta
-  const tr = new THREE.InstancedMesh(new THREE.CylinderGeometry(.16, .3, 1, 6), new THREE.MeshStandardMaterial({ color: 0x6b5a48, roughness: 1 }), trunks.length);
-  const o = new THREE.Object3D(), col = new THREE.Color();
-  trunks.forEach(([x, z, h], i) => {
-    o.position.set(x, h * .4, z); o.scale.set(1, h * .8, 1); o.rotation.set(0, 0, 0); o.updateMatrix(); tr.setMatrixAt(i, o.matrix);
-    const cr = R(2.2, 3.8), k = R(16, 26) | 0, hue = R(.27, .37);
-    for (let j = 0; j < k; j++) {
-      const a = R(0, 6.28), rr2 = R(0, 1) * cr;
-      const y = h * R(.35, .95);
-      crowns.push([x + Math.cos(a) * rr2, y, z + Math.sin(a) * rr2, cr * R(.4, .66), hue, (y - h * .35) / (h * .6)]);
-    }
-  });
-  tr.castShadow = true; scene.add(tr);
-  const leafTex = canvas(256, 256, (g, w, h) => {
-    g.fillStyle = '#b8b8b8'; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 2600; i++) { const v = R(120, 255) | 0; g.fillStyle = `rgb(${v},${v},${v})`; g.beginPath(); g.ellipse(R(0, w), R(0, h), R(2, 6), R(1.5, 4), R(0, 3), 0, 7); g.fill(); }
-  });
-  leafTex.colorSpace = THREE.NoColorSpace;
-  const cm = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 2), new THREE.MeshStandardMaterial({ roughness: .9, map: leafTex }), crowns.length);
-  crowns.forEach(([x, y, z, s, hue, t], i) => {
-    o.position.set(x, y, z); o.scale.set(s, s * .8, s); o.rotation.set(R(0, 3), R(0, 3), 0); o.updateMatrix(); cm.setMatrixAt(i, o.matrix);
-    cm.setColorAt(i, col.setHSL(hue, R(.38, .55), .32 + t * .2 + R(-.05, .05)));
-  });
-  cm.castShadow = true; scene.add(cm);
+  const META = await (await fetch('./assets/impostori/meta.json')).json();
+  const kinds = ['island_tree_01', 'island_tree_02', 'tree_small_02'];
+  const mats = {};
+  for (const k of kinds) for (let v = 0; v < 3; v++) {
+    const t = await loadTex(`./assets/impostori/${k}_${v}_c.png`, true); t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+    mats[`${k}_${v}`] = new THREE.SpriteMaterial({ map: t, alphaTest: .45, transparent: false });
+  }
+  const plant = (x, z, h, kind) => {
+    const v = rnd() * 3 | 0, key = `${kind}_${v}`, sp = new THREE.Sprite(mats[key]);
+    sp.center.set(.5, 0); const s = h * META[key].w / META[key].h * 1.04;
+    sp.scale.set(s * (rnd() < .5 ? 1 : -1), s, 1); sp.position.set(x, -.1, z); scene.add(sp);
+  };
+  const zone = (xa, xb, za, zb, n, h0, h1, mix) => { for (let i = 0; i < n; i++) plant(R(xa, xb), -R(za, zb), R(h0, h1), mix[rnd() * mix.length | 0]); };
+  const broad = ['island_tree_01', 'island_tree_02', 'island_tree_01'], tall = ['tree_small_02', 'tree_small_02', 'island_tree_02'];
+  zone(24, 85, 45, 700, 900, 7, 12, broad); zone(28, 60, 26, 45, 30, 6, 9, broad); zone(30, 80, 60, 700, 250, 10, 14, tall);          // destra
+  zone(-80, -42, 30, 700, 900, 14, 21, tall); zone(-80, -42, 30, 700, 500, 12, 17, broad); zone(-140, -80, 30, 700, 500, 15, 22, broad); // sinistra
 }
-
 {
   const n = 1800, im = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshStandardMaterial({ roughness: 1 }), n);
   const o = new THREE.Object3D(), col = new THREE.Color();
@@ -282,7 +295,7 @@ function wheels(grp, w, zs, r = .34) {
     t.rotation.z = Math.PI / 2; t.position.set(sx * (w / 2 - .14), r, z); t.castShadow = true; grp.add(t);
   }
 }
-const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x0a2a9a, metalness: 0, roughness: .1, clearcoat: 1, envMapIntensity: .35 });
+const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x0a3cc8, metalness: 0, roughness: .18, clearcoat: .6, envMapIntensity: .12 });   // misurato: lunotto #093cac
 function simpleCar(color, x, z) {
   const g = new THREE.Group();
   const paint = new THREE.MeshPhysicalMaterial({ color, roughness: .35, clearcoat: .8 });
@@ -298,7 +311,7 @@ simpleCar(0xe2e2e2, -9.3, -60); simpleCar(0x5a6b7a, -5.6, -120); simpleCar(0xf0f
 // ---------- berlina rossa tamponata: retro a z=-9,0, centro x=1,27 (misurati) ----------
 {
   const car = new THREE.Group(); // origine: centro del retro, a terra; la vettura si estende verso -z
-  const red = new THREE.MeshPhysicalMaterial({ color: 0xff0626, roughness: .38, clearcoat: .3, clearcoatRoughness: .1, vertexColors: true, envMapIntensity: .9 });
+  const red = new THREE.MeshPhysicalMaterial({ color: 0xd8052a, roughness: .34, clearcoat: .45, clearcoatRoughness: .08, vertexColors: true, envMapIntensity: .45 });
   const redPlain = red.clone(); redPlain.vertexColors = false;   // per i pezzi senza attributo colore (altrimenti risultano neri)
   const dent = (v) => { // ammaccatura sul quarto posteriore destro, con pieghe
     const dx = (v.x - .62) / .5, dy = (v.y - .62) / .32, dz = (v.z - 0) / .7;
@@ -318,7 +331,7 @@ simpleCar(0xe2e2e2, -9.3, -60); simpleCar(0x5a6b7a, -5.6, -120); simpleCar(0xf0f
     if (v.y > .95 && v.z > -1.0) v.z -= (v.y - .95) * .6;
     if (v.y > 1.0) v.y += THREE.MathUtils.clamp(-v.z / .55, 0, 1) * .12;   // baule che sale verso il lunotto
     p.setXYZ(i, v.x, v.y, v.z);
-    let k = (1 - f * (.9 * cr - .25)) * THREE.MathUtils.lerp(.45, 1, THREE.MathUtils.smoothstep(v.y, .3, .95));
+    let k = (1 - f * (.95 * cr + .25)) * THREE.MathUtils.lerp(.45, 1, THREE.MathUtils.smoothstep(v.y, .3, .95));
     if (v.x < -.9) k *= .6;
     cols.set([k, k, k], i * 3);
   }
@@ -585,12 +598,41 @@ const cockpitTex = canvas(W, H, (g) => {
   };
   pad(252, 1655, 118, 66, [['☏', 28, 26], ['◂))', 86, 26], ['+', 28, 54], ['–', 86, 54]]);
   pad(615, 1650, 116, 62, [['CANCEL', 78, 20], ['RES+', 30, 40], ['SET–', 82, 40], ['▲', 30, 56], ['▼', 82, 56]]);
+
+  // --- realismo: riflessi morbidi del cielo e degli alberi sul cofano
+  g.save(); poly(g, hood); g.clip();
+  g.globalAlpha = .18; g.filter = 'blur(14px)';
+  g.fillStyle = '#7fa6c9'; g.fillRect(0, 836, W, 26);
+  for (let i = 0; i < 14; i++) { g.fillStyle = '#4d6b4a'; g.beginPath(); g.ellipse(R(0, W), 852, R(30, 90), 12, 0, 0, 7); g.fill(); }
+  g.filter = 'none'; g.globalAlpha = 1; g.restore();
+  // --- occlusione ambientale dipinta: bordi dei pannelli e incavi più scuri
+  g.save(); g.globalCompositeOperation = 'multiply';
+  g.fillStyle = rad(g, 470, 1190, 280, 330, [[0, 'rgba(255,255,255,1)'], [1, 'rgba(150,150,165,1)']]); rr(g, 176, 1028, 586, 322, 70); g.fill();
+  g.fillStyle = lin(g, 0, 1000, 0, 1060, [[0, 'rgba(120,125,140,1)'], [1, 'rgba(255,255,255,1)']]); g.fillRect(0, 1000, W, 60);
+  g.fillStyle = lin(g, 0, 1700, 0, 1920, [[0, 'rgba(255,255,255,1)'], [1, 'rgba(140,140,150,1)']]); g.fillRect(0, 1700, W, 220);
+  g.restore();
+  // --- grana della plastica su plancia e pannelli (rumore fine, solo sotto il cofano)
+  const id = g.getImageData(0, 990, W, H - 990), px = id.data;
+  for (let i = 0; i < px.length; i += 4) { if (px[i + 3] < 250) continue; const n = (rnd() - .5) * 14; px[i] += n; px[i + 1] += n; px[i + 2] += n; }
+  g.putImageData(id, 0, 990);
+  // --- polvere e aloni sul parabrezza
+  for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(255,255,255,${R(.03, .1)})`; g.beginPath(); g.arc(R(0, W), R(345, 830), R(.6, 1.8), 0, 7); g.fill(); }
+  g.fillStyle = lin(g, 0, 700, 0, 835, [[0, 'rgba(160,170,190,0)'], [1, 'rgba(160,170,190,.10)']]); g.fillRect(0, 700, W, 135);
 });
-const ovScene = new THREE.Scene(), wheelScene = new THREE.Scene(), ovCam = new THREE.PerspectiveCamera(FOV, ASP, .05, 10);
+// grana della pellicola + vignettatura, disegnate per ultime su tutto il frame
+const grainTex = canvas(W, H, (g) => {
+  const id = g.createImageData(W, H), px = id.data;
+  for (let i = 0; i < px.length; i += 4) { const v = rnd() < .5 ? 0 : 255; px[i] = px[i + 1] = px[i + 2] = v; px[i + 3] = 4; }
+  g.putImageData(id, 0, 0);
+  g.fillStyle = rad(g, W / 2, H * .45, H * .35, H * .75, [[0, 'rgba(0,0,0,0)'], [1, 'rgba(0,0,0,.12)']]); g.fillRect(0, 0, W, H);
+});
+const ovScene = new THREE.Scene(), wheelScene = new THREE.Scene(), grainScene = new THREE.Scene(), ovCam = new THREE.PerspectiveCamera(FOV, ASP, .05, 10);
 {
   const d = 1, plane = new THREE.Mesh(new THREE.PlaneGeometry(2 * d * TAN * ASP, 2 * d * TAN),
     new THREE.MeshBasicMaterial({ map: cockpitTex, transparent: true, depthWrite: false, depthTest: false, toneMapped: false }));
   plane.position.z = -d; ovScene.add(plane);
+  const gr = new THREE.Mesh(plane.geometry, new THREE.MeshBasicMaterial({ map: grainTex, transparent: true, depthTest: false, depthWrite: false, toneMapped: false }));
+  gr.position.z = -d; grainScene.add(gr);
 }
 // volante 3D: corona misurata (centro 505,1622 px; raggio esterno 355 px; cima a 1325 px)
 {
@@ -600,7 +642,8 @@ const ovScene = new THREE.Scene(), wheelScene = new THREE.Scene(), ovCam = new T
   const d = .85, cx = (505 / W * 2 - 1) * d * TAN * ASP, cy = (1 - 2 * 1622 / H) * d * TAN;
   const pxm = W / (2 * d * TAN * ASP);                          // pixel per metro a questa profondità
   const Rout = 355 / pxm, tube = 28 / pxm;
-  const leather = new THREE.MeshStandardMaterial({ color: 0x1c2030, roughness: .36, metalness: .05, envMapIntensity: .7 });
+  const lN = FABRIC_N.clone(); lN.repeat.set(40, 4); lN.needsUpdate = true;
+  const leather = new THREE.MeshStandardMaterial({ color: 0x1c2030, roughness: .42, metalness: .05, envMapIntensity: .7, normalMap: lN, normalScale: new THREE.Vector2(.6, .6) });
   const ring = new THREE.Mesh(new THREE.TorusGeometry(Rout - tube, tube, 24, 120), leather);
   ring.position.set(cx, cy, -d); ring.rotation.x = -Math.acos((1622 - 1325) / 355);
   wheelScene.add(ring);
@@ -622,6 +665,6 @@ composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), .3, .45, .95));
 composer.addPass(new OutputPass());
 document.fonts.ready.then(() => {
   composer.render();
-  renderer.autoClear = false; renderer.clearDepth(); renderer.render(ovScene, ovCam); renderer.clearDepth(); renderer.render(wheelScene, ovCam); renderer.autoClear = true;
+  renderer.autoClear = false; renderer.clearDepth(); renderer.render(ovScene, ovCam); renderer.clearDepth(); renderer.render(wheelScene, ovCam); renderer.render(grainScene, ovCam); renderer.autoClear = true;
   window.DONE = true;
 });

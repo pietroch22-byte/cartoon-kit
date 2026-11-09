@@ -12,8 +12,11 @@ Un singolo frame 1080×1920 fatto solo di codice, senza AI e senza asset scarica
 
 ```bash
 npm install
+./prepara_asset.sh    # scarica dal kit texture PBR, cielo HDR e alberi veri; li ricolora e fotografa gli alberi
 npm run render        # → frame.png (Playwright + Chromium headless)
 ```
+
+La v3 usa asset reali del kit (Poly Haven, CC0): asfalto, erba e cemento PBR, cielo HDR per i riflessi e alberi veri come "impostori". Per migliorare un frame in automatico c'è la skill `migliora-frame` in `.claude/skills/`.
 
 - [`CAMBIAMENTI.md`](CAMBIAMENTI.md): cosa è cambiato dalla v1 al finale e perché (metodo, misure, tabelle prima/dopo, 14 iterazioni, errori trovati, differenze residue).
 - `strumenti/`: `misura.mjs` (camera e posizioni dai pixel), `confronta.py` (immagini affiancate e sovrapposte), `metrica.py` (differenza per zona).

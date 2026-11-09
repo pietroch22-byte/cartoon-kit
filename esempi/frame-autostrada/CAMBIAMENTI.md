@@ -171,3 +171,44 @@ python3 strumenti/confronta.py riferimento.png frame.png confronto/oggi
 python3 strumenti/metrica.py riferimento.png confronto/v1.png frame.png
 node strumenti/misura.mjs 62 1.8                 # camera e posizioni ricavate dai pixel
 ```
+
+---
+
+# v3: texture reali e realismo
+
+![v1, v2, v3](confronto/v1-v2-v3.jpg)
+
+La v2 aveva forme e colori giusti, ma superfici lisce "da plastilina". La v3 sostituisce le texture disegnate a mano con **asset fotografici veri del kit** (Poly Haven, CC0), ricolorati sui colori misurati nel riferimento. Gli asset si preparano con `./prepara_asset.sh`.
+
+| | v2 | v3 | perché |
+|---|---|---|---|
+| Asfalto | rumore disegnato su canvas | **asphalt_02** PBR (diffusa + normali + rugosità/AO), una ripetizione ogni 4 m | grana, crepe e rugosità vere che reagiscono al sole |
+| Segnaletica | colore piatto | stessa normal map dell'asfalto sotto la vernice | la vernice segue la grana della strada |
+| Erba | puntini disegnati | **leafy_grass** PBR | |
+| Spartitraffico | bianco piatto | **concrete_floor_painted** PBR, senza AO e con riflessi bassi | cemento vero, ma bianco come nel riferimento |
+| Riflessi | cielo finto dipinto | **cielo HDR fotografato** (kloofendal_48d_partly_cloudy) come mappa d'ambiente | vernice, vetri e metalli riflettono un cielo vero |
+| Alberi | grappoli di sfere | **impostori** di 3 alberi veri (island_tree_01/02, tree_small_02): fotografati da 3 lati con la luce della scena (`bake.js`), usati come cartoncini rivolti alla camera | aspetto fotografico a un costo di 1 quadrato per albero; i modelli pesano 40-97 MB e non si possono istanziare a centinaia |
+| Colore degli alberi | — | fogliame portato al verde misurato (`strumenti/colore_impostori.py`) | le foto originali sono verde oliva scuro, il riferimento è verde-acqua |
+| Vetri | blu-viola (riflessi) | blu saturo #0a3cc8 con riflessi al 12% | misurato: lunotto #093cac |
+| Vernice | rosa-chiara al sole | #d8052a, riflessi dimezzati, ammaccatura più scura | misurato: baule #c40e3c, pieghe #32050b |
+| Volante | pelle liscia | normal map a grana di tessuto | |
+| Abitacolo dipinto | piatto | occlusione ambientale dipinta nei bordi e negli incavi, grana della plastica, riflessi sfocati di cielo e alberi sul cofano, polvere sul parabrezza | sono i dettagli che fanno "foto" invece di "disegno" |
+| Tutto il frame | pulito | grana della pellicola leggerissima + vignettatura al 12% | |
+
+**Metrica** (più basso = più simile):
+
+| | Tutto | Cielo + alberi | Strada + auto | Abitacolo |
+|---|---|---|---|---|
+| v2 (b14) | 41,7 | 33,0 | 43,0 | 44,1 |
+| v3 (c07) | 42,5 | **30,6** | 43,3 | 45,7 |
+
+La zona degli alberi è la migliore di sempre. Le altre peggiorano di poco perché il riferimento è un video compresso e liscio: la grana e la texture vere aggiungono dettaglio che la metrica conta come differenza. È uno scambio voluto, realismo contro somiglianza al pixel.
+
+**Iterazioni c01-c07** (`confronto/iterazioni/`):
+- **c01**: texture PBR e HDR. Asfalto con crepe troppo marcate, spartitraffico bianco bruciato.
+- **c02**: alberi veri come impostori, ma troppo radi e scuri.
+- **c03**: più alberi, abitacolo realistico, grana. Vignettatura troppo forte (al 28%).
+- **c04-c06**: colore degli alberi calibrato sul campione e altezze riportate alla linea delle cime misurata. Zona alberi da 39,7 a 30,6.
+- **c07**: vetro e vernice calibrati sui campioni.
+
+**Lezione**: alzare la luminosità delle foto degli alberi non basta, perché il colore resta oliva. Bisogna moltiplicare ogni canale verso il verde campionato. Attenzione anche a `| head` dopo uno script Python: la pipe chiusa l'ha interrotto a metà e solo alcune foto erano state ricolorate.

@@ -1,2 +1,5 @@
-node_modules/
+node_modules
 riferimento*.png
+assets/
+.kit-zip/
+iterazioni/
