@@ -1,0 +1,1138 @@
+{
+ "motore": "disegnato",
+ "titolo": "Pachinko — ricreazione integrale del reference in italiano",
+ "senza_voce": true,
+ "fps": 30,
+ "voce": {
+  "file": "voce.mp3",
+  "parole": "words.json"
+ },
+ "musica": {
+  "mood": "mystery",
+  "bpm": 96,
+  "gain": 0.22
+ },
+ "effetti": [
+  {
+   "t": 0.2,
+   "tipo": "night_ambience"
+  },
+  {
+   "t": 2.06,
+   "tipo": "whoosh"
+  },
+  {
+   "t": 4.84,
+   "tipo": "pachinko_hall"
+  },
+  {
+   "t": 8.88,
+   "tipo": "coins"
+  },
+  {
+   "t": 10.5,
+   "tipo": "whoosh"
+  },
+  {
+   "t": 13.08,
+   "tipo": "ding"
+  },
+  {
+   "t": 13.94,
+   "tipo": "jackpot"
+  },
+  {
+   "t": 14.34,
+   "tipo": "coins"
+  },
+  {
+   "t": 16.66,
+   "tipo": "chime"
+  },
+  {
+   "t": 19.92,
+   "tipo": "pop"
+  },
+  {
+   "t": 20.78,
+   "tipo": "pop"
+  },
+  {
+   "t": 22.36,
+   "tipo": "pop"
+  },
+  {
+   "t": 22.94,
+   "tipo": "ding"
+  },
+  {
+   "t": 24.16,
+   "tipo": "coins"
+  },
+  {
+   "t": 26.0,
+   "tipo": "sliding"
+  },
+  {
+   "t": 26.96,
+   "tipo": "whoosh"
+  },
+  {
+   "t": 28.44,
+   "tipo": "night_ambience"
+  },
+  {
+   "t": 32.98,
+   "tipo": "sliding"
+  },
+  {
+   "t": 40.68,
+   "tipo": "coins"
+  },
+  {
+   "t": 42.2,
+   "tipo": "cash"
+  },
+  {
+   "t": 43.56,
+   "tipo": "ding"
+  },
+  {
+   "t": 44.5,
+   "tipo": "chime"
+  }
+ ],
+ "luoghi": {
+  "vicolo": {
+   "luce": "notte",
+   "mondo": {
+    "xr": 2,
+    "xl": 2,
+    "seme": 3
+   },
+   "strada": {
+    "w": 4,
+    "l": 14,
+    "x": 0,
+    "z": 0,
+    "colore": "#2a2c50"
+   },
+   "script": "vicolo.js",
+   "parametri": {
+    "esp": 0.8,
+    "cb": 1.35
+   }
+  },
+  "strada": {
+   "luce": "notte",
+   "mondo": {
+    "xr": 7,
+    "xl": 2.6,
+    "seme": 7
+   },
+   "oggetti": [
+    {
+     "tipo": "viaCitta",
+     "protagonista": [
+      4,
+      -14
+     ],
+     "insegne": true
+    },
+    {
+     "tipo": "facciata",
+     "lato": 1,
+     "z0": 4,
+     "z1": -14,
+     "h": 16
+    },
+    {
+     "tipo": "porta",
+     "lato": 1,
+     "z": -1.6
+    }
+   ],
+   "script": "strada.js",
+   "parametri": {
+    "esp": 0.8,
+    "cb": 1.35
+   }
+  },
+  "sala": {
+   "luce": "notte",
+   "mondo": {
+    "xr": -2.6,
+    "xl": 12,
+    "seme": 7
+   },
+   "strada": {
+    "w": 9.4,
+    "l": 12.2,
+    "x": -7.3,
+    "z": -1.9,
+    "colore": "#3a0a10"
+   },
+   "parametri": {
+    "asciutto": 1,
+    "wk": 0.25,
+    "fh": 1.2,
+    "nk": 0.1,
+    "esp": 0.8,
+    "cb": 1.35
+   },
+   "script": "sala3d.js"
+  },
+  "ingresso": {
+   "luce": "notte",
+   "mondo": {
+    "xr": 7,
+    "xl": 7,
+    "seme": 5
+   },
+   "script": "ingresso.js",
+   "parametri": {
+    "esp": 0.8,
+    "cb": 1.35
+   }
+  }
+ },
+ "cast": {
+  "sole": {
+   "tipo": "duro",
+   "seme": 21,
+   "corpo": "#6a4ad0",
+   "accessori": [
+    "occhiali_sole",
+    "berretto"
+   ],
+   "coloreAccessorio": "#2a2040",
+   "modello3d": "duro_sole"
+  },
+  "guarda1": {
+   "tipo": "turista",
+   "seme": 3,
+   "corpo": "#e8742a",
+   "modello3d": "turista_arancio"
+  },
+  "guarda2": {
+   "tipo": "impiegato",
+   "seme": 9,
+   "modello3d": "impiegato_blu"
+  },
+  "porta1": {
+   "tipo": "ragazzo",
+   "seme": 14,
+   "modello3d": "ragazzo_spettinato"
+  },
+  "porta2": {
+   "tipo": "ragazza",
+   "seme": 8,
+   "modello3d": "ragazza_lunghi"
+  },
+  "portatore": {
+   "tipo": "nonna",
+   "seme": 17,
+   "corpo": "#d85a3a",
+   "modello3d": "nonna_chignon"
+  },
+  "poliziotto": {
+   "tipo": "impiegato",
+   "seme": 31,
+   "corpo": "#2a4ab0",
+   "accessori": [
+    "poliziotto"
+   ],
+   "vestito": "zip",
+   "modello3d": "poliziotto"
+  },
+  "esce": {
+   "tipo": "nonno",
+   "seme": 44,
+   "corpo": "#c8a03a",
+   "modello3d": "nonno_baffi"
+  },
+  "commessa": {
+   "tipo": "ragazza",
+   "seme": 12,
+   "corpo": "#2a2a32",
+   "modello3d": "commesso_papillon"
+  }
+ },
+ "scene": [
+  {
+   "luogo": "vicolo",
+   "da": 0,
+   "a": "@eppure",
+   "attori": [
+    {
+     "id": "sole",
+     "x": 0.35,
+     "z": -4.25,
+     "ry": 0,
+     "verso": 0,
+     "posa": "seduto",
+     "faccia": "furbo",
+     "seduta": 0.36
+    },
+    {
+     "id": "guarda1",
+     "x": -1.3,
+     "z": 0.3,
+     "ry": 0.4,
+     "verso": 0.6,
+     "faccia": "sorpreso",
+     "azioni": [
+      {
+       "t": 0.05,
+       "a": [
+        -1.15,
+        -2.4
+       ],
+       "dur": 1.9
+      }
+     ]
+    },
+    {
+     "id": "guarda2",
+     "x": -0.8,
+     "z": -4.35,
+     "ry": 0.3,
+     "verso": 0.35,
+     "faccia": "triste",
+     "posa": "seduto",
+     "seduta": 0.38
+    }
+   ],
+   "camera": [
+    {
+     "t": 0,
+     "pos": [
+      0.05,
+      1.05,
+      3.2
+     ],
+     "guarda": [
+      0.1,
+      1.3,
+      -5
+     ],
+     "fov": 72
+    },
+    {
+     "t": "@eppure",
+     "pos": [
+      0.1,
+      1.0,
+      0.6
+     ],
+     "guarda": [
+      0.12,
+      1.25,
+      -5
+     ],
+     "fov": 70
+    }
+   ]
+  },
+  {
+   "luogo": "strada",
+   "da": "@eppure",
+   "a": "@dentro",
+   "attori": [
+    {
+     "id": "porta1",
+     "x": 5.8,
+     "z": -1.1,
+     "ry": -0.7,
+     "verso": 0.3,
+     "faccia": "neutro"
+    },
+    {
+     "id": "porta2",
+     "x": 6.5,
+     "z": -0.7,
+     "ry": -0.9,
+     "verso": -0.3,
+     "faccia": "sorriso"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@eppure",
+     "pos": [
+      2.3,
+      1.7,
+      6.5
+     ],
+     "guarda": [
+      5.6,
+      2.6,
+      -3
+     ],
+     "fov": 86
+    },
+    {
+     "t": "@sala",
+     "pos": [
+      2.5,
+      5,
+      10
+     ],
+     "guarda": [
+      4.5,
+      3.5,
+      -10
+     ],
+     "fov": 82
+    },
+    {
+     "t": "@strada",
+     "pos": [
+      2.2,
+      21,
+      13
+     ],
+     "guarda": [
+      2.6,
+      0,
+      -28
+     ],
+     "fov": 74
+    },
+    {
+     "t": "@dentro",
+     "pos": [
+      2.2,
+      21.5,
+      12.5
+     ],
+     "guarda": [
+      2.6,
+      0,
+      -28
+     ],
+     "fov": 74
+    }
+   ],
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.4
+  },
+  {
+   "luogo": "sala",
+   "da": "@dentro",
+   "a": "@polizia",
+   "attori": [
+    {
+     "id": "portatore",
+     "x": -7.3,
+     "z": -3.8,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "sorriso",
+     "azioni": [
+      {
+       "t": "@dentro+0.05",
+       "a": [
+        -7.3,
+        0.9
+       ],
+       "dur": 5.0
+      }
+     ],
+     "scala": 0.58,
+     "porta": {
+      "id": "torre",
+      "avanti": 0.6,
+      "lato": -0.5,
+      "y": 0.02,
+      "largo": 0.16,
+      "presa": 0.55,
+      "dietro": 0.15
+     }
+    }
+   ],
+   "oggetti": [],
+   "camera": [
+    {
+     "t": "@dentro",
+     "pos": [
+      -7.3,
+      1.15,
+      4.5
+     ],
+     "guarda": [
+      -7.3,
+      1.35,
+      -6
+     ],
+     "fov": 80
+    },
+    {
+     "t": "@lampeggiano",
+     "pos": [
+      -7.3,
+      2.45,
+      2.4
+     ],
+     "guarda": [
+      -7.3,
+      0.8,
+      -5
+     ],
+     "fov": 82
+    },
+    {
+     "t": "@carichi",
+     "pos": [
+      -7.3,
+      1.9,
+      2.2
+     ],
+     "guarda": [
+      -7.3,
+      0.9,
+      -4
+     ],
+     "fov": 80
+    },
+    {
+     "t": "@polizia",
+     "pos": [
+      -7.3,
+      1.45,
+      3.7
+     ],
+     "guarda": [
+      -7.25,
+      0.9,
+      0
+     ],
+     "fov": 78
+    }
+   ],
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.45
+  },
+  {
+   "luogo": "ingresso",
+   "da": "@polizia",
+   "a": "@vinci",
+   "attori": [
+    {
+     "id": "poliziotto",
+     "x": 3.3,
+     "z": -2.5,
+     "ry": 0,
+     "verso": 0.9,
+     "faccia": "annoiato",
+     "azioni": [
+      {
+       "t": "@passa",
+       "a": [
+        -0.9,
+        -2.3
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": "@arrestato",
+       "faccia": "sorriso",
+       "verso": -0.2,
+       "testa": 0
+      }
+     ],
+     "testa": 0.5
+    },
+    {
+     "id": "esce",
+     "x": 0.45,
+     "z": -4.75,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "neutro",
+     "azioni": [
+      {
+       "t": "@porta",
+       "a": [
+        1.0,
+        -1.6
+       ],
+       "dur": 1.6
+      }
+     ],
+     "porta": {
+      "id": "torre",
+      "avanti": 0.5,
+      "y": 0.5,
+      "largo": 0.2,
+      "presa": 0.3,
+      "dietro": 0.08
+     }
+    }
+   ],
+   "oggetti": [],
+   "camera": [
+    {
+     "t": "@polizia",
+     "pos": [
+      -2.7,
+      0.85,
+      0.4
+     ],
+     "guarda": [
+      0.3,
+      2.5,
+      -4
+     ],
+     "fov": 80
+    },
+    {
+     "t": "@arrestato",
+     "pos": [
+      -2.0,
+      1.0,
+      1.4
+     ],
+     "guarda": [
+      0.6,
+      1.9,
+      -4
+     ],
+     "fov": 78
+    },
+    {
+     "t": "@vinci",
+     "pos": [
+      -1.9,
+      1.05,
+      1.5
+     ],
+     "guarda": [
+      0.6,
+      1.8,
+      -4
+     ],
+     "fov": 78
+    }
+   ],
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.4
+  },
+  {
+   "luogo": "sala",
+   "da": "@vinci",
+   "a": "@banco",
+   "attori": [
+    {
+     "id": "guarda1",
+     "x": -6.72,
+     "z": 1.4,
+     "ry": 1.57,
+     "verso": -1,
+     "posa": "seduto",
+     "seduta": 0.65,
+     "faccia": "sorpreso",
+     "azioni": [
+      {
+       "t": "@secchio",
+       "faccia": "sorriso",
+       "posa": "up"
+      }
+     ]
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "secchio",
+     "t": "@secchio",
+     "fai": "pop"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@vinci",
+     "pos": [
+      -7.45,
+      1.85,
+      7.4
+     ],
+     "guarda": [
+      -6.75,
+      1.7,
+      1.4
+     ],
+     "fov": 50
+    },
+    {
+     "t": "@banco",
+     "pos": [
+      -7.4,
+      1.82,
+      6.9
+     ],
+     "guarda": [
+      -6.75,
+      1.7,
+      1.4
+     ],
+     "fov": 48
+    }
+   ],
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.35
+  },
+  {
+   "luogo": "sala",
+   "da": "@banco",
+   "a": "@tizio",
+   "attori": [
+    {
+     "id": "guarda1",
+     "x": -7.3,
+     "z": -6.3,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "sorpreso",
+     "azioni": [
+      {
+       "t": "@yen",
+       "faccia": "annoiato"
+      },
+      {
+       "t": "@biscotti",
+       "faccia": "sorriso"
+      }
+     ]
+    },
+    {
+     "id": "commessa",
+     "x": -7.3,
+     "z": -7.8,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "sorriso"
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "biscotti",
+     "t": "@biscotti",
+     "fai": "pop"
+    },
+    {
+     "id": "cioccolato",
+     "t": "@cioccolato",
+     "fai": "pop"
+    },
+    {
+     "id": "shampoo",
+     "t": "@shampoo",
+     "fai": "pop"
+    },
+    {
+     "id": "gettoni",
+     "t": "@gettoni",
+     "fai": "pop"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@banco",
+     "pos": [
+      -7.3,
+      1.72,
+      -1.95
+     ],
+     "guarda": [
+      -7.3,
+      1.5,
+      -7.5
+     ],
+     "fov": 76
+    },
+    {
+     "t": "@yen",
+     "pos": [
+      -7.3,
+      1.67,
+      -2.19
+     ],
+     "guarda": [
+      -7.3,
+      1.45,
+      -7.5
+     ],
+     "fov": 74
+    },
+    {
+     "t": "@biscotti",
+     "pos": [
+      -7.3,
+      1.58,
+      -2.48
+     ],
+     "guarda": [
+      -7.3,
+      1.35,
+      -7.5
+     ],
+     "fov": 70
+    },
+    {
+     "t": "@tizio",
+     "pos": [
+      -7.3,
+      1.58,
+      -2.53
+     ],
+     "guarda": [
+      -7.2,
+      1.35,
+      -7.5
+     ],
+     "fov": 68
+    }
+   ]
+  },
+  {
+   "luogo": "sala",
+   "da": "@tizio",
+   "a": "@segui",
+   "attori": [
+    {
+     "id": "sole",
+     "x": -6.6,
+     "z": -6.2,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "furbo",
+     "azioni": [
+      {
+       "t": "@esce#2",
+       "a": [
+        -2.7,
+        -4.1
+       ],
+       "dur": 1.9
+      }
+     ]
+    },
+    {
+     "id": "guarda1",
+     "x": -7.3,
+     "z": -6.3,
+     "ry": 0.5,
+     "verso": 0.8,
+     "faccia": "sorpreso",
+     "azioni": [
+      {
+       "t": "@strada#2",
+       "a": [
+        -5.0,
+        -5.0
+       ],
+       "dur": 1.8
+      }
+     ]
+    }
+   ],
+   "oggetti": [],
+   "camera": [
+    {
+     "t": "@tizio",
+     "pos": [
+      -8.4,
+      1.75,
+      -4.6
+     ],
+     "guarda": [
+      -6.8,
+      1.5,
+      -6.0
+     ],
+     "fov": 84
+    },
+    {
+     "t": "@segui",
+     "pos": [
+      -7.6,
+      1.8,
+      -3.6
+     ],
+     "guarda": [
+      -3.2,
+      1.4,
+      -4.2
+     ],
+     "fov": 84
+    }
+   ],
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.4
+  },
+  {
+   "luogo": "vicolo",
+   "da": "@segui",
+   "a": "@tecnicamente",
+   "attori": [
+    {
+     "id": "sole",
+     "x": 0.15,
+     "z": -1.5,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "furbo",
+     "azioni": [
+      {
+       "t": "@langolo",
+       "a": [
+        0.15,
+        -4.6
+       ],
+       "dur": 3.2
+      }
+     ]
+    },
+    {
+     "id": "guarda1",
+     "x": -1.1,
+     "z": 1.8,
+     "ry": 0.2,
+     "verso": 0.4,
+     "faccia": "furbo",
+     "azioni": [
+      {
+       "t": "@finestrella",
+       "a": [
+        -0.7,
+        -2.5
+       ],
+       "dur": 3.0
+      }
+     ]
+    }
+   ],
+   "oggetti": [],
+   "camera": [
+    {
+     "t": "@segui",
+     "pos": [
+      -1.84,
+      1.35,
+      5.33
+     ],
+     "guarda": [
+      0.1,
+      1.3,
+      -4.0
+     ],
+     "fov": 74
+    },
+    {
+     "t": "@finestrella",
+     "pos": [
+      -0.62,
+      1.24,
+      2.53
+     ],
+     "guarda": [
+      0.15,
+      1.35,
+      -5.6
+     ],
+     "fov": 70
+    },
+    {
+     "t": "@tecnicamente",
+     "pos": [
+      -0.27,
+      1.16,
+      0.31
+     ],
+     "guarda": [
+      0.15,
+      1.4,
+      -5.8
+     ],
+     "fov": 66
+    }
+   ]
+  },
+  {
+   "luogo": "vicolo",
+   "da": "@tecnicamente",
+   "a": "@carta",
+   "attori": [
+    {
+     "id": "sole",
+     "x": 0.15,
+     "z": -4.8,
+     "ry": 0,
+     "verso": 0,
+     "faccia": "furbo"
+    },
+    {
+     "id": "guarda1",
+     "x": -0.85,
+     "z": -3.4,
+     "ry": 0.3,
+     "verso": 0.5,
+     "faccia": "sorpreso",
+     "azioni": [
+      {
+       "t": "@contanti",
+       "faccia": "sorriso"
+      }
+     ]
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "gettoni_vicolo",
+     "t": "@gettoni#4",
+     "fai": "pop"
+    },
+    {
+     "id": "contanti",
+     "t": "@contanti",
+     "fai": "pop"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@tecnicamente",
+     "pos": [
+      0.15,
+      1.55,
+      3.32
+     ],
+     "guarda": [
+      0.15,
+      1.55,
+      -5.85
+     ],
+     "fov": 56
+    },
+    {
+     "t": "@premi#2",
+     "pos": [
+      0.3,
+      1.6,
+      3.54
+     ],
+     "guarda": [
+      0.15,
+      1.6,
+      -5.85
+     ],
+     "fov": 52
+    },
+    {
+     "t": "@gettoni#4",
+     "pos": [
+      0.48,
+      1.62,
+      3.93
+     ],
+     "guarda": [
+      0.15,
+      1.62,
+      -5.85
+     ],
+     "fov": 48
+    },
+    {
+     "t": "@carta",
+     "pos": [
+      0.49,
+      1.62,
+      3.88
+     ],
+     "guarda": [
+      0.15,
+      1.62,
+      -5.85
+     ],
+     "fov": 48
+    }
+   ]
+  },
+  {
+   "luogo": "vicolo",
+   "da": "@carta",
+   "a": 46.0,
+   "attori": [
+    {
+     "id": "guarda1",
+     "x": -0.4,
+     "z": -4.2,
+     "ry": 0.2,
+     "verso": 0,
+     "posa": "seduto",
+     "seduta": 0.36,
+     "faccia": "furbo",
+     "azioni": [
+      {
+       "t": "@dazzardo#2",
+       "posa": "wave"
+      }
+     ]
+    },
+    {
+     "id": "poliziotto",
+     "x": 0.6,
+     "z": -4.2,
+     "ry": -0.2,
+     "verso": 0,
+     "faccia": "sorriso"
+    }
+   ],
+   "oggetti": [],
+   "camera": [
+    {
+     "t": "@carta",
+     "pos": [
+      0.1,
+      1.23,
+      1.71
+     ],
+     "guarda": [
+      0.1,
+      1.1,
+      -4.6
+     ],
+     "fov": 68
+    },
+    {
+     "t": "@dazzardo#2",
+     "pos": [
+      0.1,
+      1.17,
+      1.56
+     ],
+     "guarda": [
+      0.1,
+      1.1,
+      -4.6
+     ],
+     "fov": 64
+    },
+    {
+     "t": 46.0,
+     "pos": [
+      0.1,
+      1.17,
+      1.46
+     ],
+     "guarda": [
+      0.1,
+      1.1,
+      -4.6
+     ],
+     "fov": 64
+    }
+   ]
+  }
+ ],
+ "sfocatura": "auto"
+}

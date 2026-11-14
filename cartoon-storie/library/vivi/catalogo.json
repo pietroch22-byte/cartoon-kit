@@ -1,0 +1,85 @@
+{
+ "porta_scorrevole": {
+  "file": "porta_scorrevole.glb",
+  "tag": [
+   "porta",
+   "scorrevole",
+   "automatica",
+   "negozio",
+   "ingresso"
+  ],
+  "descrizione": "porta automatica a vetri, si apre all'avvicinarsi",
+  "dimensioni": "luce 2,0 m, h 2,4 m (larga 4 m coi vetri fissi)"
+ },
+ "porta_battente": {
+  "file": "porta_battente.glb",
+  "tag": [
+   "porta",
+   "casa",
+   "stanza"
+  ],
+  "descrizione": "porta a un'anta con cerniera",
+  "dimensioni": "0,95 x 2,1 m"
+ },
+ "porta_doppia": {
+  "file": "porta_doppia.glb",
+  "tag": [
+   "porta",
+   "doppia",
+   "vetri",
+   "negozio",
+   "sala"
+  ],
+  "descrizione": "porta a due battenti con vetro",
+  "dimensioni": "1,9 x 2,2 m"
+ },
+ "ventilatore_soffitto": {
+  "file": "ventilatore_soffitto.glb",
+  "tag": [
+   "ventilatore",
+   "soffitto",
+   "pale"
+  ],
+  "descrizione": "ventilatore a pale, origine al soffitto",
+  "dimensioni": "pale ø 1,0 m, pende 0,5 m"
+ },
+ "ventilatore_tavolo": {
+  "file": "ventilatore_tavolo.glb",
+  "tag": [
+   "ventilatore",
+   "tavolo"
+  ],
+  "descrizione": "ventilatore da tavolo con testa che oscilla",
+  "dimensioni": "h 0,6 m"
+ },
+ "condizionatore": {
+  "file": "condizionatore.glb",
+  "tag": [
+   "condizionatore",
+   "ventola",
+   "parete",
+   "esterno"
+  ],
+  "descrizione": "unità esterna con ventola che gira",
+  "dimensioni": "0,95 x 0,7 m"
+ },
+ "saracinesca": {
+  "file": "saracinesca.glb",
+  "tag": [
+   "saracinesca",
+   "negozio",
+   "vetrina"
+  ],
+  "descrizione": "saracinesca che si alza e si abbassa a ciclo",
+  "dimensioni": "2,4 x 2,3 m"
+ },
+ "orologio": {
+  "file": "orologio.glb",
+  "tag": [
+   "orologio",
+   "parete"
+  ],
+  "descrizione": "orologio da parete con lancette",
+  "dimensioni": "ø 0,44 m"
+ }
+}

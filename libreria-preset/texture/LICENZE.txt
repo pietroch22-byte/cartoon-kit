@@ -1,0 +1,13 @@
+Texture CC0 da Poly Haven (uso libero, anche commerciale, nessun obbligo di citazione):
+leather_red_02: Poly Haven, https://polyhaven.com/a/leather_red_02 (CC0)
+fabric_pattern_05: Poly Haven, https://polyhaven.com/a/fabric_pattern_05 (CC0)
+dark_wood: Poly Haven, https://polyhaven.com/a/dark_wood (CC0)
+blue_metal_plate: Poly Haven, https://polyhaven.com/a/blue_metal_plate (CC0)
+green_metal_rust: Poly Haven, https://polyhaven.com/a/green_metal_rust (CC0)
+metal_plate: Poly Haven, https://polyhaven.com/a/metal_plate (CC0)
+red_plaster_weathered: Poly Haven, https://polyhaven.com/a/red_plaster_weathered (CC0)
+blue_plaster_weathered: Poly Haven, https://polyhaven.com/a/blue_plaster_weathered (CC0)
+brushed_concrete: Poly Haven, https://polyhaven.com/a/brushed_concrete (CC0)
+rubber_tiles: Poly Haven, https://polyhaven.com/a/rubber_tiles (CC0)
+painted_metal_shutter: Poly Haven, https://polyhaven.com/a/painted_metal_shutter (CC0)
+plastered_wall_02: Poly Haven, https://polyhaven.com/a/plastered_wall_02 (CC0)

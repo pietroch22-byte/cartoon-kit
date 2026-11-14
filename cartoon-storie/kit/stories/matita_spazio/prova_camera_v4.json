@@ -1,0 +1,1019 @@
+{
+ "motore": "disegnato",
+ "titolo": "La matita proibita nello spazio (prova camera v4)",
+ "fps": 30,
+ "personaggi": "rick",
+ "luce_rick": true,
+ "stile_camera": "rick",
+ "camera_rick": {
+  "glide": "dolly"
+ },
+ "voce": {
+  "file": "voce.mp3",
+  "parole": "words.json"
+ },
+ "musica": {
+  "mood": "playful",
+  "bpm": 104,
+  "gain": 0.1
+ },
+ "sottotitoli": {
+  "stile": "rick"
+ },
+ "effetti": [
+  {
+   "t": 0.05,
+   "tipo": "night_ambience"
+  },
+  {
+   "t": 7.12,
+   "tipo": "cash"
+  },
+  {
+   "t": 10.24,
+   "tipo": "pop"
+  },
+  {
+   "t": 12.34,
+   "tipo": "whoosh"
+  },
+  {
+   "t": 15.2,
+   "tipo": "tick"
+  },
+  {
+   "t": 23.18,
+   "tipo": "hammer_tap"
+  },
+  {
+   "t": 28.14,
+   "tipo": "chime"
+  },
+  {
+   "t": 30.1,
+   "tipo": "ding"
+  },
+  {
+   "t": 37.28,
+   "tipo": "crash"
+  },
+  {
+   "t": 46.08,
+   "tipo": "sliding"
+  },
+  {
+   "t": 56.94,
+   "tipo": "coins"
+  },
+  {
+   "t": 61.22,
+   "tipo": "cash"
+  },
+  {
+   "t": 66.2,
+   "tipo": "ding"
+  }
+ ],
+ "luoghi": {
+  "capsula": {
+   "luce": "interno",
+   "strada": {
+    "w": 5.0,
+    "l": 5.0,
+    "x": 0,
+    "z": 0
+   },
+   "mondo": {
+    "xr": 2.5,
+    "xl": 2.5
+   },
+   "parametri": {
+    "asciutto": 1,
+    "lr_cap": 0.68
+   },
+   "script": "capsula.js"
+  },
+  "controllo_missione": {
+   "luce": "interno",
+   "strada": {
+    "w": 9.0,
+    "l": 8.0,
+    "x": 0,
+    "z": 0
+   },
+   "mondo": {
+    "xr": 4.5,
+    "xl": 4.5
+   },
+   "parametri": {
+    "asciutto": 1,
+    "lr_cap": 0.68
+   },
+   "script": "controllo_missione.js"
+  },
+  "laboratorio": {
+   "luce": "interno",
+   "strada": {
+    "w": 8.0,
+    "l": 8.0,
+    "x": 0,
+    "z": 0
+   },
+   "mondo": {
+    "xr": 4.0,
+    "xl": 4.0
+   },
+   "parametri": {
+    "asciutto": 1,
+    "lr_cap": 0.68
+   },
+   "script": "laboratorio.js"
+  },
+  "ufficio_mosca": {
+   "luce": "interno",
+   "strada": {
+    "w": 7.0,
+    "l": 6.0,
+    "x": 0,
+    "z": 0
+   },
+   "mondo": {
+    "xr": 3.5,
+    "xl": 3.5
+   },
+   "parametri": {
+    "asciutto": 1,
+    "lr_cap": 0.68
+   },
+   "script": "ufficio_mosca.js"
+  }
+ },
+ "cast": {
+  "astronauta_usa": {
+   "tipo": "ragazzo",
+   "maglia": "#d0d7e2",
+   "tessuto": "maglia",
+   "vestito": [
+    "distintivo",
+    "tasca",
+    "cintura"
+   ],
+   "accessori": [
+    "cartellino"
+   ]
+  },
+  "scienziato_nasa": {
+   "tipo": "scienziata",
+   "maglia": "#2e3b52",
+   "tessuto": "lino",
+   "vestito": [
+    "camice",
+    "tasca",
+    "colletto"
+   ],
+   "accessori": [
+    "occhiali"
+   ]
+  },
+  "cosmonauta": {
+   "tipo": "palestrato",
+   "maglia": "#d46b28",
+   "tessuto": "maglia",
+   "vestito": [
+    "stella",
+    "cintura",
+    "tasca"
+   ]
+  },
+  "paul_fisher": {
+   "tipo": "capo",
+   "maglia": "#485a6a",
+   "tessuto": "spigato",
+   "vestito": [
+    "colletto",
+    "cravatta",
+    "tasca"
+   ],
+   "accessori": [
+    "occhiali",
+    "baffi"
+   ]
+  },
+  "ufficiale_mosca": {
+   "tipo": "capo",
+   "maglia": "#3f4d38",
+   "tessuto": "lino",
+   "vestito": [
+    "stella",
+    "colletto",
+    "bottoni",
+    "cintura"
+   ],
+   "accessori": [
+    "baffi"
+   ]
+  }
+ },
+ "scene": [
+  {
+   "luogo": "capsula",
+   "da": 0.0,
+   "a": "@La",
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "pensieroso",
+     "azioni": [
+      {
+       "t": "@uccidere",
+       "faccia": "nervoso"
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": 0.0,
+     "pos": [
+      0.35,
+      1.54,
+      3.35
+     ],
+     "guarda": [
+      -3.6,
+      1.05,
+      -8.5
+     ],
+     "fov": 72,
+     "mossa": "avanti",
+     "glide": "dolly"
+    },
+    {
+     "t": "@poteva",
+     "su": "astronauta_usa",
+     "testa": 0.19,
+     "angolo": -14,
+     "mossa": "arco",
+     "glide": "dolly",
+     "volo": true
+    }
+   ]
+  },
+  {
+   "luogo": "controllo_missione",
+   "da": "@La",
+   "a": "@I",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "scienziato_nasa",
+     "x": 0.3,
+     "z": -1.4,
+     "faccia": "neutro",
+     "azioni": [
+      {
+       "t": "@Gli",
+       "faccia": "scioccato"
+      },
+      {
+       "t": "@inventare",
+       "faccia": "confuso"
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": "@La",
+     "pos": [
+      0.0,
+      1.8,
+      2.5
+     ],
+     "guarda": [
+      0.0,
+      1.19,
+      -10.518
+     ],
+     "fov": 75,
+     "mossa": "carrello",
+     "verso": 1,
+     "panTratto": [
+      70,
+      0
+     ],
+     "glide": "dolly"
+    },
+    {
+     "t": "@Gli",
+     "pos": [
+      0.32,
+      1.46,
+      1.12
+     ],
+     "guarda": [
+      0.38,
+      1.0,
+      -1.4
+     ],
+     "fov": 64,
+     "mossa": "tilt_giu",
+     "glide": "dolly",
+     "volo": true
+    }
+   ]
+  },
+  {
+   "luogo": "ufficio_mosca",
+   "da": "@I",
+   "a": "@Fa",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "cosmonauta",
+     "x": 0.0,
+     "z": -1.6,
+     "faccia": "furbo"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@I",
+     "pos": [
+      0.0,
+      1.56,
+      2.3
+     ],
+     "guarda": [
+      0.0,
+      1.05,
+      -9.5
+     ],
+     "fov": 68,
+     "mossa": "fermo"
+    }
+   ]
+  },
+  {
+   "luogo": "capsula",
+   "da": "@Fa",
+   "a": "@Nelle",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "deciso",
+     "azioni": [
+      {
+       "t": "@bugia",
+       "faccia": "nervoso"
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Fa",
+     "su": "astronauta_usa",
+     "testa": 0.19,
+     "angolo": -10,
+     "mossa": "fermo"
+    },
+    {
+     "t": "@ma",
+     "su": "astronauta_usa",
+     "testa": 0.19,
+     "angolo": -10,
+     "mossa": "inclina"
+    }
+   ]
+  },
+  {
+   "luogo": "capsula",
+   "da": "@Nelle",
+   "a": "@La#5",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "neutro",
+     "azioni": [
+      {
+       "t": "@sia",
+       "faccia": "pensieroso"
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Nelle",
+     "pos": [
+      0.15,
+      1.54,
+      3.05
+     ],
+     "guarda": [
+      -2.2,
+      1.1,
+      -5.5
+     ],
+     "fov": 74,
+     "mossa": "indietro",
+     "glide": "dolly"
+    },
+    {
+     "t": "@sia",
+     "su": "astronauta_usa",
+     "testa": 0.15,
+     "angolo": -8,
+     "mossa": "fermo",
+     "glide": "dolly"
+    },
+    {
+     "t": "@Ma#2",
+     "pos": [
+      0.45,
+      1.45,
+      0.1
+     ],
+     "guarda": [
+      -0.18,
+      1.4,
+      -1.14
+     ],
+     "fov": 62,
+     "mossa": "fluttua",
+     "glide": "lens",
+     "volo": true
+    },
+    {
+     "t": "@La#3",
+     "pos": [
+      0.3,
+      1.38,
+      -0.1
+     ],
+     "guarda": [
+      -0.14,
+      1.43,
+      -1.11
+     ],
+     "fov": 44,
+     "mossa": "avanti",
+     "scossa": {
+      "f": 1.2,
+      "t": "@spezza"
+     },
+     "glide": "lens"
+    },
+    {
+     "t": "@E#2",
+     "pos": [
+      0.38,
+      1.36,
+      -0.05
+     ],
+     "guarda": [
+      -0.1,
+      1.38,
+      -1.07
+     ],
+     "guarda_ogg": "scheggia",
+     "fov": 46,
+     "mossa": "fermo",
+     "glide": "lens"
+    },
+    {
+     "t": "@Galleggia",
+     "pos": [
+      0.5,
+      1.25,
+      -0.15
+     ],
+     "guarda": [
+      0.1,
+      1.25,
+      -1.15
+     ],
+     "guarda_ogg": "scheggia",
+     "fov": 44,
+     "mossa": "avanti_lenta",
+     "glide": "lens"
+    }
+   ],
+   "zona": "matita_e_scheggia"
+  },
+  {
+   "luogo": "capsula",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "lens"
+   },
+   "da": "@La#5",
+   "a": 37.28,
+   "zona": "astronauta_ventola",
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "pensieroso",
+     "azioni": [
+      {
+       "t": "@elettricità",
+       "faccia": "nervoso"
+      },
+      {
+       "t": "@risucchiato",
+       "faccia": "spaventato"
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": "@La#5",
+     "su": "astronauta_usa",
+     "testa": 0.2,
+     "angolo": 20,
+     "mossa": "fermo"
+    },
+    {
+     "t": "@risucchiato",
+     "pos": [
+      0.42,
+      1.0,
+      -0.35
+     ],
+     "guarda": [
+      0.22,
+      0.71,
+      -1.6
+     ],
+     "fov": 52,
+     "volo": true,
+     "mossa": "avanti"
+    },
+    {
+     "t": "@tra",
+     "pos": [
+      0.4,
+      0.98,
+      -0.05
+     ],
+     "guarda": [
+      -0.239,
+      -0.511,
+      -5.41
+     ],
+     "fov": 54,
+     "mossa": "carrello",
+     "verso": 1
+    }
+   ]
+  },
+  {
+   "luogo": "capsula",
+   "da": 37.28,
+   "a": "@A#4",
+   "fermo": 0,
+   "zona": "allarme_scintilla",
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "urla"
+    }
+   ],
+   "camera": [
+    {
+     "t": 37.28,
+     "pos": [
+      0.25,
+      1.5,
+      3.25
+     ],
+     "guarda": [
+      -3.2,
+      1.02,
+      -8.5
+     ],
+     "fov": 72,
+     "mossa": "indietro",
+     "scossa": {
+      "f": 1.4,
+      "t": "@scintilla"
+     }
+    }
+   ]
+  },
+  {
+   "luogo": "laboratorio",
+   "da": "@A#4",
+   "a": "@ma#3",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "paul_fisher",
+     "x": -0.4,
+     "z": -1.2,
+     "faccia": "pensieroso"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@A#4",
+     "pos": [
+      0.0,
+      1.66,
+      2.6
+     ],
+     "guarda": [
+      -0.75,
+      0.8,
+      -11.488
+     ],
+     "fov": 72,
+     "mossa": "gru_giu"
+    }
+   ]
+  },
+  {
+   "luogo": "laboratorio",
+   "da": "@ma#3",
+   "a": "@Paul",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "paul_fisher",
+     "x": -0.4,
+     "z": -1.2,
+     "faccia": "fiero"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@ma#3",
+     "su": "paul_fisher",
+     "testa": 0.21,
+     "angolo": 15,
+     "mossa": "avanti"
+    }
+   ]
+  },
+  {
+   "luogo": "laboratorio",
+   "da": "@Paul",
+   "a": "@Scriveva",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "zona": "spaccato_azoto",
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "lens"
+   },
+   "camera": [
+    {
+     "t": "@Paul",
+     "pos": [
+      0.3,
+      1.36,
+      -0.18
+     ],
+     "guarda": [
+      -0.781,
+      -0.47,
+      -5.253
+     ],
+     "fov": 60,
+     "mossa": "pan",
+     "verso_a": [
+      -0.629,
+      -0.512,
+      -6.073
+     ]
+    },
+    {
+     "t": "@con#2",
+     "pos": [
+      0.1,
+      1.22,
+      -0.48
+     ],
+     "guarda": [
+      -0.629,
+      -0.512,
+      -6.073
+     ],
+     "fov": 52,
+     "mossa": "avanti_lenta"
+    }
+   ]
+  },
+  {
+   "luogo": "laboratorio",
+   "da": "@Scriveva",
+   "a": "@Prezzo",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "zona": "tre_prove",
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "camera": [
+    {
+     "t": "@Scriveva",
+     "pos": [
+      0.22,
+      1.32,
+      -0.42
+     ],
+     "guarda": [
+      0.32,
+      0.98,
+      -1.8
+     ],
+     "fov": 56,
+     "mossa": "inclina",
+     "rollio": 10
+    },
+    {
+     "t": "@a#6",
+     "pos": [
+      0.88,
+      1.3,
+      -0.48
+     ],
+     "guarda": [
+      0.84,
+      0.96,
+      -1.82
+     ],
+     "fov": 52,
+     "mossa": "fermo"
+    }
+   ]
+  },
+  {
+   "luogo": "laboratorio",
+   "da": "@Prezzo",
+   "a": 56.94,
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "paul_fisher",
+     "x": -0.4,
+     "z": -1.2,
+     "faccia": "furbo"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Prezzo",
+     "su": "paul_fisher",
+     "testa": 0.14,
+     "angolo": -10,
+     "mossa": "fermo"
+    }
+   ]
+  },
+  {
+   "luogo": "laboratorio",
+   "da": 56.94,
+   "a": "@E#6",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "zona": "prezzo_nasa",
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "lens"
+   },
+   "camera": [
+    {
+     "t": 56.94,
+     "pos": [
+      -0.46,
+      1.15,
+      -0.52
+     ],
+     "guarda": [
+      -0.46,
+      0.88,
+      -1.55
+     ],
+     "fov": 46,
+     "mossa": "avanti_forte"
+    }
+   ]
+  },
+  {
+   "luogo": "ufficio_mosca",
+   "da": "@E#6",
+   "a": "@Proprio",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "ufficiale_mosca",
+     "x": 0.0,
+     "z": -1.6,
+     "faccia": "ghigno"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@E#6",
+     "pos": [
+      0.0,
+      1.56,
+      2.1
+     ],
+     "guarda": [
+      0.0,
+      0.95,
+      -9.2
+     ],
+     "fov": 68,
+     "mossa": "carrello",
+     "verso": -1,
+     "panTratto": [
+      70,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "luogo": "ufficio_mosca",
+   "da": "@Proprio",
+   "a": "@La#8",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "ufficiale_mosca",
+     "x": 0.0,
+     "z": -1.6,
+     "faccia": "ride"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Proprio",
+     "su": "ufficiale_mosca",
+     "testa": 0.22,
+     "angolo": 8,
+     "mossa": "fermo"
+    }
+   ]
+  },
+  {
+   "luogo": "capsula",
+   "da": "@La#8",
+   "a": "@spera",
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "furbo"
+    }
+   ],
+   "camera": [
+    {
+     "t": "@La#8",
+     "pos": [
+      0.25,
+      1.52,
+      3.3
+     ],
+     "guarda": [
+      -2.8,
+      0.98,
+      -9.0
+     ],
+     "fov": 72,
+     "mossa": "indietro"
+    }
+   ]
+  },
+  {
+   "luogo": "capsula",
+   "da": "@spera",
+   "a": 66.98,
+   "passaggio": "dissolvi",
+   "passaggioDur": 0.27,
+   "fermo": 0,
+   "camera_rick": {
+    "arrivo": 0.5,
+    "glide": "dolly"
+   },
+   "attori": [
+    {
+     "id": "astronauta_usa",
+     "x": -0.4,
+     "z": 0.3,
+     "faccia": "furbo",
+     "azioni": [
+      {
+       "t": 66.2,
+       "faccia": "ride"
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": "@spera",
+     "su": "astronauta_usa",
+     "testa": 0.24,
+     "angolo": -4,
+     "mossa": "avanti"
+    }
+   ]
+  }
+ ]
+}

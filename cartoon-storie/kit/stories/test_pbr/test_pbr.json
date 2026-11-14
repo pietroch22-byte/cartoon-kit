@@ -1,0 +1,97 @@
+{
+  "titolo": "Test PBR + Erba 3D + PureSky HDRI",
+  "personaggi": "rick",
+  "luce_rick": true,
+  "stile_camera": "rick",
+  "cast": {
+    "nonna": { "tipo": "nonna", "nome": "Nonna Pina" },
+    "marco": { "tipo": "giovane", "nome": "Marco" }
+  },
+  "luoghi": {
+    "esterno_prima": {
+      "luce": "giorno",
+      "esterno": true,
+      "script": "esterno_giardino.js",
+      "strada": { "w": 10, "l": 20, "x": 0, "z": -5 },
+      "parametri": {}
+    },
+    "esterno_dopo": {
+      "luce": "giorno",
+      "esterno": true,
+      "hdri": "kloppenheim_06_puresky",
+      "script": "esterno_giardino.js",
+      "strada": { "w": 10, "l": 20, "x": 0, "z": -5 },
+      "parametri": { "pbr": 1 }
+    },
+    "esterno_tramonto": {
+      "luce": "tramonto",
+      "esterno": true,
+      "hdri": "evening_road_01_puresky",
+      "script": "esterno_giardino.js",
+      "strada": { "w": 10, "l": 20, "x": 0, "z": -5 },
+      "parametri": { "pbr": 1 }
+    },
+    "interno_prima": {
+      "luce": "interno",
+      "esterno": true,
+      "script": "interno_cucina.js",
+      "strada": { "w": 8, "l": 8, "x": 0, "z": 0 },
+      "parametri": { "asciutto": 1 }
+    },
+    "interno_dopo": {
+      "luce": "interno",
+      "esterno": true,
+      "hdri": { "id": "kloppenheim_06_puresky", "visibile": true, "exp": 0.68, "env": 0.35 },
+      "script": "interno_cucina.js",
+      "strada": { "w": 8, "l": 8, "x": 0, "z": 0 },
+      "parametri": { "pbr": 1, "asciutto": 1 }
+    }
+  },
+  "scene": [
+    {
+      "luogo": "esterno_prima",
+      "da": 0, "a": 2,
+      "attori": [
+        { "id": "nonna", "x": -0.7, "z": -1.5, "verso": 0.25, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.85, "z": -1.8, "verso": -0.35, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 0, "pos": [0.2, 1.55, 3.2], "guarda": [0, 1.35, -5.0], "fov": 72 }]
+    },
+    {
+      "luogo": "esterno_dopo",
+      "da": 2, "a": 4,
+      "attori": [
+        { "id": "nonna", "x": -0.7, "z": -1.5, "verso": 0.25, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.85, "z": -1.8, "verso": -0.35, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 2, "pos": [0.2, 1.55, 3.2], "guarda": [0, 1.35, -5.0], "fov": 72 }]
+    },
+    {
+      "luogo": "esterno_tramonto",
+      "da": 4, "a": 6,
+      "attori": [
+        { "id": "nonna", "x": -0.7, "z": -1.5, "verso": 0.25, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.85, "z": -1.8, "verso": -0.35, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 4, "pos": [0.2, 1.55, 3.2], "guarda": [0, 1.35, -5.0], "fov": 72 }]
+    },
+    {
+      "luogo": "interno_prima",
+      "da": 6, "a": 8,
+      "attori": [
+        { "id": "nonna", "x": -1.1, "z": -0.2, "verso": 0.35, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.45, "z": -0.4, "verso": -0.30, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 6, "pos": [0.0, 1.55, 3.4], "guarda": [-0.3, 1.35, -2.5], "fov": 74 }]
+    },
+    {
+      "luogo": "interno_dopo",
+      "da": 8, "a": 10,
+      "attori": [
+        { "id": "nonna", "x": -1.1, "z": -0.2, "verso": 0.35, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.45, "z": -0.4, "verso": -0.30, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 8, "pos": [0.0, 1.55, 3.4], "guarda": [-0.3, 1.35, -2.5], "fov": 74 }]
+    }
+  ]
+}

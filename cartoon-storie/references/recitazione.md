@@ -1,0 +1,33 @@
+# Recitazione, ritmo e regia degli attori (ex skill story-cinema)
+
+Riferimento creativo: Ricks Clips, analizzato per ritmo narrativo, animazione limitata espressiva e look 2.5D; storie e personaggi sempre originali. Analisi dei tre video campione: `references/analisi-ricks-clips.md` (principi, non trame da copiare).
+
+## Storia e regia
+
+- Definisci una domanda centrale e una risposta finale; ogni scena prepara la risposta o aumenta l'ostacolo.
+- Apri su un'anomalia concreta e visibile. Nella versione corrente, lavora con la voce esistente: anticipazioni e contrasti possono essere visivi.
+- Fai progredire le gag per cause e conseguenze. Ogni tentativo cambia la situazione; evitare una semplice lista di oggetti sempre più grandi.
+- Un finale efficace spiega o ribalta la premessa. Per la nonna, mantenere la logica affettuosa e assurda già stabilita dal copione.
+- Per ogni battuta scegli un movimento camera leggibile: avvicinamento per scoprire, carrello per mostrare quantità, pausa per far leggere una reazione.
+- Come punto di partenza, prova shot da 1,5–3 secondi e reazioni da 6–10 frame; adatta sempre alla voce e alla gag, senza trattare questi valori come misure del canale.
+
+## Look e recitazione
+
+- Conserva facce semplici, contorni netti e silhouette leggibili sopra set con profondità, materiali differenziati e illuminazione motivata.
+- Per i personaggi conserva pelle calda e distinta per ciascun outfit: non uniformare tutti al bianco crema. Occhi e bocche restano contenuti, guance leggere, naso discreto; preserva capelli, occhiali, espressioni e lip-sync.
+- Dai priorità a pose intenzionali, sguardi, inclinazioni della testa, mani e piccoli anticipi. Le pause sono parte della recitazione.
+- Per azioni laterali usa un profilo o un tre quarti credibile; una rotazione della card frontale non sostituisce un disegno laterale.
+- Movimenti e transizioni devono dipendere dal frame, senza accumuli di stato o tempo reale, per ottenere gli stessi gesti durante scrub ed export.
+- Mostra contatti, peso e scala degli oggetti protagonisti. Evita compenetrazioni con tavoli, mani e pavimento nei punti chiave.
+## Canali del pupazzo 2D Rick e controllo automatico `RECITAZIONE`
+
+Il motore Rick (`engine3d/web/omino_rick.js` + `engine3d/web/storia_disegnato.js`) offre canali dedicati di recitazione deterministica sul tempo (zero accumuli di stato tra frame, compatibili con `tremolio.py` tramite tenute minime e stepped motion):
+- **Pose corpo (`posa`), vista 360° di spalle e locomozione (`andatura`, `ANDATURE`)**: di base `'auto'` sceglie una posa asimmetrica naturale (`tasca`, `fianchi`, `conserte`, `dietro`, `mento`) in base a ruolo/seme; `'spalle'` forza la vista posteriore a 180°, e durante qualsiasi camminata o rotazione `yaw` rispetto alla camera il personaggio ruota a 360° (`cosRel` in `storia_disegnato.js`) mostrando automaticamente schiena, nuca/acconciatura completa, dettagli posteriori (es. lacci del grembiule) e braccia davanti/dietro coerenti; `'seduto'`, `'seduto_alto'`, `'seduto_banco'` abbassano davvero baricentro, camera target (`ALTT`) e linea sguardo (`occhiDi`), disegnando gambe piegate ad L coi piedi ancorati. Solo `'dritto'` forza braccia simmetriche lungo i fianchi. In movimento sono disponibili **7 andature biomeccaniche**: `cammina`, `passeggiata`, `fretta`, `corsa` (con fase aerea), `soppiatto`, `marcia`, `zoppia` (esplicite via `"andatura"`/`"corsa": true`/`"posa"`, oppure dedotte dalla velocità; ciclo stance/swing, ginocchio IK, suola ancorata a terra, oscillazione braccia in controfase rispetto alle gambe, partenza/arresto morbidi `curvaPasso` e continuità di fase tra tappe successive).
+- **14 gesti continui (`gesto`)**: `telefona`, `beve`, `scrive`, `legge`, `manovella`/`gira`, `spiega`/`conversa`, `pensa`, `esulta`, `disperato`, `applaude`, `bastone`, `saluta`, `indica` (con IK gomito, pre-carica d'anticipo all'ingresso se non disattivata con `"gestoAnt": false`, sovrapposizione corretta davanti/dietro busto e testa; utilizzabili anche durante camminata/corsa sull'arto libero).
+- **13 oggetti in mano (`oggetto`, `oggettoMano`)**: `bastone`, `telefono`, `tazza`, `giornale`, `blocco`, `penna`, `matita`, `valigetta`, `soldi`, `martello`, `lente`, `secchiello`, `microfono` (mano portante stabilizzata anche in cammino mentre il braccio libero oscilla).
+- **Anticipo, assestamento e micro-respiro idle**: prima di `corsa`, `fretta`, scatti rapide (`≥ 1,55 m/s` o `"anticipo": true`) e su `spinge`/`tira`/`schiaffo`/`batte` avviene una carica elastica deterministica sul tempo (`0,16-0,20 s`); all'arrivo si attiva un assestamento smorzato su ginocchia/busto (`assestamento`); da fermo il torace esegue un leggero respiro a piedi ancorati (`"respiro": false` lo spegne).
+- **Contatti reali con oggetti (`interazioni.js`)**: verbi `"gira"`, `"preme"`, `"tocca"` (su `"ogg"` singolo o array multi-oggetto es. `["manopola_0", ..., "manopola_3"]` con passo automatico lungo la normale di sicurezza, rotazione `"rot"` e trigger `"attiva"` `[pop/mostra/nascondi/apri/chiudi]` sincronizzati al tocco della mano; in `cucina.js` manopole + `fuoco0..3` e `vapore({ legato })`), `"apri"`/`"chiudi"` (ancora `'handle'` + `apertura`) e `"appoggia"` (`"su_ogg"` + `"offX"`/`"offZ"` o `"punto"`, appoggio esatto sul piano con `Box3`), oltre a `"prende"`, `"porge"`, `"lascia"`, `"batte"`. Tutti gli oggetti nominati in `M.root` richiamati in scena si risolvono automaticamente in `OBJ`.
+- **Lip-sync & blink**: `"parla": true` guida `bocca` sulle parole di `words.json` (anticipo `2/30 s`, tenuta minima `4/30 s`, micro-cenni sul tono); `palpebraRick` sbatte ogni ~1,35-2,19 s con anticipo di `4/30 s` prima dei cambi d'espressione.
+- **Sguardo (`sguardo`), busto (`chino`) e VFX (`vfx`)**: `sguardo` punta a un altro attore/oggetto/camera (o in automatico a chi parla in scena); `chino` inclina il busto attorno alle anche tenendo i piedi fissi a terra; `vfx` aggiunge `sudore`, `fumo`, `scatto`, `rabbia`, `domanda`, `esclamazione`, `cuori`.
+- **Controllo automatico `RECITAZIONE`** (`rendi_disegnato.mjs` + `recitazione.txt` in `--anteprima`): avvisa prima del render se un attore resta inquadrato ≥ 2,5 s senza cambi di faccia/posa/sguardo/gesto/parla (`effetto statua`), e durante l'anteprima verifica `STATUA` (≥ 2,2 s immobile riconoscendo tutte le andature attive), `"dritto"` forzato senza gesto, o `"parla"` tenuto su faccia `'neutro'` senza gesto/chino.
+

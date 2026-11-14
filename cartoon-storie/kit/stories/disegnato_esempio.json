@@ -1,0 +1,37 @@
+{
+  "motore": "disegnato",
+  "titolo": "Esempio del look disegnato: la via della sala giochi (la scena approvata, rifatta dal JSON)",
+  "fps": 30,
+  "luoghi": {
+    "via": {
+      "luce": "notte",
+      "mondo": { "xr": 7, "xl": 2.6, "seme": 7 },
+      "oggetti": [
+        { "tipo": "viaCitta", "protagonista": [4, -14] },
+        { "tipo": "facciata", "lato": 1, "z0": 4, "z1": -14, "h": 16 },
+        { "tipo": "porta", "lato": 1, "z": -1.6 },
+        { "tipo": "insegna", "testo": "PACHINKO", "sopra": "パチンコ", "x": 6.303, "y": 5.005, "z": -1.454, "w": 1.245, "h": 5.121, "ry": 0.039 }
+      ]
+    }
+  },
+  "cast": {
+    "turista": { "tipo": "turista", "seme": 3, "corpo": "#e8742a" },
+    "impiegato": { "tipo": "impiegato", "seme": 9 }
+  },
+  "scene": [
+    {
+      "luogo": "via", "da": 0, "a": 6,
+      "attori": [
+        { "id": "turista", "x": 5.82, "z": -1.17, "ry": -0.7, "verso": 0.3, "faccia": "furbo", "oggetto": "telefono" },
+        { "id": "impiegato", "x": 6.6, "z": -0.78, "ry": -0.9, "verso": -0.3, "faccia": "annoiato", "oggetto": "telefono",
+          "azioni": [ { "t": 4.6, "faccia": "sorpreso", "verso": 0.2 } ] }
+      ],
+      "camera": [
+        { "t": 0, "pos": [2.2, 2.6, 13], "guarda": [3.6, 3.2, -12], "fov": 80 },
+        { "t": 2.5, "pos": [2.7, 1.9, 7.5], "guarda": [5.2, 2.4, -6], "fov": 88 },
+        { "t": 4.5, "pos": [2.948, 1.763, 4.631], "guarda": [6.75, 1.329, -4.608], "fov": 94.88 },
+        { "t": 6, "pos": [2.948, 1.763, 4.631], "guarda": [6.75, 1.329, -4.608], "fov": 94.88 }
+      ]
+    }
+  ]
+}

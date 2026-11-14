@@ -1,0 +1,38 @@
+# File di sistema e cache
+.DS_Store
+__pycache__/
+*.pyc
+
+# Cartelle locali di scarto, archivi vecchi, render finali e video di terzi
+DA_ELIMINARE/
+archivio/
+riferimenti_rick/
+video/
+
+# Output di render, virtualenv e node_modules della skill
+cartoon-storie/out/
+cartoon-storie/kit/out/
+cartoon-storie/engine3d/node_modules/
+cartoon-storie/kit/.venv/
+cartoon-storie/kit/voices/
+cartoon-storie/reference/rick_stile_frames.jpg
+
+# Asset pesanti già pubblicati nella Release v1 di cartoon-kit o rigenerabili via script
+asset-kit/modelli/
+asset-kit/pacchetti_animati/
+asset-kit/hdri/
+asset-kit/download*.log
+asset-kit/.*.done
+
+# Texture PBR pesanti (scaricate da Release v1 + scarica_kit_realistico.py),
+# tenendo tracciate le 9 trame tessuto usate da omino_rick.js
+asset-kit/texture/*
+!asset-kit/texture/denim_fabric/
+!asset-kit/texture/cotton_jersey/
+!asset-kit/texture/knitted_fleece/
+!asset-kit/texture/gingham_check/
+!asset-kit/texture/poly_wool_herringbone/
+!asset-kit/texture/ribbed_corduroy/
+!asset-kit/texture/brown_leather/
+!asset-kit/texture/floral_jacquard/
+!asset-kit/texture/rough_linen/

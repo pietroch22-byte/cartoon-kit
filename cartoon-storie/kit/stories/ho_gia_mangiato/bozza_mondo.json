@@ -1,0 +1,139 @@
+{
+  "titolo": "Mai dire a una nonna italiana: ho già mangiato — Bozza Mondo",
+  "durata": 3.84,
+  "fps": 15,
+  "larghezza": 1280,
+  "altezza": 720,
+  "ss": 2,
+  "sfocatura": "intelligente",
+  "personaggi": "rick",
+  "stile_camera": "rick",
+  "luce_rick": true,
+  "senza_voce": true,
+  "karaoke": false,
+  "sottotitoli": false,
+  "luoghi": {
+    "ingresso": {
+      "script": "ingresso.js",
+      "luce": "sera",
+      "esterno": false
+    },
+    "cucina": {
+      "script": "cucina.js",
+      "luce": "sera",
+      "esterno": false
+    },
+    "vicolo": {
+      "script": "vicolo.js",
+      "luce": "notte",
+      "esterno": true,
+      "strada": { "w": 4.8, "l": 32, "x": 0, "z": -6 },
+      "mondo": { "xr": 2.4, "xl": 2.4 }
+    },
+    "piazza": {
+      "script": "piazza.js",
+      "luce": "notte",
+      "esterno": true,
+      "strada": { "w": 22, "l": 26, "x": 0, "z": -3 },
+      "mondo": { "xr": 11, "xl": 11 }
+    }
+  },
+  "scene": [
+    {
+      "id": "ingresso_vista_1",
+      "da": 0.00,
+      "a": 0.32,
+      "luogo": "ingresso",
+      "attori": [],
+      "camera": [{ "t": 0.00, "pos": [1.10, 1.52, 3.55], "guarda": [-0.45, 1.32, -2.35], "fov": 76, "mossa": "fermo" }]
+    },
+    {
+      "id": "ingresso_opposta",
+      "da": 0.32,
+      "a": 0.64,
+      "luogo": "ingresso",
+      "attori": [],
+      "camera": [{ "t": 0.32, "pos": [-0.35, 1.50, -3.15], "guarda": [0.15, 1.32, 3.60], "fov": 74, "mossa": "fermo" }]
+    },
+    {
+      "id": "ingresso_dettaglio",
+      "da": 0.64,
+      "a": 0.96,
+      "luogo": "ingresso",
+      "attori": [],
+      "camera": [{ "t": 0.64, "pos": [0.55, 1.44, -0.35], "guarda": [-2.05, 1.28, -1.65], "fov": 56, "mossa": "fermo" }]
+    },
+    {
+      "id": "cucina_vista_1",
+      "da": 0.96,
+      "a": 1.28,
+      "luogo": "cucina",
+      "attori": [],
+      "camera": [{ "t": 0.96, "pos": [2.25, 1.65, 2.95], "guarda": [-0.85, 1.28, -1.35], "fov": 72, "mossa": "fermo" }]
+    },
+    {
+      "id": "cucina_opposta",
+      "da": 1.28,
+      "a": 1.60,
+      "luogo": "cucina",
+      "attori": [],
+      "camera": [{ "t": 1.28, "pos": [-2.75, 1.62, -2.75], "guarda": [1.85, 1.25, 1.65], "fov": 72, "mossa": "fermo" }]
+    },
+    {
+      "id": "cucina_dettaglio",
+      "da": 1.60,
+      "a": 1.92,
+      "luogo": "cucina",
+      "attori": [],
+      "camera": [{ "t": 1.60, "pos": [1.15, 1.36, 0.95], "guarda": [-0.85, 1.05, -0.55], "fov": 50, "mossa": "fermo" }]
+    },
+    {
+      "id": "vicolo_vista_1",
+      "da": 1.92,
+      "a": 2.24,
+      "luogo": "vicolo",
+      "attori": [],
+      "camera": [{ "t": 1.92, "pos": [0.15, 1.65, 5.40], "guarda": [-0.15, 2.05, -9.50], "fov": 74, "mossa": "fermo" }]
+    },
+    {
+      "id": "vicolo_opposta",
+      "da": 2.24,
+      "a": 2.56,
+      "luogo": "vicolo",
+      "attori": [],
+      "camera": [{ "t": 2.24, "pos": [0.20, 1.85, -10.50], "guarda": [0.00, 2.25, 4.50], "fov": 72, "mossa": "fermo" }]
+    },
+    {
+      "id": "vicolo_dettaglio",
+      "da": 2.56,
+      "a": 2.88,
+      "luogo": "vicolo",
+      "attori": [],
+      "camera": [{ "t": 2.56, "pos": [0.95, 1.55, -0.70], "guarda": [-1.95, 1.75, -3.80], "fov": 54, "mossa": "fermo" }]
+    },
+    {
+      "id": "piazza_vista_1",
+      "da": 2.88,
+      "a": 3.20,
+      "luogo": "piazza",
+      "attori": [],
+      "camera": [{ "t": 2.88, "pos": [1.85, 2.08, 7.65], "guarda": [-0.65, 2.40, -5.50], "fov": 78, "mossa": "fermo" }]
+    },
+    {
+      "id": "piazza_opposta",
+      "da": 3.20,
+      "a": 3.52,
+      "luogo": "piazza",
+      "attori": [],
+      "camera": [{ "t": 3.20, "pos": [2.40, 2.35, -12.80], "guarda": [-0.40, 3.10, 4.20], "fov": 72, "mossa": "fermo" }]
+    },
+    {
+      "id": "piazza_dettaglio",
+      "da": 3.52,
+      "a": 3.84,
+      "luogo": "piazza",
+      "attori": [],
+      "camera": [{ "t": 3.52, "pos": [3.20, 2.45, -0.30], "guarda": [-1.10, 4.60, -4.60], "fov": 56, "mossa": "fermo" }]
+    }
+  ]
+}

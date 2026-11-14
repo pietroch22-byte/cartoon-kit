@@ -1,0 +1,669 @@
+{
+    "titolo": "50.000 € per affittare la tua faccia 24 ore",
+    "motore": "disegnato",
+    "fps": 30,
+    "personaggi": "rick",
+    "luce_rick": true,
+    "stile_camera": "rick",
+    "camera_rick": {
+        "glide": "dolly"
+    },
+    "senza_voce": true,
+    "karaoke": false,
+    "musica": {
+        "mood": "mystery",
+        "bpm": 108,
+        "gain": 0.035
+    },
+    "effetti": [
+        { "t": 0.25, "tipo": "tick" },
+        { "t": 2.65, "tipo": "cash" },
+        { "t": 4.05, "tipo": "chalk" },
+        { "t": 5.90, "tipo": "pop" },
+        { "t": 7.85, "tipo": "chime" },
+        { "t": 10.45, "tipo": "cash" },
+        { "t": 13.80, "tipo": "whoosh" },
+        { "t": 14.65, "tipo": "night_ambience" },
+        { "t": 17.65, "tipo": "whoosh" },
+        { "t": 18.05, "tipo": "crash" },
+        { "t": 18.85, "tipo": "cash" },
+        { "t": 19.80, "tipo": "pop" },
+        { "t": 21.95, "tipo": "tick" },
+        { "t": 24.00, "tipo": "hammer_tap" },
+        { "t": 25.00, "tipo": "hammer_tap" },
+        { "t": 28.60, "tipo": "sting" },
+        { "t": 31.15, "tipo": "pop" },
+        { "t": 32.40, "tipo": "rumble" },
+        { "t": 38.40, "tipo": "sting" },
+        { "t": 38.65, "tipo": "chime" },
+        { "t": 40.75, "tipo": "rumble" }
+    ],
+    "luoghi": {
+        "clinica": {
+            "luce": "interno",
+            "strada": { "w": 7.2, "l": 8.2, "x": 0, "z": 0.7 },
+            "mondo": { "xr": 3.6, "xl": 3.6 },
+            "parametri": { "asciutto": 1, "lr_cap": 0.68, "ss": 2 },
+            "script": "clinica.js"
+        },
+        "strada_notte": {
+            "luce": "notte",
+            "esterno": true,
+            "strada": { "w": 5.8, "l": 72, "x": 0, "z": -16 },
+            "mondo": { "xr": 2.9, "xl": 2.9 },
+            "parametri": { "esp": 1.12, "wk": 0.64, "sk": 0.94, "gk": 0.30, "fh": 2.0, "cb": 0.80, "lr_cap": 0.92, "nk": 0.58, "ss": 2 },
+            "script": "strada_notte.js"
+        }
+    },
+    "cast": {
+        "davide": {
+            "tipo": "ragazzo",
+            "W": 1.0,
+            "maglia": "#3b6ea5",
+            "tessuto": "maglia",
+            "vestito": ["zip", "tasca"],
+            "pant": "#2d3546",
+            "capelliTipo": "ricci",
+            "capelli": "#362620",
+            "pelle": "#f2d4b8"
+        },
+        "davide_finto": {
+            "tipo": "impiegato",
+            "ruolo": "ragazzo",
+            "W": 1.0,
+            "maglia": "#3b6ea5",
+            "tessuto": "maglia",
+            "vestito": ["zip", "tasca"],
+            "pant": "#2d3546",
+            "capelliTipo": "riga",
+            "capelli": "#e2b24c",
+            "pelle": "#f5deca",
+            "accessori": ["occhiali"]
+        },
+        "davide_vuoto": {
+            "tipo": "impiegato",
+            "ruolo": "ragazzo",
+            "W": 1.0,
+            "maglia": "#3b6ea5",
+            "tessuto": "maglia",
+            "vestito": ["zip", "tasca"],
+            "pant": "#2d3546",
+            "capelliTipo": "pelato",
+            "capelli": "#efece3",
+            "pelle": "#efece3",
+            "oggetto": "soldi",
+            "vuota": true
+        },
+        "dottore": {
+            "tipo": "capo",
+            "W": 1.02,
+            "maglia": "#2c5e68",
+            "tessuto": "lino",
+            "vestito": ["camice", "tasca", "colletto"],
+            "pant": "#313b4a",
+            "capelliTipo": "riga",
+            "capelli": "#7d828c",
+            "pelle": "#ead8cc",
+            "accessori": ["occhiali", "cravatta"],
+            "cravattaCol": "#1e3a52"
+        },
+        "socio": {
+            "tipo": "capo",
+            "W": 1.05,
+            "maglia": "#6c3648",
+            "tessuto": "spigato",
+            "vestito": ["colletto", "bottoni", "tasca"],
+            "pant": "#2b2f3c",
+            "capelliTipo": "pelato",
+            "capelli": "#4a3c35",
+            "pelle": "#ebd2bf",
+            "accessori": ["cravatta", "barba"],
+            "barba": "#4a3c35",
+            "cravattaCol": "#8e2d38"
+        }
+    },
+    "scene": [
+        {
+            "luogo": "clinica",
+            "zona": "contratto",
+            "da": 0.0,
+            "a": 3.8,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "dottore",
+                    "x": 0.78,
+                    "z": -1.25,
+                    "posa": "dietro",
+                    "sguardo": "davide",
+                    "faccia": "furbo",
+                    "vfx": "scatto",
+                    "azioni": [
+                        { "t": 0.8, "fai": "indica", "punto": [-0.42, 0.90, -0.50], "dur": 1.2, "faccia": "furbo" },
+                        { "t": 2.2, "gesto": "spiega", "faccia": "ghigno" }
+                    ]
+                },
+                {
+                    "id": "davide",
+                    "x": -0.92,
+                    "z": 0.35,
+                    "posa": "tasca",
+                    "sguardo": "valigetta_aperta",
+                    "faccia": "sorpreso",
+                    "vfx": "esclamazione",
+                    "azioni": [
+                        { "t": 1.3, "sguardo": "contratto", "faccia": "nervoso", "vfx": "sudore" },
+                        { "t": 2.6, "oggetto": "soldi", "faccia": "felice", "vfx": "scatto" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 0.0,
+                    "pos": [-1.95, 1.48, 3.85],
+                    "guarda": [0.05, 1.25, -1.55],
+                    "fov": 70,
+                    "grandezza": "campo largo",
+                    "mossa": "avanti_lenta",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 1.9,
+                    "volo": true,
+                    "pos": [-1.05, 1.44, 2.75],
+                    "guarda": [-0.05, 1.22, -0.55],
+                    "fov": 60,
+                    "grandezza": "piano americano",
+                    "mossa": "avanti_lenta"
+                }
+            ]
+        },
+        {
+            "luogo": "clinica",
+            "zona": "scrivania",
+            "da": 3.8,
+            "a": 7.6,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "dottore",
+                    "x": 0.58,
+                    "z": -1.25,
+                    "posa": "dietro",
+                    "sguardo": "contratto",
+                    "faccia": "furbo",
+                    "gesto": "indica",
+                    "azioni": [
+                        { "t": 3.85, "fai": "indica", "punto": [0.20, 0.82, -0.34], "dur": 1.7 },
+                        { "t": 5.7, "posa": "conserte", "gesto": "", "sguardo": "davide", "faccia": "ghigno" }
+                    ]
+                },
+                {
+                    "id": "davide",
+                    "x": -0.75,
+                    "z": -0.05,
+                    "posa": "tasca",
+                    "sguardo": "contratto",
+                    "faccia": "furbo",
+                    "gesto": "scrive",
+                    "azioni": [
+                        { "t": 5.6, "oggetto": "soldi", "gesto": "esulta", "faccia": "felice", "sguardo": "camera", "vfx": "esclamazione" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 3.8,
+                    "pos": [0.22, 1.56, 2.38],
+                    "guarda": [-0.08, 1.38, -0.75],
+                    "fov": 62,
+                    "grandezza": "dettaglio",
+                    "mossa": "tilt_giu",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 5.7,
+                    "volo": true,
+                    "pos": [-0.15, 1.54, 2.28],
+                    "guarda": [-0.30, 1.40, -0.60],
+                    "fov": 58,
+                    "grandezza": "primo piano",
+                    "mossa": "pan"
+                }
+            ]
+        },
+        {
+            "luogo": "clinica",
+            "zona": "specchio",
+            "da": 7.6,
+            "a": 14.6,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "davide_finto",
+                    "x": 2.35,
+                    "z": 0.45,
+                    "posa": "fianchi",
+                    "sguardo": "specchio_parete",
+                    "faccia": "sorpreso",
+                    "oggetto": "soldi",
+                    "vfx": "scatto",
+                    "azioni": [
+                        { "t": 8.9, "faccia": "furbo", "gesto": "esulta", "vfx": "scatto" },
+                        { "t": 10.7, "faccia": "ghigno", "gesto": "", "sguardo": "camera", "vfx": "esclamazione" },
+                        { "t": 12.6, "faccia": "ride", "gesto": "spiega", "vfx": "", "a": [1.85, 1.50], "dur": 1.8 }
+                    ]
+                },
+                {
+                    "id": "dottore",
+                    "x": 1.75,
+                    "z": -1.35,
+                    "posa": "dietro",
+                    "sguardo": "davide_finto",
+                    "faccia": "furbo",
+                    "oggetto": "cartella",
+                    "azioni": [
+                        { "t": 9.5, "faccia": "ghigno", "posa": "mento" },
+                        { "t": 11.6, "faccia": "furbo", "gesto": "saluta" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 7.6,
+                    "pos": [0.15, 1.42, 2.25],
+                    "guarda": [2.05, 1.36, -0.25],
+                    "fov": 58,
+                    "grandezza": "mezzo busto",
+                    "mossa": "carrello",
+                    "verso": 1,
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 10.2,
+                    "volo": true,
+                    "pos": [0.35, 1.44, 1.75],
+                    "guarda": [2.25, 1.40, 0.25],
+                    "fov": 50,
+                    "grandezza": "primo piano",
+                    "mossa": "inclina",
+                    "gradi": 5
+                },
+                {
+                    "t": 12.5,
+                    "volo": true,
+                    "pos": [-0.25, 1.44, 2.75],
+                    "guarda": [1.65, 1.34, 0.55],
+                    "fov": 60,
+                    "grandezza": "piano americano",
+                    "mossa": "indietro"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "bar",
+            "da": 14.6,
+            "a": 19.2,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "socio",
+                    "x": -2.15,
+                    "z": 0.60,
+                    "posa": "tasca",
+                    "sguardo": "davide_finto",
+                    "faccia": "felice",
+                    "oggetto": "valigetta",
+                    "azioni": [
+                        { "t": 14.8, "a": [-1.85, 0.65], "dur": 1.7 },
+                        { "t": 16.8, "faccia": "sorpreso", "posa": "fianchi", "vfx": "esclamazione" },
+                        { "t": 18.0, "faccia": "spaventato", "oggetto": "", "chino": -0.25, "vfx": "scatto" }
+                    ]
+                },
+                {
+                    "id": "davide_finto",
+                    "x": -1.10,
+                    "z": -1.35,
+                    "posa": "tasca",
+                    "sguardo": "socio",
+                    "faccia": "ghigno",
+                    "oggetto": "soldi",
+                    "azioni": [
+                        { "t": 15.2, "a": [-1.25, -0.15], "dur": 1.9 },
+                        { "t": 17.6, "fai": "spinge", "chi": "socio", "dur": 0.7, "faccia": "arrabbiato", "vfx": "scatto" },
+                        { "t": 18.7, "oggetto": "valigetta", "faccia": "ride", "vfx": "esclamazione" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 14.6,
+                    "pos": [2.05, 1.75, 5.35],
+                    "guarda": [-0.65, 1.25, -1.55],
+                    "fov": 74,
+                    "grandezza": "campo largo",
+                    "mossa": "fluttua",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 17.0,
+                    "volo": true,
+                    "pos": [1.55, 1.48, 2.95],
+                    "guarda": [-1.55, 1.28, 0.15],
+                    "fov": 58,
+                    "grandezza": "piano americano",
+                    "mossa": "avanti"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "marciapiede",
+            "da": 19.2,
+            "a": 22.8,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "socio",
+                    "x": -1.85,
+                    "z": 0.35,
+                    "posa": "fianchi",
+                    "sguardo": "davide_finto",
+                    "faccia": "arrabbiato",
+                    "gesto": "disperato",
+                    "vfx": "rabbia",
+                    "azioni": [
+                        { "t": 20.8, "gesto": "", "posa": "fianchi", "faccia": "triste", "vfx": "sudore" }
+                    ]
+                },
+                {
+                    "id": "davide_finto",
+                    "x": -0.92,
+                    "z": 0.72,
+                    "posa": "fianchi",
+                    "sguardo": "camera",
+                    "faccia": "ride",
+                    "oggetto": "valigetta",
+                    "vfx": "esclamazione",
+                    "azioni": [
+                        { "t": 20.3, "a": [-1.65, -1.65], "dur": 2.4, "faccia": "ghigno", "vfx": "" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 19.2,
+                    "pos": [0.95, 1.44, -0.95],
+                    "guarda": [-1.35, 1.28, 0.45],
+                    "fov": 54,
+                    "grandezza": "mezzo primo piano",
+                    "mossa": "carrello",
+                    "verso": -1,
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 20.9,
+                    "volo": true,
+                    "pos": [1.05, 1.52, -2.05],
+                    "guarda": [-1.75, 1.32, -0.85],
+                    "fov": 64,
+                    "grandezza": "campo medio",
+                    "mossa": "indietro"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "saracinesca",
+            "da": 22.8,
+            "a": 28.4,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "davide_finto",
+                    "x": -1.75,
+                    "z": -5.20,
+                    "posa": "fianchi",
+                    "sguardo": "saracinesca_clinica",
+                    "faccia": "confuso",
+                    "oggetto": "valigetta",
+                    "vfx": "domanda",
+                    "azioni": [
+                        { "t": 23.8, "fai": "batte", "punto": [-2.85, 1.25, -5.20], "colpi": [24.0, 25.0], "faccia": "sorpreso", "vfx": "esclamazione" },
+                        { "t": 25.9, "faccia": "nervoso", "gesto": "disperato", "vfx": "sudore" },
+                        { "t": 27.1, "faccia": "arrabbiato", "gesto": "", "a": [-1.75, -6.20], "dur": 1.3 }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 22.8,
+                    "pos": [1.15, 1.48, -3.65],
+                    "guarda": [-2.25, 1.35, -5.20],
+                    "fov": 64,
+                    "grandezza": "totale",
+                    "mossa": "avanti_lenta",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 24.1,
+                    "volo": true,
+                    "pos": [0.55, 1.42, -4.15],
+                    "guarda": [-2.15, 1.35, -5.20],
+                    "fov": 56,
+                    "grandezza": "piano americano",
+                    "mossa": "pan"
+                },
+                {
+                    "t": 26.2,
+                    "volo": true,
+                    "pos": [0.85, 1.44, -6.45],
+                    "guarda": [-1.80, 1.38, -5.55],
+                    "fov": 56,
+                    "grandezza": "primo piano",
+                    "mossa": "indietro"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "vetrina",
+            "da": 28.4,
+            "a": 31.0,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "davide_finto",
+                    "x": -1.75,
+                    "z": -10.35,
+                    "posa": "fianchi",
+                    "sguardo": "tv_principale_tg",
+                    "faccia": "sorpreso",
+                    "oggetto": "valigetta",
+                    "vfx": "scatto",
+                    "azioni": [
+                        { "t": 29.7, "faccia": "spaventato", "vfx": "esclamazione" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 28.4,
+                    "pos": [1.15, 1.46, -9.55],
+                    "guarda": [-2.25, 1.44, -10.05],
+                    "fov": 58,
+                    "grandezza": "mezzo busto",
+                    "mossa": "avanti_forte",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 29.7,
+                    "volo": true,
+                    "pos": [0.95, 1.46, -9.65],
+                    "guarda": [-2.25, 1.44, -10.05],
+                    "fov": 54,
+                    "grandezza": "dettaglio",
+                    "mossa": "fermo"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "vetrina_reazione",
+            "da": 31.0,
+            "a": 35.8,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "davide_finto",
+                    "x": -1.65,
+                    "z": -9.35,
+                    "posa": "fianchi",
+                    "sguardo": "tv_principale_tg",
+                    "faccia": "spaventato",
+                    "oggetto": "valigetta",
+                    "vfx": "sudore",
+                    "azioni": [
+                        { "t": 32.3, "a": [-1.60, -10.55], "dur": 1.6, "faccia": "scioccato", "vfx": "esclamazione" },
+                        { "t": 34.1, "gesto": "disperato", "sguardo": "auto_polizia_angolo", "faccia": "spaventato", "vfx": "sudore" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 31.0,
+                    "pos": [0.55, 1.45, -10.35],
+                    "guarda": [-1.75, 1.38, -9.55],
+                    "fov": 54,
+                    "grandezza": "mezzo primo piano",
+                    "mossa": "vertigine",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 33.2,
+                    "volo": true,
+                    "pos": [1.35, 1.48, -9.25],
+                    "guarda": [-1.80, 1.36, -10.55],
+                    "fov": 62,
+                    "grandezza": "piano americano",
+                    "mossa": "indietro"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "vetro_corsa",
+            "da": 35.8,
+            "a": 38.4,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "davide_finto",
+                    "x": -1.85,
+                    "z": -12.10,
+                    "posa": "fianchi",
+                    "sguardo": "vetrina_specchio",
+                    "faccia": "spaventato",
+                    "oggetto": "soldi",
+                    "vfx": "esclamazione",
+                    "azioni": [
+                        { "t": 37.0, "posa": "conserte", "faccia": "scioccato", "vfx": "sudore" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 35.8,
+                    "pos": [0.75, 1.44, -10.95],
+                    "guarda": [-2.25, 1.36, -12.45],
+                    "fov": 58,
+                    "grandezza": "mezzo busto",
+                    "mossa": "avanti_lenta",
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 37.1,
+                    "volo": true,
+                    "pos": [0.35, 1.44, -11.35],
+                    "guarda": [-2.05, 1.38, -12.45],
+                    "fov": 52,
+                    "grandezza": "mezzo primo piano",
+                    "mossa": "fermo"
+                }
+            ]
+        },
+        {
+            "luogo": "strada_notte",
+            "zona": "specchio_finale",
+            "da": 38.4,
+            "a": 43.2,
+            "passaggio": "dissolvi",
+            "passaggioDur": 0.27,
+            "fermo": 0,
+            "camera_rick": { "glide": "dolly" },
+            "attori": [
+                {
+                    "id": "davide_vuoto",
+                    "x": -1.95,
+                    "z": -12.65,
+                    "posa": "fianchi",
+                    "sguardo": "vetrina_specchio",
+                    "faccia": "neutro",
+                    "oggetto": "soldi",
+                    "vfx": "sudore",
+                    "azioni": [
+                        { "t": 39.9, "posa": "conserte", "sguardo": "camera", "vfx": "esclamazione" },
+                        { "t": 41.6, "posa": "tasca", "sguardo": "camera", "vfx": "esclamazione" }
+                    ]
+                }
+            ],
+            "camera": [
+                {
+                    "t": 38.4,
+                    "pos": [0.15, 1.46, -11.65],
+                    "guarda": [-2.05, 1.40, -12.75],
+                    "fov": 50,
+                    "grandezza": "primo piano",
+                    "mossa": "arco",
+                    "gradi": 16,
+                    "ancora": "inizio"
+                },
+                {
+                    "t": 40.7,
+                    "volo": true,
+                    "pos": [0.85, 1.72, -10.15],
+                    "guarda": [-1.85, 1.32, -13.05],
+                    "fov": 64,
+                    "grandezza": "campo medio",
+                    "mossa": "gru_su"
+                }
+            ]
+        }
+    ]
+}

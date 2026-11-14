@@ -1,0 +1,682 @@
+{
+ "motore": "disegnato",
+ "titolo": "Il treno partito 20 secondi prima",
+ "fps": 30,
+ "voce": {
+  "file": "voce.mp3",
+  "parole": "words.json"
+ },
+ "musica": {
+  "mood": "mystery",
+  "bpm": 100,
+  "gain": 0.08
+ },
+ "effetti": [
+  {
+   "t": 0.1,
+   "tipo": "chime"
+  },
+  {
+   "t": 4.4,
+   "tipo": "tick"
+  },
+  {
+   "t": 16.9,
+   "tipo": "sliding"
+  },
+  {
+   "t": 17.7,
+   "tipo": "whoosh"
+  },
+  {
+   "t": 24.7,
+   "tipo": "ding"
+  },
+  {
+   "t": 35.4,
+   "tipo": "tick"
+  }
+ ],
+ "luoghi": {
+  "binario": {
+   "luce": "giorno",
+   "mondo": {
+    "xr": 2,
+    "xl": 2,
+    "seme": 5
+   },
+   "script": "binario.js",
+   "parametri": {
+    "esp": 0.78,
+    "cb": 1.3
+   }
+  },
+  "ufficio": {
+   "luce": "interno",
+   "mondo": {
+    "xr": 2,
+    "xl": 2,
+    "seme": 6
+   },
+   "script": "ufficio.js",
+   "parametri": {
+    "esp": 0.55,
+    "cb": 1.3
+   }
+  }
+ },
+ "cast": {
+  "capo": {
+   "tipo": "impiegato",
+   "seme": 31,
+   "modello3d": "poliziotto"
+  },
+  "imp": {
+   "tipo": "impiegato",
+   "seme": 9,
+   "modello3d": "impiegato_blu"
+  },
+  "ragazza": {
+   "tipo": "ragazza",
+   "seme": 8,
+   "modello3d": "ragazza_lunghi"
+  },
+  "nonno": {
+   "tipo": "nonno",
+   "seme": 44,
+   "modello3d": "nonno_baffi"
+  },
+  "studente": {
+   "tipo": "ragazzo",
+   "seme": 27,
+   "modello3d": "studente_ricci"
+  },
+  "dir": {
+   "tipo": "impiegato",
+   "seme": 52,
+   "modello3d": "commesso_papillon"
+  }
+ },
+ "scene": [
+  {
+   "luogo": "binario",
+   "da": 0,
+   "a": "@Quattordici",
+   "attori": [
+    {
+     "id": "imp",
+     "x": 0.8,
+     "z": -0.5,
+     "ry": 0,
+     "faccia": "neutro",
+     "azioni": [
+      {
+       "t": "@partito",
+       "faccia": "sorpreso"
+      },
+      {
+       "t": "@secondi.",
+       "faccia": "spaventato"
+      }
+     ]
+    },
+    {
+     "id": "ragazza",
+     "x": 1.5,
+     "z": -3.2,
+     "ry": 0,
+     "faccia": "annoiato"
+    },
+    {
+     "id": "nonno",
+     "x": -2.4,
+     "z": -0.5,
+     "ry": 0,
+     "posa": "seduto",
+     "seduta": 0.52,
+     "faccia": "beato"
+    },
+    {
+     "id": "studente",
+     "x": 1.3,
+     "z": -5.0,
+     "ry": 0,
+     "faccia": "neutro"
+    },
+    {
+     "id": "capo",
+     "x": 3.0,
+     "z": -4.0,
+     "ry": 0,
+     "faccia": "determinato"
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "porte",
+     "t": 0,
+     "fai": "apri",
+     "dur": 0.05
+    }
+   ],
+   "camera": [
+    {
+     "t": 0,
+     "pos": [
+      -0.2,
+      2.45,
+      1.2
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 44
+    },
+    {
+     "t": "@partito",
+     "pos": [
+      -1.4,
+      1.75,
+      4.8
+     ],
+     "guarda": [
+      1.4,
+      1.2,
+      -4
+     ],
+     "fov": 58
+    },
+    {
+     "t": "@Quattordici",
+     "pos": [
+      -1.2,
+      1.7,
+      4.2
+     ],
+     "guarda": [
+      1.4,
+      1.2,
+      -4
+     ],
+     "fov": 56
+    }
+   ]
+  },
+  {
+   "luogo": "binario",
+   "da": "@Quattordici",
+   "a": "@Ma",
+   "passaggio": "dissolvi",
+   "attori": [
+    {
+     "id": "imp",
+     "x": 0.8,
+     "z": -0.5,
+     "ry": 0,
+     "faccia": "neutro",
+     "azioni": [
+      {
+       "t": "@nove",
+       "a": [
+        4.3,
+        -4.0
+       ],
+       "dur": 2.2
+      },
+      {
+       "t": "@Ma",
+       "visibile": false
+      }
+     ]
+    },
+    {
+     "id": "ragazza",
+     "x": 1.5,
+     "z": -3.2,
+     "ry": 0,
+     "faccia": "annoiato",
+     "azioni": [
+      {
+       "t": "@nove",
+       "a": [
+        4.3,
+        1.0
+       ],
+       "dur": 2.4
+      },
+      {
+       "t": "@Ma",
+       "visibile": false
+      }
+     ]
+    },
+    {
+     "id": "nonno",
+     "x": -2.4,
+     "z": -0.5,
+     "ry": 0,
+     "posa": "seduto",
+     "seduta": 0.52,
+     "faccia": "beato",
+     "azioni": [
+      {
+       "t": "@Partenza",
+       "posa": "fermo",
+       "a": [
+        4.3,
+        1.0
+       ],
+       "dur": 3.2
+      },
+      {
+       "t": "@Ma",
+       "visibile": false
+      }
+     ]
+    },
+    {
+     "id": "studente",
+     "x": 1.3,
+     "z": -5.0,
+     "ry": 0,
+     "faccia": "neutro",
+     "azioni": [
+      {
+       "t": "@quarantaquattro",
+       "a": [
+        4.3,
+        -9.0
+       ],
+       "dur": 2.0
+      },
+      {
+       "t": "@Ma",
+       "visibile": false
+      }
+     ]
+    },
+    {
+     "id": "capo",
+     "x": 3.0,
+     "z": -4.0,
+     "ry": 0,
+     "faccia": "determinato",
+     "azioni": [
+      {
+       "t": "@Partenza",
+       "faccia": "sorriso"
+      }
+     ]
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "porte",
+     "t": "@Quattordici",
+     "fai": "apri",
+     "dur": 0.05
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Quattordici",
+     "pos": [
+      -1.8,
+      2.2,
+      8.0
+     ],
+     "guarda": [
+      1.2,
+      1.0,
+      -8
+     ],
+     "fov": 56
+    },
+    {
+     "t": "@Partenza",
+     "pos": [
+      -0.4,
+      2.4,
+      1.4
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 46
+    },
+    {
+     "t": "@quaranta",
+     "pos": [
+      -0.3,
+      2.4,
+      1.4
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "luogo": "binario",
+   "da": "@Ma",
+   "a": "@Nessuno",
+   "attori": [
+    {
+     "id": "capo",
+     "x": 3.25,
+     "z": -4.0,
+     "ry": 0,
+     "faccia": "determinato",
+     "azioni": [
+      {
+       "t": "@venti#2",
+       "faccia": "sorriso"
+      },
+      {
+       "t": "@parte.",
+       "visibile": false
+      }
+     ]
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "porte",
+     "t": "@Ma",
+     "fai": "apri",
+     "dur": 0.05
+    },
+    {
+     "id": "porte",
+     "t": "@chiudono",
+     "fai": "chiudi",
+     "dur": 0.9
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Ma",
+     "su": "capo",
+     "testa": 0.22,
+     "angolo": -20,
+     "fov": 50
+    },
+    {
+     "t": "@treno#2",
+     "pos": [
+      0.6,
+      1.6,
+      5.5
+     ],
+     "guarda": [
+      4.0,
+      1.2,
+      -9
+     ],
+     "fov": 60
+    },
+    {
+     "t": "@Nessuno",
+     "pos": [
+      0.4,
+      1.6,
+      5.0
+     ],
+     "guarda": [
+      4.2,
+      1.1,
+      -12
+     ],
+     "fov": 60
+    }
+   ]
+  },
+  {
+   "luogo": "binario",
+   "da": "@Nessuno",
+   "a": "@Eppure",
+   "attori": [],
+   "oggetti": [
+    {
+     "id": "porte",
+     "t": "@Nessuno",
+     "fai": "chiudi",
+     "dur": 0.05
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Nessuno",
+     "pos": [
+      -1.0,
+      0.55,
+      4.6
+     ],
+     "guarda": [
+      0.6,
+      0.4,
+      -4
+     ],
+     "fov": 56
+    },
+    {
+     "t": "@dopo",
+     "pos": [
+      -0.4,
+      2.4,
+      1.4
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 46
+    },
+    {
+     "t": "@Eppure",
+     "pos": [
+      -0.3,
+      2.4,
+      1.4
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 46
+    }
+   ]
+  },
+  {
+   "luogo": "ufficio",
+   "da": "@Eppure",
+   "a": "@motivo?",
+   "passaggio": "dissolvi",
+   "attori": [
+    {
+     "id": "dir",
+     "x": 0,
+     "z": -3.3,
+     "ry": 0,
+     "faccia": "triste",
+     "azioni": [
+      {
+       "t": "@scusiamo",
+       "faccia": "preoccupato",
+       "parla": true
+      },
+      {
+       "t": "@disagio».",
+       "faccia": "triste",
+       "parla": false
+      }
+     ]
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Eppure",
+     "pos": [
+      0,
+      1.75,
+      2.6
+     ],
+     "guarda": [
+      0,
+      1.7,
+      -4.5
+     ],
+     "fov": 58
+    },
+    {
+     "t": "@scuse",
+     "pos": [
+      0.4,
+      2.05,
+      -1.5
+     ],
+     "guarda": [
+      0,
+      2.0,
+      -4.88
+     ],
+     "fov": 50
+    },
+    {
+     "t": "@scusiamo",
+     "su": "dir",
+     "testa": 0.22,
+     "angolo": 10,
+     "fov": 50
+    },
+    {
+     "t": "@motivo?",
+     "su": "dir",
+     "testa": 0.24,
+     "angolo": 8,
+     "fov": 50
+    }
+   ]
+  },
+  {
+   "luogo": "binario",
+   "da": "@motivo?",
+   "a": "@Perché",
+   "passaggio": "dissolvi",
+   "attori": [
+    {
+     "id": "capo",
+     "x": -0.2,
+     "z": -1.6,
+     "ry": 0,
+     "faccia": "dubbioso",
+     "azioni": [
+      {
+       "t": "@letto",
+       "faccia": "imbarazzato"
+      }
+     ]
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "porte",
+     "t": "@motivo?",
+     "fai": "chiudi",
+     "dur": 0.05
+    }
+   ],
+   "camera": [
+    {
+     "t": "@motivo?",
+     "su": "capo",
+     "testa": 0.2,
+     "angolo": 20,
+     "fov": 50
+    },
+    {
+     "t": "@Perché",
+     "su": "capo",
+     "testa": 0.24,
+     "angolo": 12,
+     "fov": 50
+    }
+   ]
+  },
+  {
+   "luogo": "binario",
+   "da": "@Perché",
+   "a": 36.45,
+   "attori": [
+    {
+     "id": "capo",
+     "x": -0.2,
+     "z": -1.6,
+     "ry": 0,
+     "faccia": "imbarazzato",
+     "azioni": [
+      {
+       "t": "@perfetti.",
+       "faccia": "triste"
+      }
+     ]
+    }
+   ],
+   "oggetti": [
+    {
+     "id": "porte",
+     "t": "@Perché",
+     "fai": "chiudi",
+     "dur": 0.05
+    }
+   ],
+   "camera": [
+    {
+     "t": "@Perché",
+     "su": "capo",
+     "testa": 0.24,
+     "angolo": -10,
+     "fov": 50
+    },
+    {
+     "t": "@Anche",
+     "pos": [
+      -0.3,
+      2.4,
+      1.4
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 46
+    },
+    {
+     "t": 36.45,
+     "pos": [
+      -0.25,
+      2.4,
+      1.4
+     ],
+     "guarda": [
+      -0.2,
+      2.5,
+      -2.6
+     ],
+     "fov": 46
+    }
+   ]
+  }
+ ]
+}

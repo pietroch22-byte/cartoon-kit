@@ -1,0 +1,123 @@
+{
+ "turista_arancio": {
+  "file": "turista_arancio.glb",
+  "altezza": 2.08,
+  "occhiali": false,
+  "occhiali_sole": false,
+  "corpo": "#e8742a",
+  "capelli": "calotta",
+  "accessori": [
+   "macchina_foto"
+  ],
+  "viso": true
+ },
+ "impiegato_blu": {
+  "file": "impiegato_blu.glb",
+  "altezza": 2.1,
+  "occhiali": true,
+  "occhiali_sole": false,
+  "corpo": "#2c3670",
+  "capelli": "calotta",
+  "accessori": [
+   "cravatta",
+   "occhiali"
+  ],
+  "viso": true
+ },
+ "poliziotto": {
+  "file": "poliziotto.glb",
+  "altezza": 2.1,
+  "occhiali": false,
+  "occhiali_sole": false,
+  "corpo": "#2a4ab0",
+  "capelli": "corti",
+  "accessori": [
+   "cappello_polizia",
+   "cintura"
+  ],
+  "viso": true
+ },
+ "duro_sole": {
+  "file": "duro_sole.glb",
+  "altezza": 2.08,
+  "occhiali": false,
+  "occhiali_sole": true,
+  "corpo": "#6a4ad0",
+  "capelli": "pelato",
+  "accessori": [
+   "berretto",
+   "occhiali_sole"
+  ],
+  "viso": true
+ },
+ "nonna_chignon": {
+  "file": "nonna_chignon.glb",
+  "altezza": 2.03,
+  "occhiali": true,
+  "occhiali_sole": false,
+  "corpo": "#d85a3a",
+  "capelli": "chignon",
+  "accessori": [
+   "occhiali"
+  ],
+  "viso": true
+ },
+ "nonno_baffi": {
+  "file": "nonno_baffi.glb",
+  "altezza": 2.06,
+  "occhiali": true,
+  "occhiali_sole": false,
+  "corpo": "#c8a03a",
+  "capelli": "pelato",
+  "accessori": [
+   "baffi",
+   "occhiali"
+  ],
+  "viso": true
+ },
+ "ragazza_lunghi": {
+  "file": "ragazza_lunghi.glb",
+  "altezza": 2.07,
+  "occhiali": false,
+  "occhiali_sole": false,
+  "corpo": "#c84a6a",
+  "capelli": "lunghi",
+  "accessori": [],
+  "viso": true
+ },
+ "ragazzo_spettinato": {
+  "file": "ragazzo_spettinato.glb",
+  "altezza": 2.08,
+  "occhiali": false,
+  "occhiali_sole": false,
+  "corpo": "#4a9a5a",
+  "capelli": "spettinato",
+  "accessori": [],
+  "viso": true
+ },
+ "studente_ricci": {
+  "file": "studente_ricci.glb",
+  "altezza": 2.07,
+  "occhiali": true,
+  "occhiali_sole": false,
+  "corpo": "#5ab0c0",
+  "capelli": "ricci",
+  "accessori": [
+   "occhiali",
+   "zaino"
+  ],
+  "viso": true
+ },
+ "commesso_papillon": {
+  "file": "commesso_papillon.glb",
+  "altezza": 2.05,
+  "occhiali": false,
+  "occhiali_sole": false,
+  "corpo": "#2a2a32",
+  "capelli": "caschetto",
+  "accessori": [
+   "papillon"
+  ],
+  "viso": true
+ }
+}

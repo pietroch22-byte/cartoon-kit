@@ -1,0 +1,99 @@
+{
+  "titolo": "Test Cinema Tappa 2C - 2B (Prima) vs 2C (Profondita 3-piani, Lente f/2.2 + Bokeh, Respiro, Rack Focus)",
+  "personaggi": "rick",
+  "luce_rick": true,
+  "stile_camera": "rick",
+  "cast": {
+    "nonna": { "tipo": "nonna", "nome": "Nonna Pina" },
+    "marco": { "tipo": "giovane", "nome": "Marco" }
+  },
+  "luoghi": {
+    "esterno_tramonto_2b": {
+      "luce": "tramonto",
+      "esterno": true,
+      "hdri": "evening_road_01_puresky",
+      "luce_cinema": { "lente": false, "respiro": false },
+      "script": "esterno_giardino.js",
+      "strada": { "w": 10, "l": 20, "x": 0, "z": -5 },
+      "parametri": { "pbr": 1 }
+    },
+    "esterno_tramonto_2c": {
+      "luce": "tramonto",
+      "esterno": true,
+      "hdri": "evening_road_01_puresky",
+      "luce_cinema": true,
+      "script": "esterno_giardino.js",
+      "strada": { "w": 10, "l": 20, "x": 0, "z": -5 },
+      "parametri": { "pbr": 1, "quinte": 1 }
+    },
+    "interno_2b": {
+      "luce": "interno",
+      "esterno": false,
+      "hdri": { "id": "kloppenheim_06_puresky", "visibile": true, "exp": 0.68, "env": 0.42 },
+      "luce_cinema": { "lente": false, "respiro": false },
+      "script": "interno_cucina.js",
+      "strada": { "w": 8, "l": 8, "x": 0, "z": 0 },
+      "parametri": { "pbr": 1, "asciutto": 1 }
+    },
+    "interno_2c": {
+      "luce": "interno",
+      "esterno": false,
+      "hdri": { "id": "kloppenheim_06_puresky", "visibile": true, "exp": 0.68, "env": 0.42 },
+      "luce_cinema": true,
+      "script": "interno_cucina.js",
+      "strada": { "w": 8, "l": 8, "x": 0, "z": 0 },
+      "parametri": { "pbr": 1, "asciutto": 1, "quinte": 1 }
+    }
+  },
+  "scene": [
+    {
+      "luogo": "esterno_tramonto_2b",
+      "da": 0, "a": 1.5,
+      "attori": [
+        { "id": "nonna", "x": -0.7, "z": -1.5, "verso": 0.25, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.85, "z": -1.8, "verso": -0.35, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 0, "pos": [0.2, 1.55, 3.2], "guarda": [0.05, 1.35, -5.0], "fov": 66, "fuoco_su": "nonna" }]
+    },
+    {
+      "luogo": "esterno_tramonto_2c",
+      "da": 1.5, "a": 3.0,
+      "attori": [
+        { "id": "nonna", "x": -0.7, "z": -1.5, "verso": 0.25, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.85, "z": -1.8, "verso": -0.35, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 1.5, "pos": [0.2, 1.55, 3.2], "guarda": [0.05, 1.35, -5.0], "fov": 66, "fuoco_su": "nonna" }]
+    },
+    {
+      "luogo": "interno_2b",
+      "da": 3.0, "a": 4.5,
+      "attori": [
+        { "id": "nonna", "x": -1.1, "z": -0.2, "verso": 0.35, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.45, "z": -0.4, "verso": -0.30, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 3.0, "pos": [0.22, 1.46, 3.35], "guarda": [-0.30, 1.28, -0.4], "fov": 62, "fuoco_su": "nonna" }]
+    },
+    {
+      "luogo": "interno_2c",
+      "da": 4.5, "a": 6.0,
+      "attori": [
+        { "id": "nonna", "x": -1.1, "z": -0.2, "verso": 0.35, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.45, "z": -0.4, "verso": -0.30, "faccia": "sorpreso" }
+      ],
+      "camera": [{ "t": 4.5, "pos": [0.22, 1.46, 3.35], "guarda": [-0.30, 1.28, -0.4], "fov": 62, "fuoco_su": "nonna" }]
+    },
+    {
+      "luogo": "interno_2c",
+      "da": 6.0, "a": 9.0,
+      "camera_viva": false,
+      "attori": [
+        { "id": "nonna", "x": -1.1, "z": -0.2, "verso": 0.35, "faccia": "felice", "gesto": "spiega" },
+        { "id": "marco", "x": 0.45, "z": -0.4, "verso": -0.30, "faccia": "sorpreso", "gesto": "annuisce" }
+      ],
+      "camera": [
+        { "t": 6.0, "pos": [0.22, 1.46, 3.35], "guarda": [-0.28, 1.26, -0.4], "fov": 60, "zoom": 0, "pan": [0, 0], "fuoco_su": "bricco" },
+        { "t": 7.1, "pos": [0.22, 1.46, 3.35], "guarda": [-0.28, 1.26, -0.4], "fov": 60, "zoom": 0, "pan": [0, 0], "fuoco_su": "nonna" }
+      ]
+    }
+  ]
+}

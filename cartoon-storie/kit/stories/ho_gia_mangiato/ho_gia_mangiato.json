@@ -1,0 +1,736 @@
+{
+  "motore": "disegnato",
+  "titolo": "Mai dire a una nonna italiana: Ho già mangiato",
+  "fps": 30,
+  "ss": 2,
+  "personaggi": "rick",
+  "luce_rick": true,
+  "sfocatura": "intelligente",
+  "stile_camera": "rick",
+  "camera_rick": {
+    "glide": "dolly"
+  },
+  "voce": {
+    "file": "voce.mp3",
+    "parole": "words.json"
+  },
+  "musica": {
+    "mood": "playful",
+    "bpm": 108,
+    "gain": 0.08
+  },
+  "effetti": [
+    { "t": 1.85, "tipo": "pop" },
+    { "t": 4.82, "tipo": "tick" },
+    { "t": 7.28, "tipo": "sting" },
+    { "t": 9.15, "tipo": "whoosh" },
+    { "t": 11.58, "tipo": "pop" },
+    { "t": 13.45, "tipo": "whoosh" },
+    { "t": 16.34, "tipo": "boing" },
+    { "t": 18.42, "tipo": "pop" },
+    { "t": 19.95, "tipo": "pop" },
+    { "t": 21.62, "tipo": "ding" },
+    { "t": 25.44, "tipo": "whoosh" },
+    { "t": 27.90, "tipo": "whoosh" },
+    { "t": 29.24, "tipo": "squish" },
+    { "t": 32.14, "tipo": "boing" },
+    { "t": 36.48, "tipo": "ding" }
+  ],
+  "luoghi": {
+    "ingresso": {
+      "script": "ingresso.js",
+      "luce": "sera",
+      "esterno": false,
+      "strada": { "w": 5.6, "l": 8.0, "x": 0, "z": 0 },
+      "mondo": { "xr": 2.8, "xl": 2.8 },
+      "parametri": { "asciutto": 1 }
+    },
+    "cucina": {
+      "script": "cucina.js",
+      "luce": "sera",
+      "esterno": false,
+      "strada": { "w": 9.0, "l": 8.0, "x": 0, "z": 0 },
+      "mondo": { "xr": 4.5, "xl": 4.5 },
+      "parametri": { "asciutto": 1 }
+    },
+    "vicolo": {
+      "script": "vicolo.js",
+      "luce": "notte",
+      "esterno": true,
+      "strada": { "w": 4.8, "l": 32.0, "x": 0, "z": -6 },
+      "mondo": { "xr": 2.4, "xl": 2.4 }
+    },
+    "piazza": {
+      "script": "piazza.js",
+      "luce": "notte",
+      "esterno": true,
+      "strada": { "w": 22.0, "l": 26.0, "x": 0, "z": -3 },
+      "mondo": { "xr": 11.0, "xl": 11.0 }
+    }
+  },
+  "cast": {
+    "nonna": {
+      "tipo": "nonna",
+      "maglia": "#8e3c4c",
+      "gonna": "#5e3642",
+      "tessuto": "lana",
+      "vestito": ["colletto", "tasca", "bottoni"],
+      "accessori": ["occhiali"]
+    },
+    "marco": {
+      "tipo": "ragazzo",
+      "capelliTipo": "ricci",
+      "capelli": "#3a2416",
+      "pelle": "#f4cfb0",
+      "maglia": "#386898",
+      "tessuto": "maglia",
+      "vestito": ["tasca"]
+    },
+    "marco_pieno": {
+      "tipo": "ragazzo",
+      "largo": 2.05,
+      "alto": 0.94,
+      "W": 1.10,
+      "capelliTipo": "ricci",
+      "capelli": "#3a2416",
+      "pelle": "#f4cfb0",
+      "maglia": "#386898",
+      "tessuto": "maglia",
+      "vestito": ["tasca"],
+      "accessori": []
+    },
+    "vicina": {
+      "tipo": "signora",
+      "maglia": "#4a7a5c",
+      "gonna": "#2c503c",
+      "tessuto": "lino",
+      "vestito": ["colletto", "bottoni"]
+    },
+    "zia1": {
+      "tipo": "signora",
+      "maglia": "#b84e42",
+      "gonna": "#6e3028",
+      "tessuto": "lana",
+      "vestito": ["colletto"],
+      "accessori": ["occhiali"]
+    },
+    "zia2": {
+      "tipo": "nonna",
+      "maglia": "#4f6c96",
+      "gonna": "#344664",
+      "tessuto": "lana",
+      "vestito": ["tasca"],
+      "accessori": ["occhiali"]
+    },
+    "zia3": {
+      "tipo": "signora",
+      "capelliTipo": "lunghi",
+      "capelli": "#5c3c28",
+      "maglia": "#c28838",
+      "gonna": "#5e462c",
+      "tessuto": "lino",
+      "vestito": ["colletto", "bottoni"],
+      "accessori": []
+    },
+    "zia4": {
+      "tipo": "signora",
+      "capelliTipo": "corti",
+      "capelli": "#827886",
+      "maglia": "#4c7a56",
+      "gonna": "#38563c",
+      "tessuto": "quadretti",
+      "vestito": ["tasca", "colletto"]
+    }
+  },
+  "scene": [
+    {
+      "luogo": "ingresso",
+      "zona": "arrivo",
+      "da": 0.0,
+      "a": "@Nonna#2",
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": { "glide": "dolly" },
+      "oggetti": [
+        { "id": "porta_ingresso", "t": 0.15, "fai": "apri", "dur": 0.9 }
+      ],
+      "attori": [
+        {
+          "id": "marco",
+          "x": -0.35,
+          "z": 1.00,
+          "posa": "auto",
+          "faccia": "contento",
+          "sguardo": "nonna",
+          "azioni": [
+            { "t": 0.1, "a": [-0.35, -1.25], "dur": 1.65 },
+            { "t": "@Ho", "parla": true, "faccia": "furbo", "gesto": "saluta", "chino": 4, "sguardo": "nonna" },
+            { "t": "@Marco", "parla": false, "faccia": "imbarazzato", "gesto": null, "posa": "tasca", "chino": 0, "sguardo": "nonna" },
+            { "t": "@Sono", "faccia": "confuso", "sguardo": [-0.8, -0.4], "chino": 2 },
+            { "t": "@Errore.", "faccia": "spaventato", "vfx": "sudore", "posa": "auto", "sguardo": "camera", "chino": -6 }
+          ]
+        },
+        {
+          "id": "nonna",
+          "x": 0.45,
+          "z": -2.65,
+          "posa": "fianchi",
+          "faccia": "contento",
+          "sguardo": "marco",
+          "azioni": [
+            { "t": "@italiana.", "faccia": "felice", "gesto": "saluta", "chino": 3 },
+            { "t": "@Ho", "gesto": null, "posa": "fianchi", "faccia": "sorpreso", "chino": 0 },
+            { "t": "@Marco", "faccia": "ghigno", "posa": "conserte", "chino": -5 },
+            { "t": "@Sono", "faccia": "pensieroso", "sguardo": "marco" },
+            { "t": "@Errore.", "faccia": "deciso", "vfx": "scatto", "gesto": "indica", "chino": 4 }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 0.0,
+          "pos": [0.45, 1.52, 2.95],
+          "guarda": [-0.20, 1.32, -2.35],
+          "fov": 82,
+          "grandezza": "campo largo",
+          "mossa": "avanti_lenta",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Ho",
+          "volo": 0.90,
+          "su": "marco",
+          "testa": 0.19,
+          "fov": 66,
+          "angolo": -12,
+          "alt": 1.32,
+          "grandezza": "mezza figura",
+          "mossa": "avanti",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Marco",
+          "volo": 1.05,
+          "su": "nonna",
+          "testa": 0.21,
+          "fov": 60,
+          "angolo": 12,
+          "alt": 1.34,
+          "grandezza": "primo piano",
+          "mossa": "fermo",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Sono",
+          "volo": 1.15,
+          "pos": [-0.55, 1.65, 0.15],
+          "guarda": [-1.72, 1.92, -3.67],
+          "fov": 52,
+          "sfocatura": 0,
+          "grandezza": "dettaglio",
+          "mossa": "tilt_su",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Errore.-0.02",
+          "taglio": true,
+          "su": "marco",
+          "testa": 0.21,
+          "fov": 60,
+          "angolo": -10,
+          "alt": 1.38,
+          "grandezza": "primo piano",
+          "mossa": "inclina",
+          "rollio": 7,
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "cucina",
+      "zona": "cena",
+      "da": "@Nonna#2",
+      "a": "@Lei",
+      "muri": false,
+      "passaggio": "dissolvi",
+      "passaggioDur": 0.27,
+      "fermo": 0,
+      "camera_rick": { "glide": "dolly" },
+      "oggetti": [
+        { "id": "fuoco0", "t": 0, "fai": "nascondi" },
+        { "id": "fuoco1", "t": 0, "fai": "nascondi" },
+        { "id": "fuoco2", "t": 0, "fai": "nascondi" },
+        { "id": "fuoco3", "t": 0, "fai": "nascondi" },
+        { "id": "lasagna", "t": "@Arriva", "fai": "pop", "dur": 0.65 }
+      ],
+      "attori": [
+        {
+          "id": "nonna",
+          "x": -2.45,
+          "z": -1.65,
+          "posa": "fianchi",
+          "faccia": "felice",
+          "sguardo": [1, 0],
+          "azioni": [
+            { "t": "@Pina", "faccia": "furbo", "vfx": "cuori", "gesto": "spiega", "chino": 4 },
+            {
+              "t": 9.28,
+              "fai": "gira",
+              "ogg": ["manopola_0", "manopola_1", "manopola_2", "manopola_3"],
+              "mano": "destra",
+              "avvicinati": true,
+              "dist": 0.44,
+              "vel": 1.75,
+              "durPassoOgg": 0.36,
+              "pausa": 0.02,
+              "rot": [2.2, 0, 0],
+              "attiva": [
+                { "ogg": "fuoco0", "fai": "pop", "dur": 0.28 },
+                { "ogg": "fuoco1", "fai": "pop", "dur": 0.28 },
+                { "ogg": "fuoco2", "fai": "pop", "dur": 0.28 },
+                { "ogg": "fuoco3", "fai": "pop", "dur": 0.28 }
+              ],
+              "gesto": null,
+              "vfx": null,
+              "faccia": "deciso",
+              "chino": 6
+            },
+            { "t": "@quattro", "faccia": "furbo", "sguardo": "marco", "chino": 3 },
+            { "t": "@Solo", "a": [-1.35, -0.95], "dur": 1.3, "gesto": "spiega", "faccia": "contento", "chino": 2, "sguardo": "marco" },
+            { "t": "@Arriva", "faccia": "fiero", "gesto": "esulta", "chino": -2, "vfx": "scatto" },
+            { "t": "@grande", "faccia": "ride", "gesto": "spiega", "sguardo": "marco", "chino": 6 },
+            { "t": "@Basta,", "faccia": "felice", "gesto": "indica", "sguardo": "marco", "chino": 5 }
+          ]
+        },
+        {
+          "id": "marco",
+          "x": 0.35,
+          "z": -1.18,
+          "posa": "seduto",
+          "faccia": "nervoso",
+          "sguardo": "nonna",
+          "azioni": [
+            { "t": "@Poi", "faccia": "confuso", "sguardo": "nonna", "chino": 2 },
+            { "t": "@Solo", "parla": true, "faccia": "nervoso", "gesto": "saluta", "chino": 6, "vfx": "sudore" },
+            { "t": "@Arriva", "parla": false, "faccia": "sorpreso", "gesto": null, "chino": 0, "sguardo": "lasagna" },
+            { "t": "@grande", "faccia": "spaventato", "chino": -8, "sguardo": [0, 0.2] },
+            { "t": "@Basta,", "parla": true, "faccia": "scioccato", "gesto": "disperato", "chino": -10, "sguardo": "nonna" }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": "@Nonna#2",
+          "pos": [2.25, 1.65, 2.95],
+          "guarda": [-0.85, 1.28, -1.35],
+          "fov": 72,
+          "grandezza": "campo largo",
+          "mossa": "gru_giu",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Poi",
+          "volo": 1.15,
+          "pos": [-0.65, 1.56, 1.55],
+          "guarda": [-3.15, 1.15, -1.65],
+          "fov": 68,
+          "grandezza": "mezza figura",
+          "mossa": "avanti_lenta",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Solo",
+          "taglio": true,
+          "su": "marco",
+          "testa": 0.20,
+          "fov": 62,
+          "angolo": -14,
+          "alt": 1.20,
+          "grandezza": "primo piano",
+          "mossa": "fermo",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Arriva",
+          "volo": 0.85,
+          "pos": [0.35, 1.38, 2.35],
+          "guarda": [0.0, 1.18, -0.25],
+          "guarda_ogg": "lasagna",
+          "fov": 66,
+          "sfocatura": 0,
+          "grandezza": "dettaglio",
+          "mossa": "pan",
+          "verso": -1,
+          "panTratto": [70, 0],
+          "ancora": "inizio"
+        },
+        {
+          "t": "@grande",
+          "volo": 1.10,
+          "pos": [-1.25, 1.88, 2.85],
+          "guarda": [0.25, 1.15, -1.05],
+          "fov": 74,
+          "grandezza": "campo largo",
+          "mossa": "indietro",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Basta,",
+          "volo": true,
+          "su": "marco",
+          "testa": 0.22,
+          "fov": 58,
+          "angolo": -12,
+          "alt": 1.26,
+          "grandezza": "primo piano",
+          "mossa": "inclina",
+          "rollio": -7,
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "vicolo",
+      "zona": "vicolo_paese",
+      "da": "@Lei",
+      "a": "@piazza.",
+      "passaggio": "dissolvi",
+      "passaggioDur": 0.27,
+      "fermo": 0,
+      "camera_rick": { "glide": "dolly" },
+      "oggetti": [
+        { "id": "finestra_vicina", "t": "@chiama#1", "fai": "nascondi" },
+        { "id": "win0", "t": "@La#2", "fai": "nascondi" },
+        { "id": "win1", "t": "@vicina#2", "fai": "nascondi" },
+        { "id": "win2", "t": "@chiama#2", "fai": "nascondi" },
+        { "id": "win3", "t": "@paese.", "fai": "nascondi" }
+      ],
+      "attori": [
+        {
+          "id": "nonna",
+          "x": -1.35,
+          "z": 2.25,
+          "posa": "fianchi",
+          "faccia": "deciso",
+          "gesto": "saluta",
+          "sguardo": "vicina",
+          "azioni": [
+            { "t": "@chiama#1", "faccia": "urla", "gesto": "indica", "chino": 8 },
+            { "t": "@La#2", "faccia": "felice", "gesto": "esulta", "chino": 0, "sguardo": "camera" },
+            { "t": "@Alle", "gesto": "applaude", "sguardo": [0.4, 0] }
+          ]
+        },
+        {
+          "id": "vicina",
+          "x": 1.30,
+          "z": 1.25,
+          "posa": "auto",
+          "faccia": "sorpreso",
+          "sguardo": "nonna",
+          "azioni": [
+            { "t": "@vicina#1", "faccia": "felice", "gesto": "saluta", "chino": 4 },
+            { "t": "@chiama#2", "faccia": "fiero", "gesto": "telefona", "sguardo": [-0.4, 0.1] },
+            { "t": "@paese.", "faccia": "ride", "gesto": "esulta", "vfx": "scatto" },
+            { "t": "@Alle", "gesto": "applaude", "sguardo": [-0.5, 0] },
+            { "t": "@teglie", "faccia": "sorpreso", "gesto": "saluta", "sguardo": [-0.3, 0] }
+          ]
+        },
+        {
+          "id": "zia1",
+          "x": -3.20,
+          "z": 0.4,
+          "visibile": false,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia1", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "deciso",
+          "azioni": [
+            { "t": "@Alle", "visibile": true, "a": [-1.28, 0.4], "dur": 0.48, "faccia": "deciso" },
+            { "t": 22.56, "a": [-0.88, -5.2], "dur": 2.34, "faccia": "contento" }
+          ]
+        },
+        {
+          "id": "zia2",
+          "x": 3.20,
+          "z": -0.4,
+          "visibile": false,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia2", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "felice",
+          "azioni": [
+            { "t": "@Alle", "visibile": true, "a": [1.28, -0.4], "dur": 0.48, "faccia": "felice" },
+            { "t": 22.56, "a": [0.92, -6.0], "dur": 2.34, "faccia": "ride", "sguardo": [-0.4, 0] }
+          ]
+        },
+        {
+          "id": "zia3",
+          "x": -3.20,
+          "z": -1.4,
+          "visibile": false,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia3", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "contento",
+          "azioni": [
+            { "t": "@Alle", "visibile": true, "a": [-0.58, -1.4], "dur": 0.48, "faccia": "contento" },
+            { "t": 22.56, "a": [-0.42, -7.0], "dur": 2.34, "faccia": "felice", "sguardo": [0.4, 0] }
+          ]
+        },
+        {
+          "id": "zia4",
+          "x": 3.20,
+          "z": -2.2,
+          "visibile": false,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia4", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "fiero",
+          "azioni": [
+            { "t": "@Alle", "visibile": true, "a": [0.58, -2.2], "dur": 0.48, "faccia": "fiero" },
+            { "t": 22.56, "a": [0.48, -7.8], "dur": 2.34, "faccia": "contento" }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": "@Lei",
+          "pos": [0.05, 1.65, 6.85],
+          "guarda": [0.0, 1.80, -8.50],
+          "fov": 76,
+          "grandezza": "campo largo",
+          "mossa": "avanti_lenta",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@La#2",
+          "volo": 0.95,
+          "su": "vicina",
+          "testa": 0.16,
+          "fov": 62,
+          "angolo": -24,
+          "alt": 1.48,
+          "grandezza": "mezza figura",
+          "mossa": "tilt_su",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Alle",
+          "volo": 1.05,
+          "pos": [0.15, 2.88, 5.20],
+          "guarda": [0.0, 1.25, -5.50],
+          "fov": 70,
+          "grandezza": "campo largo",
+          "mossa": "avanti",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "piazza",
+      "zona": "piazza_centrale",
+      "da": "@piazza.",
+      "a": "@Marco#2",
+      "passaggio": "dissolvi",
+      "passaggioDur": 0.27,
+      "fermo": 0,
+      "camera_rick": { "glide": "dolly" },
+      "oggetti": [
+        { "id": "elicottero", "t": "@Il", "fai": "mostra" },
+        { "id": "elicottero", "t": "@Il", "a": [0, 6.3, -4.5], "dur": 1.6 },
+        { "id": "parmigiano", "t": "@Parmigiano", "fai": "pop", "dur": 0.45 },
+        { "id": "parmigiano", "t": "@Parmigiano", "a": [0, 2.5, -4.5], "dur": 1.8 }
+      ],
+      "attori": [
+        {
+          "id": "zia1",
+          "x": -2.05,
+          "z": -3.4,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia1", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "contento",
+          "sguardo": [0.5, 0],
+          "azioni": [
+            { "t": "@Parmigiano", "faccia": "felice", "sguardo": "su", "chino": -6 }
+          ]
+        },
+        {
+          "id": "zia2",
+          "x": 1.95,
+          "z": -3.8,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia2", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "felice",
+          "sguardo": [-0.5, 0],
+          "azioni": [
+            { "t": "@Parmigiano", "faccia": "ride", "sguardo": "su", "chino": -7, "vfx": "scatto" }
+          ]
+        },
+        {
+          "id": "zia3",
+          "x": -3.2,
+          "z": -1.8,
+          "posa": "teglia",
+          "porta": { "id": "teglia_zia3", "avanti": 0.25, "largo": 0.33 },
+          "faccia": "sorpreso",
+          "sguardo": [0.4, 0],
+          "azioni": [
+            { "t": "@Parmigiano", "faccia": "scioccato", "sguardo": "su", "chino": -8 }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": "@piazza.",
+          "pos": [0.35, 2.15, 8.85],
+          "guarda": [-0.35, 2.45, -5.50],
+          "fov": 78,
+          "grandezza": "campo largo",
+          "mossa": "gru_su",
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Parmigiano",
+          "volo": 1.15,
+          "pos": [-1.35, 1.55, 3.65],
+          "guarda": [0.0, 3.30, -4.40],
+          "guarda_ogg": "parmigiano",
+          "fov": 68,
+          "sfocatura": 0,
+          "grandezza": "mezza figura",
+          "mossa": "fluttua",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "cucina",
+      "zona": "tavolo_epilogo",
+      "da": "@Marco#2",
+      "a": "@rotola",
+      "muri": false,
+      "passaggio": "dissolvi",
+      "passaggioDur": 0.27,
+      "fermo": 0,
+      "camera_rick": { "glide": "dolly" },
+      "oggetti": [
+        { "id": "lasagna", "t": "@Marco#2", "fai": "nascondi" },
+        { "id": "pile_teglie", "t": "@Marco#2", "fai": "mostra" }
+      ],
+      "attori": [
+        {
+          "id": "marco",
+          "x": 1.26,
+          "z": -0.25,
+          "yaw": -80,
+          "posa": "seduto",
+          "faccia": "imbarazzato",
+          "gesto": "manovella",
+          "chino": 10,
+          "vfx": "sudore",
+          "sguardo": [-0.6, 0.4],
+          "azioni": [
+            { "t": "@tutto,", "faccia": "fiero", "chino": 14, "gesto": "applaude" },
+            { "t": "@educazione,", "faccia": "assonnato", "chino": -6, "gesto": null, "vfx": "fumo", "sguardo": "nonna" }
+          ]
+        },
+        {
+          "id": "nonna",
+          "x": -1.45,
+          "z": -1.05,
+          "posa": "fianchi",
+          "faccia": "contento",
+          "sguardo": "marco",
+          "azioni": [
+            { "t": "@tutto,", "faccia": "felice", "gesto": "applaude", "vfx": "cuori", "chino": 4 }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": "@Marco#2",
+          "su": "marco",
+          "testa": 0.18,
+          "fov": 70,
+          "angolo": -28,
+          "alt": 1.28,
+          "grandezza": "mezza figura",
+          "mossa": "arco",
+          "verso": 1,
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "ingresso",
+      "zona": "uscita",
+      "da": "@rotola",
+      "a": 37.0,
+      "muri": false,
+      "passaggio": "dissolvi",
+      "passaggioDur": 0.27,
+      "fermo": 0,
+      "camera_rick": { "glide": "dolly" },
+      "attori": [
+        {
+          "id": "marco_pieno",
+          "x": 0.55,
+          "z": -1.0,
+          "posa": "auto",
+          "faccia": "confuso",
+          "sguardo": [0, 0],
+          "azioni": [
+            { "t": "@rotola", "a": [0.34, 2.10], "dur": 1.9, "gesto": "saluta", "chino": 12 },
+            { "t": "@verso", "testa": 16, "faccia": "confuso" },
+            { "t": "@porta.#2", "testa": -16, "chino": 6 },
+            { "t": "@ferma,", "posa": "auto", "gesto": "disperato", "testa": 0, "chino": -8, "faccia": "scioccato" },
+            { "t": "@Amore,", "faccia": "imbarazzato", "gesto": null, "posa": "fianchi", "goccia": true, "chino": -4, "sguardo": "camera" }
+          ]
+        },
+        {
+          "id": "nonna",
+          "x": -0.28,
+          "z": 2.85,
+          "posa": "fianchi",
+          "faccia": "sorpreso",
+          "sguardo": "marco_pieno",
+          "azioni": [
+            { "t": "@lo", "fai": "spinge", "chi": "marco_pieno", "dur": 0.7, "faccia": "spaventato", "vfx": "esclamazione" },
+            { "t": "@preoccupata.", "faccia": "triste", "gesto": "pensa", "chino": 6, "sguardo": "marco_pieno" },
+            { "t": "@Amore,", "parla": true, "faccia": "pensieroso", "chino": 10, "vfx": "domanda", "gesto": "spiega", "sguardo": "marco_pieno" }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": "@rotola",
+          "pos": [-0.35, 1.48, -3.15],
+          "guarda": [0.0, 1.25, 2.45],
+          "fov": 76,
+          "grandezza": "campo largo",
+          "mossa": "carrello",
+          "verso": 1,
+          "panTratto": [85, 0],
+          "ancora": "inizio"
+        },
+        {
+          "t": "@ferma,",
+          "volo": 1.15,
+          "pos": [0.35, 1.42, -0.55],
+          "guarda": [0.0, 1.32, 2.55],
+          "fov": 68,
+          "grandezza": "mezza figura",
+          "mossa": "indietro",
+          "scossa": { "f": 1.1, "t": "@ferma," },
+          "ancora": "inizio"
+        },
+        {
+          "t": "@Amore,",
+          "volo": 0.90,
+          "pos": [0.25, 1.45, -1.25],
+          "guarda": [-0.15, 1.42, 3.10],
+          "fov": 74,
+          "grandezza": "primo piano",
+          "mossa": "fermo",
+          "ancora": "inizio"
+        }
+      ]
+    }
+  ]
+}

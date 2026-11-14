@@ -1,0 +1,5 @@
+# Archivio dei modelli già animati (11/11, tutti CC0)
+Scaricati da OpenGameArt (link diretti dei pacchetti originali, licenza CC0 letta nei file `License.txt`); originali in `STORIE CARTOON/asset-kit/pacchetti_animati/`.
+- **Animali** (Quaternius «Animal Pack Vol.2» e «Farm Animals»): Cat, Dog, Wolf, Eagle, Piranha, Cow, Horse, Llama, Pig, Pug, Sheep, Zebra — Idle, Walk/Walking, Run, Jump, Flying, Death… Convertiti dai .blend con `kit/tools/blend_in_glb.py` (colori presi dal .mtl; quelli grigi hanno i colori di base per nome in `animati.js`).
+- **Animazioni per personaggi**: `ual1.glb` (46: Idle_Talking, Sitting_*, Walk_Formal, Interact, PickUp_Table, Driving, Dance, Push…), `ual2.glb` (43: Idle_TalkingPhone, Idle_FoldArms, Idle_No, Yes, Walk_Carry, Consume, Chest_Open…), `kaykit_personaggio.glb` (30: Wave, Cheer, Defeat, Hop, PickUp, Throw, Interact…). **Non ancora collegate ai nostri omini** (serve il retarget sullo scheletro: prossimo passo).
+- Uso: `import { animato } from '/web/animati.js'; await animato(M, 'Cat', { x, z, alt: .32, anim: 'Walking', percorso: [[x1, z1], [x2, z2]], passo: .5 })`. Elenco completo dei clip in `catalogo.json`.

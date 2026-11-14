@@ -1,0 +1,3 @@
+Asset PBR e Cieli HDRI integrati nel kit (tutti CC0 Public Domain)
+- Poly Haven (polyhaven.com, CC0): texture 1K JPG (diff/nor/arm) + cieli PureSky / Clear Night HDR 2K.
+- ambientCG (ambientcg.com, CC0): texture 1K JPG normalizzate in diff/nor/arm (R=AO, G=Roughness, B=Metalness).

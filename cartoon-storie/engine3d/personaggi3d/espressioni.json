@@ -1,0 +1,103 @@
+{
+ "note": "Preset espressioni dei personaggi 3D. Shape key nel GLB: e_<nome>, v_<visema>, b_blink, g_<sguardo>.",
+ "espressioni": {
+  "neutro": {
+   "chiusi": false
+  },
+  "sorriso": {
+   "chiusi": false
+  },
+  "felice": {
+   "chiusi": false
+  },
+  "ride": {
+   "chiusi": true
+  },
+  "furbo": {
+   "chiusi": false
+  },
+  "annoiato": {
+   "chiusi": false
+  },
+  "sorpreso": {
+   "chiusi": false
+  },
+  "spaventato": {
+   "chiusi": false
+  },
+  "arrabbiato": {
+   "chiusi": false
+  },
+  "triste": {
+   "chiusi": false
+  },
+  "preoccupato": {
+   "chiusi": false
+  },
+  "dubbioso": {
+   "chiusi": false
+  },
+  "determinato": {
+   "chiusi": false
+  },
+  "beato": {
+   "chiusi": true
+  },
+  "imbarazzato": {
+   "chiusi": false
+  },
+  "disgustato": {
+   "chiusi": false
+  },
+  "pieno": {
+   "chiusi": false
+  }
+ },
+ "alias": {
+  "neutral": "neutro",
+  "smile": "sorriso",
+  "sorrido": "sorriso",
+  "grin": "felice",
+  "laugh": "ride",
+  "sly": "furbo",
+  "bored": "annoiato",
+  "shock": "sorpreso",
+  "scared": "spaventato",
+  "angry": "arrabbiato",
+  "sad": "triste",
+  "teary": "triste",
+  "worried": "preoccupato",
+  "doubt": "dubbioso",
+  "determined": "determinato",
+  "blissful": "beato",
+  "nervous": "imbarazzato",
+  "shy": "imbarazzato",
+  "disgust": "disgustato",
+  "stuffed": "pieno",
+  "chew": "pieno"
+ },
+ "visemi": [
+  "A",
+  "E",
+  "O",
+  "U",
+  "MBP",
+  "FV"
+ ],
+ "sguardo": [
+  "sx",
+  "dx",
+  "su",
+  "giu"
+ ],
+ "materiali": {
+  "viso_inchiostro": "#2a1a1e",
+  "viso_sclera": "#e6dfd2",
+  "viso_bocca": "#5a1f2a",
+  "viso_denti": "#e9e2d0",
+  "viso_guancia": "#ee7870",
+  "viso_lenti": "#17121d",
+  "viso_riflesso": "#f2ece0",
+  "viso_vetro": "#ffffff"
+ }
+}

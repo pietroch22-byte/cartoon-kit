@@ -1,0 +1,205 @@
+[
+ {
+  "nome": "utilitaria_cabrio",
+  "file": "modelli/utilitaria_cabrio.glb",
+  "anteprima": "anteprime/utilitaria_cabrio.png",
+  "descrizione": "utilitaria cabrio anni '70 azzurra con interni completi (sedili in pelle, cruscotto in legno con quadranti, volante, leva del cambio)",
+  "tag": [
+   "macchina",
+   "auto",
+   "car",
+   "utilitaria",
+   "cabrio"
+  ],
+  "misure_m": [
+   1.93,
+   3.56,
+   1.7
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "telefono_supporto",
+  "file": "modelli/telefono_supporto.glb",
+  "anteprima": "anteprime/telefono_supporto.png",
+  "descrizione": "smartphone su supporto a ventosa da cruscotto (schermo da sostituire con la mappa)",
+  "tag": [
+   "telefono",
+   "cellulare",
+   "navigatore",
+   "phone"
+  ],
+  "misure_m": [
+   0.11,
+   0.08,
+   0.27
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "sacchetto_forno",
+  "file": "modelli/sacchetto_forno.glb",
+  "anteprima": "anteprime/sacchetto_forno.png",
+  "descrizione": "sacchetto di carta del forno con filone di pane che spunta",
+  "tag": [
+   "pane",
+   "forno",
+   "sacchetto",
+   "bread",
+   "bakery"
+  ],
+  "misure_m": [
+   0.28,
+   0.17,
+   0.65
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "lampione_paese",
+  "file": "modelli/lampione_paese.glb",
+  "anteprima": "anteprime/lampione_paese.png",
+  "descrizione": "lampione in ghisa da paese con lanterna accesa",
+  "tag": [
+   "lampione",
+   "luce",
+   "strada",
+   "street lamp"
+  ],
+  "misure_m": [
+   0.39,
+   0.95,
+   4.16
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "panchina_legno",
+  "file": "modelli/panchina_legno.glb",
+  "anteprima": "anteprime/panchina_legno.png",
+  "descrizione": "panchina in legno e ghisa da piazza",
+  "tag": [
+   "panchina",
+   "bench",
+   "piazza"
+  ],
+  "misure_m": [
+   1.72,
+   0.57,
+   0.9
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "cassonetto",
+  "file": "modelli/cassonetto.glb",
+  "anteprima": "anteprime/cassonetto.png",
+  "descrizione": "cassonetto verde dei rifiuti con coperchio e ruote",
+  "tag": [
+   "cassonetto",
+   "rifiuti",
+   "spazzatura",
+   "bin"
+  ],
+  "misure_m": [
+   1.28,
+   0.89,
+   1.3
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "vaso_pianta",
+  "file": "modelli/vaso_pianta.glb",
+  "anteprima": "anteprime/vaso_pianta.png",
+  "descrizione": "vaso di terracotta con pianta tonda (ingressi, balconi)",
+  "tag": [
+   "vaso",
+   "pianta",
+   "fiori",
+   "plant"
+  ],
+  "misure_m": [
+   0.88,
+   0.88,
+   1.25
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "motorino",
+  "file": "modelli/motorino.glb",
+  "anteprima": "anteprime/motorino.png",
+  "descrizione": "motorino giallo anni '80 parcheggiato",
+  "tag": [
+   "motorino",
+   "scooter",
+   "vespa",
+   "moto"
+  ],
+  "misure_m": [
+   0.62,
+   1.65,
+   1.16
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "cartello_stradale",
+  "file": "modelli/cartello_stradale.glb",
+  "anteprima": "anteprime/cartello_stradale.png",
+  "descrizione": "cartello stradale tondo blu su palo (freccia dipinta)",
+  "tag": [
+   "cartello",
+   "segnale",
+   "sign",
+   "rotonda"
+  ],
+  "misure_m": [
+   0.72,
+   0.12,
+   2.82
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ },
+ {
+  "nome": "vetrina_bottega",
+  "file": "modelli/vetrina_bottega.glb",
+  "anteprima": "anteprime/vetrina_bottega.png",
+  "descrizione": "vetrina di bottega con tenda a righe, insegna vuota, vasi e cassette di frutta (lato fronte +Y)",
+  "tag": [
+   "vetrina",
+   "negozio",
+   "bottega",
+   "shop",
+   "forno",
+   "alimentari"
+  ],
+  "misure_m": [
+   3.22,
+   1.2,
+   3.02
+  ],
+  "fronte": "+Y in Blender = -z nel motore",
+  "stile": "disegnato",
+  "licenza": "creato da noi; texture CC0 Poly Haven"
+ }
+]

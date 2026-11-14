@@ -1,0 +1,8 @@
+kit/out/
+out/
+engine3d/node_modules/
+__pycache__/
+*.pyc
+kit/.venv/
+kit/voices/
+reference/rick_stile_frames.jpg
