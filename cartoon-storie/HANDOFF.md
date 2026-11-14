@@ -1,5 +1,7 @@
 # HANDOFF — stato del lavoro (leggi prima di continuare)
 
+> **Stato corrente in fondo al file (`## Stato al 14/11 sera — Lavori svolti, attivi e in sospeso`)**: la sezione in testa «In corso» sotto è storica dell'11/11; leggi prima gli aggiornamenti del 13–14/11 in fondo.
+
 Utente: Pie (freelance video/AI, Asti), cartoon Shorts verticali in italiano. Regole: pochi token, solo strumenti gratuiti, niente Blender se basta three.js, mondo vivo, camera continua, a tappe con confronti prima/dopo, dire sempre cosa è verificato.
 
 ## Dove sono le cose (11/11/2026 sera, dopo la pulizia)
@@ -448,15 +450,77 @@ File cambiato: solo `engine3d/web/look_disegnato.js` (tutto dentro `if (LR)`; se
   - Tavole visive generate e ispezionate in `~/STORIE CARTOON/confronti/`: `cast_22_prima_dopo.png`, `cast_40_completo.png`, `cast_nuovi_angoli.png`.
   - Regressione 3D su `kit/stories/ho_gia_mangiato/ho_gia_mangiato.json --anteprima --scena 0`: exit 0 (`mondo vivo` media `82%`, 0 avvisi recitazione/ricchezza/fluidità/controlli).
 
-## Orientamento arti verso la testa + Luci e neon reali sui personaggi Rick (14/11)
+## Orientamento arti verso la testa + Luci e neon reali sui personaggi Rick — **Approvati e resi ufficiali (14/11)**
 - **Direzione braccia, gambe e scarpe verso la testa (`engine3d/web/omino_rick.js`)**:
   - `disegnaScarpa`: ellisse simmetrica solo se veramente frontale (`L < W * 0.032 && Math.abs(o.verso || 0) < 0.05`); appena il volto gira (`|verso| >= 0.05`), la punta della scarpa si orienta sempre verso `dir`.
   - `drawRick`: in seduta (`sedDrop > 0`), camminata (`kin.inMov`) e fermo (`!kin.inMov`), quando `absSa > 0.04` ginocchia, tibie e scarpe puntano nella direzione della testa `dir` evitando divaricazioni esterne sul piede posteriore.
   - `calcolaPoseBraccia` (`evalIdlePosa` su `seduto*`, `fianchi`, `tasca`, `dritto`) e fallback `armCoord`: gomiti orientati anatomicamente indietro (`-dir * absSa`) e mani/avambracci orientati in avanti nella direzione `dir`.
 - **Luci e neon del mondo direttamente sui personaggi (`engine3d/web/look_disegnato.js`, `engine3d/web/storia_disegnato.js`)**:
   - Shader `cardLitMat` (`LR`): aggiunti uniform `uLightCol`, `uLightCol2`, `uLightDir`, `uLightPow`, `uLightPow2` e attivati di base su tutte le carte Rick (senza dover accendere `luce_cinema`). La luce reale più forte investe faccia e busto dal lato/fronte della sorgente (`litTgt` + ombra sul lato opposto, salvando l'inchiostro scuro `inkMask`), eventuale seconda sorgente distinta riempie l'altro lato, contorno colorato (`uRimCol`, `uRimPow`) e riflesso da pavimento (`uFloorCol`) attivi di default.
-  - `lightCards()` (`LR`): rimosso il ritorno anticipato su `!LC`; raccoglie sia le luci reali (`PointLight`, `SpotLight`) sia i mesh emissivi/neon del mondo (`neon`, `insegna`, `insegna_appesa`, `vetrina`, `lanterna`, `lampione` o materiali emissivi/luminosi con campionamento medio della texture `avgTexCol` in linear space e `box.clampPoint` per calcolare il punto più vicino del tubo/insegna al personaggio), orientando anche `m.userData._luceDir` letto da `disegnaRick` in `storia_disegnato.js`.
-- **Verificato**:
+  - `lightCards()` (`LR`): rimosso il ritorno anticipato su `!LC`; raccoglie sia le luci reali (`PointLight`, `SpotLight`, inclusi `girofaro` rotanti e `portaAutomatica`) sia i mesh emissivi/neon del mondo (`neon`, `insegna`, `insegna_appesa`, `vetrina`, `lanterna`, `lampione` o materiali emissivi/luminosi con campionamento medio della texture `avgTexCol` in linear space e `box.clampPoint` per calcolare il punto più vicino del tubo/insegna al personaggio), orientando anche `m.userData._luceDir` letto da `disegnaRick` in `storia_disegnato.js`.
+- **Documentazione aggiornata**: `SKILL.md`, `references/look-disegnato.md`, `references/regia.md`, `HANDOFF.md`.
+- **Verificato e approvato come ufficiale**:
   - `node --check` su `omino_rick.js`, `look_disegnato.js`, `storia_disegnato.js` -> exit 0.
   - `node kit/tools/valuta_personaggio.mjs --tutti`: **40/40 senza avvisi, 0 avvisi complessivi**.
-  - Confronto visivo combinato 2D (angoli `verso = -0.85..+0.85`) + 3D su `pachinko` convertito Rick (vicolo con neon fucsia e strada davanti alla porta/insegna luminosa) salvato e ispezionato in `~/STORIE CARTOON/confronti/confronto_neon_e_arti.png`.
+  - Confronto visivo combinato 2D + 3D salvato in `~/STORIE CARTOON/confronti/confronto_neon_e_arti.png`.
+  - Video di test 3D a 30 fps (`6,6 s`, `198` fotogrammi) sulla location notturna `affitto_faccia/strada_notte.js` (tre regimi di luce: porta automatica calda + neon rosa `BAR NOTTE`, 5 schermi + neon ciano `TV ELETTRONICA`, doppio `girofaro` controrotante blu/rosso all'angolo Polizia) salvato in `~/STORIE CARTOON/confronti/test_luci_strada_notte.mp4` e `~/STORIE CARTOON/video/test_luci_strada_notte.mp4` (`0` avvisi recitazione/ricchezza/fluidità/controlli, `mondo vivo` media `87%`).
+
+## PBR, Erba 3D, Quinte, Cieli PureSky e Lente `luce_cinema` (14/11 — provati su `test_pbr/`, da estendere alle storie)
+- **Rollback selettivo**: scartato l'esperimento `cinema3d`, tenendo nel motore condiviso solo gli elementi che funzionano col look disegnato.
+- **Costruttori mondo (`engine3d/web/mondo_disegnato.js`)**:
+  - `M.pbr(nome, opt)`: carica texture PBR `_diff`/`_nor`/`_arm` da `asset-kit/texture/` (via `/kit/texture/`) con caricamento asincrono atteso da `M.attendi()`.
+  - `M.erba(opt)`: prato 3D istanziato a ciuffi curvi (`erbaWind1` con vento in shader) sopra suolo PBR (`Grass005` di default), escluso dai contorni neri (`userData.noRick`).
+  - `M.quinta(opt)`: quinte in primo piano (`rami` con opzione `tronco`, stipite, pianta) per profondità a 3 piani.
+- **Cieli HDRI e Lente opzionale (`engine3d/web/look_disegnato.js`, `engine3d/web/storia_disegnato.js`)**:
+  - `HDRI_PRESETS` (19 preset PureSky 2K e interni) + `HDRI_AUTO` attivabili con `"hdri": "auto" | "<id>" | {…}`.
+  - Modalità opzionale `"luce_cinema"` (`LC_LENTE`, `LC_RESPIRO`): diaframma default `2.2`, `"bokeh"` (default `1.6` nella lente, `0` altrimenti), `dof_zona: 0.12`, `dof_davanti: 0.90`, `fuoco_ritardo: 0.28`, rack focus su `fuoco_su`/`fuoco` (`fuocoGeo` + `lockOk`) e micro-respiro camera (`applicaRespiro`).
+- **Prove presenti**: `kit/stories/test_pbr/` (`esterno_giardino.js`, `interno_cucina.js`, `test_pbr.json`, `test_luci_2a.json`, `test_luci_2b.json`, `test_luci_2c.json`) e confronti in `cartoon-storie/confronti/` (`pbr_esterno_prima_dopo.jpg`, `pbr_interno_prima_dopo.jpg`, `luci_2a_*`, `luci_2b_*`, `luci_2c_movimento.mp4`, `luci_2c_profondita_prima_dopo.jpg`, `luci_2c_rack_focus.jpg`) — **approvati sulle tavole di test, ancora da estendere alle storie reali**.
+
+## Rifacimento Cast sui frame `@RicksClips3000` + Protagonista `PN8` (14/11 — **Approvato e ufficiale**)
+- **Studio sui frame reali `@RicksClips3000`** (`~/STORIE CARTOON/riferimenti_rick/`):
+  - **Proporzioni "testone Rick"** (`engine3d/web/omino_rick.js`, `engine3d/web/cast_rick.js`, `engine3d/web/storia_disegnato.js`): `W = 270 * (A.opt.W || 1)` con `W: 0.98–1.24` su `CAST` (`impiegato` a `W: 1.18`), `TESTE`/`CORPI` più compatti e `calcolaWAdattato` / `HAT_TOP_H` per evitare tagli dentro `512×1024`.
+  - **Occhi e bocche più espressivi (`drawRick` / `faccia`)**: sclera bianca con taglio curvo delle palpebre (`topCut`, `topSlope`, `botCut`, `botSlope`), occhi strizzati `> <` (`strizzati`), archi `^ ^`, sopracciglia più leggibili e bocche scalate (`1.36 × 1.38`) con barra denti (`stretti`, `denti`, `digrigna`, `stretti_larghi`).
+- **Protagonista ufficiale `impiegato` (`cast_rick.js`, `omino_rick.js`)**:
+  - `pelle: '#ffffff'` (faccia tutta bianca) e `cartellinoTesto: 'PN8'` sulla targhetta petto `cartellino`.
+  - **Scelta confermata dall'utente**: faccia bianca **solo sul protagonista `impiegato`**; tutti gli altri 39 archetipi mantengono l'incarnato caldo.
+- **Prove prima/dopo**: `scratch/prova_cast_rick/01..06_*.png/.jpg` (nella cartella scratch della sessione).
+
+## Movimento leggero della testa e +8 espressioni mancanti (14/11 — nel motore, parzialmente verificato)
+- **`FACCE` ampliato da 26 a 34 espressioni (`engine3d/web/omino_rick.js`)**:
+  - Dopo le 26 già presenti (comprese `scettico`, `incredulo`, `panico`, `dolore`), aggiunte **8 nuove espressioni**: `serio`, `digrigna`, `esaltato`, `nei_guai`, `sospetto`, `esasperato`, `concentrato`, `occhiolino` (con `winkSide` per gestire l'occhio che ammicca anche in 3/4 e voci `INCLINA` dedicate).
+- **Movimento naturale della testa (`engine3d/web/omino_rick.js`, `engine3d/web/storia_disegnato.js`)**:
+  - **Idle neutro fermo**: confermato `respiro = 0` (`breathPy = 0`), nessun movimento superfluo quando tace fermo.
+  - **Durante il parlato (`boccaParla`)**: somma un leggero ondeggio della frase (`phraseSway`) e cenni sulle parole accentate (`wordNod` con durata ≥ `0.24 s`), con rientro morbido (`0.14 s`) a fine parola.
+  - **Sui cambi faccia (`drawRick`)**: interpolazione cubica `facciaPrev -> faccia` (`0.16 s`) con piccolo scatto rotazionale (`fKick`), micro-affondo verticale (`fDipY` su `0.24 s`), squash/stretch emotivo (`fSqY`) e leggero guizzo delle sopracciglia (`fPop`).
+  - **Sullo sguardo (`calcolaSguardo` + `aggiornaAttori`)**: blend morbido `0.14 s` tra `sguardoPrev` e `sguardo` e leggero accompagnamento di testa/busto (`sgTilt`, `sgVerso`).
+- **Verificato finora**:
+  - `node --check engine3d/web/*.js` -> `SYNTAX_OK`.
+  - `node kit/tools/valuta_personaggio.mjs --tutti` -> **40/40 senza avvisi, 0 avvisi complessivi**.
+  - Tavola 2D/3D `07_nuove_espressioni_rick.png` e `08_movimento_testa_3d.jpg` in `scratch/prova_cast_rick/` (`pageErrors: []`).
+  - Regressione 3D anteprima `rendi_disegnato.mjs kit/stories/ho_gia_mangiato/ho_gia_mangiato.json --anteprima --scena 0` -> exit 0.
+
+---
+
+## Stato al 14/11 sera — Lavori svolti, attivi e in sospeso
+
+### 1. Lavori svolti e ufficiali nel motore (`engine3d/web/`)
+- Pupazzo 2D Rick v2/v3 completo (`omino_rick.js`, `cast_rick.js`, `storia_disegnato.js`, `interazioni.js`):
+  - **40 archetipi** (`22` folla + `18` `folla: false`), testone stile Rick, protagonista `impiegato` bianco con targhetta **`PN8`**, **`34` espressioni** in `FACCE`, arti/scarpe puntati verso `dir`, rotazione 360° e vista di spalle, **7 andature** biomeccaniche (`ANDATURE`), **14 gesti IK**, **19 oggetti in mano**, **7 VFX**, contatti `Box3` reali (`interazioni.js`), `bocca` **solo vocalica** e **`respiro` idle spento (`0`)**, movimento naturale della testa su parlato / cambio faccia / sguardo.
+  - Look disegnato (`look_disegnato.js`): `luce_rick` + `lightCards()`/`cardLitMat` con luci e neon reali sui personaggi, antialiasing `ss: 2`, Camera vera (`sfocatura: "intelligente"`), mosse `camera_preset.js`, mosso automatico, controlli `REGIA` / `RECITAZIONE` / `FLUIDITÀ` / `VUOTO_DIETRO_IL_SET` / `valuta_personaggio.mjs` 40/40.
+  - Nuovi costruttori già nel motore (provati su `kit/stories/test_pbr/`): `M.pbr`, `M.erba`, `M.attendi`, `M.quinta`, `HDRI_PRESETS`/`HDRI_AUTO` e lente opzionale `luce_cinema`.
+
+### 2. Lavori attivi in corso nel workspace
+- **`kit/stories/ricerca_gettone/`** (in lavorazione attiva in parallelo — **non modificare senza richiesta**): `ricerca_gettone.json` (`personaggi: "rick"`, `luce_rick: true`, `stile_camera: "rick"`, `sfocatura: "vera"`, `diaframma: 2.0`), `mondo_gettone.js`, `arredi_fortnite.js`, `grafica_montaggio.js`, `location_bunker.js`, `location_hub.js`, `location_tempio.js`, `musica_originale.wav` e bozza render `~/STORIE CARTOON/video/ricerca_del_gettone.mp4`.
+
+### 3. Cosa resta in sospeso (in ordine pratico)
+1. **Verifica video completa (30 fps + `tremolio.py`) post-testone/testa/34-espressioni**: eseguire almeno una clip/scena completa a 30 fps con `kit/tools/tremolio.py` dopo gli ultimi ritocchi su testa, sguardo e `+8` facce (finora solo sheet + `--anteprima --scena 0`).
+2. **Decisione sulle scarpe sagomate (`disegnaScarpa` / `scarpeTipo`)**: restano **sotto valutazione**; provarle su video completi e decidere con l'utente se tenerle o ripristinare i piedi a tratto semplice Rick.
+3. **Estendere PBR, `M.erba`, `M.quinta`, `HDRI_PRESETS` e `luce_cinema` alle storie reali**: oggi verificati solo in `kit/stories/test_pbr/`; tarare giorno/interno nel motore su storie vere.
+4. **Look mondo ancora aperto (`look-disegnato.md` / `SKILL.md`)**:
+   - Decidere `mondo_rick` B1/B2 (`M.dipingiRick`, eventuali altri passaggi su `ufficio_mosca` o nuove location), `bokeh` / luci sullo sfondo / pavimento interno lucido, spessore contorni con la distanza e **correzione colore finale** sui veri frame `@RicksClips3000`.
+   - Testare le clip **`animazioni.js` (UAL/KayKit)** sui personaggi.
+   - Creare i meccanismi **`library/vivi/` mancanti**: `finestra`, `tenda`, `ascensore`, `semaforo`, `schermo con numeri`, `bandiera`, `frigo`.
+   - Calibrare le soglie di `references/mondo-da-riferimento.md`.
+5. **Opzionali animazione & pulizia finale**:
+   - Eventuale polverina / piccoli passetti ai piedi se utili; sostituire eventuali voci sintetiche con voce reale; avviare tracciamento metriche/upload (`pubblicati.md`).
+   - Conferma esplicita prima di eliminare `~/STORIE CARTOON/DA_ELIMINARE/` e **`git commit`** ordinato delle modifiche nel repository (coordinandolo con `ricerca_gettone/`).

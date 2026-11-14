@@ -5,16 +5,20 @@
 // Occhi a punto ovale 0,09×0,13 distanti 0,26 W e spostati +0,08 W verso dove guarda; niente guance rosa, niente luccichii.
 // drawRick(ctx, o): disegna con i piedi in (o.x, o.y), testa larga o.W px.
 const INK = '#2a1a26';
-const mix = (a, b, t) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b);
-  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+const mix = (a, b, t) => {
+  const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b);
+  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('');
+};
 
 // contorno «superellisse» della testa (o del busto), punti in senso orario
 function forma(cx, cy, a, b, { nTop = 2, nBot = 2, egg = 0, asym = 0, rot = 0, N = 160 } = {}) {
   const P = [], cr = Math.cos(rot), sr = Math.sin(rot);
-  for (let i = 0; i < N; i++) { const t = i / N * Math.PI * 2, c = Math.cos(t), s = Math.sin(t), n = s < 0 ? nTop : nBot;
+  for (let i = 0; i < N; i++) {
+    const t = i / N * Math.PI * 2, c = Math.cos(t), s = Math.sin(t), n = s < 0 ? nTop : nBot;
     let X = Math.sign(c) * Math.abs(c) ** (2 / n), Y = Math.sign(s) * Math.abs(s) ** (2 / n);
     X *= (1 + egg * Y) * (1 + asym * Math.sign(X)); const x = a * X, y = b * Y;
-    P.push([cx + x * cr - y * sr, cy + x * sr + y * cr]); }
+    P.push([cx + x * cr - y * sr, cy + x * sr + y * cr]);
+  }
   return P;
 }
 const path = P => { const p = new Path2D(); P.forEach(([x, y], i) => i ? p.lineTo(x, y) : p.moveTo(x, y)); p.closePath(); return p; };
@@ -23,10 +27,12 @@ function peso(ang, luce) { const picco = (luce < 0 ? 64 : 116) * Math.PI / 180; 
 // riempie la forma e ci mette sopra un contorno a spessore variabile (anello tra contorno esterno e interno)
 function inchiostra(g, P, cx, cy, w, fill, luce) {
   const out = [], inn = [];
-  P.forEach(([x, y], i) => { const [x0, y0] = P[(i + P.length - 1) % P.length], [x1, y1] = P[(i + 1) % P.length];
+  P.forEach(([x, y], i) => {
+    const [x0, y0] = P[(i + P.length - 1) % P.length], [x1, y1] = P[(i + 1) % P.length];
     let nx = y1 - y0, ny = -(x1 - x0); const l = Math.hypot(nx, ny) || 1; nx /= l; ny /= l;
     if ((x - cx) * nx + (y - cy) * ny < 0) { nx = -nx; ny = -ny; }
-    const k = w * peso(Math.atan2(y - cy, x - cx), luce); out.push([x + nx * k * 0.5, y + ny * k * 0.5]); inn.push([x - nx * k * 0.5, y - ny * k * 0.5]); });
+    const k = w * peso(Math.atan2(y - cy, x - cx), luce); out.push([x + nx * k * 0.5, y + ny * k * 0.5]); inn.push([x - nx * k * 0.5, y - ny * k * 0.5]);
+  });
   g.fillStyle = INK; g.fill(path(out));
   const pi = path(inn); if (typeof fill === 'function') fill(pi); else { g.fillStyle = fill; g.fill(pi); }
   return pi;
@@ -38,9 +44,11 @@ function ombra(g, clip, cx, cy, R, base, luce, tinta = [0.92, 0.9, 0.96]) {
   const gr = g.createRadialGradient(cx + luce * R * 0.28, cy - R * 0.25, R * 0.62, cx + luce * R * 0.28, cy - R * 0.25, R * 1.05);
   gr.addColorStop(0, base); gr.addColorStop(1, sh); g.fillStyle = gr; g.fillRect(cx - R * 2, cy - R * 2, R * 4, R * 4); g.restore();
 }
-const tratto = (g, pts, w, col = INK) => { g.beginPath(); g.moveTo(...pts[0]);
+const tratto = (g, pts, w, col = INK) => {
+  g.beginPath(); g.moveTo(...pts[0]);
   if (pts.length === 3) g.quadraticCurveTo(...pts[1], ...pts[2]); else pts.slice(1).forEach(p => g.lineTo(...p));
-  g.lineWidth = w; g.lineCap = g.lineJoin = 'round'; g.strokeStyle = col; g.stroke(); };
+  g.lineWidth = w; g.lineCap = g.lineJoin = 'round'; g.strokeStyle = col; g.stroke();
+};
 const punto = (g, x, y, r, col = INK) => { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fillStyle = col; g.fill(); };
 
 // GADGET: il modello è uno solo, i gadget sono varianti. Si scelgono con `accessori: [...]` oppure con `ruolo` (tabella sotto).
@@ -60,13 +68,13 @@ export const GESTI_RICHIAMO_OGG = { telefona: 'telefono', beve: 'tazza', legge: 
 // Parametri biomeccanici delle andature (2D + 3D): vel (m/s default), passoM (lunghezza passo completo in m),
 // stride/lift/bob/crouch/armSwing/armLift (frazioni di W), knee/elbow/stFrac (0..1), lean/leanAmp/headNod (gradi).
 export const ANDATURE = {
-  cammina:     { vel: 1.25, passoM: 0.94, stride: 0.42, lift: 0.19, knee: 0.40, bob: 0.075, lean: 3.5,  leanAmp: 3.0, armSwing: 0.24, armLift: 0.055, elbow: 0.40, stFrac: 0.56, flight: 0.0,  crouch: 0.030, headNod: 1.5 },
-  passeggiata: { vel: 0.85, passoM: 0.78, stride: 0.31, lift: 0.12, knee: 0.25, bob: 0.045, lean: 0.5,  leanAmp: 1.5, armSwing: 0.16, armLift: 0.025, elbow: 0.22, stFrac: 0.58, flight: 0.0,  crouch: 0.020, headNod: 1.0 },
-  fretta:      { vel: 1.85, passoM: 1.08, stride: 0.48, lift: 0.24, knee: 0.52, bob: 0.095, lean: 6.5,  leanAmp: 3.5, armSwing: 0.30, armLift: 0.115, elbow: 0.72, stFrac: 0.52, flight: 0.0,  crouch: 0.040, headNod: 2.5 },
-  corsa:       { vel: 2.85, passoM: 1.36, stride: 0.52, lift: 0.35, knee: 0.82, bob: 0.130, lean: 10.5, leanAmp: 3.5, armSwing: 0.34, armLift: 0.180, elbow: 0.96, stFrac: 0.32, flight: 0.16, crouch: 0.050, headNod: 3.2 },
-  soppiatto:   { vel: 0.75, passoM: 0.72, stride: 0.35, lift: 0.29, knee: 0.85, bob: 0.055, lean: 9.5,  leanAmp: 2.5, armSwing: 0.20, armLift: 0.130, elbow: 0.88, stFrac: 0.56, flight: 0.0,  crouch: 0.155, headNod: 1.8, punta: true },
-  marcia:      { vel: 1.35, passoM: 0.92, stride: 0.44, lift: 0.31, knee: 0.64, bob: 0.060, lean: -1.5, leanAmp: 2.5, armSwing: 0.34, armLift: 0.140, elbow: 0.28, stFrac: 0.55, flight: 0.0,  crouch: 0.025, headNod: 1.5 },
-  zoppia:      { vel: 0.90, passoM: 0.80, stride: 0.38, lift: 0.18, knee: 0.42, bob: 0.085, lean: 4.5,  leanAmp: 5.5, armSwing: 0.22, armLift: 0.055, elbow: 0.42, stFrac: 0.56, flight: 0.0,  crouch: 0.045, headNod: 5.5, limp: 0.48 },
+  cammina: { vel: 1.25, passoM: 0.94, stride: 0.42, lift: 0.19, knee: 0.40, bob: 0.075, lean: 3.5, leanAmp: 3.0, armSwing: 0.24, armLift: 0.055, elbow: 0.40, stFrac: 0.56, flight: 0.0, crouch: 0.030, headNod: 1.5 },
+  passeggiata: { vel: 0.85, passoM: 0.78, stride: 0.31, lift: 0.12, knee: 0.25, bob: 0.045, lean: 0.5, leanAmp: 1.5, armSwing: 0.16, armLift: 0.025, elbow: 0.22, stFrac: 0.58, flight: 0.0, crouch: 0.020, headNod: 1.0 },
+  fretta: { vel: 1.85, passoM: 1.08, stride: 0.48, lift: 0.24, knee: 0.52, bob: 0.095, lean: 6.5, leanAmp: 3.5, armSwing: 0.30, armLift: 0.115, elbow: 0.72, stFrac: 0.52, flight: 0.0, crouch: 0.040, headNod: 2.5 },
+  corsa: { vel: 2.85, passoM: 1.36, stride: 0.52, lift: 0.35, knee: 0.82, bob: 0.130, lean: 10.5, leanAmp: 3.5, armSwing: 0.34, armLift: 0.180, elbow: 0.96, stFrac: 0.32, flight: 0.16, crouch: 0.050, headNod: 3.2 },
+  soppiatto: { vel: 0.75, passoM: 0.72, stride: 0.35, lift: 0.29, knee: 0.85, bob: 0.055, lean: 9.5, leanAmp: 2.5, armSwing: 0.20, armLift: 0.130, elbow: 0.88, stFrac: 0.56, flight: 0.0, crouch: 0.155, headNod: 1.8, punta: true },
+  marcia: { vel: 1.35, passoM: 0.92, stride: 0.44, lift: 0.31, knee: 0.64, bob: 0.060, lean: -1.5, leanAmp: 2.5, armSwing: 0.34, armLift: 0.140, elbow: 0.28, stFrac: 0.55, flight: 0.0, crouch: 0.025, headNod: 1.5 },
+  zoppia: { vel: 0.90, passoM: 0.80, stride: 0.38, lift: 0.18, knee: 0.42, bob: 0.085, lean: 4.5, leanAmp: 5.5, armSwing: 0.22, armLift: 0.055, elbow: 0.42, stFrac: 0.56, flight: 0.0, crouch: 0.045, headNod: 5.5, limp: 0.48 },
 };
 
 const HAT_TOP_H = {
@@ -88,11 +96,15 @@ export function calcolaWAdattato(o = {}, W0 = o.W || 200) {
   const [kh, kw] = HAT_TOP_H[cap] || [0.56, 0.05];
   const topU = gambeU + bustoU + hhU * 0.38 + hhU * kh + kw + 0.06;
   const largoScale = o.largo ?? CS.largo ?? 1;
-  const capW = (cap === 'cappello' || cap === 'paglia' || cap === 'fedora' || cap === 'afro') ? 1.50 : 1.08;
-  const widthU = Math.max(capW, 0.8 * largoScale * 1.12);
+  const walkLean = o.cammina ? 0.22 : 0.14;
+  const hatHalf = (cap === 'cappello' || cap === 'paglia') ? 0.66
+    : (cap === 'fedora' || cap === 'elmetto' || cap === 'afro') ? 0.65
+      : (cap === 'berretto') ? 0.62
+        : 0.56;
+  const halfU = Math.max(hatHalf + walkLean, 0.44 * largoScale * 1.15);
   const maxH = Math.max(180, y0 - 20);
-  const maxHalfX = Math.max(120, Math.min(x0, 512 - x0) - 12);
-  return Math.min(W0, maxH / topU, (maxHalfX * 2) / widthU);
+  const maxHalfX = Math.max(120, Math.min(x0, 512 - x0) - 10);
+  return Math.min(W0, maxH / topU, maxHalfX / halfU);
 }
 
 export function sedutoDropPx(o = {}, W_eff = null) {
@@ -291,7 +303,7 @@ function calcolaCinematica(o, W, HH, gambe, bustoScale, largoScale, sa, ca, dir,
   };
 }
 
-  // Calcola target mani/piega/orientamento gomito e oggetto suggerito da posa + gesto + tempo
+// Calcola target mani/piega/orientamento gomito e oggetto suggerito da posa + gesto + tempo
 function calcolaPoseBraccia(o, x, chinY, chinY0, hipY, hcx, hcy, Bw, busto, W, HH, sa, ca, dir, kin, posaCorpo, back = 0) {
   const u = o.gestoT ?? o.t ?? 0;
   const gNome = o.gesto && String(o.gesto).toLowerCase();
@@ -351,10 +363,10 @@ function calcolaPoseBraccia(o, x, chinY, chinY0, hipY, hcx, hcy, Bw, busto, W, H
       });
     } else if (pNome === 'mento') {
       const mi = sideIdx(dom), oi = sideIdx(-dom);
-      out.pts[mi] = [hcx + sa * W * 0.18 + dom * W * 0.08, chinY0 + W * 0.03];
-      out.bend[mi] = [dom * 0.75, 0.75];
+      out.pts[mi] = [hcx + sa * W * 0.14, Math.max(hcy + HH * 0.50, chinY0 + W * 0.10)];
+      out.bend[mi] = [-dom * 0.25, 1.0];
       out.posaMani[mi] = 'pugno';
-      out.pts[oi] = [x + dom * span * 0.35 * ca + dir * W * 0.14 * absSa, hipY - busto * 0.34];
+      out.pts[oi] = [x + dom * span * 0.32 * ca + dir * W * 0.12 * absSa, hipY - busto * 0.34];
       out.bend[oi] = [-dom * 0.8, 0.6];
       out.braccioSopraTesta = true;
     } else {
@@ -373,10 +385,10 @@ function calcolaPoseBraccia(o, x, chinY, chinY0, hipY, hcx, hcy, Bw, busto, W, H
     const armLen = busto * 0.89, syA = chinY + busto * 0.25;
     const PEND = {
       passeggiata: [0.28, 0.22, 0.96],
-      cammina:     [0.52, 0.42, 0.935],
-      zoppia:      [0.42, 0.32, 0.92],
-      fretta:      [0.66, 0.52, 0.86],
-      marcia:      [0.84, 0.64, 0.955],
+      cammina: [0.52, 0.42, 0.935],
+      zoppia: [0.42, 0.32, 0.92],
+      fretta: [0.66, 0.52, 0.86],
+      marcia: [0.84, 0.64, 0.955],
     };
     const armLag = gk === 'corsa' ? 0.065 : gk === 'passeggiata' ? 0.075 : 0.085;
     [-1, 1].forEach(s => {
@@ -556,8 +568,8 @@ function calcolaPoseBraccia(o, x, chinY, chinY0, hipY, hcx, hcy, Bw, busto, W, H
       tgtRes.posaMani[oppI] = 'aperta';
       if (meta) { tgtRes.testaExtra += (b1 * 3.8 + b2 * 1.5); tgtRes.torsoPiegaExtra += b1 * 2.2 * dir; }
     } else if (nome === 'pensa') {
-      tgtRes.pts[actI] = [hcx + sa * W * 0.18 + act * W * 0.08, chinY0 + W * 0.03 + Math.sin(ut * 2.0) * W * 0.01];
-      tgtRes.bend[actI] = [act * 0.75, 0.75];
+      tgtRes.pts[actI] = [hcx + sa * W * 0.14, Math.max(hcy + HH * 0.50, chinY0 + W * 0.10) + Math.sin(ut * 2.0) * W * 0.01];
+      tgtRes.bend[actI] = [-act * 0.25, 1.0];
       tgtRes.posaMani[actI] = 'pugno';
       tgtRes.pts[oppI] = [x + act * span * 0.32 * ca, hipY - busto * 0.34];
       tgtRes.bend[oppI] = [opp * 0.8, 0.65];
@@ -572,6 +584,21 @@ function calcolaPoseBraccia(o, x, chinY, chinY0, hipY, hcx, hcy, Bw, busto, W, H
         tgtRes.posaMani[i] = 'aperta';
       });
       if (meta) { tgtRes.torsoPiegaExtra += (-5.5 - 2 * Math.abs(pump)) * dir; tgtRes.testaExtra += pump * 3.5; }
+    } else if (nome === 'trofeo' || nome === 'coppa') {
+      const kLift = ss01(Math.min(1, ut / 0.42));
+      const holdPulse = ut > 0.42 ? Math.sin((ut - 0.42) * 3.6) * W * 0.012 : 0;
+      const maxLiftY = Math.max(hcy - HH * 0.72, chinY0 - busto * 0.59);
+      const cupY = maxLiftY * kLift + (hipY - busto * 0.42) * (1 - kLift) + holdPulse;
+      [-1, 1].forEach(s => {
+        const i = sideIdx(s);
+        tgtRes.pts[i] = [x + s * W * (0.46 + 0.02 * ca), cupY];
+        tgtRes.bend[i] = [s * 0.94, 0.28];
+        tgtRes.posaMani[i] = 'presa';
+        tgtRes.davantiTorso[i] = true;
+      });
+      if (meta) {
+        tgtRes.braccioSopraTesta = true;
+      }
     } else if (nome === 'disperato') {
       const j = Math.sin(ut * 6.5) * W * 0.022;
       [-1, 1].forEach(s => {
@@ -949,9 +976,9 @@ function disegnaScarpa(g, o, x0, y0, xm, ym, x1, y1, W, maglia) {
   const col = o.scarpeCol || (st === 'anfibi' ? '#252730' : st === 'stivali' ? '#5c3420' : st === 'sneakers' ? '#365896' : st === 'mocassini' ? '#262028' : mix(maglia || '#4f8fdc', '#1a1620', 0.56));
   const [hBack, hInstep, hToe] = st === 'stivali' ? [W * 0.165, W * 0.105, W * 0.058]
     : st === 'anfibi' ? [W * 0.145, W * 0.102, W * 0.064]
-    : st === 'sneakers' ? [W * 0.102, W * 0.096, W * 0.062]
-    : st === 'mocassini' ? [W * 0.086, W * 0.082, W * 0.052]
-    : [W * 0.090, W * 0.086, W * 0.056];
+      : st === 'sneakers' ? [W * 0.102, W * 0.096, W * 0.062]
+        : st === 'mocassini' ? [W * 0.086, W * 0.082, W * 0.052]
+          : [W * 0.090, W * 0.086, W * 0.056];
   const soleOff = W * 0.014;
   // Vista quasi frontale dello scarpone/piede puntato verso camera: silhouette arrotondata senza schiacciarsi a zero
   if (L < W * 0.032 && Math.abs(o.verso || 0) < 0.05) {
@@ -1025,7 +1052,7 @@ export function drawRick(g, o = {}) {
   const W = calcolaWAdattato(o, o.W || 200), x0 = o.x ?? 256, luce = o.luce ?? -1, a = Math.max(-1, Math.min(1, o.verso ?? 0)), saBase = Math.sin(a * Math.PI / 2), caBase = Math.cos(a * Math.PI / 2), dir = Math.sign(a) || 1;
   const back = Math.max(0, Math.min(1, o.spalle ?? (o.posa === 'spalle' ? 1 : 0))), isBack = back > 0.42;
   const acc = new Set(o.accessori ?? RUOLI[o.ruolo] ?? []);
-  const pelle = o.pelle || '#fbf6f2', maglia = o.maglia || '#4f8fdc', capelli = o.capelli || '#26222a', TS = TESTE[o.testa] || TESTE.tonda, CS = CORPI[o.corpo] || CORPI.fagiolo, HH = W * TS.hw, ink = W * 0.05;
+  const pelle = o.pelle || '#fbf6f2', maglia = o.maglia || '#4f8fdc', capelli = o.capelli || '#26222a', TS = TESTE[o.testa] || TESTE.tonda, CS = CORPI[o.corpo] || CORPI.fagiolo, HH = W * TS.hw, ink = W * 0.044;
   const gambe = W * 0.93 * 1.4 * (o.gambe ?? CS.gambe ?? 1), bustoScale = o.alto ?? CS.alto ?? 1, largoScale = o.largo ?? CS.largo ?? 1, busto = W * 0.93 * 1.1 * bustoScale;
   const sedDrop = sedutoDropPx(o, W);
   const kin = calcolaCinematica(o, W, HH, gambe, bustoScale, largoScale, saBase, caBase, dir, sedDrop);
@@ -1038,7 +1065,7 @@ export function drawRick(g, o = {}) {
   const y0 = o.y ?? 980, hipYOrig = (y0 - kin.bobPx) - gambe + sedDrop;
   const breathPy = 0;   // respiro disabilitato su richiesta dell'utente
   const chinY = hipYOrig - busto - breathPy, chinY0 = chinY, hcx = x + saBase * W * 0.04, hcy = chinY - HH * 0.38;
-  const lw = W * 0.055;
+  const lw = W * 0.044;
 
   // Gambe ancorate a terra (non ruotano con torsoPiega: i piedi restano piantati; ordine [-dir, dir] così la gamba vicina sta davanti)
   [-dir, dir].forEach(s => {
@@ -1194,10 +1221,10 @@ export function drawRick(g, o = {}) {
   const V = new Set(o.vestito || []);
   const braccio = s => {
     const c = armCoord(s), { idx, shX, gx, gy, px, py, hp } = c;
-    tratto(g, [[shX, sy], [(shX + gx * 2) / 3, (sy + gy * 2) / 3], [gx, gy], [px, py]], W * 0.05);
+    tratto(g, [[shX, sy], [(shX + gx * 2) / 3, (sy + gy * 2) / 3], [gx, gy], [px, py]], W * 0.042);
     if (!hp && pose.inTasca[idx]) return;   // mano infilata in tasca: resta dietro/dentro al fianco senza dita fuori
     const posa = (o.maniPosa && o.maniPosa[idx]) || o.manoPosa || (hp ? 'presa' : (pose.posaMani[idx] || (oggPrincipale && s === pose.oggettoMano && !hp ? 'presa' : 'aperta')));
-    let ux = px - gx, uy = py - gy; const ul = Math.hypot(ux, uy) || 1; ux /= ul; uy /= ul; const nx = -uy * s, ny = ux * s, r = W * 0.05, dw = W * 0.026;
+    let ux = px - gx, uy = py - gy; const ul = Math.hypot(ux, uy) || 1; ux /= ul; uy /= ul; const nx = -uy * s, ny = ux * s, r = W * 0.045, dw = W * 0.023;
     if (V.has('polsini')) {
       const wx = px - ux * W * 0.072, wy = py - uy * W * 0.072;
       g.save(); g.translate(wx, wy); g.rotate(Math.atan2(uy, ux));
@@ -1222,9 +1249,13 @@ export function drawRick(g, o = {}) {
     if (posa === 'pugno') { punto(g, px + ux * r * 0.3, py + uy * r * 0.3, r * 1.3); dito(1.5, r * 0.5, dw * 1.1, 0.9); return; }
     punto(g, px, py, r);
     if (posa === 'indica') { dito(0, r * 1.9, dw * 1.1); dito(1.25, r * 0.8); punto(g, px + ux * r * 0.7 - nx * r * 0.3, py + uy * r * 0.7 - ny * r * 0.3, r * 0.7); return; }
-    if (posa === 'presa') { dito(1.15, r * 1.0, dw * 1.1); [-0.15, -0.5, -0.85].forEach(an => { const cA = Math.cos(an), sn = Math.sin(an), vx = ux * cA + nx * sn, vy = uy * cA + ny * sn, kx = px + vx * (r + r * 0.7), ky = py + vy * (r + r * 0.7);
-        tratto(g, [[px + vx * r * 0.7, py + vy * r * 0.7], [kx, ky], [kx + nx * r * 0.75, ky + ny * r * 0.75]], dw); }); return; }
-    dito(1.2, r * 0.95, dw * 1.1); [0.38, 0.05, -0.28, -0.6].forEach((an, i) => dito(an, r * (i === 1 || i === 2 ? 1.35 : 1.1)));
+    if (posa === 'presa') {
+      dito(1.15, r * 1.0, dw * 1.1);[-0.15, -0.5, -0.85].forEach(an => {
+        const cA = Math.cos(an), sn = Math.sin(an), vx = ux * cA + nx * sn, vy = uy * cA + ny * sn, kx = px + vx * (r + r * 0.7), ky = py + vy * (r + r * 0.7);
+        tratto(g, [[px + vx * r * 0.7, py + vy * r * 0.7], [kx, ky], [kx + nx * r * 0.75, ky + ny * r * 0.75]], dw);
+      }); return;
+    }
+    dito(1.2, r * 0.95, dw * 1.1);[0.38, 0.05, -0.28, -0.6].forEach((an, i) => dito(an, r * (i === 1 || i === 2 ? 1.35 : 1.1)));
   };
 
   g.save();
@@ -1236,14 +1267,17 @@ export function drawRick(g, o = {}) {
   // Se le mani vanno dietro la schiena (pose 'dietro'), vanno entrambe dietro al busto; davantiTorso le porta davanti (conserte, applaude)
   if (!pose.davantiTorso[farIdx]) braccio(-dir);
   if (pose.dietroTorso[nearIdx]) braccio(dir);
-  if (o.gonna) { const gy = hipYOrig - busto * 0.15, P = new Path2D(); P.moveTo(x - Bw * 0.42, gy); P.lineTo(x + Bw * 0.42, gy); P.lineTo(x + Bw * 0.62, hipYOrig + gambe * 0.35); P.quadraticCurveTo(x, hipYOrig + gambe * 0.42, x - Bw * 0.62, hipYOrig + gambe * 0.35); P.closePath();
-    g.fillStyle = o.gonna; g.fill(P); g.lineWidth = ink * 0.9; g.lineJoin = 'round'; g.strokeStyle = INK; g.stroke(P); }
+  if (o.gonna) {
+    const gy = hipYOrig - busto * 0.15, P = new Path2D(); P.moveTo(x - Bw * 0.42, gy); P.lineTo(x + Bw * 0.42, gy); P.lineTo(x + Bw * 0.62, hipYOrig + gambe * 0.35); P.quadraticCurveTo(x, hipYOrig + gambe * 0.42, x - Bw * 0.62, hipYOrig + gambe * 0.35); P.closePath();
+    g.fillStyle = o.gonna; g.fill(P); g.lineWidth = ink * 0.9; g.lineJoin = 'round'; g.strokeStyle = INK; g.stroke(P);
+  }
   inchiostra(g, B, x, bcy, ink * 0.9, p => {
     ombra(g, p, x, bcy, Bw * 0.6, maglia, luce, [0.8, 0.8, 0.88]);
     tessuto(g, p, o, x, bcy, Bw, busto, W, sa);
     vestitiFondo(g, o, V, p, x, bcy, chinY0, hipYOrig, Bw, busto, W, sa, ca, dir, maglia, back);
     const tx = x + sa * Bw * 0.38, tc = chinY0 + W * 0.09, tw = ca * 0.7 + 0.3, tieLagX = (kin.lagX || 0) * 0.45;
-    if (!isBack && acc.has('cravatta')) { g.save(); g.clip(p); const T = new Path2D();
+    if (!isBack && acc.has('cravatta')) {
+      g.save(); g.clip(p); const T = new Path2D();
       T.moveTo(tx - W * 0.035 * tw, tc); T.lineTo(tx + W * 0.035 * tw, tc); T.lineTo(tx + tieLagX + W * 0.045 * tw, tc + busto * 0.62); T.lineTo(tx + tieLagX, tc + busto * 0.72); T.lineTo(tx + tieLagX - W * 0.045 * tw, tc + busto * 0.62); T.closePath();
       g.fillStyle = o.cravattaCol || '#2d4a9a'; g.fill(T); g.save(); g.clip(T);
       for (let k = -3; k < 12; k++) { const yy = tc + k * W * 0.07; tratto(g, [[tx + tieLagX * 0.5 - W * 0.08, yy], [tx + tieLagX * 0.5 + W * 0.08, yy + W * 0.06]], W * 0.018, '#9fb6ee'); }
@@ -1252,15 +1286,34 @@ export function drawRick(g, o = {}) {
       g.fillStyle = o.cravattaCol || '#2d4a9a'; g.fill(N); g.stroke(N);
       tratto(g, [[tx - W * 0.04 * tw, tc], [tx - W * 0.15 * tw, tc + W * 0.1], [tx - W * 0.03 * tw, tc + W * 0.06]], W * 0.022);
       tratto(g, [[tx + W * 0.04 * tw, tc], [tx + W * 0.15 * tw, tc + W * 0.1], [tx + W * 0.03 * tw, tc + W * 0.06]], W * 0.022);
-      g.restore(); }
+      g.restore();
+    }
     if (!isBack && acc.has('cartellino') && sa > -0.7) {
-      const cx2 = x + (sa - 0.75 * ca) * Bw * 0.38, cy2 = chinY + busto * 0.4, bw = W * 0.22 * (ca * 0.6 + 0.4), bh = W * 0.15;
-      if (Math.abs(cx2 - x) < Bw * 0.42) { g.save(); g.clip(p);
-        tratto(g, [[cx2 - bw * 0.4, cy2 - W * 0.05], [cx2 + bw * 0.4, cy2 - W * 0.05]], W * 0.015);
-        g.beginPath(); g.roundRect(cx2 - bw / 2, cy2, bw, bh, W * 0.015); g.fillStyle = '#f4f1ea'; g.fill(); g.lineWidth = W * 0.02; g.strokeStyle = INK; g.stroke();
-        g.fillStyle = '#d24a3c'; g.fillRect(cx2 - bw / 2 + W * 0.01, cy2 + W * 0.01, bw - W * 0.02, bh * 0.28);
-        tratto(g, [[cx2 - bw * 0.3, cy2 + bh * 0.62], [cx2 + bw * 0.3, cy2 + bh * 0.62]], W * 0.014);
-        tratto(g, [[cx2 - bw * 0.3, cy2 + bh * 0.82], [cx2 + bw * 0.1, cy2 + bh * 0.82]], W * 0.014); g.restore(); } }
+      const txt = o.cartellinoTesto ? String(o.cartellinoTesto) : '';
+      const cx2 = x + (sa - 0.78 * ca) * Bw * 0.38, cy2 = chinY + busto * (txt ? 0.27 : 0.36);
+      const bw = W * (txt ? 0.28 : 0.22) * (ca * 0.58 + 0.42), bh = W * (txt ? 0.165 : 0.15);
+      if (Math.abs(cx2 - x) < Bw * 0.45) {
+        g.save(); g.clip(p);
+        tratto(g, [[cx2 - bw * 0.36, cy2 - W * 0.038], [cx2 + bw * 0.36, cy2 - W * 0.038]], W * 0.015);
+        g.beginPath(); g.roundRect(cx2 - bw / 2, cy2, bw, bh, W * 0.015); g.fillStyle = txt ? '#faf8f2' : '#f4f1ea'; g.fill(); g.lineWidth = W * 0.02; g.strokeStyle = INK; g.stroke();
+        g.fillStyle = '#d24a3c'; g.fillRect(cx2 - bw / 2 + W * 0.01, cy2 + W * 0.01, bw - W * 0.02, bh * 0.26);
+        if (txt) {
+          const sxTxt = ca * 0.65 + 0.35;
+          let fs = Math.max(8, Math.round(bh * 0.56));
+          g.save(); g.translate(cx2, cy2 + bh * 0.65); g.scale(sxTxt, 1);
+          g.font = `900 ${fs}px system-ui, "Helvetica Neue", Arial, sans-serif`;
+          const maxW = (bw * 0.84) / Math.max(0.25, sxTxt), tw = g.measureText(txt).width;
+          if (tw > maxW) { fs = Math.max(7, Math.floor(fs * (maxW / tw))); g.font = `900 ${fs}px system-ui, "Helvetica Neue", Arial, sans-serif`; }
+          g.fillStyle = INK; g.textAlign = 'center'; g.textBaseline = 'middle';
+          g.fillText(txt, 0, 0);
+          g.restore();
+        } else {
+          tratto(g, [[cx2 - bw * 0.3, cy2 + bh * 0.62], [cx2 + bw * 0.3, cy2 + bh * 0.62]], W * 0.014);
+          tratto(g, [[cx2 - bw * 0.3, cy2 + bh * 0.82], [cx2 + bw * 0.1, cy2 + bh * 0.82]], W * 0.014);
+        }
+        g.restore();
+      }
+    }
     vestiti(g, o, p, x, bcy, chinY0, hipYOrig, Bw, busto, W, sa, ca, dir, maglia, back);
   }, luce);
   if (isBack) vestitiEsterni(g, o, V, x, bcy, chinY0, hipYOrig, Bw, busto, W, sa, ca, dir, maglia, back, kin.lagX || 0, kin.lagY || 0);
@@ -1268,20 +1321,28 @@ export function drawRick(g, o = {}) {
   if (pose.davantiTorso[farIdx] && !pose.braccioSopraTesta && !pose.dietroTorso[farIdx]) braccio(-dir);
   if (!pose.dietroTorso[nearIdx] && !pose.braccioSopraTesta) braccio(dir);
   void farIdx;
-  // testa: la forma resta tonda; si gonfia appena dal lato della faccia (neutro di spalle) + squash&stretch sul cambio espressione
-  const rot = ((o.tilt ?? -2) + (o.inclina || 0) + pose.testaExtra + (INCLINA[o.faccia] || 0) * (o.inclinaFaccia ?? 1)) * Math.PI / 180;
+  // testa: la forma resta tonda; si gonfia appena dal lato della faccia (neutro di spalle) + movimento/reazione naturale su cambio espressione
+  const incTarget = (INCLINA[o.faccia] || 0) * (o.inclinaFaccia ?? 1);
+  const incPrev = (INCLINA[o.facciaPrev] || 0) * (o.inclinaFaccia ?? 1);
+  let fTiltNow = incTarget, fKick = 0, fDipY = 0;
   let fSqY = 1, fPop = 0;
   if (typeof o.facciaDt === 'number' && o.facciaDt >= 0 && o.facciaDt < 0.24) {
     const uF = o.facciaDt / 0.24, wF = Math.exp(-uF * 5.2) * Math.sin(uF * Math.PI * 3.0);
-    const stretchFace = /^(sorpreso|scioccato|urla|felice|ride|contento|fiero)$/.test(o.faccia || '');
-    const squashFace = /^(arrabbiato|spaventato|triste|deciso|schifato|furbo)$/.test(o.faccia || '');
+    const easeU = 1 - Math.pow(1 - Math.min(1, o.facciaDt / 0.16), 3);
+    fTiltNow = incPrev + (incTarget - incPrev) * easeU;
+    const excFace = /^(sorpreso|scioccato|urla|esaltato|panico|spaventato|nei_guai|esasperato)$/.test(o.faccia || '');
+    fKick = wF * (excFace ? 4.2 : 2.2) * (dir || 1);
+    fDipY = (excFace ? -HH * 0.024 : HH * 0.012) * Math.sin(Math.min(1, o.facciaDt / 0.14) * Math.PI) * Math.exp(-uF * 2.5);
+    const stretchFace = /^(sorpreso|scioccato|urla|felice|ride|contento|fiero|esaltato)$/.test(o.faccia || '');
+    const squashFace = /^(arrabbiato|spaventato|triste|deciso|schifato|furbo|digrigna|esasperato|serio|sospetto|nei_guai)$/.test(o.faccia || '');
     if (stretchFace) fSqY = 1 + 0.075 * wF;
     else if (squashFace) fSqY = 1 - 0.065 * wF;
     fPop = wF;
   }
+  const rot = ((o.tilt ?? -2) + (o.inclina || 0) + pose.testaExtra + fTiltNow + fKick) * Math.PI / 180;
   const fSqX = 1 / Math.sqrt(fSqY);
-  g.save(); g.translate(hcx, hcy + HH * 0.45); g.rotate(rot); if (Math.abs(fSqY - 1) > 0.002) g.scale(fSqX, fSqY); g.translate(-hcx, -hcy - HH * 0.45);
-  const ey = hcy + HH * 0.02;
+  g.save(); g.translate(hcx, hcy + HH * 0.45 + fDipY); g.rotate(rot); if (Math.abs(fSqY - 1) > 0.002) g.scale(fSqX, fSqY); g.translate(-hcx, -hcy - HH * 0.45);
+  const ey = hcy + HH * 0.005;
   const disegnaOrecchio = (sx, outerSide, dietroTesta) => {
     const kO = dietroTesta ? 0.85 : (0.7 + 0.3 * caBase);
     const earW = W * 0.072 * kO, earH = W * 0.095;
@@ -1307,7 +1368,7 @@ export function drawRick(g, o = {}) {
     });
   }
   const H = forma(hcx, hcy, W / 2, HH / 2, { nTop: TS.nTop, nBot: TS.nBot, egg: TS.egg, asym: (0.06 + 0.06 * Math.abs(saBase)) * dir * Math.max(0, 1 - back * 1.4) });
-  const fx = hcx + saBase * W * 0.27, sp = W * 0.13 * (0.35 + 0.65 * caBase);
+  const fx = hcx + saBase * W * 0.27, sp = W * 0.122 * (0.35 + 0.65 * caBase);
   inchiostra(g, H, hcx, hcy, ink, p => {
     ombra(g, p, hcx, hcy, W / 2, pelle, luce);
     g.save(); g.clip(p); capelliDentro(g, o, hcx, hcy, W, HH, saBase, dir, fx, capelli, acc, back);
@@ -1346,106 +1407,260 @@ export function drawRick(g, o = {}) {
   g.restore();
 }
 
-// facce a taglio netto. Misure dal rapporto: occhi distanti 0,26 W, sopracciglia a -0,20, bocca a +0,19, niente luccichii.
-// Ogni faccia = [occhi, sopracciglio sinistro, destro, bocca]. Per aggiungerne una basta una riga in FACCE.
-export const INCLINA = { triste: -6, piange: -7, ride: 7, confuso: 9, pensieroso: -7, fiero: -5, imbarazzato: -6, schifato: 5, assonnato: 8, annoiato: 4, spaventato: -3 };   // gradi, si somma a `inclina`
+// facce a taglio netto stile Rick: sclera bianca espressiva con taglio palpebre, > < strizzati, archi ^ ^, pupille mobili e bocche con denti.
+// Ogni faccia = [occhi, sopracciglio sinistro, destro, bocca, opt]. Per aggiungerne una basta una riga in FACCE.
+export const INCLINA = { triste: -6, piange: -7, dolore: -5, ride: 7, confuso: 8, pensieroso: -6, fiero: -5, scettico: 3, imbarazzato: -6, schifato: 5, incredulo: -3, assonnato: 8, annoiato: 4, spaventato: -3, panico: -4, serio: 0, digrigna: -3, esaltato: 5, nei_guai: -3, sospetto: 4, esasperato: -4, concentrato: -3, occhiolino: 5 };   // gradi, si somma a `inclina`
 export const FACCE = {
-  neutro: ['punto', [0.17, 0.18], [0.2, 0.21], 'mezzo'],        felice: ['punto', [0.2, 0.2], [0.2, 0.2], 'sorriso'],
-  ghigno: ['punto', [0.17, 0.2], [0.21, 0.19], 'denti'],          triste: ['punto', [0.16, 0.24], [0.24, 0.16], 'giu'],
-  arrabbiato: ['punto', [0.22, 0.12], [0.12, 0.22], 'dritta'],    sorpreso: ['bianchi', [0.27, 0.28], [0.28, 0.27], 'o'],
-  annoiato: ['palpebra', [0.14, 0.14], [0.14, 0.14], 'dritta'],   furbo: ['palpebra', [0.13, 0.17], [0.24, 0.22], 'lato'],
-  ride: ['archi', [0.24, 0.23], [0.23, 0.24], 'aperta'],          contento: ['archi', [0.2, 0.2], [0.2, 0.2], 'sorriso'],
-  spaventato: ['bianchi_piccoli', [0.2, 0.3], [0.3, 0.2], 'onda'], nervoso: ['punto', [0.18, 0.25], [0.25, 0.18], 'onda'],
-  scioccato: ['bianchi_piccoli', [0.3, 0.3], [0.3, 0.3], 'stretti'], urla: ['bianchi', [0.12, 0.24], [0.24, 0.12], 'urlo'],
-  piange: ['chiusi', [0.16, 0.25], [0.25, 0.16], 'aperta_giu'],   pensieroso: ['punto', [0.15, 0.15], [0.25, 0.27], 'lato'],
-  confuso: ['punto', [0.27, 0.26], [0.15, 0.16], 'onda'],         schifato: ['palpebra', [0.12, 0.17], [0.17, 0.12], 'storta'],
-  assonnato: ['chiusi', [0.13, 0.13], [0.13, 0.13], 'o_piccola'], deciso: ['palpebra', [0.17, 0.13], [0.13, 0.17], 'dritta'],
-  imbarazzato: ['punto', [0.2, 0.25], [0.25, 0.2], 'onda_piccola'], fiero: ['archi', [0.22, 0.18], [0.18, 0.22], 'lato'],
+  neutro:      ['bianchi', [0.19, 0.20], [0.20, 0.19], 'dritta',         { topCut: 0.30, pupil: 0.036 }],
+  felice:      ['bianchi', [0.22, 0.24], [0.24, 0.22], 'sorriso',        { topCut: 0, botCut: 0, rx: 0.090, ry: 0.094, pupil: 0.048 }],
+  ghigno:      ['bianchi', [0.19, 0.23], [0.23, 0.21], 'denti',          { topCut: 0.24, botCut: 0, rx: 0.102, ry: 0.102, asym: 0.10, pupil: 0.042 }],
+  triste:      ['bianchi', [0.14, 0.25], [0.25, 0.14], 'giu',            { topCut: 0.32, topSlope: -0.22, pupil: 0.033 }],
+  arrabbiato:  ['bianchi', [0.24, 0.13], [0.13, 0.24], 'stretti',        { topCut: 0.36, topSlope: 0.24, ruga: true, mento: true, pupil: 0.032 }],
+  sorpreso:    ['bianchi', [0.26, 0.27], [0.27, 0.26], 'o',              { rx: 0.118, ry: 0.122, pupil: 0.025 }],
+  annoiato:    ['bianchi', [0.15, 0.15], [0.15, 0.15], 'dritta',         { topCut: 0.48, mento: true, pupil: 0.034 }],
+  furbo:       ['bianchi', [0.16, 0.20], [0.25, 0.22], 'lato',           { topCut: 0.38, asym: 0.16, botCut: 0, pupil: 0.035 }],
+  scettico:    ['bianchi', [0.16, 0.16], [0.25, 0.24], 'lato',           { topCut: 0.42, asym: 0.22, mento: true, pupil: 0.034 }],
+  ride:        ['archi',   [0.24, 0.23], [0.23, 0.24], 'aperta'],
+  contento:    ['archi',   [0.21, 0.22], [0.22, 0.21], 'sorriso'],
+  spaventato:  ['bianchi', [0.18, 0.28], [0.28, 0.18], 'onda',           { rx: 0.118, ry: 0.122, topCut: 0, botCut: 0, ruga: true, pupil: 0.018 }],
+  nervoso:     ['bianchi', [0.15, 0.24], [0.24, 0.15], 'onda',           { topCut: 0.24, topSlope: -0.14, botCut: 0, pupil: 0.025 }],
+  scioccato:   ['bianchi', [0.27, 0.28], [0.28, 0.27], 'stretti',        { rx: 0.122, ry: 0.124, topCut: 0, botCut: 0, ruga: true, pupil: 0.017 }],
+  incredulo:   ['bianchi', [0.18, 0.24], [0.26, 0.20], 'giu',            { rx: 0.116, ry: 0.118, topCut: 0.18, asym: 0.24, botCut: 0, ruga: true, mento: true, pupil: 0.019 }],
+  urla:        ['bianchi', [0.25, 0.14], [0.14, 0.25], 'urlo',           { rx: 0.118, ry: 0.120, topCut: 0.24, topSlope: 0.18, ruga: true, pupil: 0.021 }],
+  panico:      ['bianchi', [0.17, 0.28], [0.28, 0.17], 'denti_tristi',   { rx: 0.124, ry: 0.126, topCut: 0, botCut: 0, ruga: true, pupil: 0.016 }],
+  dolore:      ['strizzati', [0.15, 0.24], [0.24, 0.15], 'denti_tristi', { ruga: true }],
+  piange:      ['strizzati', [0.15, 0.25], [0.25, 0.15], 'aperta_giu'],
+  pensieroso:  ['bianchi', [0.16, 0.16], [0.25, 0.26], 'lato',           { topCut: 0.34, topSlope: -0.05, asym: -0.10, pupil: 0.032 }],
+  confuso:     ['bianchi', [0.26, 0.25], [0.15, 0.16], 'onda',           { topCut: 0.28, asym: 0.34, pupil: 0.030 }],
+  schifato:    ['bianchi', [0.14, 0.18], [0.18, 0.14], 'storta',         { topCut: 0.42, topSlope: 0.14, asym: 0.12, botCut: 0.16, ruga: true, mento: true, pupil: 0.025 }],
+  assonnato:   ['bianchi', [0.14, 0.14], [0.14, 0.14], 'o_piccola',      { topCut: 0.62, botCut: 0, pupil: 0.028 }],
+  deciso:      ['bianchi', [0.22, 0.14], [0.14, 0.22], 'dritta',         { topCut: 0.34, topSlope: 0.18, mento: true, pupil: 0.035 }],
+  imbarazzato: ['bianchi', [0.16, 0.24], [0.24, 0.16], 'onda_piccola',   { topCut: 0.24, topSlope: -0.14, pupil: 0.028 }],
+  fiero:       ['archi',   [0.23, 0.19], [0.19, 0.23], 'lato'],
+  serio:       ['bianchi', [0.17, 0.16], [0.16, 0.17], 'dritta_piccola', { topCut: 0.44, rx: 0.102, ry: 0.092, asym: 0.04, pupil: 0.042 }],
+  digrigna:    ['bianchi', [0.22, 0.16], [0.16, 0.22], 'digrigna',       { topCut: 0.38, topSlope: 0.18, ry: 0.098, pupil: 0.036 }],
+  esaltato:    ['bianchi', [0.26, 0.28], [0.28, 0.26], 'aperta',         { topCut: 0, botCut: 0, rx: 0.096, ry: 0.104, pupil: 0.044 }],
+  nei_guai:    ['bianchi', [0.15, 0.22], [0.22, 0.15], 'arco_triste',    { topCut: 0.04, botCut: 0, rx: 0.122, ry: 0.072, pupil: 0.026 }],
+  sospetto:    ['bianchi', [0.15, 0.16], [0.19, 0.22], 'smorfia',        { topCut: 0.50, botCut: 0.14, rx: 0.112, ry: 0.096, asym: 0.12, pupil: 0.032 }],
+  esasperato:  ['strizzati', [0.23, 0.13], [0.13, 0.23], 'stretti_larghi', { ruga: true }],
+  concentrato: ['bianchi', [0.20, 0.15], [0.15, 0.20], 'stretta',        { topCut: 0.44, topSlope: 0.12, botCut: 0.16, pupil: 0.032 }],
+  occhiolino:  ['occhiolino', [0.22, 0.24], [0.17, 0.15], 'lato',        { topCut: 0, botCut: 0, rx: 0.094, ry: 0.098, pupil: 0.044 }],
 };
 let PELLE_ORA = '#fbf6f2';
 function faccia(g, e, fx, ey, hcy, HH, W, sp, sa, ca, dir, pal, sguardo = null, boccaOvr = null, fPop = 0, soprFolte = false) {
-  const [occhi, b0, b1, boccaBase] = FACCE[e] || FACCE.neutro;
+  const spec = FACCE[e] || FACCE.neutro;
+  const [occhi, b0, b1, boccaBase, eyeOpt = {}] = spec;
   const bocca = boccaOvr || boccaBase;
   const hasSg = Array.isArray(sguardo);
   const gxS = hasSg ? Math.max(-1, Math.min(1, +(sguardo[0] || 0))) : 0;
   const gyS = hasSg ? Math.max(-1, Math.min(1, +(sguardo[1] || 0))) : 0;
-  const eyeW = s => W * 0.045 * (s === dir ? 1 : 0.55 + 0.45 * ca), ex = s => fx + s * sp, my = hcy + HH * 0.2, mx = fx + dir * W * 0.01 * Math.abs(sa), mw = W * (0.5 + 0.5 * ca);
+  const eyeW = s => W * 0.054 * (s === dir ? 1 : 0.60 + 0.40 * ca);
+  const ex = s => fx + s * sp;
+  const my = hcy + HH * 0.205, mx = fx + dir * W * 0.01 * Math.abs(sa), mw = W * (0.5 + 0.5 * ca);
   const lontano = s => s !== dir && Math.abs(sa) > 0.92;
-  const gxPx = s => (hasSg ? gxS * eyeW(s) * 0.46 : 0), gyPx = hasSg ? gyS * W * 0.020 : 0;
-  [-1, 1].forEach(s => { if (lontano(s)) return; const X = ex(s), w = eyeW(s), exO = X + gxPx(s), eyO = ey + gyPx;
-    if (pal > 0.5 || occhi === 'chiusi') return tratto(g, [[X - w * 1.3, ey + W * 0.01], [X, ey + W * 0.03], [X + w * 1.3, ey + W * 0.01]], W * 0.03);
-    if (occhi === 'archi') return tratto(g, [[X - w * 1.4, ey + W * 0.02], [X, ey - W * 0.04], [X + w * 1.4, ey + W * 0.02]], W * 0.035);
-    if (occhi.startsWith('bianchi')) { g.beginPath(); g.ellipse(X, ey, w * 2.7, W * 0.125, 0, 0, Math.PI * 2); g.fillStyle = '#ffffff'; g.fill(); g.lineWidth = W * 0.025; g.strokeStyle = INK; g.stroke();
-      const pxE = X + (hasSg ? gxS * w * 1.25 : dir * w * 0.6), pyE = ey + (hasSg ? gyS * W * 0.048 : 0);
-      punto(g, pxE, pyE, W * (occhi === 'bianchi' ? 0.03 : 0.016)); return; }
-    if (occhi === 'palpebra') { g.beginPath(); g.ellipse(exO, eyO, w * 1.8, W * 0.055, 0, 0, Math.PI); g.fillStyle = INK; g.fill(); tratto(g, [[X - w * 2.1, eyO], [X + w * 2.1, eyO - (e === 'furbo' ? s * W * 0.015 : 0)]], W * 0.03); return; }
-    g.beginPath(); g.ellipse(exO, eyO, w, W * 0.065 * (1 - pal), 0, 0, Math.PI * 2); g.fillStyle = INK; g.fill(); });
-  const taglio = { triste: 1, piange: 1, nervoso: 1, imbarazzato: 1, arrabbiato: -1, deciso: -1 }[e];
-  if (taglio && occhi === 'punto' && pal < 0.5) [-1, 1].forEach(s => { if (lontano(s)) return; const X = ex(s), w = eyeW(s) * 1.6, k = taglio * s, eyT = ey + gyPx * 0.5;
-    g.beginPath(); g.moveTo(X - w, eyT - W * 0.08 + (k > 0 ? 0 : W * 0.05)); g.lineTo(X + w, eyT - W * 0.08 + (k > 0 ? W * 0.05 : 0)); g.lineTo(X + w, eyT - W * 0.2); g.lineTo(X - w, eyT - W * 0.2); g.closePath();
-    g.fillStyle = PELLE_ORA; g.fill(); tratto(g, [[X - w, eyT - W * 0.08 + (k > 0 ? 0 : W * 0.05)], [X + w, eyT - W * 0.08 + (k > 0 ? W * 0.05 : 0)]], W * 0.025); });
-  const brow = (s, h0, h1) => { if (lontano(s)) return; const bOff = (hasSg ? -gyS * 0.024 : 0) + fPop * 0.028 * Math.sign((h0 + h1) * 0.5 - 0.18 || 1); h0 = 0.19 + (h0 - 0.19) * 1.7 + bOff; h1 = 0.19 + (h1 - 0.19) * 1.7 + bOff; const X = ex(s) + gxPx(s) * 0.40, l = W * 0.08 * (s === dir ? 1 : 0.6 + 0.4 * ca);
-    tratto(g, [[X - l, ey - W * (h0 - 0.03)], [X, ey - W * ((h0 + h1) / 2 - 0.01)], [X + l, ey - W * (h1 - 0.03)]], W * (soprFolte ? 0.072 : 0.045)); };
-  brow(-1, ...b0); brow(1, ...b1);
-  const T = (pts, w = 0.035) => tratto(g, pts, W * w), riempi = (P, col) => { g.fillStyle = col; g.fill(P); g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke(P); };
-  const onda = (l, h) => { g.beginPath(); for (let k = 0; k <= 16; k++) { const u = k / 16, px = mx - l + 2 * l * u, py = my + W * 0.03 + Math.sin(u * Math.PI * 4) * h; k ? g.lineTo(px, py) : g.moveTo(px, py); }
-    g.lineWidth = W * 0.03; g.lineCap = 'round'; g.strokeStyle = INK; g.stroke(); };
-  const boccaAperta = (l, h0, h1, lingua) => { const P = new Path2D(); P.moveTo(mx - l, my + h0); P.quadraticCurveTo(mx, my + h0 - W * 0.02, mx + l, my + h0); P.quadraticCurveTo(mx, my + h1, mx - l, my + h0);
-    riempi(P, '#54212a'); if (lingua) { g.save(); g.clip(P); g.beginPath(); g.ellipse(mx, my + h1 - W * 0.02, l * 0.6, W * 0.05, 0, 0, Math.PI * 2); g.fillStyle = '#d9666b'; g.fill(); g.restore(); } };
-  g.save(); g.translate(mx, my); g.scale(1.3, 1.35); g.translate(-mx, -my);
+  const gxPx = s => (hasSg ? gxS * eyeW(s) * 0.48 : 0), gyPx = hasSg ? gyS * W * 0.022 : 0;
+
+  const winkSide = occhi === 'occhiolino' ? (Math.abs(sa) > 0.35 ? dir : 1) : 0;
+  [-1, 1].forEach(s => {
+    if (lontano(s)) return;
+    const X = ex(s), persp = (s === dir ? 1 : 0.60 + 0.40 * ca), w = eyeW(s), exO = X + gxPx(s), eyO = ey + gyPx;
+    const eyeKind = (occhi === 'occhiolino' && s === winkSide) ? 'wink' : (occhi === 'occhiolino' ? 'bianchi' : occhi);
+    if (pal > 0.5 || eyeKind === 'chiusi') {
+      return tratto(g, [[X - w * 1.45, ey + W * 0.012], [X, ey + W * 0.036], [X + w * 1.45, ey + W * 0.012]], W * 0.032);
+    }
+    if (eyeKind === 'strizzati' || eyeKind === 'wink') {
+      const tipX = X - s * w * (eyeKind === 'wink' ? 0.65 : 0.72), outX = X + s * w * 1.18, hyS = W * (eyeKind === 'wink' ? 0.056 : 0.068);
+      return tratto(g, [[outX, ey - hyS], [tipX, ey], [outX, ey + hyS]], W * 0.034);
+    }
+    if (eyeKind === 'archi') {
+      return tratto(g, [[X - w * 1.45, ey + W * 0.025], [X, ey - W * 0.046], [X + w * 1.45, ey + W * 0.025]], W * 0.036);
+    }
+    if (eyeKind.startsWith('bianchi')) {
+      const rx = W * (eyeOpt.rx || 0.106) * persp, ry = W * (eyeOpt.ry || 0.106);
+      const asymSide = eyeOpt.asym ? (s === dir ? -eyeOpt.asym * 0.5 : eyeOpt.asym * 0.5) : 0;
+      const topCut = Math.max(0, Math.min(0.78, (eyeOpt.topCut || 0) + asymSide + pal * 0.35));
+      const topSlope = eyeOpt.topSlope || 0;
+      const botCut = Math.max(0, Math.min(0.45, eyeOpt.botCut || 0));
+      const botSlope = eyeOpt.botSlope || 0;
+      const E = new Path2D();
+      E.ellipse(X, ey, rx, ry, 0, 0, Math.PI * 2);
+
+      // Calcolo taglio palpebre morbido: inner (-s) vs outer (+s) con leggera curvatura organica sull'occhio
+      const yTopL = -ry + ry * 2 * (topCut - s * (-1) * topSlope);
+      const yTopR = -ry + ry * 2 * (topCut - s * (+1) * topSlope);
+      const yBotL = ry - ry * 2 * (botCut - s * (-1) * botSlope);
+      const yBotR = ry - ry * 2 * (botCut - s * (+1) * botSlope);
+      const spanLid = rx * 1.06;
+      const yTopCtrl = (yTopL + yTopR) * 0.5 - ry * 0.14 * (topSlope === 0 ? 1 : 0.45);
+      const AP = new Path2D();
+      AP.moveTo(X - spanLid, ey + yTopL);
+      AP.quadraticCurveTo(X, ey + yTopCtrl, X + spanLid, ey + yTopR);
+      AP.lineTo(X + spanLid, ey + yBotR);
+      AP.lineTo(X - spanLid, ey + yBotL);
+      AP.closePath();
+
+      const yLidMid = ey + ((yTopL + yTopR) * 0.25 + yTopCtrl * 0.5), yBotMid = ey + (yBotL + yBotR) * 0.5;
+      const pupilR = W * (eyeKind === 'bianchi_piccoli' ? 0.018 : (eyeOpt.pupil || 0.034));
+      const defGx = hasSg ? gxS : (Math.abs(sa) > 0.08 ? dir * 0.20 : 0);
+      const defGy = hasSg ? gyS : 0;
+      const pxE = X + defGx * rx * 0.48;
+      let pyE = ey + defGy * ry * 0.40;
+      if (topCut > 0.15) pyE = Math.max(pyE, yLidMid + pupilR * 0.85);
+      if (botCut > 0.12) pyE = Math.min(pyE, yBotMid - pupilR * 0.85);
+
+      g.save();
+      g.clip(AP);
+      g.fillStyle = '#ffffff';
+      g.fill(E);
+      g.save();
+      g.clip(E);
+      punto(g, pxE, pyE, pupilR);
+      g.restore();
+      g.lineWidth = W * 0.026;
+      g.strokeStyle = INK;
+      g.stroke(E);
+      g.restore();
+
+      if (topCut > 0.02 || topSlope !== 0 || pal > 0.08) {
+        tratto(g, [[X - spanLid, ey + yTopL], [X, ey + yTopCtrl], [X + spanLid, ey + yTopR]], W * 0.030);
+      }
+      if (botCut > 0.05 || botSlope !== 0) {
+        tratto(g, [[X - rx * 0.94, ey + yBotL], [X + rx * 0.94, ey + yBotR]], W * 0.022);
+      }
+      return;
+    }
+    if (eyeKind === 'palpebra') {
+      g.beginPath(); g.ellipse(exO, eyO, w * 1.85, W * 0.065, 0, 0, Math.PI); g.fillStyle = INK; g.fill();
+      tratto(g, [[X - w * 2.1, eyO], [X + w * 2.1, eyO - (e === 'furbo' ? s * W * 0.015 : 0)]], W * 0.032);
+      return;
+    }
+    g.beginPath(); g.ellipse(exO, eyO, w, W * 0.072 * (1 - pal), 0, 0, Math.PI * 2); g.fillStyle = INK; g.fill();
+  });
+
+  if (eyeOpt.ruga && pal < 0.5) {
+    [-1, 1].forEach(rs => {
+      const rxF = fx + rs * W * 0.015;
+      tratto(g, [[rxF, ey - W * 0.140], [rxF - rs * W * 0.005, ey - W * 0.092]], W * 0.015);
+    });
+  }
+
+  const brow = (s, h0, h1) => {
+    if (lontano(s)) return;
+    const bOff = (hasSg ? -gyS * 0.024 : 0) + fPop * 0.028 * Math.sign((h0 + h1) * 0.5 - 0.18 || 1);
+    const mapH = h => Math.max(0.145, 0.195 + (h - 0.19) * 1.15) + bOff;
+    h0 = mapH(h0);
+    h1 = mapH(h1);
+    const X = ex(s) + gxPx(s) * 0.35, l = W * 0.072 * (s === dir ? 1 : 0.65 + 0.35 * ca);
+    const xL = s > 0 ? Math.max(fx + W * 0.018, X - l) : X - l;
+    const xR = s < 0 ? Math.min(fx - W * 0.018, X + l) : X + l;
+    const xM = (xL + xR) * 0.5;
+    tratto(g, [[xL, ey - W * (h0 - 0.03)], [xM, ey - W * ((h0 + h1) / 2 - 0.014)], [xR, ey - W * (h1 - 0.03)]], W * (soprFolte ? 0.070 : 0.044));
+  };
+  if (winkSide < 0) { brow(-1, b1[1], b1[0]); brow(1, b0[1], b0[0]); }
+  else { brow(-1, ...b0); brow(1, ...b1); }
+
+  const T = (pts, w = 0.036) => tratto(g, pts, W * w), riempi = (P, col) => { g.fillStyle = col; g.fill(P); g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke(P); };
+  const onda = (l, h) => {
+    g.beginPath(); for (let k = 0; k <= 16; k++) { const u = k / 16, px = mx - l + 2 * l * u, py = my + W * 0.03 + Math.sin(u * Math.PI * 4) * h; k ? g.lineTo(px, py) : g.moveTo(px, py); }
+    g.lineWidth = W * 0.032; g.lineCap = 'round'; g.strokeStyle = INK; g.stroke();
+  };
+  const boccaAperta = (l, h0, h1, lingua, dentiTop = true) => {
+    const P = new Path2D(); P.moveTo(mx - l, my + h0); P.quadraticCurveTo(mx, my + h0 - W * 0.02, mx + l, my + h0); P.quadraticCurveTo(mx, my + h1, mx - l, my + h0);
+    riempi(P, '#54212a');
+    g.save(); g.clip(P);
+    if (lingua) { g.beginPath(); g.ellipse(mx, my + h1 - W * 0.018, l * 0.62, W * 0.048, 0, 0, Math.PI * 2); g.fillStyle = '#d9666b'; g.fill(); }
+    if (dentiTop) { g.fillStyle = '#ffffff'; g.fillRect(mx - l, my + Math.min(h0, h1) - W * 0.02, l * 2, W * 0.042); }
+    g.restore();
+    g.lineWidth = W * 0.028; g.strokeStyle = INK; g.stroke(P);
+  };
+  g.save(); g.translate(mx, my); g.scale(1.36, 1.38); g.translate(-mx, -my);
   switch (bocca) {
-    case 'chiusa': T([[mx - mw * 0.07, my + W * 0.02], [mx + mw * 0.07, my + W * 0.02]], 0.028); break;
-    case 'stretta': T([[mx - mw * 0.05, my + W * 0.03], [mx + mw * 0.05, my + W * 0.03]]); break;
-    case 'sorriso': T([[mx - mw * 0.11, my - W * 0.01], [mx, my + W * 0.09], [mx + mw * 0.11, my - W * 0.01]]); break;
-    case 'giu': T([[mx - mw * 0.08, my + W * 0.05], [mx, my - W * 0.01], [mx + mw * 0.08, my + W * 0.05]]); break;
-    case 'dritta': T([[mx - mw * 0.08, my + W * 0.03], [mx + mw * 0.08, my + W * 0.02]]); break;
-    case 'lato': T([[mx - mw * 0.06, my + W * 0.03], [mx + mw * 0.03, my + W * 0.04], [mx + mw * 0.1, my - W * 0.01]]); break;
-    case 'storta': T([[mx - mw * 0.09, my + W * 0.05], [mx, my + W * 0.02], [mx + mw * 0.09, my - W * 0.01]]); break;
-    case 'o': { const P = new Path2D(); P.ellipse(mx, my + W * 0.03, mw * 0.06, W * 0.08, 0, 0, Math.PI * 2); riempi(P, '#54212a'); break; }
-    case 'o_piccola': { g.beginPath(); g.ellipse(mx, my + W * 0.03, mw * 0.03, W * 0.035, 0, 0, Math.PI * 2); g.fillStyle = '#54212a'; g.fill(); g.lineWidth = W * 0.025; g.strokeStyle = INK; g.stroke(); break; }
-    case 'aperta': boccaAperta(mw * 0.15, -W * 0.02, W * 0.17, true); break;
-    case 'larga': boccaAperta(mw * 0.17, -W * 0.03, W * 0.19, true); break;
-    case 'aperta_giu': boccaAperta(mw * 0.1, W * 0.06, -W * 0.03, false); break;
-    case 'urlo': { g.beginPath(); g.ellipse(mx, my + W * 0.05, mw * 0.11, W * 0.12, 0, 0, Math.PI * 2); g.fillStyle = '#54212a'; g.fill(); g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke();
-      g.save(); g.clip(); g.beginPath(); g.ellipse(mx, my + W * 0.15, mw * 0.08, W * 0.05, 0, 0, Math.PI * 2); g.fillStyle = '#d9666b'; g.fill(); g.fillStyle = '#fff'; g.fillRect(mx - mw * 0.12, my - W * 0.08, mw * 0.24, W * 0.05); g.restore(); break; }
-    case 'onda': onda(mw * 0.1, W * 0.015); break;
-    case 'onda_piccola': onda(mw * 0.06, W * 0.01); break;
-    case 'stretti': case 'denti': { const P = new Path2D(), l = mw * (bocca === 'denti' ? 0.15 : 0.13);
-      if (bocca === 'denti') { P.moveTo(mx - l, my - W * 0.02); P.quadraticCurveTo(mx, my + W * 0.02, mx + l, my - W * 0.03); P.quadraticCurveTo(mx, my + W * 0.15, mx - l, my - W * 0.02); }
-      else P.roundRect(mx - l, my - W * 0.01, 2 * l, W * 0.08, W * 0.02);
-      g.fillStyle = '#ffffff'; g.fill(P); g.save(); g.clip(P); for (let k = -2; k <= 2; k++) T([[mx + k * l * 0.4, my - W * 0.05], [mx + k * l * 0.4, my + W * 0.15]], 0.012); T([[mx - l, my + W * 0.03], [mx + l, my + W * 0.03]], 0.012); g.restore();
-      g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke(P); break; }
-    default: T([[mx - mw * 0.06, my + W * 0.01], [mx + mw * 0.005, my + W * 0.06], [mx + mw * 0.08, my - W * 0.01]]);
+    case 'chiusa': T([[mx - mw * 0.075, my + W * 0.02], [mx + mw * 0.075, my + W * 0.02]], 0.030); break;
+    case 'stretta': T([[mx - mw * 0.055, my + W * 0.03], [mx + mw * 0.055, my + W * 0.03]]); break;
+    case 'sorriso': T([[mx - mw * 0.125, my - W * 0.015], [mx, my + W * 0.095], [mx + mw * 0.125, my - W * 0.015]]); break;
+    case 'giu': T([[mx - mw * 0.10, my + W * 0.068], [mx, my - W * 0.022], [mx + mw * 0.10, my + W * 0.068]]); break;
+    case 'dritta': T([[mx - mw * 0.095, my + W * 0.028], [mx + mw * 0.095, my + W * 0.018]]); break;
+    case 'dritta_piccola': T([[mx - mw * 0.062, my + W * 0.026], [mx + mw * 0.062, my + W * 0.022]], 0.034); break;
+    case 'lato': T([[mx - mw * 0.075, my + W * 0.028], [mx + mw * 0.035, my + W * 0.038], [mx + mw * 0.115, my - W * 0.018]]); break;
+    case 'smorfia': T([[mx - mw * 0.055, my + W * 0.032], [mx + mw * 0.015, my + W * 0.042], [mx + mw * 0.075, my + W * 0.012]], 0.032); break;
+    case 'arco_triste': T([[mx - mw * 0.125, my + W * 0.078], [mx, my - W * 0.038], [mx + mw * 0.125, my + W * 0.078]], 0.036); break;
+    case 'storta': T([[mx - mw * 0.10, my + W * 0.055], [mx, my + W * 0.018], [mx + mw * 0.10, my - W * 0.018]]); break;
+    case 'digrigna': {
+      const P = new Path2D(), l = mw * 0.175;
+      P.moveTo(mx - l, my - W * 0.018); P.quadraticCurveTo(mx, my + W * 0.010, mx + l, my - W * 0.018); P.quadraticCurveTo(mx, my + W * 0.155, mx - l, my - W * 0.018);
+      g.fillStyle = '#ffffff'; g.fill(P); g.save(); g.clip(P);
+      T([[mx - l, my + W * 0.036], [mx, my + W * 0.050], [mx + l, my + W * 0.036]], 0.016);
+      for (let k = -2; k <= 2; k++) T([[mx + k * l * 0.34, my - W * 0.03], [mx + k * l * 0.34, my + W * 0.14]], 0.014);
+      g.restore(); g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke(P); break;
+    }
+    case 'stretti_larghi': {
+      const P = new Path2D(), l = mw * 0.175;
+      P.roundRect(mx - l, my - W * 0.022, 2 * l, W * 0.118, W * 0.034);
+      g.fillStyle = '#ffffff'; g.fill(P); g.save(); g.clip(P);
+      for (let k = -3; k <= 3; k++) T([[mx + k * l * 0.28, my - W * 0.05], [mx + k * l * 0.28, my + W * 0.15]], 0.014);
+      T([[mx - l, my + W * 0.038], [mx + l, my + W * 0.038]], 0.016);
+      g.restore(); g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke(P); break;
+    }
+    case 'o': { const P = new Path2D(); P.ellipse(mx, my + W * 0.03, mw * 0.065, W * 0.085, 0, 0, Math.PI * 2); riempi(P, '#54212a'); break; }
+    case 'o_piccola': { g.beginPath(); g.ellipse(mx, my + W * 0.03, mw * 0.032, W * 0.038, 0, 0, Math.PI * 2); g.fillStyle = '#54212a'; g.fill(); g.lineWidth = W * 0.026; g.strokeStyle = INK; g.stroke(); break; }
+    case 'aperta': boccaAperta(mw * 0.155, -W * 0.02, W * 0.165, true, true); break;
+    case 'larga': boccaAperta(mw * 0.175, -W * 0.03, W * 0.185, true, true); break;
+    case 'aperta_giu': boccaAperta(mw * 0.115, W * 0.065, -W * 0.035, false, false); break;
+    case 'denti_tristi': boccaAperta(mw * 0.14, W * 0.075, -W * 0.045, true, true); break;
+    case 'urlo': {
+      g.beginPath(); g.ellipse(mx, my + W * 0.05, mw * 0.115, W * 0.125, 0, 0, Math.PI * 2); g.fillStyle = '#54212a'; g.fill(); g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke();
+      g.save(); g.clip(); g.beginPath(); g.ellipse(mx, my + W * 0.15, mw * 0.085, W * 0.052, 0, 0, Math.PI * 2); g.fillStyle = '#d9666b'; g.fill(); g.fillStyle = '#fff'; g.fillRect(mx - mw * 0.12, my - W * 0.08, mw * 0.24, W * 0.052); g.restore(); break;
+    }
+    case 'onda': onda(mw * 0.11, W * 0.017); break;
+    case 'onda_piccola': onda(mw * 0.07, W * 0.012); break;
+    case 'stretti': case 'denti': {
+      const P = new Path2D(), l = mw * (bocca === 'denti' ? 0.165 : 0.145);
+      if (bocca === 'denti') { P.moveTo(mx - l, my - W * 0.025); P.quadraticCurveTo(mx, my + W * 0.018, mx + l, my - W * 0.035); P.quadraticCurveTo(mx, my + W * 0.165, mx - l, my - W * 0.025); }
+      else P.roundRect(mx - l, my - W * 0.015, 2 * l, W * 0.088, W * 0.028);
+      g.fillStyle = '#ffffff'; g.fill(P); g.save(); g.clip(P);
+      for (let k = -2; k <= 2; k++) T([[mx + k * l * 0.36, my - W * 0.05], [mx + k * l * 0.36, my + W * 0.17]], 0.014);
+      T([[mx - l, my + W * 0.030], [mx + l, my + W * 0.030]], 0.014);
+      g.restore();
+      g.lineWidth = W * 0.03; g.strokeStyle = INK; g.stroke(P); break;
+    }
+    default: T([[mx - mw * 0.07, my + W * 0.01], [mx + mw * 0.005, my + W * 0.065], [mx + mw * 0.09, my - W * 0.015]]);
+  }
+  if (eyeOpt.mento) {
+    T([[mx - mw * 0.035, my + W * 0.115], [mx + mw * 0.035, my + W * 0.115]], 0.020);
   }
   g.restore();
-  if (e === 'piange') [-1, 1].forEach(s => { if (lontano(s)) return; const X = ex(s) + s * W * 0.02; const P = new Path2D(); P.moveTo(X, ey + W * 0.04); P.quadraticCurveTo(X + s * W * 0.03, ey + W * 0.14, X, ey + W * 0.2);
-    P.quadraticCurveTo(X - s * W * 0.02, ey + W * 0.12, X, ey + W * 0.04); g.fillStyle = '#8fd0f5'; g.fill(P); g.lineWidth = W * 0.015; g.strokeStyle = INK; g.stroke(P); });
-  if (e === 'imbarazzato') [-1, 1].forEach(s => { if (lontano(s)) return; for (let k = 0; k < 3; k++) T([[ex(s) + s * W * 0.02 + (k - 1) * W * 0.035, ey + W * 0.07], [ex(s) + s * W * 0.02 + (k - 1) * W * 0.035 - W * 0.015, ey + W * 0.11]], 0.012); });
+  if (e === 'piange') [-1, 1].forEach(s => {
+    if (lontano(s)) return; const X = ex(s) + s * W * 0.02; const P = new Path2D(); P.moveTo(X, ey + W * 0.04); P.quadraticCurveTo(X + s * W * 0.032, ey + W * 0.15, X, ey + W * 0.21);
+    P.quadraticCurveTo(X - s * W * 0.022, ey + W * 0.13, X, ey + W * 0.04); g.fillStyle = '#8fd0f5'; g.fill(P); g.lineWidth = W * 0.016; g.strokeStyle = INK; g.stroke(P);
+  });
+  if (e === 'imbarazzato') [-1, 1].forEach(s => { if (lontano(s)) return; for (let k = 0; k < 3; k++) T([[ex(s) + s * W * 0.02 + (k - 1) * W * 0.035, ey + W * 0.115], [ex(s) + s * W * 0.02 + (k - 1) * W * 0.035 - W * 0.015, ey + W * 0.155]], 0.013); });
 }
 
 // ---------------- VARIETÀ: forme di testa e corpo, capelli, accessori (tutto a numeri, stesse facce per tutti) ----------------
 // testa: hw = altezza/larghezza; nTop/nBot = quanto è squadrata sopra/sotto (2 tondo, 4 squadrato, <2 a punta); egg = mento stretto (-) o largo (+)
 export const TESTE = {
-  tonda: { hw: 0.93, nTop: 1.7, nBot: 2.26, egg: -0.125 }, squadrata: { hw: 0.9, nTop: 3.6, nBot: 3.4, egg: 0 }, uovo: { hw: 1.12, nTop: 1.9, nBot: 2.2, egg: -0.2 },
-  larga: { hw: 0.76, nTop: 2.2, nBot: 2.6, egg: 0.05 }, lunga: { hw: 1.28, nTop: 2.3, nBot: 2.4, egg: -0.08 }, pera: { hw: 0.98, nTop: 1.9, nBot: 2.8, egg: 0.22 },
-  triangolo: { hw: 1.0, nTop: 2.4, nBot: 1.6, egg: -0.38 }, fagiolo: { hw: 0.85, nTop: 2.0, nBot: 2.0, egg: -0.05 },
+  tonda: { hw: 0.89, nTop: 1.85, nBot: 2.32, egg: -0.06 }, squadrata: { hw: 0.87, nTop: 3.05, nBot: 3.10, egg: 0.01 }, uovo: { hw: 0.96, nTop: 1.90, nBot: 2.22, egg: -0.09 },
+  larga: { hw: 0.81, nTop: 2.15, nBot: 2.55, egg: 0.04 }, lunga: { hw: 1.03, nTop: 2.15, nBot: 2.30, egg: -0.06 }, pera: { hw: 0.90, nTop: 1.90, nBot: 2.68, egg: 0.14 },
+  triangolo: { hw: 0.92, nTop: 2.35, nBot: 1.95, egg: -0.18 }, fagiolo: { hw: 0.87, nTop: 1.95, nBot: 2.12, egg: -0.04 },
 };
 // corpo: largo/alto rispetto al busto base, gambe = lunghezza; stessa logica di forma della testa
 export const CORPI = {
-  fagiolo: { nTop: 1.8, nBot: 2.1, egg: -0.22 }, tondo: { nTop: 2, nBot: 2, egg: 0, largo: 1.45, alto: 1.05, gambe: 0.85 },
-  squadrato: { nTop: 4, nBot: 4, egg: 0, largo: 1.2, alto: 1.05 }, triangolo: { nTop: 3.2, nBot: 2.2, egg: -0.5, largo: 1.4, alto: 1.1 },
-  pera: { nTop: 2, nBot: 2.4, egg: 0.45, largo: 1.15, alto: 1.05, gambe: 0.9 }, magro: { nTop: 2, nBot: 2.2, egg: -0.1, largo: 0.62, alto: 1.15, gambe: 1.15 },
-  bambino: { nTop: 1.9, nBot: 2.1, egg: -0.15, largo: 0.78, alto: 0.72, gambe: 0.6 }, botte: { nTop: 2.6, nBot: 2.6, egg: 0.1, largo: 1.65, alto: 0.95, gambe: 0.7 },
-  gigante: { nTop: 2.8, nBot: 2.4, egg: -0.3, largo: 1.6, alto: 1.4, gambe: 1.15 },
+  fagiolo: { nTop: 1.85, nBot: 2.15, egg: -0.18, largo: 0.78, alto: 0.78, gambe: 0.80 }, tondo: { nTop: 2.0, nBot: 2.0, egg: 0, largo: 1.04, alto: 0.78, gambe: 0.70 },
+  squadrato: { nTop: 3.4, nBot: 3.4, egg: 0, largo: 0.88, alto: 0.78, gambe: 0.78 }, triangolo: { nTop: 3.0, nBot: 2.2, egg: -0.35, largo: 0.95, alto: 0.82, gambe: 0.82 },
+  pera: { nTop: 2.0, nBot: 2.4, egg: 0.36, largo: 0.86, alto: 0.78, gambe: 0.74 }, magro: { nTop: 2.0, nBot: 2.2, egg: -0.08, largo: 0.66, alto: 0.82, gambe: 0.88 },
+  bambino: { nTop: 1.9, nBot: 2.1, egg: -0.14, largo: 0.64, alto: 0.56, gambe: 0.50 }, botte: { nTop: 2.5, nBot: 2.5, egg: 0.08, largo: 1.12, alto: 0.74, gambe: 0.64 },
+  gigante: { nTop: 2.6, nBot: 2.4, egg: -0.22, largo: 1.08, alto: 0.96, gambe: 0.88 },
 };
 const tipo = o => o.capelliTipo || 'corti';
 function capelliDietro(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lagY = 0) {
   const t = tipo(o), P = new Path2D(), isBack = back > 0.42;
   const ox = -sa * W * (isBack ? 0.12 : 0.08);
   const fxL = lagX * 0.75, fyL = lagY * 0.75;
-  if (t === 'lunghi') { P.moveTo(cx + ox - W * 0.5, cy - HH * 0.15); P.bezierCurveTo(cx + ox - W * 0.64 + fxL * 0.4, cy + HH * 0.3 + fyL * 0.4, cx + ox - W * 0.6 + fxL, cy + HH * 0.6 + fyL, cx + ox - W * 0.42 + fxL, cy + HH * 0.72 + fyL);
+  if (t === 'lunghi') {
+    P.moveTo(cx + ox - W * 0.5, cy - HH * 0.15); P.bezierCurveTo(cx + ox - W * 0.64 + fxL * 0.4, cy + HH * 0.3 + fyL * 0.4, cx + ox - W * 0.6 + fxL, cy + HH * 0.6 + fyL, cx + ox - W * 0.42 + fxL, cy + HH * 0.72 + fyL);
     P.quadraticCurveTo(cx + ox - W * 0.3 + fxL * 0.7, cy + HH * 0.58 + fyL * 0.7, cx + ox + fxL * 0.5, cy + HH * 0.5 + fyL * 0.5); P.quadraticCurveTo(cx + ox + W * 0.3 + fxL * 0.7, cy + HH * 0.58 + fyL * 0.7, cx + ox + W * 0.42 + fxL, cy + HH * 0.72 + fyL);
-    P.bezierCurveTo(cx + ox + W * 0.6 + fxL, cy + HH * 0.6 + fyL, cx + ox + W * 0.64 + fxL * 0.4, cy + HH * 0.3 + fyL * 0.4, cx + ox + W * 0.5, cy - HH * 0.15); P.quadraticCurveTo(cx + ox + W * 0.5, cy - HH * 0.62, cx + ox, cy - HH * 0.62); P.quadraticCurveTo(cx + ox - W * 0.5, cy - HH * 0.62, cx + ox - W * 0.5, cy - HH * 0.15); }
+    P.bezierCurveTo(cx + ox + W * 0.6 + fxL, cy + HH * 0.6 + fyL, cx + ox + W * 0.64 + fxL * 0.4, cy + HH * 0.3 + fyL * 0.4, cx + ox + W * 0.5, cy - HH * 0.15); P.quadraticCurveTo(cx + ox + W * 0.5, cy - HH * 0.62, cx + ox, cy - HH * 0.62); P.quadraticCurveTo(cx + ox - W * 0.5, cy - HH * 0.62, cx + ox - W * 0.5, cy - HH * 0.15);
+  }
   else if (t === 'caschetto') {
     P.moveTo(cx + ox - W * 0.52, cy - HH * 0.14);
     P.bezierCurveTo(cx + ox - W * 0.62 + fxL * 0.25, cy + HH * 0.18, cx + ox - W * 0.58 + fxL * 0.4, cy + HH * 0.38 + fyL * 0.3, cx + ox - W * 0.38 + fxL * 0.35, cy + HH * 0.40 + fyL * 0.3);
@@ -1457,8 +1672,12 @@ function capelliDietro(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, la
   else if (t === 'afro') {
     P.ellipse(cx - sa * W * 0.08 + fxL * 0.15, cy - HH * 0.10 + fyL * 0.15, W * 0.70, HH * 0.62, 0, 0, Math.PI * 2);
   }
-  else if (t === 'trecce') { [-1, 1].forEach(s => { if (s === dir && Math.abs(sa) > (isBack ? 0.85 : 0.7)) return; const tx = cx + s * W * 0.5 * (1 - 0.4 * Math.abs(sa)) + ox; P.moveTo(tx + W * 0.13 + fxL * 0.3, cy + HH * 0.08 + fyL * 0.3); P.ellipse(tx + fxL * 0.3, cy + HH * 0.08 + fyL * 0.3, W * 0.13, W * 0.22, s * 0.25 - fxL / W * 1.5, 0, Math.PI * 2);
-      P.moveTo(tx + s * W * 0.06 + fxL + W * 0.1, cy + HH * 0.5 + fyL); P.ellipse(tx + s * W * 0.06 + fxL, cy + HH * 0.5 + fyL, W * 0.1, W * 0.16, s * 0.2 - fxL / W * 2.0, 0, Math.PI * 2); }); }
+  else if (t === 'trecce') {
+    [-1, 1].forEach(s => {
+      if (s === dir && Math.abs(sa) > (isBack ? 0.85 : 0.7)) return; const tx = cx + s * W * 0.5 * (1 - 0.4 * Math.abs(sa)) + ox; P.moveTo(tx + W * 0.13 + fxL * 0.3, cy + HH * 0.08 + fyL * 0.3); P.ellipse(tx + fxL * 0.3, cy + HH * 0.08 + fyL * 0.3, W * 0.13, W * 0.22, s * 0.25 - fxL / W * 1.5, 0, Math.PI * 2);
+      P.moveTo(tx + s * W * 0.06 + fxL + W * 0.1, cy + HH * 0.5 + fyL); P.ellipse(tx + s * W * 0.06 + fxL, cy + HH * 0.5 + fyL, W * 0.1, W * 0.16, s * 0.2 - fxL / W * 2.0, 0, Math.PI * 2);
+    });
+  }
   else if (t === 'chignon') {
     const chY = cy - HH * (0.50 - 0.16 * back) + fyL * 0.25;
     P.ellipse(cx - sa * W * (isBack ? 0.26 : 0.30) + fxL * 0.25, chY, W * 0.24, W * 0.19, 0, 0, Math.PI * 2);
@@ -1477,13 +1696,15 @@ function capelliDietro(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, la
   }
   else return;
   g.fillStyle = col; g.fill(P); g.lineWidth = W * 0.045; g.strokeStyle = INK; g.stroke(P);
-  if (t === 'lunghi') { g.save(); g.clip(P); g.globalAlpha = 0.4; [-0.38, -0.2, 0.2, 0.38].forEach(d => tratto(g, [[cx + ox + d * W, cy], [cx + ox + d * W * 1.05 + fxL * 0.5, cy + HH * 0.3 + fyL * 0.5], [cx + ox + d * W * 0.95 + fxL, cy + HH * 0.58 + fyL]], W * 0.02, '#ffffff')); g.restore(); }
-  if (t === 'afro') { g.save(); g.clip(P); g.globalAlpha = 0.26; [-0.32, 0.16].forEach(d => { g.beginPath(); g.arc(cx - sa * W * 0.08 + d * W, cy - HH * 0.38, W * 0.14, Math.PI * 1.1, Math.PI * 1.75); g.lineWidth = W * 0.025; g.strokeStyle = '#ffffff'; g.stroke(); }); g.restore(); }
+  if (t === 'lunghi') { g.save(); g.clip(P); g.globalAlpha = 0.4;[-0.38, -0.2, 0.2, 0.38].forEach(d => tratto(g, [[cx + ox + d * W, cy], [cx + ox + d * W * 1.05 + fxL * 0.5, cy + HH * 0.3 + fyL * 0.5], [cx + ox + d * W * 0.95 + fxL, cy + HH * 0.58 + fyL]], W * 0.02, '#ffffff')); g.restore(); }
+  if (t === 'afro') { g.save(); g.clip(P); g.globalAlpha = 0.26;[-0.32, 0.16].forEach(d => { g.beginPath(); g.arc(cx - sa * W * 0.08 + d * W, cy - HH * 0.38, W * 0.14, Math.PI * 1.1, Math.PI * 1.75); g.lineWidth = W * 0.025; g.strokeStyle = '#ffffff'; g.stroke(); }); g.restore(); }
 }
 function capelliDentro(g, o, cx, cy, W, HH, sa, dir, fx, col, acc, back = 0) {
   const t = tipo(o), isBack = back > 0.42; g.fillStyle = col;
-  if (!isBack && acc.has('barba')) { const P = new Path2D(); P.moveTo(cx - W, cy + HH * 0.14); P.quadraticCurveTo(fx, cy + HH * 0.36, cx + W, cy + HH * 0.14); P.lineTo(cx + W, cy + HH); P.lineTo(cx - W, cy + HH); P.closePath(); g.fill(P);
-    g.fillStyle = PELLE_ORA; g.beginPath(); g.ellipse(fx, cy + HH * 0.23, W * 0.145, W * 0.105, 0, 0, Math.PI * 2); g.fill(); g.fillStyle = col; }
+  if (!isBack && acc.has('barba')) {
+    const P = new Path2D(); P.moveTo(cx - W, cy + HH * 0.14); P.quadraticCurveTo(fx, cy + HH * 0.36, cx + W, cy + HH * 0.14); P.lineTo(cx + W, cy + HH); P.lineTo(cx - W, cy + HH); P.closePath(); g.fill(P);
+    g.fillStyle = PELLE_ORA; g.beginPath(); g.ellipse(fx, cy + HH * 0.23, W * 0.145, W * 0.105, 0, 0, Math.PI * 2); g.fill(); g.fillStyle = col;
+  }
   if (t === 'pelato') { g.globalAlpha = 0.5; tratto(g, [[cx - W * 0.22 + (isBack ? -sa : sa) * W * 0.1, cy - HH * 0.36], [cx - W * 0.1 + (isBack ? -sa : sa) * W * 0.1, cy - HH * 0.42]], W * 0.03, '#ffffff'); g.globalAlpha = 1; return; }
   if (t === 'cappello' || t === 'cuoco' || t === 'berretto' || t === 'elmetto' || t === 'zuccotto' || t === 'paglia' || t === 'cuffia_medica') {
     if (isBack) {
@@ -1503,40 +1724,60 @@ function capelliDentro(g, o, cx, cy, W, HH, sa, dir, fx, col, acc, back = 0) {
     P.moveTo(cx - W, baseY);
     P.quadraticCurveTo(cx, cy + HH * (t === 'cresta' ? 0.04 : 0.34), cx + W, baseY);
     P.lineTo(cx + W, cy - HH); P.lineTo(cx - W, cy - HH); P.closePath(); g.fill(P);
-    if (t !== 'ricci' && t !== 'afro') { g.globalAlpha = 0.45; [[-0.28, -0.24, 0.38], [-0.14, -0.34, 0.42], [0.02, -0.32, 0.34], [-0.22, -0.02, 0.44]].forEach(([dx, dy, l]) => {
-      tratto(g, [[cx + (dx - sa * 0.08) * W, cy + dy * HH], [cx + (dx - sa * 0.08 + l * 0.5) * W, cy + (dy - 0.06) * HH], [cx + (dx - sa * 0.08 + l) * W, cy + (dy + 0.05) * HH]], W * 0.022, '#8a8494'); }); g.globalAlpha = 1; }
+    if (t !== 'ricci' && t !== 'afro') {
+      g.globalAlpha = 0.45;[[-0.28, -0.24, 0.38], [-0.14, -0.34, 0.42], [0.02, -0.32, 0.34], [-0.22, -0.02, 0.44]].forEach(([dx, dy, l]) => {
+        tratto(g, [[cx + (dx - sa * 0.08) * W, cy + dy * HH], [cx + (dx - sa * 0.08 + l * 0.5) * W, cy + (dy - 0.06) * HH], [cx + (dx - sa * 0.08 + l) * W, cy + (dy + 0.05) * HH]], W * 0.022, '#8a8494');
+      }); g.globalAlpha = 1;
+    }
     return;
   }
   const P = new Path2D(); P.moveTo(cx - W, cy - HH * alto);
   if (t === 'lunghi' || t === 'trecce' || t === 'chignon' || t === 'caschetto') {   // capigliatura piena: riga al centro della faccia, ciocche che scendono ai lati
     const px = fx, pt = cy - HH * (t === 'caschetto' ? 0.34 : 0.36), sideY = cy + HH * (t === 'caschetto' ? 0.02 : 0.05); P.moveTo(cx - W, sideY); P.lineTo(cx - W * 0.5, sideY);
-    P.quadraticCurveTo(cx - W * 0.42 + sa * W * 0.2, cy - HH * 0.3, px - W * 0.02, pt); P.quadraticCurveTo(cx + W * 0.42 + sa * W * 0.2, cy - HH * 0.3, cx + W * 0.5, sideY); P.lineTo(cx + W, sideY); }
+    P.quadraticCurveTo(cx - W * 0.42 + sa * W * 0.2, cy - HH * 0.3, px - W * 0.02, pt); P.quadraticCurveTo(cx + W * 0.42 + sa * W * 0.2, cy - HH * 0.3, cx + W * 0.5, sideY); P.lineTo(cx + W, sideY);
+  }
   else if (t === 'riga') { P.quadraticCurveTo(cx - W * 0.2, cy - HH * (alto + 0.12), cx - dir * W * 0.2 + sa * W * 0.2, cy - HH * (alto + 0.18)); P.quadraticCurveTo(cx + W * 0.2, cy - HH * (alto - 0.15), cx + W, cy - HH * (alto - 0.25)); }
   else if (t === 'frangia') { for (let k = 0; k <= 6; k++) P.lineTo(cx - W * 0.55 + k * W * 0.183 + sa * W * 0.15, cy - HH * (alto + (k % 2 ? 0.08 : 0))); P.lineTo(cx + W, cy - HH * alto); }
   else { P.quadraticCurveTo(cx - W * 0.1 + sa * W * 0.3, cy - HH * (alto - 0.1), fx + W * 0.06 * dir, cy - HH * (alto + 0.08)); P.quadraticCurveTo(cx + W * 0.3, cy - HH * alto, cx + W, cy - HH * (alto - 0.1)); }
   P.lineTo(cx + W, cy - HH); P.lineTo(cx - W, cy - HH); P.closePath(); g.fill(P);
-  if (Math.abs(sa) > 0.15 && !['cresta', 'lunghi', 'trecce', 'chignon', 'caschetto'].includes(t)) { const k = Math.abs(sa), nx = cx - dir * W * 0.5, N = new Path2D();   // nuca
+  if (Math.abs(sa) > 0.15 && !['cresta', 'lunghi', 'trecce', 'chignon', 'caschetto'].includes(t)) {
+    const k = Math.abs(sa), nx = cx - dir * W * 0.5, N = new Path2D();   // nuca
     N.moveTo(cx - dir * W * (0.5 - 0.62 * k) * 0.6, cy - HH * 0.3); N.quadraticCurveTo(cx - dir * W * (0.18 - 0.1 * k), cy + HH * 0.05, nx - dir * W * 0.1, cy + HH * 0.2 * k);
-    N.lineTo(nx - dir * W, cy + HH * 0.5); N.lineTo(nx - dir * W, cy - HH); N.closePath(); g.fill(N); }
-  if (t !== 'ricci' && t !== 'afro') { g.globalAlpha = 0.5; [[-0.34, -0.3, 0.42], [-0.22, -0.4, 0.5], [-0.06, -0.44, 0.46], [0.1, -0.42, 0.36]].forEach(([dx, dy, l]) => { if (-dy < alto + 0.04) return;
-    tratto(g, [[cx + (dx + sa * 0.1) * W, cy + dy * HH], [cx + (dx + sa * 0.1 + l * 0.5) * W, cy + (dy - 0.07) * HH], [cx + (dx + sa * 0.1 + l) * W, cy + (dy + 0.05) * HH]], W * 0.022, '#8a8494'); }); g.globalAlpha = 1; }
+    N.lineTo(nx - dir * W, cy + HH * 0.5); N.lineTo(nx - dir * W, cy - HH); N.closePath(); g.fill(N);
+  }
+  if (t !== 'ricci' && t !== 'afro') {
+    g.globalAlpha = 0.5;[[-0.34, -0.3, 0.42], [-0.22, -0.4, 0.5], [-0.06, -0.44, 0.46], [0.1, -0.42, 0.36]].forEach(([dx, dy, l]) => {
+      if (-dy < alto + 0.04) return;
+      tratto(g, [[cx + (dx + sa * 0.1) * W, cy + dy * HH], [cx + (dx + sa * 0.1 + l * 0.5) * W, cy + (dy - 0.07) * HH], [cx + (dx + sa * 0.1 + l) * W, cy + (dy + 0.05) * HH]], W * 0.022, '#8a8494');
+    }); g.globalAlpha = 1;
+  }
 }
 function capelliSopra(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lagY = 0) {
   const t = tipo(o), cap = o.cappelloCol || '#7a4a2a', isBack = back > 0.42, ax = isBack ? -sa : sa;
   const pieno = (P, c) => { g.fillStyle = c; g.fill(P); g.lineWidth = W * 0.045; g.lineJoin = 'round'; g.strokeStyle = INK; g.stroke(P); };
-  if (t === 'ricci') { const pts = []; for (let k = 0; k <= 8; k++) { const an = Math.PI * (1.08 + k * 0.105); pts.push([cx + Math.cos(an) * W * 0.47 + ax * W * 0.05, cy + Math.sin(an) * HH * 0.47]); }
+  if (t === 'ricci') {
+    const pts = []; for (let k = 0; k <= 8; k++) { const an = Math.PI * (1.08 + k * 0.105); pts.push([cx + Math.cos(an) * W * 0.47 + ax * W * 0.05, cy + Math.sin(an) * HH * 0.47]); }
     pts.forEach(([px, py]) => { g.beginPath(); g.arc(px, py, W * 0.12, 0, Math.PI * 2); g.fillStyle = INK; g.fill(); });
-    pts.forEach(([px, py]) => { g.beginPath(); g.arc(px, py, W * 0.095, 0, Math.PI * 2); g.fillStyle = col; g.fill(); }); }
-  if (t === 'cuoco') { const top = cy - HH * 0.36, F = new Path2D(), Bd = new Path2D(); const bx = cx + ax * W * 0.05;
+    pts.forEach(([px, py]) => { g.beginPath(); g.arc(px, py, W * 0.095, 0, Math.PI * 2); g.fillStyle = col; g.fill(); });
+  }
+  if (t === 'cuoco') {
+    const top = cy - HH * 0.36, F = new Path2D(), Bd = new Path2D(); const bx = cx + ax * W * 0.05;
     F.moveTo(bx - W * 0.3, top); F.bezierCurveTo(bx - W * 0.62, top - W * 0.2, bx - W * 0.42, top - W * 0.62, bx - W * 0.15, top - W * 0.52);
     F.bezierCurveTo(bx - W * 0.1, top - W * 0.78, bx + W * 0.25, top - W * 0.78, bx + W * 0.2, top - W * 0.52);
     F.bezierCurveTo(bx + W * 0.5, top - W * 0.62, bx + W * 0.62, top - W * 0.2, bx + W * 0.3, top); F.closePath(); pieno(F, '#ffffff');
     tratto(g, [[bx - W * 0.12, top - W * 0.1], [bx - W * 0.1, top - W * 0.36]], W * 0.018); tratto(g, [[bx + W * 0.12, top - W * 0.1], [bx + W * 0.1, top - W * 0.36]], W * 0.018);
-    Bd.roundRect(bx - W * 0.36, top - W * 0.06, W * 0.72, W * 0.16, W * 0.04); pieno(Bd, '#f2f0ec'); }
-  if (t === 'ricci') { g.globalAlpha = 0.45; for (let k = 0; k < 9; k += 2) { const an = Math.PI * (1.08 + k * 0.105), px = cx + Math.cos(an) * W * 0.47 + ax * W * 0.05, py = cy + Math.sin(an) * HH * 0.47;
-    g.beginPath(); g.arc(px, py, W * 0.06, Math.PI * 1.1, Math.PI * 1.6); g.lineWidth = W * 0.02; g.strokeStyle = '#ffffff'; g.stroke(); } g.globalAlpha = 1; }
-  if (t === 'cresta') { const P = new Path2D(), bx = cx + ax * W * 0.15, top = cy - HH * 0.48; P.moveTo(bx - W * 0.18, top + HH * 0.1);
-    for (let k = 0; k < 4; k++) { P.lineTo(bx - W * 0.18 + (k + 0.5) * W * 0.09, top - W * (0.18 + 0.04 * (k % 2))); P.lineTo(bx - W * 0.18 + (k + 1) * W * 0.09, top + HH * 0.02); } P.closePath(); pieno(P, col); }
+    Bd.roundRect(bx - W * 0.36, top - W * 0.06, W * 0.72, W * 0.16, W * 0.04); pieno(Bd, '#f2f0ec');
+  }
+  if (t === 'ricci') {
+    g.globalAlpha = 0.45; for (let k = 0; k < 9; k += 2) {
+      const an = Math.PI * (1.08 + k * 0.105), px = cx + Math.cos(an) * W * 0.47 + ax * W * 0.05, py = cy + Math.sin(an) * HH * 0.47;
+      g.beginPath(); g.arc(px, py, W * 0.06, Math.PI * 1.1, Math.PI * 1.6); g.lineWidth = W * 0.02; g.strokeStyle = '#ffffff'; g.stroke();
+    } g.globalAlpha = 1;
+  }
+  if (t === 'cresta') {
+    const P = new Path2D(), bx = cx + ax * W * 0.15, top = cy - HH * 0.48; P.moveTo(bx - W * 0.18, top + HH * 0.1);
+    for (let k = 0; k < 4; k++) { P.lineTo(bx - W * 0.18 + (k + 0.5) * W * 0.09, top - W * (0.18 + 0.04 * (k % 2))); P.lineTo(bx - W * 0.18 + (k + 1) * W * 0.09, top + HH * 0.02); } P.closePath(); pieno(P, col);
+  }
   if (t === 'ciuffo' || t === 'pompadour') {
     const isPomp = t === 'pompadour', top = cy - HH * 0.43 + lagY * 0.16;
     const d = isBack ? -dir : dir, qx = cx + ax * W * 0.12 + lagX * 0.22;
@@ -1565,10 +1806,10 @@ function capelliSopra(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lag
   }
   if (t === 'fedora') {
     const fedCol = o.cappelloCol || '#292530', bandCol = o.fasciaCol || '#c94a38', top = cy - HH * 0.27 + lagY * 0.10;
-    const bx = cx + ax * W * 0.08, ang = (isBack ? dir : -dir) * 0.075 + lagX / W * 0.12;
+    const bx = cx + ax * W * 0.05, ang = (isBack ? dir : -dir) * 0.075 + lagX / W * 0.12;
     g.save(); g.translate(bx, top); g.rotate(ang);
     const B = new Path2D(), C = new Path2D();
-    B.ellipse(0, 0, W * (0.64 + 0.05 * Math.abs(sa)), W * 0.105, 0, 0, Math.PI * 2);
+    B.ellipse(0, 0, W * (0.58 + 0.04 * Math.abs(sa)), W * 0.100, 0, 0, Math.PI * 2);
     pieno(B, mix(fedCol, '#000000', 0.14));
     C.moveTo(-W * 0.37, W * 0.01);
     C.lineTo(-W * 0.27, -W * 0.31);
@@ -1596,17 +1837,20 @@ function capelliSopra(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lag
     tratto(g, [[0, -W * 0.22], [(isBack ? dir : -dir) * W * 0.04, -W * 0.28]], W * 0.032, INK);
     g.restore();
   }
-  if (t === 'cappello') { const top = cy - HH * 0.32, B = new Path2D(), C = new Path2D(); B.ellipse(cx + ax * W * 0.05, top, W * 0.7, W * 0.11, 0, 0, Math.PI * 2); pieno(B, cap);
+  if (t === 'cappello') {
+    const top = cy - HH * 0.32, B = new Path2D(), C = new Path2D(); B.ellipse(cx + ax * W * 0.04, top, W * 0.61, W * 0.105, 0, 0, Math.PI * 2); pieno(B, cap);
     C.moveTo(cx - W * 0.38, top); C.quadraticCurveTo(cx - W * 0.4, top - W * 0.4, cx, top - W * 0.4); C.quadraticCurveTo(cx + W * 0.4, top - W * 0.4, cx + W * 0.38, top); C.quadraticCurveTo(cx, top + W * 0.06, cx - W * 0.38, top); pieno(C, cap);
-    g.save(); g.clip(C); g.fillStyle = INK; g.globalAlpha = 0.6; g.fillRect(cx - W, top - W * 0.12, W * 2, W * 0.08); g.restore(); }
-  if (t === 'berretto') { const top = cy - HH * 0.18, D = new Path2D(), V = new Path2D(); D.moveTo(cx - W * 0.53, top); D.quadraticCurveTo(cx - W * 0.55, cy - HH * 0.7, cx, cy - HH * 0.7); D.quadraticCurveTo(cx + W * 0.55, cy - HH * 0.7, cx + W * 0.53, top); D.closePath();
+    g.save(); g.clip(C); g.fillStyle = INK; g.globalAlpha = 0.6; g.fillRect(cx - W, top - W * 0.12, W * 2, W * 0.08); g.restore();
+  }
+  if (t === 'berretto') {
+    const top = cy - HH * 0.18, D = new Path2D(), V = new Path2D(); D.moveTo(cx - W * 0.52, top); D.quadraticCurveTo(cx - W * 0.54, cy - HH * 0.7, cx, cy - HH * 0.7); D.quadraticCurveTo(cx + W * 0.54, cy - HH * 0.7, cx + W * 0.52, top); D.closePath();
     if (!isBack) {
-      const vx = cx + (sa * 0.44 + 0.04 * dir) * W;
-      V.ellipse(vx + dir * W * 0.06 * Math.abs(sa), top + W * 0.01, W * (0.31 - 0.10 * Math.abs(sa)), W * 0.068, 0, 0, Math.PI * 2);
+      const vx = cx + (sa * 0.34 + 0.03 * dir) * W;
+      V.ellipse(vx + dir * W * 0.04 * Math.abs(sa), top + W * 0.01, W * (0.29 - 0.09 * Math.abs(sa)), W * 0.066, 0, 0, Math.PI * 2);
       pieno(V, mix(cap, '#000000', 0.25));
     } else if (Math.abs(sa) > 0.42) {
-      const vx = cx + dir * W * 0.40;
-      V.ellipse(vx, top + W * 0.01, W * 0.20 * Math.abs(sa), W * 0.06, 0, 0, Math.PI * 2);
+      const vx = cx + dir * W * 0.34;
+      V.ellipse(vx, top + W * 0.01, W * 0.18 * Math.abs(sa), W * 0.06, 0, 0, Math.PI * 2);
       pieno(V, mix(cap, '#000000', 0.25));
     }
     pieno(D, cap);
@@ -1616,7 +1860,8 @@ function capelliSopra(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lag
       g.fillStyle = o.capelliTipo === 'pelato' ? PELLE_ORA : col; g.fill(AR); g.lineWidth = W * 0.025; g.strokeStyle = INK; g.stroke(AR);
       tratto(g, [[sx - sw * 0.9, top], [sx + sw * 0.9, top]], W * 0.036, mix(cap, '#000000', 0.35));
     }
-    g.beginPath(); g.arc(cx + ax * W * 0.1, cy - HH * 0.69, W * 0.035, 0, Math.PI * 2); g.fillStyle = INK; g.fill(); }
+    g.beginPath(); g.arc(cx + ax * W * 0.1, cy - HH * 0.69, W * 0.035, 0, Math.PI * 2); g.fillStyle = INK; g.fill();
+  }
   if (t === 'elmetto') {
     const elmCol = o.cappelloCol || '#f2b726', top = cy - HH * 0.18 + lagY * 0.06, bx = cx + ax * W * 0.04;
     const B = new Path2D(), D = new Path2D();
@@ -1629,7 +1874,7 @@ function capelliSopra(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lag
     cr.roundRect(bx - W * 0.075, cy - HH * 0.66, W * 0.15, HH * 0.36, W * 0.04);
     pieno(cr, mix(elmCol, '#ffffff', 0.22));
     // Tesa rigida dell'elmetto
-    B.ellipse(bx + (isBack ? -sa : sa) * W * 0.08, top + W * 0.015, W * 0.62, W * 0.085, 0, 0, Math.PI * 2);
+    B.ellipse(bx + (isBack ? -sa : sa) * W * 0.04, top + W * 0.015, W * 0.56, W * 0.082, 0, 0, Math.PI * 2);
     pieno(B, mix(elmCol, '#000000', 0.15));
     if (!isBack && o.elmettoStemma) {
       const S = new Path2D(), sx = cx + sa * W * 0.22, sy = cy - HH * 0.38;
@@ -1655,9 +1900,9 @@ function capelliSopra(g, o, cx, cy, W, HH, sa, dir, col, back = 0, lagX = 0, lag
   }
   if (t === 'paglia') {
     const pCol = o.cappelloCol || '#e0bd68', fCol = o.fasciaCol || '#b83228', top = cy - HH * 0.28 + lagY * 0.08;
-    const bx = cx + ax * W * 0.05;
+    const bx = cx + ax * W * 0.04;
     const B = new Path2D(), C = new Path2D();
-    B.ellipse(bx, top, W * 0.69, W * 0.115, 0, 0, Math.PI * 2);
+    B.ellipse(bx, top, W * 0.60, W * 0.105, 0, 0, Math.PI * 2);
     pieno(B, mix(pCol, '#b88c38', 0.20));
     C.moveTo(cx - W * 0.38, top);
     C.lineTo(cx - W * 0.30, top - W * 0.30);
@@ -1693,7 +1938,8 @@ function extraFaccia(g, acc, fx, ey, cy, HH, W, sp, sa, ca, dir, col, o = {}) {
   const lon = s => s !== dir && Math.abs(sa) > 0.92;
   if (acc.has('rughe')) {
     g.save(); g.globalAlpha = 0.42;
-    [-1, 1].forEach(s => { if (lon(s)) return;
+    [-1, 1].forEach(s => {
+      if (lon(s)) return;
       const sx = fx + s * (sp + W * 0.055);
       tratto(g, [[sx - s * W * 0.03, ey + HH * 0.14], [sx, ey + HH * 0.22]], W * 0.017, '#6b4c42');
     });
@@ -1702,29 +1948,30 @@ function extraFaccia(g, acc, fx, ey, cy, HH, W, sp, sa, ca, dir, col, o = {}) {
   }
   if (acc.has('occhiali') || acc.has('occhiali_sole')) {
     const sole = acc.has('occhiali_sole'), gKind = o.occhialiTipo || 'tondi', frCol = o.occhialiCol || INK;
-    [-1, 1].forEach(s => { if (lon(s)) return;
-      const kx = (s === dir ? 1 : 0.55 + 0.45 * ca), cxE = fx + s * sp;
+    [-1, 1].forEach(s => {
+      if (lon(s)) return;
+      const kx = (s === dir ? 1 : 0.60 + 0.40 * ca), cxE = fx + s * sp;
       const P = new Path2D();
       if (gKind === 'spessi' || gKind === 'quadrati') {
-        const lwR = W * 0.19 * kx, lhR = W * (gKind === 'spessi' ? 0.16 : 0.14);
-        P.roundRect(cxE - lwR / 2, ey - lhR / 2, lwR, lhR, W * (gKind === 'spessi' ? 0.045 : 0.024));
+        const lwR = W * 0.22 * kx, lhR = W * (gKind === 'spessi' ? 0.195 : 0.175);
+        P.roundRect(cxE - lwR / 2, ey - lhR / 2, lwR, lhR, W * (gKind === 'spessi' ? 0.048 : 0.026));
       } else if (gKind === 'anni80' || gKind === 'wayfarer') {
-        const tw = W * 0.115 * kx, bw = W * 0.092 * kx;
-        P.moveTo(cxE - tw, ey - W * 0.072); P.lineTo(cxE + tw, ey - W * 0.072);
-        P.quadraticCurveTo(cxE + tw * 0.98, ey + W * 0.075, cxE + bw * 0.25, ey + W * 0.082);
-        P.quadraticCurveTo(cxE - bw * 0.85, ey + W * 0.078, cxE - tw, ey - W * 0.072);
+        const tw = W * 0.125 * kx, bw = W * 0.098 * kx;
+        P.moveTo(cxE - tw, ey - W * 0.078); P.lineTo(cxE + tw, ey - W * 0.078);
+        P.quadraticCurveTo(cxE + tw * 0.98, ey + W * 0.080, cxE + bw * 0.25, ey + W * 0.088);
+        P.quadraticCurveTo(cxE - bw * 0.85, ey + W * 0.084, cxE - tw, ey - W * 0.078);
         P.closePath();
       } else if (gKind === 'aviator') {
-        const tw = W * 0.105 * kx;
-        P.moveTo(cxE - tw, ey - W * 0.068); P.lineTo(cxE + tw, ey - W * 0.068);
-        P.bezierCurveTo(cxE + tw * 1.05, ey + W * 0.08, cxE + s * W * 0.03 * kx, ey + W * 0.11, cxE - s * W * 0.02 * kx, ey + W * 0.085);
-        P.bezierCurveTo(cxE - tw * 0.95, ey + W * 0.06, cxE - tw, ey - W * 0.068, cxE - tw, ey - W * 0.068);
+        const tw = W * 0.118 * kx;
+        P.moveTo(cxE - tw, ey - W * 0.076); P.lineTo(cxE + tw, ey - W * 0.076);
+        P.bezierCurveTo(cxE + tw * 1.05, ey + W * 0.09, cxE + s * W * 0.03 * kx, ey + W * 0.12, cxE - s * W * 0.02 * kx, ey + W * 0.095);
+        P.bezierCurveTo(cxE - tw * 0.95, ey + W * 0.07, cxE - tw, ey - W * 0.076, cxE - tw, ey - W * 0.076);
         P.closePath();
       } else {
-        P.ellipse(cxE, ey, W * 0.095 * kx, W * 0.09, 0, 0, Math.PI * 2);
+        P.ellipse(cxE, ey, W * 0.116 * kx, W * 0.112, 0, 0, Math.PI * 2);
       }
-      if (sole) { g.fillStyle = gKind === 'anni80' ? '#20192b' : '#1d1a24'; g.fill(P); }
-      g.lineWidth = W * (gKind === 'spessi' || gKind === 'anni80' ? 0.038 : 0.025);
+      if (sole) { g.fillStyle = o.lentiTrasparenti ? 'rgba(29, 26, 36, 0.34)' : (gKind === 'anni80' ? '#20192b' : '#1d1a24'); g.fill(P); }
+      g.lineWidth = W * (gKind === 'spessi' || gKind === 'anni80' ? 0.034 : 0.023);
       g.lineJoin = 'round'; g.strokeStyle = frCol; g.stroke(P);
       if (sole && gKind === 'anni80') {
         g.save(); g.clip(P); g.globalAlpha = 0.28;
@@ -1733,12 +1980,12 @@ function extraFaccia(g, acc, fx, ey, cy, HH, W, sp, sa, ca, dir, col, o = {}) {
       }
     });
     if (gKind === 'aviator') {
-      tratto(g, [[fx - sp + W * 0.065, ey - W * 0.065], [fx + sp - W * 0.065, ey - W * 0.065]], W * 0.018, frCol);
-      tratto(g, [[fx - sp + W * 0.07, ey - W * 0.02], [fx + sp - W * 0.07, ey - W * 0.02]], W * 0.018, frCol);
+      tratto(g, [[fx - sp + W * 0.08, ey - W * 0.072], [fx + sp - W * 0.08, ey - W * 0.072]], W * 0.017, frCol);
+      tratto(g, [[fx - sp + W * 0.085, ey - W * 0.02], [fx + sp - W * 0.085, ey - W * 0.02]], W * 0.017, frCol);
     } else {
-      tratto(g, [[fx - sp + W * 0.07, ey - W * (gKind === 'anni80' || gKind === 'spessi' ? 0.04 : 0.01)], [fx + sp - W * 0.07, ey - W * (gKind === 'anni80' || gKind === 'spessi' ? 0.04 : 0.01)]], W * (gKind === 'spessi' || gKind === 'anni80' ? 0.032 : 0.022), frCol);
+      tratto(g, [[fx - sp + W * 0.085, ey - W * (gKind === 'anni80' || gKind === 'spessi' ? 0.04 : 0.01)], [fx + sp - W * 0.085, ey - W * (gKind === 'anni80' || gKind === 'spessi' ? 0.04 : 0.01)]], W * (gKind === 'spessi' || gKind === 'anni80' ? 0.030 : 0.020), frCol);
     }
-    if (Math.abs(sa) > 0.2) tratto(g, [[fx - dir * (sp + W * 0.09), ey - W * 0.01], [fx - dir * (sp + W * 0.09) - dir * W * 0.2 * Math.abs(sa), ey - W * 0.03]], W * (gKind === 'spessi' || gKind === 'anni80' ? 0.028 : 0.022), frCol);
+    if (Math.abs(sa) > 0.2) tratto(g, [[fx - dir * (sp + W * 0.105), ey - W * 0.01], [fx - dir * (sp + W * 0.105) - dir * W * 0.19 * Math.abs(sa), ey - W * 0.03]], W * (gKind === 'spessi' || gKind === 'anni80' ? 0.026 : 0.020), frCol);
   }
   if (acc.has('baffi')) {
     const by = cy + HH * 0.100, P = new Path2D(), l = W * (o.baffiTipo === 'folti' ? 0.155 : 0.125) * (0.6 + 0.4 * ca);
@@ -1748,14 +1995,14 @@ function extraFaccia(g, acc, fx, ey, cy, HH, W, sp, sa, ca, dir, col, o = {}) {
     g.fillStyle = col; g.fill(P); g.lineWidth = W * 0.02; g.strokeStyle = INK; g.stroke(P);
   }
   if (acc.has('maschera_occhi')) {
-    const mw = sp + W * 0.16 * (0.6 + 0.4 * ca), mh = W * 0.095;
+    const mw = sp + W * 0.165 * (0.6 + 0.4 * ca), mh = W * 0.118;
     const M = new Path2D();
-    M.roundRect(fx - mw, ey - mh, mw * 2, mh * 1.95, W * 0.065);
+    M.roundRect(fx - mw, ey - mh, mw * 2, mh * 1.95, W * 0.075);
     [-1, 1].forEach(s => {
       if (lon(s)) return;
-      const kx = (s === dir ? 1 : 0.55 + 0.45 * ca);
-      M.moveTo(fx + s * sp + W * 0.078 * kx, ey);
-      M.ellipse(fx + s * sp, ey, W * 0.078 * kx, W * 0.072, 0, 0, Math.PI * 2);
+      const kx = (s === dir ? 1 : 0.60 + 0.40 * ca);
+      M.moveTo(fx + s * sp + W * 0.104 * kx, ey);
+      M.ellipse(fx + s * sp, ey, W * 0.104 * kx, W * 0.098, 0, 0, Math.PI * 2);
     });
     g.fillStyle = o.mascheraCol || '#1d1c24';
     g.fill(M, 'evenodd');
@@ -2132,8 +2379,10 @@ function vestiti(g, o, p, x, bcy, top, hipY, Bw, busto, W, sa, ca, dir, base, ba
         tratto(g, [[cx + W * 0.03, yTie + W * 0.02], [cx + W * 0.12, yTie + W * 0.20]], W * 0.026, c);
       }
     } else {
-      if (V.has('camice')) { P.moveTo(x - Bw, top); P.lineTo(cx - W * 0.1, top + W * 0.02); P.lineTo(cx - W * 0.03, hipY + busto); P.lineTo(x - Bw, hipY + busto); P.closePath();
-        P.moveTo(x + Bw, top); P.lineTo(cx + W * 0.1, top + W * 0.02); P.lineTo(cx + W * 0.03, hipY + busto); P.lineTo(x + Bw, hipY + busto); P.closePath(); }
+      if (V.has('camice')) {
+        P.moveTo(x - Bw, top); P.lineTo(cx - W * 0.1, top + W * 0.02); P.lineTo(cx - W * 0.03, hipY + busto); P.lineTo(x - Bw, hipY + busto); P.closePath();
+        P.moveTo(x + Bw, top); P.lineTo(cx + W * 0.1, top + W * 0.02); P.lineTo(cx + W * 0.03, hipY + busto); P.lineTo(x + Bw, hipY + busto); P.closePath();
+      }
       else P.roundRect(cx - Bw * 0.32 * (0.5 + 0.5 * ca), top + busto * 0.28, Bw * 0.64 * (0.5 + 0.5 * ca), busto * 1.2, W * 0.05);
       g.fillStyle = c; g.fill(P); g.lineWidth = line; g.strokeStyle = '#2a1a26'; g.stroke(P);
       if (V.has('grembiule')) tratto(g, [[cx - Bw * 0.3, top + busto * 0.28], [cx - Bw * 0.2, top], [cx + Bw * 0.2, top], [cx + Bw * 0.3, top + busto * 0.28]], line);
@@ -2217,8 +2466,10 @@ function vestiti(g, o, p, x, bcy, top, hipY, Bw, busto, W, sa, ca, dir, base, ba
     }
     g.beginPath(); g.roundRect(tx - W * 0.07, ty, W * 0.14, W * 0.13, [0, 0, W * 0.03, W * 0.03]); g.lineWidth = W * 0.016; g.strokeStyle = scuro; g.stroke();
   }
-  if (!isBack && (V.has('distintivo') || V.has('stella'))) { const dx = cx - dir * Bw * 0.25 * ca, dy = top + busto * 0.32, P = new Path2D(); for (let k = 0; k < 10; k++) { const r = (k % 2 ? 0.035 : 0.08) * W, an = -Math.PI / 2 + k * Math.PI / 5; k ? P.lineTo(dx + Math.cos(an) * r, dy + Math.sin(an) * r) : P.moveTo(dx + Math.cos(an) * r, dy + Math.sin(an) * r); }
-    P.closePath(); g.fillStyle = '#f2c84a'; g.fill(P); g.lineWidth = W * 0.015; g.strokeStyle = '#2a1a26'; g.stroke(P); }
+  if (!isBack && (V.has('distintivo') || V.has('stella'))) {
+    const dx = cx - dir * Bw * 0.25 * ca, dy = top + busto * 0.32, P = new Path2D(); for (let k = 0; k < 10; k++) { const r = (k % 2 ? 0.035 : 0.08) * W, an = -Math.PI / 2 + k * Math.PI / 5; k ? P.lineTo(dx + Math.cos(an) * r, dy + Math.sin(an) * r) : P.moveTo(dx + Math.cos(an) * r, dy + Math.sin(an) * r); }
+    P.closePath(); g.fillStyle = '#f2c84a'; g.fill(P); g.lineWidth = W * 0.015; g.strokeStyle = '#2a1a26'; g.stroke(P);
+  }
   g.restore();
   if (V.has('colletto')) {
     if (isBack) {
@@ -2234,8 +2485,10 @@ function vestiti(g, o, p, x, bcy, top, hipY, Bw, busto, W, sa, ca, dir, base, ba
         P.closePath();
         g.fillStyle = o.collettoCol || '#faf7f0'; g.fill(P); g.lineWidth = W * 0.02; g.lineJoin = 'round'; g.strokeStyle = '#2a1a26'; g.stroke(P);
       });
-    } else [-1, 1].forEach(s => { const P = new Path2D(), tp = top + W * 0.07; P.moveTo(cx + s * W * 0.03, tp + W * 0.02); P.lineTo(cx + s * W * 0.17 * (0.5 + 0.5 * ca), tp - W * 0.01); P.lineTo(cx + s * W * 0.12 * (0.5 + 0.5 * ca), tp + W * 0.11); P.closePath();
-      g.fillStyle = o.collettoCol || '#ffffff'; g.fill(P); g.lineWidth = W * 0.018; g.lineJoin = 'round'; g.strokeStyle = '#2a1a26'; g.stroke(P); });
+    } else[-1, 1].forEach(s => {
+      const P = new Path2D(), tp = top + W * 0.07; P.moveTo(cx + s * W * 0.03, tp + W * 0.02); P.lineTo(cx + s * W * 0.17 * (0.5 + 0.5 * ca), tp - W * 0.01); P.lineTo(cx + s * W * 0.12 * (0.5 + 0.5 * ca), tp + W * 0.11); P.closePath();
+      g.fillStyle = o.collettoCol || '#ffffff'; g.fill(P); g.lineWidth = W * 0.018; g.lineJoin = 'round'; g.strokeStyle = '#2a1a26'; g.stroke(P);
+    });
   }
   if (!isBack && (V.has('spilla') || hasAcc('spilla'))) {
     const sx = cx + dir * W * 0.06, sy = top + W * 0.13;
@@ -2260,36 +2513,47 @@ function vestiti(g, o, p, x, bcy, top, hipY, Bw, busto, W, sa, ca, dir, base, ba
     for (let k = 0; k < 5; k++) { const an = -Math.PI / 2 + k * 2 * Math.PI / 5; g.beginPath(); g.arc(dx + Math.cos(an) * R1 * k0, dy + Math.sin(an) * R1, W * 0.022, 0, Math.PI * 2); g.fillStyle = '#f2c84a'; g.fill(); g.lineWidth = W * 0.014; g.stroke(); }
     g.beginPath(); g.arc(dx, dy, W * 0.035, 0, Math.PI * 2); g.fillStyle = '#d9a52a'; g.fill(); g.lineWidth = W * 0.012; g.stroke();
     const tw = W * 0.3 * k0, ty = dy + R1 + W * 0.03; g.beginPath(); g.roundRect(dx - tw / 2, ty, tw, W * 0.075, W * 0.015); g.fillStyle = '#f2c84a'; g.fill(); g.lineWidth = W * 0.015; g.stroke();
-    g.save(); g.translate(dx, ty + W * 0.04); g.scale(k0, 1); g.fillStyle = '#2a1a26'; g.font = `bold ${Math.round(W * 0.055)}px sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('SCERIFFO', 0, 0); g.restore(); }
-  if (!isBack && V.has('bandana')) { const by = top + W * 0.1, P = new Path2D(), l = W * 0.24 * (0.5 + 0.5 * ca); P.moveTo(cx - l, by); P.quadraticCurveTo(cx, by + W * 0.05, cx + l, by); P.lineTo(cx + dir * W * 0.03, by + W * 0.24); P.closePath();
+    g.save(); g.translate(dx, ty + W * 0.04); g.scale(k0, 1); g.fillStyle = '#2a1a26'; g.font = `bold ${Math.round(W * 0.055)}px sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('SCERIFFO', 0, 0); g.restore();
+  }
+  if (!isBack && V.has('bandana')) {
+    const by = top + W * 0.1, P = new Path2D(), l = W * 0.24 * (0.5 + 0.5 * ca); P.moveTo(cx - l, by); P.quadraticCurveTo(cx, by + W * 0.05, cx + l, by); P.lineTo(cx + dir * W * 0.03, by + W * 0.24); P.closePath();
     g.fillStyle = o.bandanaCol || '#c8323a'; g.fill(P); g.lineWidth = W * 0.02; g.lineJoin = 'round'; g.strokeStyle = '#2a1a26'; g.stroke(P);
-    for (let k = 0; k < 4; k++) punto(g, cx - l * 0.5 + k * l * 0.33 + dir * W * 0.01 * k, by + W * 0.04 + (k % 2) * W * 0.05, W * 0.012, '#ffffff'); }
-  if (!isBack && V.has('fiocco')) { const fy = top + W * 0.13; [-1, 1].forEach(s => { g.beginPath(); g.moveTo(cx, fy); g.lineTo(cx + s * W * 0.1, fy - W * 0.05); g.lineTo(cx + s * W * 0.1, fy + W * 0.05); g.closePath(); g.fillStyle = o.fioccoCol || '#d23a4a'; g.fill(); g.lineWidth = W * 0.015; g.strokeStyle = '#2a1a26'; g.stroke(); }); punto(g, cx, fy, W * 0.025, o.fioccoCol || '#d23a4a'); }
+    for (let k = 0; k < 4; k++) punto(g, cx - l * 0.5 + k * l * 0.33 + dir * W * 0.01 * k, by + W * 0.04 + (k % 2) * W * 0.05, W * 0.012, '#ffffff');
+  }
+  if (!isBack && V.has('fiocco')) { const fy = top + W * 0.13;[-1, 1].forEach(s => { g.beginPath(); g.moveTo(cx, fy); g.lineTo(cx + s * W * 0.1, fy - W * 0.05); g.lineTo(cx + s * W * 0.1, fy + W * 0.05); g.closePath(); g.fillStyle = o.fioccoCol || '#d23a4a'; g.fill(); g.lineWidth = W * 0.015; g.strokeStyle = '#2a1a26'; g.stroke(); }); punto(g, cx, fy, W * 0.025, o.fioccoCol || '#d23a4a'); }
 }
 
 // ---------------- TESSUTI (Poly Haven, CC0): solo la trama, ricolorata dal colore del vestito e «avvolta» sul busto ----------------
 // Si usa con `tessuto: 'jeans'` (+ `tessutoForza` 0…1, default 0,35, e `tessutoScala`, default 1). Senza tessuto = colore pieno (come Rick).
 // Prima di disegnare: await caricaTessuti(cartella) — cartella che contiene asset-kit/texture (nel test: '/kit/texture/').
-export const TESSUTI = { jeans: 'denim_fabric', maglia: 'cotton_jersey', lana: 'knitted_fleece', quadretti: 'gingham_check', spigato: 'poly_wool_herringbone',
-  velluto: 'ribbed_corduroy', pelle: 'brown_leather', fiori: 'floral_jacquard', lino: 'rough_linen' };
+export const TESSUTI = {
+  jeans: 'denim_fabric', maglia: 'cotton_jersey', lana: 'knitted_fleece', quadretti: 'gingham_check', spigato: 'poly_wool_herringbone',
+  velluto: 'ribbed_corduroy', pelle: 'brown_leather', fiori: 'floral_jacquard', lino: 'rough_linen'
+};
 const TEX = {};
 export async function caricaTessuti(base = '/kit/texture/', nomi = Object.keys(TESSUTI)) {
-  await Promise.all(nomi.map(n => new Promise(ok => { const k = TESSUTI[n], im = new Image(); im.onerror = () => ok();
-    im.onload = () => { const S = 512, c = document.createElement('canvas'); c.width = S * 2; c.height = S; const q = c.getContext('2d'); q.drawImage(im, 0, 0, S, S);
+  await Promise.all(nomi.map(n => new Promise(ok => {
+    const k = TESSUTI[n], im = new Image(); im.onerror = () => ok();
+    im.onload = () => {
+      const S = 512, c = document.createElement('canvas'); c.width = S * 2; c.height = S; const q = c.getContext('2d'); q.drawImage(im, 0, 0, S, S);
       const d = q.getImageData(0, 0, S, S), D = d.data; let m = 0; for (let i = 0; i < D.length; i += 4) m += D[i] * 0.3 + D[i + 1] * 0.59 + D[i + 2] * 0.11; m /= D.length / 4;
       let v = 0; for (let i = 0; i < D.length; i += 4) { const l = D[i] * 0.3 + D[i + 1] * 0.59 + D[i + 2] * 0.11 - m; v += l * l; } const sd = Math.sqrt(v / (D.length / 4)) || 1;
       for (let i = 0; i < D.length; i += 4) { const l = D[i] * 0.3 + D[i + 1] * 0.59 + D[i + 2] * 0.11, t = Math.max(0, Math.min(255, 128 + (l - m) / sd * 42)); D[i] = D[i + 1] = D[i + 2] = t; D[i + 3] = 255; }
-      q.putImageData(d, 0, 0); q.putImageData(d, S, 0); TEX[n] = c; ok(); };
-    im.src = base + k + '/' + k + '_diff.jpg'; })));
+      q.putImageData(d, 0, 0); q.putImageData(d, S, 0); TEX[n] = c; ok();
+    };
+    im.src = base + k + '/' + k + '_diff.jpg';
+  })));
 }
 function tessuto(g, p, o, x, bcy, Bw, busto, W, sa) {
   const T = o.tessuto && TEX[o.tessuto]; if (!T) return;
   const S = T.height, scala = (o.tessutoScala || 1) * W * 0.9 / S, N = 28, R = Bw / 2, top = bcy - busto * 0.75, h = busto * 1.5;
   g.save(); g.clip(p); g.globalCompositeOperation = 'overlay'; g.globalAlpha = o.tessutoForza ?? 0.35;
-  for (let i = 0; i < N; i++) { const u0 = i / N * 2 - 1, u1 = (i + 1) / N * 2 - 1, th0 = Math.asin(u0 * 0.999), th1 = Math.asin(u1 * 0.999);
+  for (let i = 0; i < N; i++) {
+    const u0 = i / N * 2 - 1, u1 = (i + 1) / N * 2 - 1, th0 = Math.asin(u0 * 0.999), th1 = Math.asin(u1 * 0.999);
     const s0 = ((th0 + sa * Math.PI / 2) * R / scala) % S, sw = (th1 - th0) * R / scala, sx = (s0 + S * 4) % S;
-    g.drawImage(T, sx, 0, Math.min(sw, S), Math.min(S, h / scala), x + u0 * R, top, (u1 - u0) * R + 0.6, Math.min(h, S * scala)); 
-    if (h > S * scala) g.drawImage(T, sx, 0, Math.min(sw, S), (h - S * scala) / scala, x + u0 * R, top + S * scala, (u1 - u0) * R + 0.6, h - S * scala); }
+    g.drawImage(T, sx, 0, Math.min(sw, S), Math.min(S, h / scala), x + u0 * R, top, (u1 - u0) * R + 0.6, Math.min(h, S * scala));
+    if (h > S * scala) g.drawImage(T, sx, 0, Math.min(sw, S), (h - S * scala) / scala, x + u0 * R, top + S * scala, (u1 - u0) * R + 0.6, h - S * scala);
+  }
   g.restore();
 }
 

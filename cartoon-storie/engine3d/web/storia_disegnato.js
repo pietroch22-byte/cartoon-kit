@@ -111,23 +111,38 @@ try {
     return 'mezzo';
   };
   function boccaParla(s, t, seme = 0) {
-    if (s.bocca) return { bocca: s.bocca, nod: 0 };
-    if (!s.parla) return { bocca: null, nod: 0 };
+    if (!s.parla) return { bocca: s.bocca || null, nod: 0 };
     const P = Array.isArray(S._parole) ? S._parole : [];
     const LEAD = 2 / 30, HOLD = 4 / 30;
     const tw = t + LEAD;
+    let bocca = s.bocca || null, nod = 0;
     if (P.length) {
-      const w = P.find(x => tw >= x[0] && tw <= x[1]);
-      if (!w) return { bocca: 'chiusa', nod: 0 };
-      const slot = Math.floor((tw - w[0]) / HOLD);
-      const seq = [VOWEL_MOUTH(w[2]), 'larga', 'o_piccola', 'stretta'];
-      const bocca = slot === 0 ? seq[0] : seq[(slot + (Math.abs(seme) % 2)) % seq.length];
-      const nod = (tw - w[0]) < 0.22 ? 2.2 * Math.sin(((tw - w[0]) / 0.22) * Math.PI) : 0;
+      const wi = P.findIndex(x => tw >= x[0] && tw <= x[1]);
+      if (wi < 0) {
+        if (!bocca) bocca = 'chiusa';
+        const prevW = [...P].reverse().find(x => tw > x[1] && (tw - x[1]) < 0.14);
+        if (prevW) nod = Math.sin((t - (s.parlaT || 0)) * 2.3 + seme * 1.1) * 1.8 * (1 - (tw - prevW[1]) / 0.14);
+      } else {
+        const w = P[wi], wd = Math.max(0.12, w[1] - w[0]);
+        if (!bocca) {
+          const slot = Math.floor((tw - w[0]) / HOLD);
+          const seq = [VOWEL_MOUTH(w[2]), 'larga', 'o_piccola', 'stretta'];
+          bocca = slot === 0 ? seq[0] : seq[(slot + (Math.abs(seme) % 2)) % seq.length];
+        }
+        const phraseSway = Math.sin((t - (s.parlaT || 0)) * 2.3 + seme * 1.1) * 2.0;
+        const wordNod = (wd >= 0.24 && (tw - w[0]) < 0.24)
+          ? Math.sin(((tw - w[0]) / 0.24) * Math.PI) * 2.2 * (wi % 2 ? 1 : -0.65) : 0;
+        nod = phraseSway + wordNod;
+      }
       return { bocca, nod: Math.round(nod * 2) / 2 };
     }
-    const cyc = ['aperta', 'stretta', 'o_piccola', 'larga', 'chiusa'];
-    const slot = Math.floor(tw / HOLD);
-    return { bocca: cyc[(slot + Math.abs(seme)) % cyc.length], nod: (slot % 4 === 0) ? 2 : 0 };
+    if (!bocca) {
+      const cyc = ['aperta', 'stretta', 'o_piccola', 'larga', 'chiusa'];
+      const slot = Math.floor(tw / HOLD);
+      bocca = cyc[(slot + Math.abs(seme)) % cyc.length];
+    }
+    nod = Math.sin((tw - (s.parlaT || 0)) * 3.5 + seme) * 2.5 + Math.sin(tw * 6.8 + seme * 0.5) * 0.9;
+    return { bocca, nod: Math.round(nod * 2) / 2 };
   }
 
   // stile Rick: anche le comparse 3D dei luoghi (creaPersonaggio3D) diventano carte Rick, con un tipo del cast scelto dal nome
@@ -256,14 +271,14 @@ try {
       x: a.x, z: a.z, verso: a.verso ?? 0, yaw: a.yaw, spalle: a.spalle,
       posa: a.posa || A.opt.posa || 'auto', posaPrev: null, posaT: -99,
       andatura: a.andatura || (a.corsa ? 'corsa' : null), manoPosa: a.manoPosa, maniPosa: a.maniPosa,
-      faccia: A.opt.faccia, bocca: a.bocca, facciaT: SC.da ?? 0, nextFacciaT: null,
+      faccia: A.opt.faccia, facciaPrev: A.opt.faccia, bocca: a.bocca, facciaT: SC.da ?? 0, nextFacciaT: null,
       oggetto: 'oggetto' in a ? a.oggetto : A.opt.oggetto, oggettoMano: a.oggettoMano, porta: a.porta,
       ry: a.ry ?? -0.5, passo: a.passo || 0, visibile: a.visibile !== false,
       cammina: null, anticipo: null, assestamento: null,
       gesto: a.gesto ?? A.opt.gesto, gestoT: SC.da ?? 0, gestoFine: null,
       testa: a.testa || 0, testaPrev: a.testa || 0, testaT: -99,
       chino: a.chino ?? a.torsoPiega ?? A.opt.chino ?? 0, chinoPrev: a.chino ?? a.torsoPiega ?? A.opt.chino ?? 0, chinoT: -99,
-      parla: a.parla, parlaT: SC.da ?? 0, sguardo: a.sguardo, nextSguardo: null, nextSguardoT: null, turnBlinkT: null,
+      parla: a.parla, parlaT: SC.da ?? 0, sguardo: a.sguardo, sguardoPrev: a.sguardo, sguardoT: -99, nextSguardo: null, nextSguardoT: null, turnBlinkT: null,
       vfx: a.vfx, vfxT: SC.da ?? 0, goccia: a.goccia, clip: a.clip,
     };
     let cumSteps = 0, lastWalkEnd = -99, lastWalkInfo = null, stopZi = A.az.length;
@@ -275,7 +290,8 @@ try {
         stopZi = zi; break;
       }
       for (const k of ['verso', 'yaw', 'spalle', 'faccia', 'bocca', 'oggetto', 'oggettoMano', 'porta', 'ry', 'visibile', 'gesto', 'testa', 'chino', 'torsoPiega', 'parla', 'sguardo', 'vfx', 'goccia', 'manoPosa', 'maniPosa', 'clip']) if (k in z) {
-        if (k === 'faccia' && z[k] !== s.faccia) s.facciaT = z.t;
+        if (k === 'faccia' && z[k] !== s.faccia) { s.facciaPrev = s.faccia; s.facciaT = z.t; }
+        if (k === 'sguardo' && JSON.stringify(z[k]) !== JSON.stringify(s.sguardo)) { s.sguardoPrev = s.sguardo; s.sguardoT = z.t; }
         if (k === 'gesto' && z[k] !== s.gesto) {
           if (z[k] == null && s.gesto) s.gestoFine = { gesto: s.gesto, startT: s.gestoT, endT: z.t };
           else if (z[k] != null) s.gestoFine = null;
@@ -379,28 +395,40 @@ try {
       const lat = dx * Rx[0] + dz * Rx[1], dist = Math.hypot(dx, dy, dz) || 1;
       return [q20((lat / dist) * 1.4), q20((-dy / dist) * 1.5)];
     };
+    const resolveSg = (src) => {
+      if (Array.isArray(src)) return [q20(+src[0] || 0), q20(+src[1] || 0)];
+      if (typeof src === 'string') {
+        const k = src.toLowerCase();
+        if (k === 'camera' || k === 'cam') return [q20(-Math.max(-0.5, Math.min(0.5, A.v || 0))), 0];
+        if (k === 'dx' || k === 'destra') return [0.8, 0];
+        if (k === 'sx' || k === 'sinistra') return [-0.8, 0];
+        if (k === 'su' || k === 'alto') return [0, -0.8];
+        if (k === 'giu' || k === 'basso') return [0, 0.8];
+        if (ATT[src]) return proj(occhiDi(ATT[src], t));
+        if (OBJ[src]) { const ob = [].concat(OBJ[src])[0]; if (ob) return proj(ob.getWorldPosition(new THREE.Vector3())); }
+      } else if (src && typeof src === 'object' && 'x' in src) return proj(src);
+      return null;
+    };
     const sgSrc = (s.nextSguardo !== null && s.nextSguardo !== undefined) ? s.nextSguardo : s.sguardo;
-    let out = null;
-    if (Array.isArray(sgSrc)) out = [q20(+sgSrc[0] || 0), q20(+sgSrc[1] || 0)];
-    else if (typeof sgSrc === 'string') {
-      const k = sgSrc.toLowerCase();
-      if (k === 'camera' || k === 'cam') out = [q20(-Math.max(-0.5, Math.min(0.5, A.v || 0))), 0];
-      else if (k === 'dx' || k === 'destra') out = [0.8, 0];
-      else if (k === 'sx' || k === 'sinistra') out = [-0.8, 0];
-      else if (k === 'su' || k === 'alto') out = [0, -0.8];
-      else if (k === 'giu' || k === 'basso') out = [0, 0.8];
-      else if (ATT[sgSrc]) out = proj(occhiDi(ATT[sgSrc], t));
-      else if (OBJ[sgSrc]) { const ob = [].concat(OBJ[sgSrc])[0]; if (ob) out = proj(ob.getWorldPosition(new THREE.Vector3())); }
-    } else if (sgSrc && typeof sgSrc === 'object' && 'x' in sgSrc) out = proj(sgSrc);
-    else if (s.gesto === 'scrive' || s.gesto === 'legge') out = [q20(Math.sign(A.v || 1) * 0.25), 0.6];
-    else {
-      for (const [oid, O] of Object.entries(ATT)) {
-        if (oid === id) continue;
-        const os = stato(O, t);
-        if (os.visibile === false) continue;
-        const interagisce = (O.az || []).some(z => z.fai && t >= z.t && t <= z.t + (z.dur || 0.8) && (z.chi === id || z.per === id));
-        if (os.parla || interagisce) { out = proj(occhiDi(O, t)); break; }
+    let out = resolveSg(sgSrc);
+    if (!out) {
+      if (s.gesto === 'scrive' || s.gesto === 'legge') out = [q20(Math.sign(A.v || 1) * 0.25), 0.6];
+      else {
+        for (const [oid, O] of Object.entries(ATT)) {
+          if (oid === id) continue;
+          const os = stato(O, t);
+          if (os.visibile === false) continue;
+          const interagisce = (O.az || []).some(z => z.fai && t >= z.t && t <= z.t + (z.dur || 0.8) && (z.chi === id || z.per === id));
+          if (os.parla || interagisce) { out = proj(occhiDi(O, t)); break; }
+        }
       }
+    } else if (t >= s.sguardoT && (t - s.sguardoT) < 0.14) {
+      const pOut = resolveSg(s.sguardoPrev) || [0, 0], uSg = ss((t - s.sguardoT) / 0.14);
+      out = [q20(pOut[0] + (out[0] - pOut[0]) * uSg), q20(pOut[1] + (out[1] - pOut[1]) * uSg)];
+    }
+    if (!out && t >= s.sguardoT && (t - s.sguardoT) < 0.14) {
+      const pOut = resolveSg(s.sguardoPrev);
+      if (pOut) { const uSg = ss((t - s.sguardoT) / 0.14); out = [q20(pOut[0] * (1 - uSg)), q20(pOut[1] * (1 - uSg))]; }
     }
     if (IR && IR.lookTarget && (IR.lookK || 0) > 0.05) {
       const isCam = typeof sgSrc === 'string' && /^(camera|cam)$/i.test(sgSrc);
@@ -512,12 +540,14 @@ try {
         const talk = boccaParla(s, t, A.seme);
         const eyeLeadAng = Math.abs(dAngNow) > 0.14 ? Math.sin(dAngNow) * 1.35 : (s.anticipo ? Math.sin(Math.atan2(s.anticipo.dx, s.anticipo.dz) - cy - A.ang) * (s.anticipo.k || 0) : 0);
         const sguardo = calcolaSguardo(aid, A, s, t, cy, eyeLeadAng, IR);
+        const sgTilt = sguardo ? Math.round((sguardo[0] * 3.4 + sguardo[1] * 2.0) * 2) / 2 : 0;
+        const sgVerso = (!s.cammina && spalle < 0.35 && sguardo && Math.abs(sguardo[0]) > 0.25) ? sguardo[0] * 0.055 : 0;
         const gT = s.gesto ? Math.round(((t - (s.gestoT || 0))) * 30) / 30 : 0;
         const vT = (s.vfx || s.goccia) ? Math.floor((t - (s.vfxT || 0)) * 6) / 6 : 0;
         const respiro = 0;   // respiro disabilitato su richiesta dell'utente
         const pt = s.porta && OBJ[s.porta.id] && !s.porta.nascosto ? s.porta : null;
         const worldYaw = cy + A.ang;
-        const o = { ...A.opt, seme: A.seme, x: 256, y: 1010, W: 270 * (A.opt.W || 1), verso: Math.round(A.v * 40) / 40, spalle, turnVel, posa: s.posa || A.opt.posa || 'auto', posaPrev: s.posaPrev, posaU: s.posaU, andatura, anticipo: s.anticipo, assestamento: s.assestamento, respiro, gesto: s.gesto || null, gestoT: gT, gestoFine: s.gestoFineO || null, t: gT, faccia: s.faccia || A.opt.faccia, facciaDt: s.facciaDt, bocca: talk.bocca, sguardo, oggetto: s.oggetto, oggettoMano: s.oggettoMano, ...(pt ? { porta: true, portaAvanti: pt.avanti ?? 0.25, portaLargo: pt.largo ?? 0.30 } : {}), torsoPiega: Math.round((s.chino || 0) * 10) / 10, vfx: s.vfx, vfxT: vT, goccia: !!s.goccia, cammina, passo, palpebra: bl, inclina: Math.round(((s.testa || 0) + talk.nod) * 10) / 10, ...(s.manoPosa ? { manoPosa: s.manoPosa } : {}), ...(s.maniPosa ? { maniPosa: [...s.maniPosa] } : {}) };
+        const o = { ...A.opt, seme: A.seme, x: 256, y: 1010, W: 270 * (A.opt.W || 1), verso: Math.round(Math.max(-1, Math.min(1, A.v + sgVerso)) * 40) / 40, spalle, turnVel, posa: s.posa || A.opt.posa || 'auto', posaPrev: s.posaPrev, posaU: s.posaU, andatura, anticipo: s.anticipo, assestamento: s.assestamento, respiro, gesto: s.gesto || null, gestoT: gT, gestoFine: s.gestoFineO || null, t: gT, faccia: s.faccia || A.opt.faccia, facciaPrev: s.facciaPrev, facciaDt: s.facciaDt, bocca: talk.bocca, sguardo, oggetto: s.oggetto, oggettoMano: s.oggettoMano, ...(pt ? { porta: true, portaAvanti: pt.avanti ?? 0.25, portaLargo: pt.largo ?? 0.30 } : {}), torsoPiega: Math.round((s.chino || 0) * 10) / 10, vfx: s.vfx, vfxT: vT, goccia: !!s.goccia, cammina, passo, palpebra: bl, inclina: Math.round(((s.testa || 0) + talk.nod + sgTilt) * 10) / 10, ...(s.manoPosa ? { manoPosa: s.manoPosa } : {}), ...(s.maniPosa ? { maniPosa: [...s.maniPosa] } : {}) };
         if (IR) {
           const Rx = [Math.cos(cy), -Math.sin(cy)];
           const cLoc = m.worldToLocal(camera.position.clone());
@@ -557,7 +587,7 @@ try {
           o.piega = IR.dir ? IR.piega * Math.sign((IR.dir[0] * Rx[0] + IR.dir[1] * Rx[1]) || 1) : 0; o.piega = Math.round(o.piega);
         }
         A._ultimoO = o; A._ultimoStato = { ...s, andatura, sguardo, bocca: talk.bocca, bl, inInterazione: !!IR };
-        const key = JSON.stringify([o.verso, o.spalle, o.turnVel, o.posa, o.posaPrev, o.posaU, o.andatura, o.anticipo, o.assestamento, o.respiro, o.gesto, o.gestoT, o.gestoFine, o.faccia, o.facciaDt, o.bocca, o.sguardo, o.oggetto, o.oggettoMano, o.porta, o.portaAvanti, o.portaLargo, o.torsoPiega, o.vfx, o.vfxT, o.goccia, o.cammina, o.passo, o.palpebra, o.inclina, zoomFaccia(m), o.maniPx, o.piega, o.manoPosa, o.maniPosa, o.maniContact]);
+        const key = JSON.stringify([o.verso, o.spalle, o.turnVel, o.posa, o.posaPrev, o.posaU, o.andatura, o.anticipo, o.assestamento, o.respiro, o.gesto, o.gestoT, o.gestoFine, o.faccia, o.facciaPrev, o.facciaDt, o.bocca, o.sguardo, o.oggetto, o.oggettoMano, o.porta, o.portaAvanti, o.portaLargo, o.torsoPiega, o.vfx, o.vfxT, o.goccia, o.cammina, o.passo, o.palpebra, o.inclina, zoomFaccia(m), o.maniPx, o.piega, o.manoPosa, o.maniPosa, o.maniContact]);
         if (key !== A.key) { A.key = key; const u = m.userData; u.ctx.clearRect(0, 0, u.cv.width, u.cv.height); disegnaRick(m, o); u.maniPx = o._maniPxEffettive; }
         if (s.porta && OBJ[s.porta.id]) {
           const o3 = [].concat(OBJ[s.porta.id])[0];
@@ -646,6 +676,7 @@ try {
   }
   function disegnaRick(m, o) {
     o = { ...o, luce: o.luce ?? m.userData._luceDir ?? -1, zoomFaccia: o.zoomFaccia ?? zoomFaccia(m) }; const LR_ON = LUCE_RICK; const RL = { luminosita: LR_ON ? 0.98 : 0.74, saturazione: LR_ON ? 1.05 : 1.15, ...(S.rick_luce || {}) }; const U = m.material?.uniforms; if (U?.hlk) U.hlk.value = RL.bordo ?? 0; /* niente alone bianco sui bordi: Rick non ce l ha */ const u = m.userData; u.ctx.clearRect(0, 0, u.cv.width, u.cv.height); u.ctx.filter = `brightness(${RL.luminosita}) saturate(${RL.saturazione})`; u.ctx.save(); if (o.piega) { u.ctx.translate(256, 1010); u.ctx.rotate(o.piega * Math.PI / 180); u.ctx.translate(-256, -1010); } drawRick(u.ctx, o); u.ctx.restore(); u.ctx.filter = 'none';   // piega = tutto il corpo inclinato attorno ai piedi
+    u.maniPx = o._maniPxEffettive;
     u.tex.needsUpdate = true; D.mappaBordi(u.cv, u.ec); u.et.needsUpdate = true;
   }
   function ridisegna(m, o) { if (m.userData.rick) { const p = Math.round((((o.passo || 0) / 2) % 1) * 30) / 30 % 1, v = m.userData.rick.versoCam ?? m.userData.rick.verso, sp = m.userData.rick.spalleCam ?? m.userData.rick.spalle ?? 0, g = o.andatura || 'cammina'; if (m.userData._fk === `${p}|${v.toFixed(2)}|${sp.toFixed(2)}|${g}`) return; m.userData._fk = `${p}|${v.toFixed(2)}|${sp.toFixed(2)}|${g}`; return disegnaRick(m, { ...m.userData.rick, cammina: true, andatura: g, passo: p, verso: v, spalle: Math.round(sp * 20) / 20 }); } const u = m.userData; u.ctx.clearRect(0, 0, u.cv.width, u.cv.height); drawOmino(u.ctx, o); u.tex.needsUpdate = true; D.mappaBordi(u.cv, u.ec); u.et.needsUpdate = true; }
@@ -1103,9 +1134,35 @@ try {
     const nome = o => { for (let q = o; q; q = q.parent) if (q.name && !/^(Cubo|Cube|Mesh|Sfera|Plane)/.test(q.name)) return q.name; return (o.geometry && o.geometry.type) || 'oggetto'; };
     let dentro = null; M.root.traverse(o => { if (dentro || !o.isMesh || !vis(o) || (o.material && o.material.transparent)) return; b.setFromObject(o); b.getSize(v); if (!isFinite(v.x + v.y + v.z) || Math.max(v.x, v.y, v.z) > 6 || Math.min(v.x, v.y, v.z) < .03) return; if (b.containsPoint(P)) dentro = o; });
     if (dentro) { b.setFromObject(dentro); const c = b.getCenter(new THREE.Vector3()), z = b.getSize(new THREE.Vector3()); F.push(['CAMERA_DENTRO', nome(dentro) + ` (centro ${c.x.toFixed(1)} ${c.y.toFixed(1)} ${c.z.toFixed(1)}, misure ${z.x.toFixed(1)}x${z.y.toFixed(1)}x${z.z.toFixed(1)} m)`]); }
+    camera.updateMatrixWorld();
+    const camRight = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0).normalize();
     let best = null; for (const [id, A] of Object.entries(ATT)) {
       const stNow = stato(A, _ultimoT); if (stNow.visibile === false) continue;   // (dopo il render il look può aver nascosto i personaggi per le sue passate)
-      const h = A.m.position.clone(); h.y += (A.rick ? ALTT(A, stNow) : A.p3 ? 1.72 : 1.3) * A.m.scale.y; const n = h.clone().project(camera), d = P.distanceTo(h); if (n.z > 1 || d > 14) continue; const c = Math.hypot(n.x, n.y); if (!best || c < best.c) best = { id, A, h, n, c, d };
+      const hTop = (A.rick ? ALTT(A, stNow) : A.p3 ? 1.72 : 1.3) * A.m.scale.y;
+      const tpRad = A.rick ? ((stNow.chino || 0) * Math.PI / 180) : 0;
+      const hHip = hTop * 0.48, dHead = hTop - hHip;
+      const leanX = dHead * Math.sin(tpRad), leanY = hHip + dHead * Math.cos(tpRad);
+      const h = A.m.position.clone().addScaledVector(camRight, leanX); h.y += leanY;
+      const n = h.clone().project(camera), d = P.distanceTo(h); if (n.z > 1 || n.z < -1 || d > 14) continue;
+      const c = Math.hypot(n.x, n.y); if (!best || c < best.c) best = { id, A, h, n, c, d };
+      const halfW = A.rick ? TESTA(A) * 0.54 : 0.34;
+      const nL = h.clone().addScaledVector(camRight, -halfW).project(camera);
+      const nR = h.clone().addScaledVector(camRight, halfW).project(camera);
+      const chest = A.m.position.clone().addScaledVector(camRight, leanX * 0.55); chest.y += hHip + dHead * 0.45 * Math.cos(tpRad);
+      const cL = chest.clone().addScaledVector(camRight, -halfW * 1.05).project(camera);
+      const cR = chest.clone().addScaledVector(camRight, halfW * 1.05).project(camera);
+      const piedeY = A.m.position.clone().project(camera).y;
+      const xMin = Math.min(nL.x, cL.x), xMax = Math.max(nR.x, cR.x);
+      const visY = Math.max(piedeY, n.y) > -0.96 && Math.min(piedeY, n.y) < 0.98;
+      if (visY && xMax > -0.98 && xMin < 0.98) {
+        const cutL = Math.max(0, -1 - xMin), cutR = Math.max(0, xMax - 1), span = Math.max(0.05, xMax - xMin);
+        const cutPct = Math.round(Math.max(cutL, cutR) / span * 100);
+        if (cutPct >= 20) F.push(['SOGGETTO_TAGLIATO', `${id} tagliato a ${cutL >= cutR ? 'sinistra' : 'destra'} (${cutPct}%)`]);
+      }
+      if (A.rick && tpRad) {
+        const cardClip = Math.abs(leanX) * 512 / (A.m.scale.y || 1) + 270 * (A.opt.W || 1) * 0.46;
+        if (cardClip > 258 && xMax > -0.98 && xMin < 0.98) F.push(['SOGGETTO_TAGLIATO', `${id} fuori bordo carta (chino ${Math.round(stNow.chino)}°)`]);
+      }
     }
     let testa = null; if (best) {
       testa = TESTA(best.A) / (best.d * 2 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect);

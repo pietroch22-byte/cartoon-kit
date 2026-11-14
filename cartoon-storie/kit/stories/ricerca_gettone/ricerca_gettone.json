@@ -1,0 +1,951 @@
+{
+  "nome": "ricerca_gettone",
+  "titolo": "La Ricerca del Gettone",
+  "motore": "disegnato",
+  "fps": 30,
+  "larghezza": 1080,
+  "altezza": 1920,
+  "ss": 2,
+  "personaggi": "rick",
+  "luce_rick": true,
+  "stile_camera": "rick",
+  "sfocatura": "vera",
+  "diaframma": 2.0,
+  "fuoco_ritardo": 0.16,
+  "vita_soglia": 60,
+  "voce": {
+    "file": "musica_originale.wav"
+  },
+  "musica": false,
+  "karaoke": false,
+  "effetti": [],
+  "luoghi": {
+    "tempio_scalinata": {
+      "script": "mondo_gettone.js",
+      "esterno": true,
+      "luce": "notte",
+      "parametri": {
+        "asciutto": 1
+      }
+    },
+    "sala_tattica": {
+      "script": "mondo_gettone.js",
+      "esterno": false,
+      "luce": "interno",
+      "parametri": {
+        "asciutto": 1
+      }
+    },
+    "bunker_bottino": {
+      "script": "mondo_gettone.js",
+      "esterno": false,
+      "luce": "interno",
+      "parametri": {
+        "asciutto": 1
+      }
+    }
+  },
+  "cast": {
+    "cacciatore": {
+      "tipo": "ragazzo",
+      "nome": "Jonesy",
+      "maglia": "#1d4ed8",
+      "pantaloniCol": "#182338",
+      "scarpeCol": "#f59e0b",
+      "capelliCol": "#523218"
+    },
+    "compagno": {
+      "tipo": "palestrato",
+      "nome": "Tank",
+      "maglia": "#d97706",
+      "pantaloniCol": "#1f2937",
+      "scarpeCol": "#38bdf8",
+      "polsiniBanda": "#fde047"
+    },
+    "novellino": {
+      "tipo": "impiegato",
+      "nome": "Rookie",
+      "maglia": "#475569",
+      "cravattaCol": "#ef4444",
+      "pantaloniCol": "#1e293b"
+    },
+    "esploratore": {
+      "tipo": "operaio",
+      "nome": "Scout",
+      "maglia": "#0284c7",
+      "pantaloniCol": "#1e293b",
+      "scarpeCol": "#f59e0b"
+    }
+  },
+  "scene": [
+    {
+      "luogo": "tempio_scalinata",
+      "zona": "arrivo",
+      "da": 0.000,
+      "a": 1.533,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": 0.0,
+          "z": 3.55,
+          "posa": "spalle",
+          "faccia": "deciso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 0.05,
+              "a": [
+                0.0,
+                1.00
+              ],
+              "dur": 1.44,
+              "posa": "spalle",
+              "gesto": "indica",
+              "chino": -4
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 0.000,
+          "pos": [
+            0.35,
+            2.85,
+            7.60
+          ],
+          "guarda": [
+            0.0,
+            2.70,
+            -2.50
+          ],
+          "fov": 76,
+          "grandezza": "campo largo",
+          "mossa": "avanti_lenta",
+          "ancora": "inizio"
+        },
+        {
+          "t": 0.720,
+          "volo": 0.76,
+          "pos": [
+            -0.25,
+            2.65,
+            6.20
+          ],
+          "guarda": [
+            0.0,
+            3.10,
+            -4.00
+          ],
+          "fov": 78,
+          "grandezza": "figura intera",
+          "mossa": "avanti_lenta",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "sala_tattica",
+      "zona": "scelta",
+      "da": 1.533,
+      "a": 4.567,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.92,
+          "z": -2.25,
+          "posa": "fianchi",
+          "faccia": "pensieroso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 1.62,
+              "gesto": "spiega",
+              "faccia": "pensieroso",
+              "dur": 0.90,
+              "chino": 4
+            },
+            {
+              "t": 2.55,
+              "gesto": "esulta",
+              "faccia": "felice",
+              "dur": 1.05,
+              "chino": -4
+            },
+            {
+              "t": 3.72,
+              "gesto": "indica",
+              "faccia": "arrabbiato",
+              "dur": 0.80,
+              "chino": 3
+            }
+          ]
+        },
+        {
+          "id": "compagno",
+          "x": 0.95,
+          "z": -2.35,
+          "posa": "conserte",
+          "faccia": "neutro",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 1.85,
+              "gesto": "pensa",
+              "faccia": "neutro",
+              "dur": 1.05
+            },
+            {
+              "t": 3.00,
+              "gesto": "spiega",
+              "faccia": "deciso",
+              "dur": 1.40
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 1.533,
+          "pos": [
+            0.10,
+            2.35,
+            3.25
+          ],
+          "guarda": [
+            0.0,
+            1.55,
+            -3.50
+          ],
+          "fov": 78,
+          "grandezza": "campo largo",
+          "mossa": "indietro",
+          "ancora": "inizio"
+        },
+        {
+          "t": 2.950,
+          "volo": 1.25,
+          "pos": [
+            -0.35,
+            2.10,
+            2.55
+          ],
+          "guarda": [
+            0.05,
+            1.50,
+            -3.80
+          ],
+          "fov": 74,
+          "grandezza": "figura intera",
+          "mossa": "gru_giu",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "sala_tattica",
+      "zona": "portale",
+      "da": 4.567,
+      "a": 6.000,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.78,
+          "z": -2.20,
+          "posa": "fianchi",
+          "faccia": "deciso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 4.64,
+              "gesto": "indica",
+              "faccia": "sorpreso",
+              "dur": 1.28,
+              "chino": -3
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 4.567,
+          "pos": [
+            0.35,
+            1.85,
+            1.85
+          ],
+          "guarda": [
+            -0.15,
+            1.62,
+            -4.20
+          ],
+          "fov": 70,
+          "grandezza": "mezza figura",
+          "mossa": "pan",
+          "ancora": "inizio"
+        },
+        {
+          "t": 5.230,
+          "volo": 0.72,
+          "pos": [
+            0.05,
+            1.82,
+            1.15
+          ],
+          "guarda": [
+            0.0,
+            1.72,
+            -4.60
+          ],
+          "fov": 68,
+          "grandezza": "primo piano",
+          "mossa": "avanti",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "bunker_bottino",
+      "zona": "progresso",
+      "da": 6.000,
+      "a": 7.533,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "novellino",
+          "x": -1.05,
+          "z": -2.05,
+          "posa": "mento",
+          "faccia": "triste",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 6.05,
+              "gesto": "pensa",
+              "faccia": "triste",
+              "dur": 1.40,
+              "chino": 12
+            }
+          ]
+        },
+        {
+          "id": "esploratore",
+          "x": 0.0,
+          "z": -2.15,
+          "posa": "cammina",
+          "faccia": "deciso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 6.08,
+              "a": [
+                0.0,
+                -1.55
+              ],
+              "dur": 1.38,
+              "posa": "cammina",
+              "faccia": "deciso"
+            }
+          ]
+        },
+        {
+          "id": "cacciatore",
+          "x": 1.05,
+          "z": -2.00,
+          "posa": "fermo",
+          "faccia": "felice",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 6.04,
+              "gesto": "trofeo",
+              "faccia": "felice",
+              "dur": 1.45,
+              "chino": -4
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 6.000,
+          "pos": [
+            0.0,
+            2.25,
+            4.30
+          ],
+          "guarda": [
+            0.0,
+            1.50,
+            -2.20
+          ],
+          "fov": 76,
+          "grandezza": "campo largo",
+          "mossa": "gru_giu",
+          "ancora": "inizio"
+        },
+        {
+          "t": 6.720,
+          "volo": 0.76,
+          "pos": [
+            0.12,
+            1.92,
+            3.55
+          ],
+          "guarda": [
+            0.0,
+            1.55,
+            -2.10
+          ],
+          "fov": 74,
+          "grandezza": "figura intera",
+          "mossa": "carrello",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "bunker_bottino",
+      "zona": "gradini",
+      "da": 7.533,
+      "a": 9.033,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -2.15,
+          "z": -2.80,
+          "posa": "cammina",
+          "faccia": "deciso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 7.58,
+              "a": [
+                1.25,
+                -2.80
+              ],
+              "dur": 1.40,
+              "posa": "cammina",
+              "gesto": "esulta",
+              "faccia": "deciso",
+              "chino": -5
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 7.533,
+          "pos": [
+            -0.85,
+            2.15,
+            3.90
+          ],
+          "guarda": [
+            -0.35,
+            1.60,
+            -2.80
+          ],
+          "fov": 74,
+          "grandezza": "figura intera",
+          "mossa": "gru_su",
+          "ancora": "inizio"
+        },
+        {
+          "t": 8.220,
+          "volo": 0.76,
+          "pos": [
+            0.75,
+            2.75,
+            3.15
+          ],
+          "guarda": [
+            0.80,
+            2.10,
+            -2.80
+          ],
+          "fov": 72,
+          "grandezza": "mezza figura",
+          "mossa": "carrello",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "sala_tattica",
+      "zona": "errore",
+      "da": 9.033,
+      "a": 10.567,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.15,
+          "z": -2.35,
+          "posa": "mento",
+          "faccia": "triste",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 9.08,
+              "gesto": "pensa",
+              "faccia": "triste",
+              "dur": 0.52,
+              "chino": 8
+            },
+            {
+              "t": 9.64,
+              "gesto": "spiega",
+              "faccia": "deciso",
+              "dur": 0.88,
+              "chino": -3
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 9.033,
+          "pos": [
+            -0.70,
+            1.88,
+            1.75
+          ],
+          "guarda": [
+            0.0,
+            1.58,
+            -3.80
+          ],
+          "fov": 68,
+          "grandezza": "primo piano",
+          "mossa": "fluttua",
+          "ancora": "inizio"
+        },
+        {
+          "t": 9.750,
+          "volo": 0.76,
+          "pos": [
+            0.40,
+            2.04,
+            1.45
+          ],
+          "guarda": [
+            0.0,
+            1.62,
+            -3.90
+          ],
+          "fov": 68,
+          "grandezza": "mezza figura",
+          "mossa": "pan",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "sala_tattica",
+      "zona": "azione",
+      "da": 10.567,
+      "a": 13.500,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.85,
+          "z": -2.35,
+          "posa": "conserte",
+          "faccia": "annoiato",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 10.65,
+              "gesto": "pensa",
+              "faccia": "confuso",
+              "dur": 0.85
+            },
+            {
+              "t": 11.55,
+              "a": [
+                0.0,
+                -2.35
+              ],
+              "dur": 0.65,
+              "posa": "cammina",
+              "gesto": "indica",
+              "faccia": "deciso",
+              "chino": -3
+            },
+            {
+              "t": 12.42,
+              "gesto": "esulta",
+              "faccia": "fiero",
+              "dur": 1.02,
+              "chino": -4
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 10.567,
+          "pos": [
+            -0.55,
+            2.02,
+            2.60
+          ],
+          "guarda": [
+            -0.20,
+            1.52,
+            -3.20
+          ],
+          "fov": 74,
+          "grandezza": "figura intera",
+          "mossa": "carrello",
+          "ancora": "inizio"
+        },
+        {
+          "t": 11.950,
+          "volo": 1.25,
+          "pos": [
+            0.0,
+            1.94,
+            1.90
+          ],
+          "guarda": [
+            0.0,
+            1.56,
+            -3.80
+          ],
+          "fov": 70,
+          "grandezza": "mezza figura",
+          "mossa": "avanti_lenta",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "bunker_bottino",
+      "zona": "altare",
+      "da": 13.500,
+      "a": 15.767,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.92,
+          "z": -2.65,
+          "posa": "fianchi",
+          "faccia": "deciso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 13.58,
+              "gesto": "pensa",
+              "faccia": "deciso",
+              "dur": 1.15,
+              "chino": 4
+            },
+            {
+              "t": 14.80,
+              "gesto": "esulta",
+              "faccia": "sorpreso",
+              "dur": 0.92,
+              "chino": -5
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 13.500,
+          "pos": [
+            0.45,
+            2.15,
+            2.10
+          ],
+          "guarda": [
+            -0.10,
+            1.50,
+            -3.00
+          ],
+          "fov": 70,
+          "grandezza": "figura intera",
+          "mossa": "gru_su",
+          "ancora": "inizio"
+        },
+        {
+          "t": 14.650,
+          "volo": 1.00,
+          "pos": [
+            -0.20,
+            2.05,
+            1.48
+          ],
+          "guarda": [
+            -0.08,
+            1.62,
+            -3.00
+          ],
+          "fov": 68,
+          "grandezza": "primo piano",
+          "mossa": "inclina",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "bunker_bottino",
+      "zona": "mappa",
+      "da": 15.767,
+      "a": 17.267,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.78,
+          "z": -2.45,
+          "posa": "fianchi",
+          "faccia": "deciso",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 15.84,
+              "gesto": "indica",
+              "faccia": "deciso",
+              "dur": 1.38,
+              "chino": -3
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 15.767,
+          "pos": [
+            -0.22,
+            1.95,
+            2.25
+          ],
+          "guarda": [
+            0.0,
+            1.65,
+            -3.50
+          ],
+          "fov": 72,
+          "grandezza": "figura intera",
+          "mossa": "indietro",
+          "ancora": "inizio"
+        },
+        {
+          "t": 16.450,
+          "volo": 0.76,
+          "pos": [
+            0.30,
+            2.20,
+            3.45
+          ],
+          "guarda": [
+            0.0,
+            1.72,
+            -3.60
+          ],
+          "fov": 74,
+          "grandezza": "campo largo",
+          "mossa": "indietro",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "sala_tattica",
+      "zona": "notte",
+      "da": 17.267,
+      "a": 19.500,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": -0.08,
+          "z": -2.20,
+          "posa": "conserte",
+          "faccia": "arrabbiato",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 17.34,
+              "gesto": "spiega",
+              "faccia": "arrabbiato",
+              "dur": 1.00,
+              "chino": 4
+            },
+            {
+              "t": 18.42,
+              "gesto": "esulta",
+              "faccia": "fiero",
+              "dur": 1.04,
+              "chino": -5
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 17.267,
+          "pos": [
+            0.48,
+            1.85,
+            1.15
+          ],
+          "guarda": [
+            -0.04,
+            1.52,
+            -2.40
+          ],
+          "fov": 66,
+          "grandezza": "primo piano",
+          "mossa": "avanti_lenta",
+          "ancora": "inizio"
+        },
+        {
+          "t": 18.350,
+          "volo": 1.00,
+          "pos": [
+            -0.30,
+            1.95,
+            1.65
+          ],
+          "guarda": [
+            0.0,
+            1.58,
+            -2.80
+          ],
+          "fov": 68,
+          "grandezza": "mezza figura",
+          "mossa": "arco",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    },
+    {
+      "luogo": "tempio_scalinata",
+      "zona": "vittoria",
+      "da": 19.500,
+      "a": 21.000,
+      "muri": false,
+      "fermo": 0,
+      "camera_rick": {
+        "glide": "dolly"
+      },
+      "attori": [
+        {
+          "id": "cacciatore",
+          "x": 0.0,
+          "z": -7.88,
+          "posa": "fermo",
+          "faccia": "felice",
+          "sguardo": "camera",
+          "azioni": [
+            {
+              "t": 19.52,
+              "gesto": "trofeo",
+              "faccia": "felice",
+              "dur": 1.46,
+              "chino": -4
+            }
+          ]
+        }
+      ],
+      "camera": [
+        {
+          "t": 19.500,
+          "pos": [
+            0.22,
+            6.45,
+            -4.30
+          ],
+          "guarda": [
+            0.0,
+            6.28,
+            -7.88
+          ],
+          "fov": 74,
+          "grandezza": "figura intera",
+          "mossa": "indietro",
+          "ancora": "inizio"
+        },
+        {
+          "t": 20.180,
+          "volo": 0.78,
+          "pos": [
+            -0.18,
+            6.72,
+            -3.55
+          ],
+          "guarda": [
+            0.0,
+            6.32,
+            -7.88
+          ],
+          "fov": 76,
+          "grandezza": "campo largo",
+          "mossa": "fluttua",
+          "curva": "frena",
+          "ancora": "inizio"
+        }
+      ]
+    }
+  ]
+}
