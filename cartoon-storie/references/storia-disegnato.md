@@ -5,8 +5,9 @@ Esempio minimo di schema JSON: `kit/stories/disegnato_esempio.json` (esempio pre
 
 ## Comandi
 ```
-python3 kit/run.py anteprima "$PWD/kit/stories/<nome>/<nome>.json"   → kit/out/<nome>/contact.jpg + controlli.txt + vita.txt + ricchezza.txt + fluidita.txt + recitazione.txt
+python3 kit/run.py anteprima "$PWD/kit/stories/<nome>/<nome>.json"   → kit/out/<nome>/contact.jpg + controlli.txt + vita.txt + ricchezza.txt + fluidita.txt + recitazione.txt + lettura.txt
 python3 kit/run.py video     "$PWD/kit/stories/<nome>/<nome>.json"   → kit/out/<nome>/<nome>.mp4 (voce, musica, effetti, karaoke)
+node kit/tools/readcheck.mjs "$PWD/kit/stories/<nome>/<nome>.json"     → verifica continua leggibilità scritte 3D e sottotitoli karaoke (exit 0/1/2)
 node kit/tools/rendi_disegnato.mjs "$PWD/kit/stories/<nome>/<nome>.json" --scena 0 --passo 5   → prova veloce del movimento (1 fotogramma su 5)
 ```
 Il percorso della storia va dato **assoluto** (con un percorso relativo il render fallisce). Ogni storia sta in una sua cartella `kit/stories/<nome>/` con voce, parole, script e GLB. `RESUME=1` riprende un render interrotto. Sul Mac va su Metal; senza scheda video (SwiftShader) ~10-20 s a fotogramma: lì si fa solo l'anteprima.
@@ -22,13 +23,15 @@ Il percorso della storia va dato **assoluto** (con un percorso relativo il rende
 {
   "motore": "disegnato", "titolo": "…", "fps": 30,
   "voce": { "file": "voce.mp3", "parole": "voce.words.json" },
-  "musica": { "mood": "mystery", "bpm": 96, "gain": 0.08 },
+  "musica": { "mood": "mystery", "bpm": 96, "dinamica": true, "sezioni": [ … ] },
+  "regia_audio": true,
+  "silenzi": [ { "da": "@parola", "a": "@parola2" } ],
   "luoghi": { "via": { "luce": "notte", "mondo": { "xr": 7, "xl": 2.6, "seme": 7 }, "oggetti": [ … ], "script": "via_extra.js", "parametri": { } } },
   "cast": { "ken": { "tipo": "turista", "seme": 3, "corpo": "#e8742a" } },
   "scene": [ { "luogo": "via", "da": 0, "a": 6, "attori": [ … ], "camera": [ … ], "oggetti": [ … ] } ]
 }
 ```
-- `voce.parole`: uscita di `kit/tools/asr_words.py` (`[[inizio, fine, parola], …]`). `"musica": false` la toglie; `"karaoke": false` toglie le scritte.
+- `voce.parole`: uscita di `kit/tools/asr_words.py` (`[[inizio, fine, parola], …]`). `"musica": false` la toglie; `"karaoke": false` toglie le scritte; **`"karaoke": "leggibile"`** (o `"karaoke_leggibile": true`) unisce in modo sicuro i blocchi troppo brevi (`< 0,65 s`) o veloci (`> 20 car/s`) e salva il controllo in `lettura_sottotitoli.txt` e `suoni.md`. `"testi_passa": ["…"]` esclude insegne 3D decorative da `readcheck.mjs`.
 - **Tempi**: secondi dall'inizio del video, oppure una parola della voce: `"@pachinko"`, `"@pachinko+0.3"`, `"@pachinko#2"` (seconda volta). Vale per `t`, `da`, `a`. Se la parola non è nella voce il render si ferma con un errore chiaro.
 - Le scene sono in fila: `da` di una = `a` di quella prima. Scena nuova = luogo o tempo nuovo (lì lo stacco è giusto).
 
@@ -77,7 +80,7 @@ Tappe in ordine di tempo; tra una e l'altra la camera plana morbida (smootherste
 - Valori del look: altezza occhi 1,6-2,6 m, fov 80-95, ruotata ~20° verso il soggetto, movimenti di 3-8 m in 3-5 s, **l'ultima tappa sull'inquadratura chiave e ferma almeno 1 s** (due tappe uguali). La camera deve stare dentro la strada (tra `-xl` e `xr`) e sopra il piano.
 
 ### Stile di camera «rick», zoom veloce, luce nel tempo, sfocatura vera
-- **Mosse (13/11)**: in ogni tappa `"mossa": "avanti" | "indietro" | "pan" | "tilt_su" | "tilt_giu" | "carrello" | "gru_su" | "gru_giu" | "arco" | "fermo" | "fluttua" | "inclina" | "risucchio" | "vertigine" | "segui"…` (con `preset`, `su` o `pos`+`guarda`); `"verso": 1 | -1`, `"verso_a": "<attore>" | [x, y, z]`, `"ancora": "mezzo" | "inizio" | "fine"`, `"tratto"` (%), `"panTratto"` ([px, px]), `"scossa": { "f": 1.2, "t": "@parola" }`. `"volo": true | secondi` sulla tappa d'arrivo (scatto rapido dalla tappa prima, parte sulla parola); `"curva": "frena"` (zoom che parte veloce e rallenta: già nelle mosse di zoom); `"mosso": false | { "otturatore", "soglia", "pieno", "max" }` (storia o scena: sfocatura di movimento sui movimenti veloci di camera, accesa di base con lo stile Rick); `"grandezza": "dettaglio" | …` nella tappa per il controllo REGIA; `"guarda_ogg": "<id di OBJ>"` in una tappa a mano = la camera tiene d'occhio quell'oggetto mentre si muove (mira ammorbidita; `"guarda"` resta come riserva). Regole: `movimenti-camera.md`.
+- **Mosse (13/11)**: in ogni tappa `"mossa": "avanti" | "indietro" | "pan" | "tilt_su" | "tilt_giu" | "carrello" | "gru_su" | "gru_giu" | "arco" | "fermo" | "fluttua" | "inclina" | "risucchio" | "vertigine" | "segui"…` (con `preset`, `su` o `pos`+`guarda`); `"verso": 1 | -1`, `"verso_a": "<attore>" | [x, y, z]`, `"ancora": "mezzo" | "inizio" | "fine"`, `"tratto"` (%), `"panTratto"` ([px, px]), `"scossa": { "f": 1.2, "t": "@parola" }`. `"volo": true | secondi` sulla tappa d'arrivo (scatto rapido dalla tappa prima, parte sulla parola); `"curva": "frena" | "monotona"` (`"frena"` = zoom che parte veloce e rallenta, già nelle mosse di zoom; `"monotona"` su storia, scena o `camera_rick` = interpolazione cubica monotona di Fritsch–Carlson fra tutte le tappe dello stesso segmento, senza frenate intermedie né scatti — usa `"sosta": true` su una tappa per una pausa controllata senza rimbalzi e `"taglio": true` per spezzare in un nuovo segmento continuo); `"mosso": false | { "otturatore", "soglia", "pieno", "max" }` (storia o scena: sfocatura di movimento sui movimenti veloci di camera, accesa di base con lo stile Rick); `"grandezza": "dettaglio" | …` nella tappa per il controllo REGIA; `"guarda_ogg": "<id di OBJ>"` in una tappa a mano = la camera tiene d'occhio quell'oggetto mentre si muove (mira ammorbidita; `"guarda"` resta come riserva). Regole: `movimenti-camera.md`.
 - `"stile_camera": "rick"` (storia o scena): ogni tappa è un'inquadratura che parte sulla sua parola; la camera **arriva veloce e poi rallenta**, dentro l'inquadratura spinge (`tratto / durata` ~18%, o `"zoom"` fisso) e scorre (`"pan"`: [px/s, px/s], `"camera_rick": {"verso": 1 | -1}`), e passa alla tappa dopo con una planata su misura (`planata`: 0,6-2 s solo se sopra 3,5 s). `"glide": "lens"` (gira e zooma) o `"dolly"` (sposta la camera). Tra scene brevi con `"passaggio": "dissolvi", "passaggioDur": 0.27`, metti `"fermo": 0` così non frena prima di dissolvere.
 - **Zoom veloce sul soggetto** (`preset: "zoom_soggetto"` / `"snap_zoom"`, oppure `"zoom_veloce": true | 1.45 | { "t": "@parola", "su": "attore", "punto": [x, y, z], "fattore": 1.45, "dur": 0.6 }`): stringe veloce (+45% in ~0,6 s con curva morbida senza scatti, centrando `"su"` o `"punto"`) e poi rallenta a spinta dolce (~4 %/s). Funziona sia con `"su"` sia con `"pos"`+`"guarda"` (`dolly` o `lens`). Usalo **ogni tanto** su svolte, reazioni o battute, mai due di fila.
 - **Fermata al cambio di scena [utente]**: negli ultimi `"fermo"` s di ogni scena (0,6 di default per stacchi secchi; `0` per dissolvenze stile Rick) la camera rallenta fino a fermarsi.
@@ -93,5 +96,6 @@ Prima di scrivere le scene leggi `references/piano-reference.md`: tabella delle 
 
 ## Controlli prima di consegnare
 - Lo script blocca: luogo o attore inesistente, camera mancante, parole non trovate; avvisa: buchi tra le scene, fov/altezze strane, troppi stacchi.
+- **`node kit/tools/readcheck.mjs "$PWD/kit/stories/<nome>/<nome>.json"`** (anche via `lettura.txt` in `--anteprima`): controlla che ogni scritta 3D chiave resti intera nel quadro abbastanza a lungo (`>= max(1,5 s, len/15 + 1,5 s)`) e alta almeno `22 px/riga`, più la leggibilità dei sottotitoli karaoke (`--scena N`, `--no-sottotitoli`, `--json` opzionali).
 - Guarda il contact sheet e fai i **Controlli** di `look-disegnato.md` (§0b porta ≈ 1,3-1,4 × personaggio; §3 metà bassa piena di riflessi; §4 insegna leggibile; §8 almeno 15 oggetti nell'inquadratura, comparse che fanno qualcosa, niente fuori campo).
 - Ogni correzione dell'utente diventa una regola **[utente]** in `look-disegnato.md` (§11.6).

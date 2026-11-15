@@ -302,7 +302,7 @@ export function creaMondo(D, O = {}) {
     return dm; };
 
   // ---- insegna verticale a bandiera (§4): faccia luminosa ×1,25 con lampadine sul bordo, cassone scuro con spessore, staffe, luce vera
-  M.insegna = ({ testo = 'PACHINKO', sopra = 'パチンコ', x = 6.303, y = 5.005, z = -1.454, w = 1.245, h = 5.121, ry = 0.039, lato = 1, fondo = ['#ff2a6a', '#c0104a'], riquadro = '#ff5a9a', lettere = '#ffe0ec', cassa = '#2a0a1e', freccia = '#ffd23a', luceC = '#ff3a9a', luceF = 14, lucePos = null } = {}) => {
+  M.insegna = ({ testo = 'PACHINKO', sopra = 'パチンコ', x = 6.303, y = 5.005, z = -1.454, w = 1.245, h = 5.121, ry = 0.039, lato = 1, fondo = ['#ff2a6a', '#c0104a'], riquadro = '#ff5a9a', lettere = '#ffe0ec', cassa = '#2a0a1e', freccia = '#ffd23a', luceC = '#ff3a9a', luceF = 14, lucePos = null, passa = true } = {}) => {
     const t = tex(256, 1280, (g, W, H) => { g.fillStyle = cassa; g.fillRect(0, 0, W, H);
       const q = g.createLinearGradient(0, 0, 0, H); q.addColorStop(0, fondo[0]); q.addColorStop(1, fondo[1]); g.fillStyle = q; g.fillRect(18, 18, W - 36, H - 36); g.textAlign = 'center';
       let top = 220; if (sopra) { g.fillStyle = riquadro; g.fillRect(34, 34, W - 68, 170); g.fillStyle = '#ffffff'; g.font = `bold ${Math.min(70, 300 / [...sopra].length)}px sans-serif`; g.fillText(sopra, W / 2, 150); } else top = 60;
@@ -313,7 +313,7 @@ export function creaMondo(D, O = {}) {
     const c = box(w * 1.09, h * 1.023, 0.22, std(cassa, 0.5), 0, 0, 0); c.rotation.copy(sg.rotation); c.position.copy(sg.position).add(new THREE.Vector3(0, 0, -0.125).applyEuler(sg.rotation));
     const wx = FX(lato), bw = Math.abs(wx - x) + 0.05; for (const dy of [h * 0.43, -h * 0.39]) box(bw, 0.1, 0.1, std('#1a1020', 0.6), (wx + x) / 2 + (lato > 0 ? 0.0 : 0), y + dy, z - 0.05);
     if (luceF) { const p = lucePos || [x - (lato > 0 ? 0.3 : -0.3), y - 1.6, z + 0.05]; luce(luceC, luceF, p[0], p[1], p[2], 10); }
-    sg.name = 'insegna'; M.vita?.aggiungi(sg, 'lampeggia', { min: 0.88, freq: 0.45 }); return sg; };
+    sg.name = 'insegna'; sg.userData.scritta = 1; sg.userData.testo = [sopra, testo].filter(Boolean).join(' '); if (passa) sg.userData.testoPassa = 1; M.vita?.aggiungi(sg, 'lampeggia', { min: 0.88, freq: 0.45 }); return sg; };
 
   // ---- insegne appese spente (una su quattro accesa): pannelli verticali con testo, perpendicolari al muro
   M.insegneAppese = ({ parole = ['PACHINKO', 'カラオケ', 'SLOTS', 'パチンコ', 'GAME', 'ラーメン', 'HOTEL', 'カフェ'], z1 = -60, zDx = -10, zSx = -2, accese = ['#ff3a9a', '#30c8ff', '#ff8a30'] } = {}) => {
@@ -360,12 +360,12 @@ export function creaMondo(D, O = {}) {
   M.scatola = ({ w = 1, h = 1, d = 1, x = 0, y, z = 0, colore = '#8a8ca0', ruvido = 0.8, emissiva = 0.2, ry = 0 }) => { const m = std(colore, ruvido); m.emissive.set(colore); m.emissiveIntensity = emissiva; const o = box(w, h, d, m, x, y ?? h / 2, z); o.rotation.y = ry; return o; };
   M.scatolaLuce = ({ w = 1, h = 1, d = 1, x = 0, y = 1, z = 0, colore = '#ffe0a0', forza = 3, faccia = 4 }) => boxLuce(w, h, d, colore, forza, x, y, z, faccia);
   // pannello piatto: `dipingi(g, W, H)` disegna la faccia su canvas; `luminoso` = schermo/insegna/vetrina (piatto, a filo), altrimenti prende la luce
-  M.pannello = ({ w = 2, h = 1, x = 0, y = 1, z = 0, ry = 0, rx = 0, px = 256, dipingi, colore = '#ffffff', luminoso = 0, emissiva = 0.3, testo, coloreTesto = '#ffffff', doppio = true }) => {
+  M.pannello = ({ w = 2, h = 1, x = 0, y = 1, z = 0, ry = 0, rx = 0, px = 256, dipingi, colore = '#ffffff', luminoso = 0, emissiva = 0.3, testo, coloreTesto = '#ffffff', doppio = true, passa = false }) => {
     const t = (dipingi || testo) ? tex(px, px * h / w, (g, W, H) => { g.fillStyle = colore; g.fillRect(0, 0, W, H); if (dipingi) dipingi(g, W, H, G); if (testo) { g.fillStyle = coloreTesto; g.textAlign = 'center'; g.textBaseline = 'middle'; let fs = H * 0.6; g.font = `bold ${fs}px sans-serif`; const tw = g.measureText(testo).width; if (tw > W * 0.86) { fs *= W * 0.86 / tw; g.font = `bold ${fs}px sans-serif`; } g.fillText(testo, W / 2, H / 2); }
       g.strokeStyle = '#3a2a2e'; g.lineWidth = Math.max(4, W / 60); g.strokeRect(2, 2, W - 4, H - 4); }) : null;
     const m = luminoso ? new THREE.MeshBasicMaterial({ map: t, color: t ? new THREE.Color(luminoso, luminoso, luminoso) : new THREE.Color(colore).multiplyScalar(luminoso), side: doppio ? THREE.DoubleSide : THREE.FrontSide })
       : (t ? Object.assign(dipinto(t, emissiva), { side: doppio ? THREE.DoubleSide : THREE.FrontSide }) : std(colore));
-    const o = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); o.position.set(x, y, z); o.rotation.set(rx, ry, 0); o.receiveShadow = true; if (testo) o.userData.scritta = 1; return add(o); };
+    const o = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); o.position.set(x, y, z); o.rotation.set(rx, ry, 0); o.receiveShadow = true; if (testo) { o.userData.scritta = 1; o.userData.testo = String(testo); if (passa) o.userData.testoPassa = 1; } return add(o); };
   M.luceVera = ({ colore = '#ffffff', forza = 8, x = 0, y = 2, z = 0, dist = 8, decadimento = 1.6, ombra = false } = {}) => {
     const l = new THREE.PointLight(colore, forza, dist, decadimento);
     l.position.set(x, y, z);

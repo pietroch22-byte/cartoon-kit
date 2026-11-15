@@ -27,13 +27,14 @@ function spezza(c, parole, n, famiglia, font) { if (n === 1) return [parole.join
 const tela = (THREE, W, H, fn) => { const cv = document.createElement('canvas'); cv.width = W; cv.height = H; fn(cv.getContext('2d'), W, H); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return { cv, t }; };
 
 // cartello: w, h in metri; la tela ha la stessa proporzione del supporto (le lettere non si stirano mai)
-export function cartello(M, { testo = 'APERTO', w = 1.2, h = 0.4, x = 0, y = 2, z = 0, ry = 0, fondo = '#f4efe2', colore = '#1d1a24', bordo = '#2a1a26', spessore = 0.04, righe = 2, maiuscolo = true, font = '900' } = {}) {
+export function cartello(M, { testo = 'APERTO', w = 1.2, h = 0.4, x = 0, y = 2, z = 0, ry = 0, fondo = '#f4efe2', colore = '#1d1a24', bordo = '#2a1a26', spessore = 0.04, righe = 2, maiuscolo = true, font = '900', passa = false } = {}) {
   const { THREE } = M, px = 512, Hp = Math.max(32, Math.round(px * h / w)), g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry;
   const { t } = tela(THREE, px, Hp, (c, W, H) => { c.fillStyle = fondo; c.fillRect(0, 0, W, H); c.strokeStyle = bordo; c.lineWidth = Math.min(W, H) * 0.06; c.strokeRect(c.lineWidth / 2, c.lineWidth / 2, W - c.lineWidth, H - c.lineWidth);
     adattaTesto(c, testo, W, H, { colore, righe, maiuscolo, font, margine: 0.14 }); });
   const box = new THREE.Mesh(new THREE.BoxGeometry(w, h, spessore), new THREE.MeshStandardMaterial({ color: bordo, roughness: 0.8 })); g.add(box);
-  const fr = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.98, h * 0.96), new THREE.MeshStandardMaterial({ map: t, roughness: 0.7 })); fr.position.z = spessore / 2 + 0.002; g.add(fr);
-  g.name = 'cartello_' + testo; M.root.add(g); return g;
+  const fr = new THREE.Mesh(new THREE.PlaneGeometry(w * 0.98, h * 0.96), new THREE.MeshStandardMaterial({ map: t, roughness: 0.7 })); fr.position.z = spessore / 2 + 0.002;
+  fr.userData.scritta = 1; fr.userData.testo = String(testo); if (passa) fr.userData.testoPassa = 1;
+  g.add(fr); g.name = 'cartello_' + testo; g.userData.testo = String(testo); if (passa) g.userData.testoPassa = 1; M.root.add(g); return g;
 }
 
 // quadrante con 12 numeri, 60 tacche (le 12 delle ore più spesse), lancette di ore, minuti e secondi

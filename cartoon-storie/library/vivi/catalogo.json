@@ -73,7 +73,7 @@
   "descrizione": "saracinesca che si alza e si abbassa a ciclo",
   "dimensioni": "2,4 x 2,3 m"
  },
- "orologio": {
+  "orologio": {
   "file": "orologio.glb",
   "tag": [
    "orologio",
@@ -81,5 +81,18 @@
   ],
   "descrizione": "orologio da parete con lancette",
   "dimensioni": "ø 0,44 m"
+ },
+ "scrigno_fortnite": {
+  "file": "scrigno_fortnite.glb",
+  "tag": [
+   "scrigno",
+   "forziere",
+   "fortnite",
+   "pirata",
+   "tesoro",
+   "coperchio"
+  ],
+  "descrizione": "forziere pirata Fortnite articolato (coperchio con cerniera a evento, materiali legno/oro/ferro/gemma/interno)",
+  "dimensioni": "1,0 x 0,96 x 0,84 m"
  }
 }

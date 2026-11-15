@@ -2,7 +2,7 @@
 
 Regole che valgono con qualunque strumento (solo strumenti gratuiti: i nostri effetti sintetizzati in `kit/engine/audio.py`,
 la voce dell'utente, ffmpeg per misurare). Il suono si progetta dopo che i tempi delle immagini sono fissati: se cambia un
-tempo, si rifà il suono.
+tempo, si rifà il suono. Con `"regia_audio": true` (o `"silenzi"` / `"ambienti"` / `"sezioni"` / `"musica": "auto"` nella storia) `film_disegnato.py` attiva il mix misurato a 4 strati (`voce`, `musica`, `ambienti` con **J-cut / L-cut**, `effetti` con `silenzi` e livelli misurati in `suoni.md`).
 
 ## 1. Un effetto sonoro solo se serve
 Prima di mettere un effetto rispondi a tre domande. Se una resta senza risposta, l'effetto non va.
@@ -22,11 +22,10 @@ Prima di mettere un effetto rispondi a tre domande. Se una resta senza risposta,
 | rivelazione | piccolo colpo + silenzio breve prima | silenzio 0,2-0,4 s prima della parola, colpo sulla parola |
 | ritorno alla normalità | ambiente che rientra (strada, sala) | dopo la rivelazione, piano |
 | finale | un ultimo accento, poi la coda pulita | sull'ultima parola; niente che continui dopo la fine |
-Regole pratiche: l'ambiente (strada di notte, sala) sta sempre sotto, molto basso, e cambia col luogo; mai due effetti forti
-nello stesso mezzo secondo; mai un effetto sopra una parola importante (spostalo nello spazio tra le parole).
+Regole pratiche: l'ambiente (`ambienti` oppure generato automaticamente da `luogo` quando `regia_audio: true`) sta sempre sotto (`-25 LU`), cambia col luogo con **J-cut** (`0,45 s` entra prima del taglio) e **L-cut** (`0,55 s` sfuma dopo il taglio); i **silenzi pre-rivelazione** (`"silenzi": [{"da": "@parola", "a": "@parola2"}]`) spengono dolcemente musica/ambiente un attimo prima della svolta così il colpo successivo (`snap`, `spark`, `sting`, `ignite`) risalta; mai due effetti forti nello stesso mezzo secondo; mai un effetto sopra una parola importante (spostalo nello spazio tra le parole). Famiglie extra di effetti pronte (`audio.py`): `click`, `clack`/`wood_tap`, `snap`, `creak`, `thump`, `step`, `quindar`, `ignite`, `roar`, `heartbeat`, `paper`, `glass_tap`, `spark`, `riser` (con opzioni `dur`, `pitch`, `pan`, `gain`, `filtro: "radio"|"lontano"`, `j_cut`).
 
-## 2. Musica con un arco legato alla storia
-La musica segue la forma della storia, non è un tappeto uguale dall'inizio alla fine. Scegli l'arco dal copione:
+## 2. Musica con un arco variabile, dinamico e coerente col mood
+La musica segue la forma della storia, non è mai un tappeto uguale dall'inizio alla fine. `audio.py` offre **13 mood** con timbri e ritmi diversi (`marimba`, `vibraphone`, `piano_felt`, `bell`, `pad`, `staccato`, `pluck`): `mystery`, `playful`, `curious`, `tense`, `chase`, `heist`, `clockwork`, `cosmos`, `ironic`, `drama`, `reveal`, `triumph`, `sad`. Scegli l'arco dal copione (e usa `"musica": "auto"`, `"dinamica": true`, `"sezioni": [...]` o `"mood"` per singola scena così la musica varia intensità e timbro a ogni gradino):
 | storia | arco della musica |
 |---|---|
 | domanda → scoperta | sospesa e leggera all'inizio, si apre (più strumenti, tono più alto) sulla scoperta |

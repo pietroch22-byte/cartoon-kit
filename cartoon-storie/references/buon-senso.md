@@ -6,6 +6,7 @@ Il mondo è disegnato ma deve essere **credibile**: ogni oggetto ha quello che h
 - **Sempre centrate** sul supporto, in orizzontale e in verticale. Margine 10-15% del lato corto: mai lettere che toccano il bordo.
 - **Proporzionate al supporto**: la tela ha la stessa forma dell'oggetto (lettere mai stirate); il testo prende la dimensione più grande che ci sta, va a capo da solo (max 2-3 righe). Usa `adattaTesto` o `cartello`.
 - Leggibili nell'inquadratura in cui contano: altezza lettere ≥ 3% del quadro; se non ci stanno, accorcia il testo o avvicina la camera.
+- **Controllo continuo (`kit/tools/readcheck.mjs` e `lettura.txt` in `--anteprima`)**: ogni scritta chiave (`cartello`, `M.pannello`, o qualsiasi mesh con `userData.scritta = 1` e `userData.testo`) deve restare intera nel quadro per almeno `max(1,5 s, lunghezza/15 + 1,5 s)` e alta almeno `22 px/riga` senza uscire dai bordi (`clipped`). Insegne decorative secondarie (`M.insegna`, `cartelloAppeso`) usano `passa: true` (`userData.testoPassa = 1`) oppure vanno elencate in `"testi_passa"` nel JSON della storia per non bloccare il controllo.
 - Italiano corretto, maiuscole coerenti, niente refusi; prezzi con la valuta (€ 2,50), date e orari coerenti con la storia.
 - Un'insegna sta sopra o accanto a ciò che indica (porta, negozio, sportello), mai a caso.
 

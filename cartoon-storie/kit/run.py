@@ -1,8 +1,10 @@
 """Comando unico della skill cartoon-storie (motore «disegnato»).
 
-    python3 kit/run.py setup                                   installa Python privato e librerie (si può rifare)
-    python3 kit/run.py anteprima /percorso/assoluto/storia.json  fotogrammi chiave + contact sheet + controlli
-    python3 kit/run.py video     /percorso/assoluto/storia.json  MP4 1080x1920 con voce, musica, effetti, karaoke
+    python3 kit/run.py setup                                                installa Python privato e librerie (si può rifare)
+    python3 kit/run.py anteprima           /percorso/assoluto/storia.json   fotogrammi chiave + contact sheet + controlli
+    python3 kit/run.py video               /percorso/assoluto/storia.json   MP4 1080x1920 con voce, musica, effetti, karaoke
+    python3 kit/run.py da-reference        <video.mp4> <nome_storia>        analisi REA + sheet + bozza nel Mondo di Rick
+    python3 kit/run.py confronto-reference <ref.mp4> <nostro.mp4> [out.mp4] affianca reference e ricostruzione Mondo Rick
 
 La storia deve avere "motore": "disegnato" (references/storia-disegnato.md). Il render dei fotogrammi usa Node + Playwright
 (cd engine3d && npm install && npx playwright install chromium).
@@ -69,10 +71,25 @@ def main():
     cmd, rest = args[0], args[1:]
     if cmd == "setup":
         setup(); return
-    if cmd not in ("anteprima", "video"):
-        fail(f"Comando sconosciuto «{cmd}». Comandi: setup, anteprima, video.")
+    if cmd not in ("anteprima", "video", "da-reference", "confronto-reference"):
+        fail(f"Comando sconosciuto «{cmd}». Comandi: setup, anteprima, video, da-reference, confronto-reference.")
     if not VPY.exists() or not vrun(["-c", LIBS], quiet=True):
         say("Setup non ancora fatto: lo faccio adesso..."); setup()
+    tool_ref = str(Path(__file__).resolve().parent / "tools" / "analizza_reference.py")
+    if cmd == "da-reference":
+        if len(rest) < 2 or rest[0] in ("-h", "--help"):
+            fail("Uso: python3 kit/run.py da-reference <video_reference.mp4> <nome_storia> [--asr] [--lang it] [--solo-analisi] [--sovrascrivi]")
+        video_ref = str(Path(rest[0]).expanduser().resolve())
+        sys.exit(0 if vrun([tool_ref, video_ref] + rest[1:]) else 1)
+    if cmd == "confronto-reference":
+        if len(rest) < 2 or rest[0] in ("-h", "--help"):
+            fail("Uso: python3 kit/run.py confronto-reference <video_reference.mp4> <nostro.mp4> [out.mp4]")
+        ref_p = str(Path(rest[0]).expanduser().resolve())
+        ours_p = str(Path(rest[1]).expanduser().resolve())
+        extra = list(rest[2:])
+        if extra and not extra[0].startswith("-"):
+            extra[0] = str(Path(extra[0]).expanduser().resolve())
+        sys.exit(0 if vrun([tool_ref, "--confronto", ref_p, ours_p] + extra) else 1)
     if not rest:
         fail("Quale storia? Esempio: python3 kit/run.py anteprima /percorso/assoluto/kit/stories/pachinko/pachinko.json")
     story = Path(rest[0]).expanduser().resolve()   # percorso assoluto: con un percorso relativo il render fallisce

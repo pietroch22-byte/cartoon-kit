@@ -6,6 +6,7 @@ import { creaMondo } from '/web/mondo_disegnato.js';
 import { creaPersonaggio3D } from '/web/personaggi3d.js';
 import { drawRick, caricaTessuti, calcolaManoPx, sedutoDropPx, POSE_CORPO, ANDATURE, TESTE, CORPI } from '/web/omino_rick.js'; import { espandi as espandiPreset, effetti as effettiCamera } from '/web/camera_preset.js'; import { interazioni } from '/web/interazioni.js'; import { CAST as CAST_RICK } from '/web/cast_rick.js';
 import { creaVita } from '/web/vita.js';
+import { avvisi as _avvisiTesto } from '/web/buon_senso.js';
 try {
   const q = new URLSearchParams(location.search), S = await (await fetch('/scena/storia.json')).json(), SC = S.scene[+(q.get('scena') || 0)], LG = S.luoghi[SC.luogo];
   if (!LG) throw new Error('luogo sconosciuto: ' + SC.luogo);
@@ -771,10 +772,11 @@ try {
   // invece di tagliare a ogni frase. La mira è ammorbidita (0,3 s) e aggiornata una volta per fotogramma; se l'oggetto non c'è o è nascosto vale "guarda".
   const MIRA = {};
   function aggiornaMira(t) {
+    const fatti = new Set();
     for (const k of CAM) {
-      const id = k.guarda_ogg; if (!id) continue; const o = [].concat(OBJ[id])[0]; let vis = !!o; for (let q = o; q && vis; q = q.parent) if (!q.visible) vis = false;
+      const id = k.guarda_ogg; if (!id || fatti.has(id)) continue; fatti.add(id); const o = [].concat(OBJ[id])[0]; let vis = !!o; for (let q = o; q && vis; q = q.parent) if (!q.visible) vis = false;
       if (!vis) { delete MIRA[id]; continue; } const w = o.getWorldPosition(new THREE.Vector3()), m = MIRA[id], dt = m ? t - m.t : -1;
-      if (!m || dt <= 0 || dt > 0.2) MIRA[id] = { t, v: w }; else { m.v.lerp(w, 1 - Math.exp(-dt / 0.3)); m.t = t; }
+      if (!m || dt <= 0 || dt > 0.2) MIRA[id] = { t, t0: (m && dt === 0) ? m.t0 : (t <= SC.da + 0.15 ? SC.da - 2 : t), v: w }; else { m.v.lerp(w, 1 - Math.exp(-dt / 0.3)); m.t = t; }
     }
   }
   function tappa(k, t) {
@@ -837,6 +839,7 @@ try {
   // planata breve ("planata": s, 0,8 di default) invece di muoversi per tutto l'intervallo. "glide": "lens" (gira e zooma: camera ferma) o
   // "dolly" (la camera si sposta davvero). La camera viva in metri si spegne: la sostituisce questa deriva.
   const RICK = (SC.stile_camera ?? S.stile_camera) === 'rick', RC = { tratto: 18, zoomMin: 5, zoomMax: 20, panTratto: 110, panMin: 45, panMax: 115, planata: 0.8, arrivo: 0.7, rampa: 0.25, glide: 'lens', ...(S.camera_rick || {}), ...(SC.camera_rick || {}) };
+  const MONOTONA = (SC.curva ?? S.curva ?? RC.curva) === 'monotona';
   // [13/11] integrale normalizzato su [0, dur] (valore a dur == dur) con partenza morbida C2: elimina gli strappi al fotogramma 0 e al passaggio tl = 0
   function curvaTempo(tl, dur, fnRate, tailRate, rampSec) {
     if (rampSec > 0 && tl <= 0) return 0;
@@ -923,7 +926,7 @@ try {
     const zo = Math.abs(Math.log(Math.tan(fa * Math.PI / 360) / Math.tan(fb * Math.PI / 360))) * 734 + (stessoSogg ? Math.abs(Math.log(La / Lb)) * 734 : 0);
     return Math.max(rot, sh, tr * 0.6) + zo;
   }
-  if (RICK) for (let k = 1; k < CAM.length; k++) {
+  if (RICK && !MONOTONA) for (let k = 1; k < CAM.length; k++) {
     const K = CAM[k]; if (K.taglio) { PLANATA[k] = { dur: 0, taglio: true }; continue; }
     const a = deriva(k - 1, K.t, tappa(CAM[k - 1], K.t)), b = deriva(k, K.t, tappa(K, K.t)), px = spostamentoPx(a, b), fps = S.fps || 30;
     const La = a[1].distanceTo(a[0]), Lb = b[1].distanceTo(b[0]), slerp = a[1].distanceTo(b[1]) > 0.7 || Math.max(La / Math.max(0.2, Lb), Lb / Math.max(0.2, La)) > 1.35;
@@ -943,7 +946,7 @@ try {
     if (taglio || dur > 0.85) console.log(`[d] camera: tappa ${k} a ${K.t.toFixed(2)} s, spostamento ${px.toFixed(0)} px → ${taglio ? 'STACCO (planata troppo veloce: ' + picco.toFixed(0) + ' px/f; Rick qui fa una dissolvenza: metti la tappa in una scena nuova con "passaggio": "dissolvi")' : 'planata ' + dur.toFixed(2) + ' s, picco ' + picco.toFixed(0) + ' px/f'}`);
   }
   // [utente 13/11] FLUIDITÀ: ogni passaggio tra due tappe ha la sua finestra di tempo [inizio, fine] dentro [SC.da, SC.a], mai sovrapposta.
-  const FIN = []; if (RICK) {
+  const FIN = []; if (RICK && !MONOTONA) {
     for (let k = 1; k < CAM.length; k++) {
       const p = PLANATA[k]; if (CAM[k].taglio || p?.taglio) continue; const d = p?.dur ?? RC.planata; if (!(d > 0)) continue;
       FIN[k] = p?.volo ? [Math.max(SC.da, CAM[k].t), Math.min(SC.a, CAM[k].t + d)] : [Math.max(SC.da, CAM[k].t - d / 2), Math.min(SC.a, CAM[k].t + d / 2)];
@@ -977,8 +980,91 @@ try {
     tgt.addScaledVector(lat, L * ampA * Math.sin(tau * 0.72 + ph * 1.3));
     tgt.y += L * ampA * 0.55 * Math.sin(tau * 1.05 + ph * 0.6);
   }
+  // Curva cubica monotona di Fritsch-Carlson (da lemo-opuscar/core/lib.js, licenza MIT):
+  // attraversa tutte le tappe senza fermarsi in mezzo e senza oscillazioni (overshoot zero).
+  function monotone1D(keys, zeroStart) {
+    const n = keys.length, xs = keys.map(k => k[0]), ys = keys.map(k => k[1]);
+    if (n === 1) return () => ys[0];
+    const d = [], m = new Array(n).fill(0);
+    for (let i = 0; i < n - 1; i++) d.push((ys[i + 1] - ys[i]) / (xs[i + 1] - xs[i]));
+    m[0] = zeroStart ? 0 : d[0]; m[n - 1] = d[n - 2];
+    for (let i = 1; i < n - 1; i++) m[i] = d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2;
+    for (let i = 0; i < n - 1; i++) {
+      if (d[i] === 0) { m[i] = m[i + 1] = 0; continue; }
+      const a = m[i] / d[i], b = m[i + 1] / d[i], s = a * a + b * b;
+      if (s > 9) { const k = 3 / Math.sqrt(s); m[i] = k * a * d[i]; m[i + 1] = k * b * d[i]; }
+    }
+    return t => {
+      if (t <= xs[0]) return ys[0]; if (t >= xs[n - 1]) return ys[n - 1];
+      let i = 0; while (t > xs[i + 1]) i++;
+      const h = xs[i + 1] - xs[i], u = (t - xs[i]) / h, u2 = u * u, u3 = u2 * u;
+      return (2 * u3 - 3 * u2 + 1) * ys[i] + (u3 - 2 * u2 + u) * h * m[i] + (-2 * u3 + 3 * u2) * ys[i + 1] + (u3 - u2) * h * m[i + 1];
+    };
+  }
+  function trackMonotona(keys, zeroStart) {
+    const dim = keys[0][1].length, fs = [];
+    for (let j = 0; j < dim; j++) fs.push(monotone1D(keys.map(k => [k[0], k[1][j]]), zeroStart));
+    return t => fs.map(f => f(t));
+  }
+  const toVecTrack = P => [P[0].x, P[0].y, P[0].z, P[1].x, P[1].y, P[1].z, Math.log(Math.max(1e-3, Math.tan(P[2] * Math.PI / 360)))];
+  let _monSegs = null;
+  function monSegs() {
+    if (_monSegs) return _monSegs;
+    const segs = [], cuts = [0];
+    for (let k = 1; k < CAM.length; k++) if (CAM[k].taglio) cuts.push(k);
+    const zeroStart = (SC.rampa ?? RC.rampa ?? 0.25) > 0;
+    for (let c = 0; c < cuts.length; c++) {
+      const i0 = cuts[c], i1 = (c + 1 < cuts.length ? cuts[c + 1] : CAM.length) - 1;
+      const tA = i0 === 0 ? Math.min(SC.da, CAM[0].t) : CAM[i0].t;
+      const tB = c + 1 < cuts.length ? CAM[cuts[c + 1]].t : SC.a;
+      const nodi = [];
+      const spingi = (tk, pose, tap) => {
+        if (nodi.length && tk <= nodi[nodi.length - 1].t + 1e-3) { nodi[nodi.length - 1] = { t: tk, pose, tap }; return; }
+        nodi.push({ t: tk, pose, tap });
+      };
+      for (let k = i0; k <= i1; k++) {
+        const tap = CAM[k], tk = k === i0 ? tA : tap.t, p = toVecTrack(tappa(tap, tk));
+        const sosta = Math.max(0, tap.sosta || 0), nextT = k < i1 ? CAM[k + 1].t : tB;
+        if (sosta > 0 && tk + sosta < nextT - 0.05) { spingi(tk, p, tap); spingi(tk + sosta, p, tap); }
+        else spingi(tk, p, tap);
+      }
+      if (tB > nodi[nodi.length - 1].t + 0.05) {
+        const last = CAM[i1], P0 = tappa(last, last.t);
+        const haMossa = (last.mossa && last.mossa !== 'fermo') || last.zoom !== undefined || last.pan !== undefined || last.tratto !== undefined || last.panTratto !== undefined || RICK;
+        const Pend = haMossa ? deriva(i1, tB, P0) : P0;
+        spingi(tB, toVecTrack(Pend), last);
+      }
+      const ev = trackMonotona(nodi.map(n => [n.t, n.pose]), zeroStart);
+      segs.push({ t0: nodi[0].t, t1: nodi[nodi.length - 1].t, nodi, ev });
+    }
+    return (_monSegs = segs);
+  }
   function poseAt(t) {
-    if (!CAM.length) return null; t = fermaT(t); let i = idx(t); const nx = CAM[i + 1]; let pos, tgt, fov, sfA = SF(CAM[i]), sfB = sfA, uu = 0, kS = CAM[i];
+    if (!CAM.length) return null; t = fermaT(t);
+    if (MONOTONA) {
+      const segs = monSegs(); let sg = segs[0];
+      for (let c = 1; c < segs.length; c++) if (t >= segs[c].t0) sg = segs[c];
+      const v = sg.ev(t);
+      const pos = new THREE.Vector3(v[0], v[1], v[2]), tgt = new THREE.Vector3(v[3], v[4], v[5]);
+      const fov = Math.min(100, Math.max(22, 2 * Math.atan(Math.exp(v[6])) * 180 / Math.PI));
+      const nodi = sg.nodi; let j = 0; while (j < nodi.length - 2 && t >= nodi[j + 1].t) j++;
+      const nA = nodi[j], nB = nodi[Math.min(nodi.length - 1, j + 1)];
+      const uu = nB === nA ? 0 : ss(cl((t - nA.t) / Math.max(1e-3, nB.t - nA.t)));
+      const miraPt = tap => {
+        const m = tap.guarda_ogg && MIRA[tap.guarda_ogg];
+        if (!m) return null;
+        const fade = ss(cl((t - m.t0) / 0.6));
+        return fade >= 1 ? m.v : tgt.clone().lerp(m.v, fade);
+      };
+      const mA = miraPt(nA.tap), mB = miraPt(nB.tap);
+      if (mA && mB) tgt.copy(mA).lerp(mB, uu);
+      else if (mB) tgt.lerp(mB, uu);
+      else if (mA) tgt.lerp(mA, 1 - uu);
+      const kS = uu > 0.5 ? nB.tap : nA.tap;
+      applicaRespiro(pos, tgt, fov, t - SC.da);
+      return { pos, tgt, fov, sfA: SF(nA.tap), sfB: SF(nB.tap), uu, kS };
+    }
+    let i = idx(t); const nx = CAM[i + 1]; let pos, tgt, fov, sfA = SF(CAM[i]), sfB = sfA, uu = 0, kS = CAM[i];
     if (RICK) {
       const P = k => deriva(k, t, tappa(CAM[k], t)), A = P(i);[pos, tgt, fov] = A;
       const pv = CAM[i - 1], wi = FIN[i], wn = nx ? FIN[i + 1] : null; let a = null, b = null, u = 0, volo = false, slerp = false;
@@ -997,6 +1083,28 @@ try {
         } else { tgt = a[1].clone().lerp(b[1], u); fov = a[2] + (b[2] - a[2]) * u; }
         uu = u;
       }
+      applicaRespiro(pos, tgt, fov, t - SC.da);
+      return { pos, tgt, fov, sfA, sfB, uu, kS };
+    }
+    const CR = SC.curva_riquadro ?? S.curva_riquadro;
+    if (CR && CAM.length >= 2) {
+      const t0 = CAM[0].t, t1 = CAM[CAM.length - 1].t, spanC = Math.max(0.05, t1 - t0);
+      const uTot = (() => {
+        const dt = t - SC.da, dur = Math.max(0.15, (SC.a ?? t1) - SC.da);
+        const d0 = CR.da ?? 0.10, d1 = CR.a ?? 0.40, fw = CR.quota ?? 0.44;
+        if (dt <= d0) return 0;
+        const sp = Math.max(0.12, dur - d0), tE = Math.min(dt - d0, sp);
+        const uF = cl((dt - d0) / Math.min(sp, Math.max(0.08, d1 - d0)));
+        const cF = uF * uF * uF * (10 + uF * (-15 + 6 * uF));
+        const rT = Math.min(sp * 0.5, CR.coda ?? 0.30);
+        const tailRaw = x => x <= 0 ? 0 : x < rT ? rT * Math.pow(x / rT, 4) * (2.5 - 3 * (x / rT) + Math.pow(x / rT, 2)) : 0.5 * rT + (x - rT);
+        return fw * cF + (1 - fw) * (tailRaw(tE) / (tailRaw(sp) || sp));
+      })();
+      const tCam = t0 + uTot * spanC, j = idx(tCam), nj = CAM[j + 1], Aj = tappa(CAM[j], t);
+      pos = new THREE.Vector3(); tgt = new THREE.Vector3();
+      if (!nj || nj.taglio || tCam <= CAM[j].t) { pos.copy(Aj[0]); tgt.copy(Aj[1]); fov = Aj[2]; }
+      else { const Bj = tappa(nj, t), uL = cl((tCam - CAM[j].t) / (nj.t - CAM[j].t)); pos.lerpVectors(Aj[0], Bj[0], uL); tgt.lerpVectors(Aj[1], Bj[1], uL); fov = Aj[2] + (Bj[2] - Aj[2]) * uL; }
+      if (nx && !nx.taglio && t > CAM[i].t) { const ur = cl((t - CAM[i].t) / (nx.t - CAM[i].t)); sfB = SF(nx); uu = ur; if (ur > 0.5) kS = nx; }
       applicaRespiro(pos, tgt, fov, t - SC.da);
       return { pos, tgt, fov, sfA, sfB, uu, kS };
     }
@@ -1246,6 +1354,89 @@ try {
     let n = 0; for (let i = 0; i < W * H; i++) if (buf[i * 4] >= 0.999999) n++;
     return n / (W * H);
   }
+  // CONTROLLO TESTI IN SCENA (Punto 2 da lemo-opuscar/readcheck.mjs): proietta ogni cartello/pannello leggibile nel quadro 1080x1920.
+  const _testiId = new WeakMap();
+  let _nTesti = 0;
+  const _passaLista = [...(S.testi_passa || []), ...(SC.testi_passa || [])].map(s => String(s).toLowerCase().trim()).filter(Boolean);
+  window.controlloTesti = () => {
+    const W = 1080, H = 1920, out = [], P = camera.position, b = new THREE.Box3(), rc = new THREE.Raycaster();
+    rc.camera = camera; camera.updateMatrixWorld(); camera.updateProjectionMatrix();
+    const invCam = camera.matrixWorldInverse, projMat = camera.projectionMatrix;
+    const vis = o => { for (let q = o; q; q = q.parent) if (!q.visible) return false; return true; };
+    const radiceCartello = o => { let r = o; for (let q = o; q && q !== M.root; q = q.parent) if (q.userData?.testo || /^cartello_/.test(q.name || '')) r = q; return r; };
+    const trovaTesto = o => {
+      if (o.userData?.testo) return String(o.userData.testo);
+      for (let q = o; q && q !== M.root; q = q.parent) {
+        if (q.userData?.testo) return String(q.userData.testo);
+        if (q.name && q.name.startsWith('cartello_')) return q.name.slice(9);
+      }
+      return '';
+    };
+    const EDGES = [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [1, 3], [4, 6], [5, 7], [0, 4], [1, 5], [2, 6], [3, 7]];
+    M.root.traverse(o => {
+      if (!o.isMesh || (!o.userData.scritta && !o.userData.testo) || !vis(o)) return;
+      const raw = trovaTesto(o).trim();
+      if (!raw) return;
+      if (!_testiId.has(o)) _testiId.set(o, 'scritta_' + (++_nTesti));
+      const id = o.userData.testoId || _testiId.get(o);
+      o.updateWorldMatrix(true, false);
+      b.setFromObject(o);
+      if (b.isEmpty()) return;
+      const mn = b.min, mx = b.max;
+      const ctr = b.getCenter(new THREE.Vector3());
+      const toCam = P.clone().sub(ctr), dist = toCam.length();
+      if (dist < 0.05 || dist > 30) return;
+      toCam.divideScalar(dist);
+      const nrm = new THREE.Vector3(0, 0, 1).transformDirection(o.matrixWorld);
+      const dot = nrm.dot(toCam);
+      const side = o.material?.side ?? THREE.FrontSide;
+      if (side === THREE.FrontSide && dot <= 0.08) return;
+      if (Math.abs(dot) < 0.14) return;
+      const angDeg = Math.round(Math.acos(Math.min(1, Math.abs(dot))) * 180 / Math.PI);
+      const vs = [
+        new THREE.Vector3(mn.x, mn.y, mn.z), new THREE.Vector3(mx.x, mn.y, mn.z),
+        new THREE.Vector3(mn.x, mx.y, mn.z), new THREE.Vector3(mx.x, mx.y, mn.z),
+        new THREE.Vector3(mn.x, mn.y, mx.z), new THREE.Vector3(mx.x, mn.y, mx.z),
+        new THREE.Vector3(mn.x, mx.y, mx.z), new THREE.Vector3(mx.x, mx.y, mx.z),
+      ].map(p => p.applyMatrix4(invCam));
+      const pts = [];
+      for (const p of vs) if (p.z <= -0.05) pts.push(p);
+      for (const [i0, i1] of EDGES) {
+        const a = vs[i0], b2 = vs[i1];
+        if ((a.z <= -0.05) !== (b2.z <= -0.05)) {
+          const tEdge = (-0.05 - a.z) / (b2.z - a.z);
+          pts.push(new THREE.Vector3(a.x + (b2.x - a.x) * tEdge, a.y + (b2.y - a.y) * tEdge, -0.05));
+        }
+      }
+      if (!pts.length) return;
+      let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      for (const vp of pts) {
+        const ndc = vp.clone().applyMatrix4(projMat);
+        const px = (ndc.x * 0.5 + 0.5) * W, py = (-ndc.y * 0.5 + 0.5) * H;
+        if (px < x0) x0 = px; if (px > x1) x1 = px;
+        if (py < y0) y0 = py; if (py > y1) y1 = py;
+      }
+      if (x1 <= 0 || x0 >= W || y1 <= 0 || y0 >= H) return;
+      const grp = radiceCartello(o);
+      const sotto = (q, r) => { for (let p = q; p; p = p.parent) if (p === r) return true; return false; };
+      rc.set(P, ctr.clone().sub(P).normalize()); rc.far = Math.max(0.05, dist - 0.14);
+      const occ = rc.intersectObjects(M.root.children, true).find(h => h.object.isMesh && vis(h.object) && !sotto(h.object, grp) && !(h.object.material && h.object.material.transparent));
+      if (occ) return;
+      const text = raw.replace(/\s+/g, ' ');
+      const righe = Math.max(1, raw.split(/\n+/).filter(Boolean).length);
+      const wPx = Math.round(x1 - x0), hPx = Math.round(y1 - y0), linePx = Math.round(hPx / righe);
+      const clipped = x0 < -0.5 || y0 < -0.5 || x1 > W + 0.5 || y1 > H + 0.5;
+      const pass = !!(o.userData.testoPassa || o.userData.pass || grp.userData?.testoPassa || _passaLista.some(k => text.toLowerCase().includes(k)));
+      out.push({ id, text, x0: Math.round(x0), y0: Math.round(y0), x1: Math.round(x1), y1: Math.round(y1), wPx, hPx, linePx, righe, dist: +dist.toFixed(2), angDeg, clipped, pass });
+    });
+    return { t: +(_ultimoT - (SC.da || 0)).toFixed(3), tAssoluto: +_ultimoT.toFixed(3), testi: out, avvisi: [..._avvisiTesto] };
+  };
   await Promise.all([M.attendi?.(), D.pronto?.()]);
-  window.go = () => window.renderFrame(0); window.durata = SC.a - SC.da; window.ready = true;
+  window.go = () => window.renderFrame(0); window.durata = SC.a - SC.da; window.DUR = window.durata;
+  window.TEXTS = async t => {
+    const fps = S.fps || 30, f = Math.max(0, Math.round(t * fps));
+    await window.renderFrame(f, 0, fps);
+    return window.controlloTesti().testi;
+  };
+  window.ready = true;
 } catch (e) { console.error('[d] ' + (e.stack || e)); window.errore = String(e); window.ready = true; }

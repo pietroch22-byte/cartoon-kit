@@ -9,7 +9,7 @@ export async function vivo(M, nome, { x = 0, y = 0, z = 0, ry = 0, s = 1, colori
   const g = cache[nome].clone(true), mm = {}; g.position.set(x, y, z); g.rotation.y = ry; g.scale.setScalar(s);
   g.traverse(o => { if (!o.isMesh) return; const n = o.material.name, c = colori[n] || '#' + o.material.color.getHexString();
     if (!mm[n + c]) mm[n + c] = n === 'vetro' ? new M.THREE.MeshStandardMaterial({ color: c, roughness: .05, transparent: true, opacity: .22, emissive: c, emissiveIntensity: .1, depthWrite: false })
-      : n.startsWith('luce') ? M.emi(c, 2.2) : (() => { const m = M.std(c, n === 'metallo' ? .3 : .6, n === 'metallo' ? .5 : 0); m.emissive.set(c); m.emissiveIntensity = .22; return m; })();
+      : n.startsWith('luce') ? M.emi(c, 2.2) : (() => { const isMet = n === 'metallo' || n === 'oro' || n === 'ferro'; const isGem = n === 'gemma'; const m = M.std(c, isGem ? .18 : isMet ? .3 : .65, isMet ? .5 : isGem ? .15 : 0); m.emissive.set(c); m.emissiveIntensity = isGem ? .55 : n === 'interno' ? 0 : .22; return m; })();
     o.material = mm[n + c]; o.castShadow = n !== 'vetro'; o.receiveShadow = n !== 'vetro'; });
   M.root.add(g); return g;
 }

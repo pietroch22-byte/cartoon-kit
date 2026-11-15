@@ -74,12 +74,14 @@ export function pensilina(M, { x0 = -2.9, x1 = 2.4, z0 = 7, z1 = -19, h = 4.1, p
   for (let z = z0 - 1.5; z > z1; z -= 5) { M.box(1.4, .07, .16, M.emi('#fff1d0', .85), cx, h - .12, z); M.box(1.5, .05, .22, trave, cx, h - .07, z); }
   return { h };
 }
-export function cartelloAppeso(M, { x = 0, y = 3.4, z = 0, w = 1.6, h = .42, testo = 'USCITA →', sotto = '出口', fondo = '#1d3a8a', colore = '#ffffff', ry = 0 } = {}) {
+export function cartelloAppeso(M, { x = 0, y = 3.4, z = 0, w = 1.6, h = .42, testo = 'USCITA →', sotto = '出口', fondo = '#1d3a8a', colore = '#ffffff', ry = 0, passa = true } = {}) {
   const t = tela(512, Math.round(512 * h / w), (c, W, H) => { c.fillStyle = fondo; c.fillRect(0, 0, W, H); c.fillStyle = colore; c.textAlign = 'center'; c.font = `900 ${H * .45}px sans-serif`; c.fillText(testo, W / 2, H * .5); c.font = `700 ${H * .26}px sans-serif`; c.fillText(sotto, W / 2, H * .85); });
   const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = ry; M.root.add(g);
-  const f = new THREE.Mesh(RB(w + .06, h + .06, .06, .03), mat(M, '#2a2a34', .15)); g.add(f); for (const s of [1, -1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: t })); p.position.z = s * .032; if (s < 0) p.rotation.y = Math.PI; g.add(p); }
+  const f = new THREE.Mesh(RB(w + .06, h + .06, .06, .03), mat(M, '#2a2a34', .15)); g.add(f);
+  const txt = [testo, sotto].filter(Boolean).join(' ');
+  for (const s of [1, -1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: t })); p.position.z = s * .032; if (s < 0) p.rotation.y = Math.PI; p.userData.scritta = 1; p.userData.testo = txt; if (passa) p.userData.testoPassa = 1; g.add(p); }
   for (const s of [-1, 1]) M.box(.02, .5, .02, mat(M, '#3a3a44', .15), x + s * w * .4 * Math.cos(ry), y + h / 2 + .25, z - s * w * .4 * Math.sin(ry));
-  g.userData.vivo = { ondeggia: { amp: .02, freq: .3, asse: 'z' } }; return g; }
+  g.userData.vivo = { ondeggia: { amp: .02, freq: .3, asse: 'z' } }; g.userData.testo = txt; if (passa) g.userData.testoPassa = 1; return g; }
 export function specchio(M, { x = 2.0, z = -1, y = 2.6, ry = -.7 } = {}) {   // specchio convesso per il capotreno: palo + disco con cornice arancio
   const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = ry; M.root.add(g);
   const palo = new THREE.Mesh(new THREE.CylinderGeometry(.04, .04, y, 10), mat(M, '#8a8f9a', .2, .4)); palo.position.y = y / 2; g.add(palo);
