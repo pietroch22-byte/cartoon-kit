@@ -1,0 +1,60 @@
+=====================================================================
+COME AGGIORNARE GITHUB SENZA SPORCARE LA REPOSITORY
+=====================================================================
+
+Sul tuo Mac vive la "macchina" completa (video, render, confronti, voci,
+asset pesanti). Su GitHub (`pietroch22-byte/cartoon-kit`) teniamo invece
+solo quello che serve per far funzionare il motore e le guide ufficiali.
+
+---------------------------------------------------------------------
+1. COSA RESTA SEMPRE SOLO SUL TUO MAC (escluso in .gitignore)
+---------------------------------------------------------------------
+- Video finali, scarti e confronti: video/, DA_ELIMINARE/, archivio/,
+  riferimenti_rick/, confronti/, cartoon-storie/confronti/
+- Output temporanei dei render: cartoon-storie/out/, cartoon-storie/kit/out/
+- Ambiente locale e dipendenze: cartoon-storie/engine3d/node_modules/,
+  cartoon-storie/kit/.venv/, cartoon-storie/kit/voices/
+- Asset pesanti / rigenerabili: asset-kit/modelli/,
+  asset-kit/pacchetti_animati/, asset-kit/hdri/, asset-kit/texture/*
+  (tranne le 9 texture dei tessuti di omino_rick.js)
+
+---------------------------------------------------------------------
+2. CONTROLLO DA FARE PRIMA DI AGGIORNARE GITHUB
+---------------------------------------------------------------------
+Assicurati che NON ci siano altre chat/agenti o render ancora in corso
+sul motore (cosi' non si salvano file modificati a meta').
+Se non sei sicuro, chiedimi prima:
+  "Controlla se ci sono lavori o render ancora aperti prima di salvare."
+
+---------------------------------------------------------------------
+3. COSA DEVI CHIEDERMI QUANDO SEI PRONTO
+---------------------------------------------------------------------
+Scegli una di queste frasi in base a cosa vuoi caricare online:
+
+A) Aggiornare SOLO il motore (scelta consigliata nella maggior parte dei casi,
+   lascia fuori eventuali storie ancora in lavorazione):
+   --> "Controlla che non ci siano sessioni aperte, committa solo le
+        modifiche pronte del motore e aggiorna GitHub."
+
+B) Aggiornare motore + una storia specifica che hai finito:
+   --> "Controlla tutto, committa il motore e la storia <nome_cartella>,
+        e aggiorna GitHub."
+
+C) Aggiornare tutto quello che e' tracciabile (motore + tutte le storie):
+   --> "Controlla se e' tutto fermo e finito, committa tutto cio' che e'
+        pronto e aggiorna GitHub."
+
+D) Se hai fatto una piccola modifica su cui non sei sicuro e vuoi
+   prima un salvataggio SOLO sul tuo Mac (senza mandarlo online):
+   --> "Rendi ufficiale questa modifica e fai solo il commit locale,
+        senza push su GitHub."
+
+---------------------------------------------------------------------
+4. NOTA SU STATO DI OGGI (15/11)
+---------------------------------------------------------------------
+- Motore ufficiale (Punto 1 camera monotona, Punto 2 readcheck/karaoke,
+  Punto 3 regia audio, moduli FX vivo.js, pipeline reference, scrigno
+  library/vivi/) -> pronto e allineabile su GitHub.
+- Cantiere parallelo ancora aperto: kit/stories/ricerca_gettone/
+  (tenuto fuori dai commit del motore finche' non lo dichiari concluso).
+=====================================================================

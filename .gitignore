@@ -8,6 +8,8 @@ DA_ELIMINARE/
 archivio/
 riferimenti_rick/
 video/
+confronti/
+cartoon-storie/confronti/
 
 # Output di render, virtualenv e node_modules della skill
 cartoon-storie/out/
