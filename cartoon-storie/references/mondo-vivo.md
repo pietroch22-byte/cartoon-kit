@@ -47,3 +47,14 @@ Pronti da script: `M.vita.portaAutomatica({x,z,ry,id})` (ante `PORTA_L/R`, tappe
 
 ## Controllo (anteprima)
 `--anteprima` misura in ogni fotogramma chiave quanta parte dell'area degli oggetti inquadrati si muove (strutture oltre 4,5 m e segni a terra esclusi; attori e folla contano come vivi) → `kit/out/<nome>/vita.txt` con i fermi più grandi a schermo. Sotto il 60% (`"vita_soglia"` nella storia) stampa un avviso con gli oggetti da animare. **Prima del render ogni inquadratura deve superare la soglia**; ciò che è grande a schermo e fermo va animato per primo.
+
+## Effetti atmosferici e particelle (`vivo.js`)
+Tutti puri `f(t)` in stile disegnato (nessun `dt` accumulato, un solo draw-call per effetto, compatibili con `tremolio.py`, controllabili da `LG.oggetti` con `id`/`mostra`/`nascondi` o da script/luogo):
+- `pioggia` (scie diagonali attorno alla camera o in zona `{ x, y, z, w, h, d }`, più `pozzanghere: true` opzionale)
+- `neve` (fiocchi cartoon morbidi attorno alla camera o in zona)
+- `foglie` (foglie/petali `colori: [...]` che planano roteando nel vento)
+- `fumo` (sbuffi cartoon densi che salgono, ruotano e sfumano verso `coloreFine`)
+- `fuoco` (lingue a strati + braci lente + `PointLight` morbida opzionale `luce: true`)
+- `scintille` (archi balistici allineati alla traiettoria, attivabili anche con finestra `{ da, a }`)
+- `polverePiedi` (attiva di default sugli attori in cammino/corsa/frenata; disattivabile con `"polvere_piedi": false` su storia/luogo/scena)
+- `pioggia` / `neve` / `foglie` si accendono anche da `"vivo": { "pioggia": {...}, "neve": {...}, "foglie": {...} }` sul luogo.

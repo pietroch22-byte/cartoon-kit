@@ -508,6 +508,10 @@ File cambiato: solo `engine3d/web/look_disegnato.js` (tutto dentro `if (LR)`; se
   - **40 archetipi** (`22` folla + `18` `folla: false`), testone stile Rick, protagonista `impiegato` bianco con targhetta **`PN8`**, **`34` espressioni** in `FACCE`, arti/scarpe puntati verso `dir`, rotazione 360° e vista di spalle, **7 andature** biomeccaniche (`ANDATURE`), **14 gesti IK**, **19 oggetti in mano**, **7 VFX**, contatti `Box3` reali (`interazioni.js`), `bocca` **solo vocalica** e **`respiro` idle spento (`0`)**, movimento naturale della testa su parlato / cambio faccia / sguardo.
   - Look disegnato (`look_disegnato.js`): `luce_rick` + `lightCards()`/`cardLitMat` con luci e neon reali sui personaggi, antialiasing `ss: 2`, Camera vera (`sfocatura: "intelligente"`), mosse `camera_preset.js`, mosso automatico, controlli `REGIA` / `RECITAZIONE` / `FLUIDITÀ` / `VUOTO_DIETRO_IL_SET` / `valuta_personaggio.mjs` 40/40.
   - Nuovi costruttori già nel motore (provati su `kit/stories/test_pbr/`): `M.pbr`, `M.erba`, `M.attendi`, `M.quinta`, `HDRI_PRESETS`/`HDRI_AUTO` e lente opzionale `luce_cinema`.
+  - **Moduli FX procedurali disegnati in `vivo.js` (`pioggia`, `neve`, `foglie`, `fumo`, `fuoco`, `scintille`, `polverePiedi`) (15/11 — Approvato e ufficiale)**:
+    - Motore (`engine3d/web/vivo.js`, `engine3d/web/storia_disegnato.js`): aggiunti 7 moduli puri $f(t)$ in singola draw-call (`THREE.Mesh` + `userData`: `noInk`, `noRick`, `noLight`, `struttura`, `particella`, `vivo`): `pioggia` (con `pozzanghere`), `neve`, `foglie` (anche petali via `colori`), `fumo`, `fuoco` (con `PointLight` modulata dolcemente sicura per `SALTO_DI_LUCE`), `scintille` (archi balistici con finestra `{ da, a, dissolvi }`), `polverePiedi` (attiva di default sui personaggi in cammino/corsa/frenata; disattivabile con `"polvere_piedi": false`), più `registraSuMondo` per l'uso diretto da `LG.oggetti` e supporto `id`/`mostra`/`nascondi` esteso anche a `vapore`.
+    - Documentazione ufficiale aggiornata: `SKILL.md`, `references/mondo-vivo.md`.
+    - Verifiche: `node --check` su `vivo.js` e `storia_disegnato.js` (`exit 0`); render 30 fps (`144` fotogrammi su tutte e 3 le scene test) + `tremolio.py` → `exit 0` (`tremolio: nessun problema`: media `0,01%–0,05%`, picco `0,11%–0,45%`, salto di luce `0,2%–2,1%`, `vivo 100%`); non-regressione su `ho_gia_mangiato.json --anteprima --scena 0` (`exit 0`, `mondo vivo: 81%`).
 
 ### 2. Lavori attivi in corso nel workspace
 - **`kit/stories/ricerca_gettone/`** (in lavorazione attiva in parallelo — **non modificare senza richiesta**): `ricerca_gettone.json` (`personaggi: "rick"`, `luce_rick: true`, `stile_camera: "rick"`, `sfocatura: "vera"`, `diaframma: 2.0`), `mondo_gettone.js`, `arredi_fortnite.js`, `grafica_montaggio.js`, `location_bunker.js`, `location_hub.js`, `location_tempio.js`, `musica_originale.wav` e bozza render `~/STORIE CARTOON/video/ricerca_del_gettone.mp4`.
@@ -521,6 +525,6 @@ File cambiato: solo `engine3d/web/look_disegnato.js` (tutto dentro `if (LR)`; se
    - Testare le clip **`animazioni.js` (UAL/KayKit)** sui personaggi.
    - Creare i meccanismi **`library/vivi/` mancanti**: `finestra`, `tenda`, `ascensore`, `semaforo`, `schermo con numeri`, `bandiera`, `frigo`.
    - Calibrare le soglie di `references/mondo-da-riferimento.md`.
-5. **Opzionali animazione & pulizia finale**:
-   - Eventuale polverina / piccoli passetti ai piedi se utili; sostituire eventuali voci sintetiche con voce reale; avviare tracciamento metriche/upload (`pubblicati.md`).
+5. **Pulizia finale & voci**:
+   - Sostituire eventuali voci sintetiche con voce reale; avviare tracciamento metriche/upload (`pubblicati.md`).
    - Conferma esplicita prima di eliminare `~/STORIE CARTOON/DA_ELIMINARE/` e **`git commit`** ordinato delle modifiche nel repository (coordinandolo con `ricerca_gettone/`).

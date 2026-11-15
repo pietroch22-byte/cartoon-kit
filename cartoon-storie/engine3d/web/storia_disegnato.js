@@ -15,6 +15,8 @@ try {
   const LC_LENTE = LC_ACT && LC_OPT.lente !== false && LC_OPT.dof !== false, LC_RESPIRO = LC_ACT && LC_OPT.respiro !== false;
   const D = creaDisegnato({ luce: SC.luce || LG.luce, strada: LG.strada, hdri: SC.hdri ?? LG.hdri ?? S.hdri, parametri: { ...(S.personaggi === 'rick' ? { iw: 4.4, ic: '#0b0a0c', kn: 0.22, kd: 0.035 } : {}), ...(LUCE_RICK ? { luce_rick: 1, chiuso: LG.esterno ? 0 : 1, ss: 2 /* [utente 12/11] antialiasing di base con Rick: toglie il tremolio; "ss": 1 nei parametri lo spegne */ } : {}), ...(LG.parametri || {}), ...(SC.parametri || {}), ...(LUCE_CINEMA !== undefined ? { luce_cinema: LUCE_CINEMA } : {}), dof: ((S.sfocatura ?? SC.sfocatura ?? ((LUCE_RICK || LC_LENTE) ? 'intelligente' : 0)) || SC.sfocatura || (SC.camera || []).some(k => k.sfocatura)) ? 1 : 0 } }), M = creaMondo(D, LG.mondo || {});
   M.vita = creaVita(M);   // mondo vivo: i costruttori, gli script e i GLB registrano qui ciò che si muove (vita.js, references/mondo-vivo.md)
+  const _VIVO = await import('/web/vivo.js');
+  _VIVO.registraSuMondo(M, () => camera);
   const OBJ = {};
   for (const o of LG.oggetti || []) { if (!M[o.tipo]) throw new Error('oggetto sconosciuto: ' + o.tipo + ' (vedi mondo_disegnato.js)'); const r = M[o.tipo](o); if (o.id) { OBJ[o.id] = r; if (o.nascosto && r) [].concat(r).forEach(x => { x.visible = false; }); } }
   // Ombra di contatto morbida blu-grigia sotto carte Rick e oggetti
@@ -206,7 +208,32 @@ try {
     M.vita.aggiungi(bers, tipo, { ...opt, id });
   }
   for (const [id, o] of Object.entries(OBJ)) for (const x of [].concat(o || [])) M.vita.collega(id, x);
-  if (S.vivo !== false && LG.vivo !== false) (await import('/web/vivo.js')).vivifica(M, { camera, attori: () => VICINI(), ...(typeof LG.vivo === 'object' ? LG.vivo : {}) });   // meccanismi dei GLB di library/vivi (porte, ventole…), vapore, polvere: prima di M.vita.auto(), che salta ciò che è già vivo
+  if (S.vivo !== false && LG.vivo !== false) _VIVO.vivifica(M, { camera, attori: () => VICINI(), ...(typeof LG.vivo === 'object' ? LG.vivo : {}) });   // meccanismi dei GLB di library/vivi (porte, ventole…), vapore, polvere: prima di M.vita.auto(), che salta ciò che è già vivo
+  const _PP = SC.polvere_piedi ?? LG.polvere_piedi ?? S.polvere_piedi;
+  if (_PP !== false) _VIVO.polverePiedi(M, t => {
+    const out = [];
+    for (const A of Object.values(ATT)) {
+      if (!A.m.visible) continue;
+      const s = stato(A, t);
+      if (s.visibile === false) continue;
+      const cammina = !!s.cammina;
+      const andatura = s.cammina ? (s.cammina[3] || s.andatura || 'cammina') : (s.andatura || null);
+      const passo = s.cammina ? Math.round((s.cammina[2] / 2) * 60) / 60 % 1 : 0;
+      let frena = 0;
+      if (!cammina && s.posa !== 'seduto' && s.posa !== 'sdraiato') {
+        let hi = 0;
+        for (let j = 1; j <= 4; j++) { const dt = j * .11; if (t - dt >= SC.da) { const sp = stato(A, t - dt); if (sp.visibile !== false && sp.cammina) { hi = dt; break; } } }
+        if (hi > 0) {
+          let lo = hi - .11;
+          for (let b = 0; b < 4; b++) { const mid = (lo + hi) * .5, sp = stato(A, t - mid); if (sp.visibile !== false && sp.cammina) hi = mid; else lo = mid; }
+          frena = Math.min(.99, (lo + hi) * .5 / .44);
+        }
+      }
+      if (!cammina && !frena) continue;
+      out.push({ x: A.m.position.x, y: A.m.position.y, z: A.m.position.z, rotY: A.m.rotation.y, scala: A.m.scale.y || 1, visibile: true, cammina, andatura, passo, frena });
+    }
+    return out;
+  }, typeof _PP === 'object' ? _PP : {});
   if (SC.mondo_rick ?? LG.mondo_rick ?? S.mondo_rick) console.log('[d] mondo_rick: ' + JSON.stringify(M.dipingiRick(typeof (LG.mondo_rick) === 'object' ? LG.mondo_rick : {})));   // pezzo B1: superfici dipinte stile Rick (mondo_disegnato.js)
   if (LG.vita_auto !== false) M.vita.auto();
   M.vita.eventi(SC.oggetti);
@@ -1211,7 +1238,7 @@ try {
       RT_VUOTO = new THREE.WebGLRenderTarget(W, H, { type: THREE.FloatType, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter });
       MAT_VUOTO = new THREE.ShaderMaterial({ side: THREE.DoubleSide, vertexShader: 'void main(){ gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }', fragmentShader: 'void main(){ gl_FragColor = vec4(gl_FragCoord.z, 0., 0., 1.); }' });
     }
-    const nasc = []; scene.traverse(o => { if (o.visible && (o === sky || o.userData.card || o.userData.ombra || o.isPoints || o.isSprite)) { nasc.push(o); o.visible = false; } });
+    const nasc = []; scene.traverse(o => { if (o.visible && (o === sky || o.userData.card || o.userData.ombra || o.isPoints || o.isSprite || o.userData.particella)) { nasc.push(o); o.visible = false; } });
     const prima = { rt: renderer.getRenderTarget(), cc: renderer.getClearColor(new THREE.Color()), ca: renderer.getClearAlpha(), fog: scene.fog, ov: scene.overrideMaterial };
     scene.fog = null; scene.overrideMaterial = MAT_VUOTO; renderer.setRenderTarget(RT_VUOTO); renderer.setClearColor(0xffffff, 1); renderer.clear(); renderer.render(scene, camera);   // sfondo = profondità 1 (massima)
     const buf = new Float32Array(W * H * 4); renderer.readRenderTargetPixels(RT_VUOTO, 0, 0, W, H, buf);
