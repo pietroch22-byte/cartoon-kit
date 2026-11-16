@@ -46,4 +46,8 @@ Per capire un mondo **non serve un video**: servono pochi fotogrammi a qualità 
 1. la scheda (§2), in chat, da far confermare all'utente ⏸ (costa zero render);
 2. una storia di prova di 2-3 inquadrature fisse sul luogo vuoto (la vista principale, l'angolo opposto, un dettaglio della «firma») → `anteprima` → 3 fotogrammi + `ricchezza.txt`;
 3. si mostrano all'utente i 3 fotogrammi con i numeri e le caselle vuote; si arricchisce lo strato che manca; un solo giro di correzione per luogo, poi si va avanti.
-La bozza camera (`SKILL.md`, punto 5) si fa su un mondo anche povero; la bozza mondo si fa con camere fisse. Sono due prove separate: non si aspetta un mondo finito per provare la camera, e non si giudica il mondo da un video a bassa qualità.
+La bozza camera (`references/bozze-veloci.md`) si fa su un mondo anche povero; la bozza mondo si fa con camere fisse. Sono due prove separate: non si aspetta un mondo finito per provare la camera, e non si giudica il mondo da un video a bassa qualità.
+
+## Costruzione guidata quando il cancello ferma
+
+Il mondo povero o fermo blocca il video senza deroga. Cerca prima in `library/`; riusa modelli GLB gratuiti con licenza verificata, aggiungi dettagli coerenti, materiali del motore e piccoli movimenti. Salva oggetti e componenti riusabili in `library/` con fonte e licenza. Dai un nome a ogni oggetto e dichiara i passaggi limitandoli a rotaie/carreggiate, senza banchine o marciapiedi. Appoggi e incastri progettati devono essere distinguibili dagli errori: `controlli.md` §0. Quando si lavora sulla macchina che crea Shorts, le storie esistenti si usano solo in lettura o in copia.

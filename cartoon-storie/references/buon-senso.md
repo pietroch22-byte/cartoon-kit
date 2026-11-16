@@ -45,3 +45,6 @@ Il mondo è disegnato ma deve essere **credibile**: ogni oggetto ha quello che h
 - **Numeri e soldi**: banconote in euro con il colore del taglio, monete dorate e argento, prezzi realistici per il luogo e l'epoca; numeri civici sulle porte, in ordine lungo la via.
 - **Scala e quantità**: un negozio piccolo non ha 50 clienti; una folla ha persone diverse (tipi del cast diversi, mai copie vicine uguali); oggetti in fila con piccole differenze.
 - **Epoca**: se la storia è nel passato, niente telefoni moderni, auto e insegne dell'epoca, scritte con caratteri d'epoca.
+
+## Riassunto e aiuti nel motore (spostato da `SKILL.md` il 16/11)
+Ogni oggetto ha ciò che ha nella realtà: orologi con 12 numeri e lancette che avanzano, scritte **sempre centrate e proporzionate al supporto** (margine 10-15%, a capo da sole, mai stirate), insegne sopra ciò che indicano, porte con maniglia, schermi accesi, etichette, prezzi con €, ora coerente con la luce. Lista completa: `references/buon-senso.md` (ripassarla sul contact sheet di ogni luogo). Aiuti: `engine3d/web/buon_senso.js` → `adattaTesto` (qualsiasi tela), `cartello(M, …)`, `quadrante`, `orologio(M, { ora: '22:40' })`; avvisi se un testo è troppo piccolo per il suo supporto.

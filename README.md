@@ -3,7 +3,7 @@
 Repository di lavoro e backup completo del progetto **cartoon-storie**: pipeline per creare Shorts verticali animati (`1080×1920`) con mondo 3D disegnato (Three.js + Chromium), personaggi stile Rick, regia, voce, audio, effetti, karaoke e controlli automatici.
 
 > **Nota per gli LLM che leggono questo repository**:
-> - Inizia da [`cartoon-storie/SKILL.md`](cartoon-storie/SKILL.md) (regole complete, flusso di produzione, strumenti, controlli) e [`cartoon-storie/HANDOFF.md`](cartoon-storie/HANDOFF.md) (stato dettagliato e aggiornato dello sviluppo).
+> - Inizia da [`cartoon-storie/SKILL.md`](cartoon-storie/SKILL.md) (flusso di produzione, regole dell'utente, indice delle reference) e [`cartoon-storie/STATO.md`](cartoon-storie/STATO.md) (una pagina: cosa è approvato, in prova, respinto; lavori aperti). [`cartoon-storie/HANDOFF.md`](cartoon-storie/HANDOFF.md) è il diario lungo: cercaci dentro, non leggerlo intero.
 > - La skill è collegata anche in [`.claude/skills/cartoon-storie`](.claude/skills/cartoon-storie) per compatibilità con strumenti che cercano le skill sotto `.claude/skills/`.
 
 ---
@@ -13,10 +13,11 @@ Repository di lavoro e backup completo del progetto **cartoon-storie**: pipeline
 | Percorso | Contenuto principale |
 | :--- | :--- |
 | [`cartoon-storie/`](cartoon-storie/) | Skill unica, motore di rendering, storie JSON, libreria e documentazione operativa. |
-| [`cartoon-storie/SKILL.md`](cartoon-storie/SKILL.md) | Istruzioni principali della skill, flusso in 9 punti e riferimento rapido ai file. |
-| [`cartoon-storie/HANDOFF.md`](cartoon-storie/HANDOFF.md) | Registro aggiornato dello stato lavori, esperimenti, verifiche e decisioni aperte. |
+| [`cartoon-storie/SKILL.md`](cartoon-storie/SKILL.md) | Istruzioni principali della skill: flusso in 9 punti, regole dell'utente, indice «cosa leggere e quando». |
+| [`cartoon-storie/STATO.md`](cartoon-storie/STATO.md) | Stato corrente in una pagina: approvato / in prova / respinto, lavori aperti, domande aperte. |
+| [`cartoon-storie/HANDOFF.md`](cartoon-storie/HANDOFF.md) | Diario lungo: esperimenti, verifiche, numeri e decisioni in ordine di tempo. |
 | [`cartoon-storie/engine3d/web/`](cartoon-storie/engine3d/web/) | Motore client Three.js / WebGL / Canvas 2D: `engine.js`, `look_disegnato.js`, `mondo_disegnato.js`, `storia_disegnato.js`, `camera_preset.js`, `omino_rick.js`, `cast_rick.js`, `omino.js`, `personaggi3d.js`, `interazioni.js`, `vita.js`, `vivo.js`, `vivi.js`, `animati.js`, `animazioni.js`, `buon_senso.js`, `oggetti_porto.js`, `oggetti_stazione.js`, `storia.html`, `disegnato.html`. |
-| [`cartoon-storie/kit/`](cartoon-storie/kit/) | CLI e pipeline Python/Node: `run.py` (`setup`, `anteprima`, `video`), `setup.sh`, `requirements.txt`, `engine/` (`audio.py`, `film_disegnato.py`, `karaoke.py`), `tools/` (`rendi_disegnato.mjs`, `valuta_personaggio.mjs`, `tremolio.py`, `camera_misura.py`, `shortkit.py`, `asr_words.py`, `scarica_kit.py`, ecc.), `stories/`, `fonts/`, `topics/`. |
+| [`cartoon-storie/kit/`](cartoon-storie/kit/) | CLI e pipeline Python/Node: `run.py` (`setup`, `anteprima`, `video`, `da-reference`, `confronto-reference`), `setup.sh`, `requirements.txt`, `engine/` (`audio.py`, `film_disegnato.py`, `karaoke.py`), `tools/` (`rendi_disegnato.mjs`, `valuta_personaggio.mjs`, `tremolio.py`, `camera_misura.py`, `shortkit.py`, `asr_words.py`, `scarica_kit.py`, ecc.), `stories/`, `fonts/`, `topics/`. |
 | [`cartoon-storie/library/`](cartoon-storie/library/) | Schede luoghi (`luoghi/`), meccanismi vivi (`vivi/`), animali e clip animati (`animati/`), modelli base (`modelli3d/`). |
 | [`cartoon-storie/references/`](cartoon-storie/references/) | Guide dettagliate su regia, recitazione, camera, look disegnato, mondo vivo, buon senso, suono, problemi noti e analisi `ricksclips/`. |
 | [`cartoon-storie/confronti/`](cartoon-storie/confronti/) | Immagini e clip prima/dopo delle prove su PBR e luci. |
