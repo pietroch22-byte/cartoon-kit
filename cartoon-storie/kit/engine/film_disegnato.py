@@ -24,6 +24,84 @@ def fotogrammi(story_path, work, preview):
         sys.exit("Render dei fotogrammi fallito (leggi gli errori qui sopra).")
 
 
+# ---- CANCELLO (16/11): il video finale non parte se i controlli dell'anteprima segnalano problemi (references/controlli.md §0).
+# I controlli li fa kit/tools/rendi_disegnato.mjs --controlli: nessuna immagine salvata, e solo per le scene cambiate dall'ultima volta
+# (out/<nome>/avvisi.json tiene gli avvisi scena per scena). Qui si decide soltanto che cosa ferma.
+#   - INQUADRATURA (quello che va in controlli.txt), REGIA, FLUIDITA, RECITAZIONE, LETTURA: fermano; CONTROLLI_OK=1 per andare avanti sapendolo.
+#   - MONDO (povero, fermo, compenetrazioni, passaggi ostruiti o controllo fallito): BLOCCA sempre.
+#     Nessuna variabile d’ambiente permette di saltarlo; si corregge il luogo o il controllo.
+#   - I due limiti REGIA noti come troppo severi (8/15 s nello stesso luogo, uno stacco ogni 12 s: STATO.md, lavoro aperto 2) avvisano ma non fermano,
+#     finché regia() non è rivista. regia() non è stata toccata.
+#   - STORIA (buchi tra le scene, fov o altezze insolite): solo avviso, com'era.
+_FERMANO = {"INQUADRATURA", "REGIA", "FLUIDITA", "RECITAZIONE", "LETTURA"}
+_REGIA_IN_REVISIONE = re.compile(r"di fila nel luogo «|^solo \d+ stacchi in ")
+
+
+def cancello(story_path, work):
+    """Ferma il video (sys.exit) se ci sono avvisi che fermano. Restituisce (fermano, mondo, solo_avviso)."""
+    import os
+    node = shutil.which("node")
+    if not node:
+        sys.exit("Node non trovato: installa Node 18+ (vedi SKILL.md, «Prima volta»).")
+    r = subprocess.run([node, str(KIT / "tools" / "rendi_disegnato.mjs"), str(story_path), "--controlli", "--out", str(work)], capture_output=True, text=True)
+    if r.returncode:
+        sys.exit("Controlli prima del video non riusciti:\n" + "\n".join((r.stdout + r.stderr).splitlines()[-15:]))
+    for riga in r.stdout.splitlines():
+        if riga.startswith("CANCELLO "):
+            log(riga)
+    d = json.loads((work / "avvisi.json").read_text(encoding="utf-8"))
+    mancano = [i for i in range(d.get("n_scene", 0)) if str(i) not in d["scene"]]
+    if mancano:
+        sys.exit(f"Controlli incompleti: mancano le scene {mancano}. Rilancia il comando.")
+    tutti = list(d.get("statici", [])) + [a for i in sorted(d["scene"], key=int) for a in sorted(d["scene"][i]["avvisi"], key=lambda a: -1 if a.get("t") is None else a["t"])]
+    fermano, mondo, avvisi = [], [], []
+    for a in tutti:
+        if a["cat"] == "MONDO":
+            mondo.append(a)
+        elif a["cat"] in _FERMANO and not (a["cat"] == "REGIA" and _REGIA_IN_REVISIONE.search(a["testo"])):
+            fermano.append(a)
+        else:
+            avvisi.append(a)
+
+    def riga(et, a):
+        dove = f"scena {a['scena']}" if a.get("scena") is not None else "storia"
+        quando = f"{a['t']:6.2f} s" if a.get("t") is not None else "   —    "
+        return f"  {et:6} {dove:9} {quando}  {a['codice']:18} {a['testo']}"
+
+    n_kf = sum(d["scene"][i].get("fotogrammi", 0) for i in d["scene"])
+    kf_ferm = {(a["scena"], a["t"]) for a in fermano + mondo if a.get("t") is not None}
+    testa = f"CANCELLO: {len(fermano)} avvisi fermano, {len(mondo)} sul mondo (fermano), {len(avvisi)} solo avviso — {len(kf_ferm)} fotogrammi chiave segnalati su {n_kf}"
+    righe = [testa] + [riga("FERMA", a) for a in fermano] + [riga("MONDO", a) for a in mondo] + [riga("avviso", a) for a in avvisi]
+    (work / "cancello.txt").write_text("\n".join(righe) + "\n", encoding="utf-8")
+    log("\n".join(righe))
+    perche = []
+    if mondo:
+        codici = {a["codice"] for a in mondo}
+        rimedi = []
+        if codici & {"MONDO_POVERO", "VITA_BASSA"}:
+            rimedi.append("costruisci il luogo partendo da modelli GLB gratuiti con licenza verificata: "
+                          "cerca prima in library/, aggiungi dettagli coerenti e movimenti, "
+                          "poi salva i modelli e i componenti riusabili in library/ con fonte e licenza "
+                          "(references/mondo-da-riferimento.md, references/mondo-vivo.md)")
+        if codici & {"COMPENETRATI", "FUORI_POSTO"}:
+            rimedi.append("separa gli oggetti compenetrati e libera le zone di passaggio; "
+                          "verifica i nomi dei modelli e i confini della zona, senza includere le banchine "
+                          "(references/controlli.md §0)")
+        if "COLLOCAZIONE_ERRORE" in codici:
+            rimedi.append("ripara il controllo di collocazione fallito e rilancialo")
+        perche.append(f"{len(mondo)} avvisi sul mondo: " + "; ".join(rimedi or ["correggi gli avvisi elencati"]) +
+                      ". Il blocco del mondo non si può saltare, nemmeno con CONTROLLI_OK=1")
+    if fermano and not os.environ.get("CONTROLLI_OK"):
+        perche.append(f"{len(fermano)} avvisi dei controlli: correggi, oppure rilancia con CONTROLLI_OK=1 sapendolo")
+    if perche:
+        sys.exit("Video fermato dal cancello (elenco in " + str(work / "cancello.txt") + "): " + "; ".join(perche) + ".")
+    if fermano:
+        log("CANCELLO: si va avanti lo stesso (CONTROLLI_OK=1).")
+    else:
+        log("CANCELLO: nessun avviso che ferma.")
+    return fermano, mondo, avvisi
+
+
 def _scrivi_suoni_md(path, name, total, num):
     """Scrive la scheda riepilogativa dei suoni e dei livelli misurati in out/<nome>/suoni.md."""
     lines = [
@@ -103,6 +181,8 @@ def build(story_path, out=None, preview=False):
     name = story_path.stem
     work = Path(out).resolve() if out else Path.cwd() / "out" / name
     work.mkdir(parents=True, exist_ok=True)
+    if not preview:
+        cancello(story_path, work)   # prima dei fotogrammi: se i controlli segnalano problemi il video non parte
     log(f"[1/3] Fotogrammi -> {work}")
     fotogrammi(story_path, work, preview)
     if preview:

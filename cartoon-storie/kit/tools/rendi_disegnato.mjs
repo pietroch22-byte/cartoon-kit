@@ -3,10 +3,12 @@
 //     node kit/tools/rendi_disegnato.mjs kit/stories/<nome>.json --anteprima     → out/<nome>/contact.jpg (pochi fotogrammi chiave)
 //     node kit/tools/rendi_disegnato.mjs kit/stories/<nome>.json                 → out/<nome>/<nome>_muto.mp4 (+ voce se c'è)
 //     opzioni: --scena N (solo quella scena)  --out cartella  --solo-fotogrammi  --passo K (un fotogramma ogni K, per prove veloci)
+//     --controlli: solo i controlli dell'anteprima, SENZA salvare immagini né contact sheet, e solo per le scene cambiate dall'ultima volta
+//                  (--tutte le rifà tutte). Scrive out/<nome>/avvisi.json, che il cancello di `run.py video` legge (references/controlli.md §0).
 //     Karaoke e musica: python kit/run.py video kit/stories/<nome>.json (usa questo script per i fotogrammi).
 //  B) SCENA LIBERA (.js che espone window.ready e window.renderFrame): node kit/tools/rendi_disegnato.mjs <scena.js> <fotogrammi> <fps> <uscita.mp4> [querystring]
 // Serve Playwright (cd engine3d && npm install && npx playwright install chromium) e ffmpeg.
-import fs from 'node:fs'; import path from 'node:path'; import { execSync } from 'node:child_process';
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import { execSync } from 'node:child_process';
 import { apriStage, risolviTempi } from './storia_io.mjs';
 const FF = process.env.FFMPEG || 'ffmpeg';
 const argv = process.argv.slice(2), flag = k => argv.includes(k), val = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d; };
@@ -190,10 +192,45 @@ function controlla(S, W = []) {
   regia(S, W).forEach(x => A.push('REGIA ' + x));
   recitazione(S).forEach(x => A.push('RECITAZIONE ' + x));
   A.forEach(x => console.log('  avviso:', x)); if (E.length) { E.forEach(x => console.error('  ERRORE:', x)); process.exit(2); }
+  return A;
 }
 
 let storia = null, parole = [], scenaJs = null, base = path.dirname(src);
-if (isStoria) { const R = risolviTempi(JSON.parse(fs.readFileSync(src, 'utf8')), base); storia = R.S; parole = R.parole; controlla(storia, parole); } else scenaJs = src;
+let AVV_STORIA = [];
+if (isStoria) { const R = risolviTempi(JSON.parse(fs.readFileSync(src, 'utf8')), base); storia = R.S; parole = R.parole; AVV_STORIA = controlla(storia, parole); } else scenaJs = src;
+
+// ---- CANCELLO (16/11): out/<nome>/avvisi.json raccoglie TUTTI gli avvisi dei controlli, scena per scena, con l'«impronta» di ciò che la scena mostra
+// (la scena, il suo luogo, lo script del luogo e i file che importa, le impostazioni generali che si vedono). Scena con la stessa impronta = controlli ancora validi:
+// non si rifanno. Chi decide che cosa ferma il video è kit/engine/film_disegnato.py (cancello): qui si scrivono solo i fatti.
+// Limite noto: l'impronta non guarda il codice del motore (engine3d/web): dopo una modifica al motore usa --tutte.
+const OUT_STORIA = isStoria ? path.resolve(val('--out', path.join(process.cwd(), 'out', path.basename(src, '.json')))) : null;
+const NON_SI_VEDE = ['scene', 'luoghi', 'titolo', 'voce', 'musica', 'effetti', 'silenzi', 'ambienti', 'regia_audio', 'j_cut', 'l_cut', 'karaoke', 'karaoke_leggibile', 'mix'];
+const CONTROLLI_V = 3;   // collocazione: identità GLB/metadati e invalidazione delle pose; rifare le impronte vecchie
+const impronta = sc => {
+  const h = crypto.createHash('sha1'), LG = (storia.luoghi || {})[sc.luogo] || {}, { mood, bpm, intensita, ...vis } = sc;
+  h.update(JSON.stringify([CONTROLLI_V, vis, LG, Object.fromEntries(Object.entries(storia).filter(([k]) => !NON_SI_VEDE.includes(k)))]));
+  for (const f of [LG.script || []].flat()) {
+    const p = path.resolve(base, f); if (!fs.existsSync(p)) continue; const txt = fs.readFileSync(p, 'utf8'); h.update(txt);
+    for (const m of txt.matchAll(/from\s+['"](?:\.\/|\/scena\/)([^'"]+\.js)['"]/g)) { const q = path.resolve(base, m[1]); if (fs.existsSync(q)) h.update(fs.readFileSync(q)); }
+  }
+  return h.digest('hex').slice(0, 16);
+};
+const leggiAvvisi = () => { try { const d = JSON.parse(fs.readFileSync(path.join(OUT_STORIA, 'avvisi.json'), 'utf8')); if (d.versione === 1 && d.scene) return d; } catch { } return { versione: 1, scene: {} }; };
+const senzaScena = x => x.replace(/^scena \d+(?: a [\d.]+ s)?(?: \(«[^»]*»\))?:? */, '');
+const scriviAvvisi = d => {
+  d.storia = src; d.quando = new Date().toISOString(); d.n_scene = storia.scene.length; for (const k of Object.keys(d.scene)) if (+k >= d.n_scene) delete d.scene[k];
+  // avvisi «a tavolino» (REGIA, RECITAZIONE, formato): si ricalcolano sempre, non costano niente
+  d.statici = AVV_STORIA.map(x => { const m = x.match(/^(REGIA|RECITAZIONE) ([\s\S]*)$/), testo = m ? m[2] : x, sn = testo.match(/^scen[ae] (\d+)/); return { cat: m ? m[1] : 'STORIA', codice: m ? m[1] : 'STORIA', scena: sn ? +sn[1] : null, t: null, testo }; });
+  fs.mkdirSync(OUT_STORIA, { recursive: true }); fs.writeFileSync(path.join(OUT_STORIA, 'avvisi.json'), JSON.stringify(d, null, 1));
+};
+let DA_FARE = null;   // --controlli: le scene da ricontrollare (le altre hanno ancora la stessa impronta)
+if (isStoria && flag('--controlli')) {
+  const d = leggiAvvisi(), solo = val('--scena', null);
+  DA_FARE = storia.scene.map((sc, i) => i).filter(i => (solo === null || i === +solo) && (flag('--tutte') || (d.scene[i] || {}).impronta !== impronta(storia.scene[i])));
+  const buone = storia.scene.length - DA_FARE.length;
+  if (!DA_FARE.length) { scriviAvvisi(d); console.log(`CANCELLO controlli: ${solo === null ? 'tutte le ' + storia.scene.length + ' scene' : 'la scena ' + solo} già controllat${solo === null ? 'e' : 'a'} e non cambiat${solo === null ? 'e' : 'a'}: nessun fotogramma da rifare`); process.exit(0); }
+  console.log(`CANCELLO controlli: da rifare ${DA_FARE.length === 1 ? 'la scena' : 'le scene'} ${DA_FARE.join(', ')}${solo === null ? ' (' + buone + ' già a posto)' : ''}; nessuna immagine salvata`);
+}
 const { srv, browser: b, page: pg, apri } = await apriStage({ storia, parole, base, scenaJs });
 const scalda = async (f, fps) => { await pg.evaluate(async ([f, fps]) => { for (let i = 0; i < 4; i++) { await window.renderFrame(f, 0, fps); await new Promise(r => requestAnimationFrame(r)); } }, [f, fps]); };
 const scatta = async (f, N, fps, file) => {
@@ -210,9 +247,9 @@ if (!isStoria) {   // ---- modo B: scena libera
   for (let f = 0; f < N; f++) { await scatta(f, N, fps, `${dir}/f${String(f).padStart(5, '0')}.jpg`); tick(); }
   await b.close(); srv.close(); execSync(`"${FF}" -v error -y -framerate ${fps} -i "${dir}/f%05d.jpg" -c:v libx264 -preset veryfast -crf 18 -pix_fmt yuv420p "${out}"`); console.log('fatto:', out);
 } else {           // ---- modo A: storia
-  const nome = path.basename(src, '.json'), out = path.resolve(val('--out', path.join(process.cwd(), 'out', nome))), fps = storia.fps || 30, passo = +val('--passo', 1), solo = val('--scena', null);
-  fs.mkdirSync(out, { recursive: true }); fs.writeFileSync(path.join(out, 'storia_risolta.json'), JSON.stringify(storia, null, 1));
-  const scene = storia.scene.map((sc, i) => ({ sc, i })).filter(x => solo === null || x.i === +solo);
+  const nome = path.basename(src, '.json'), out = OUT_STORIA, fps = storia.fps || 30, passo = +val('--passo', 1), solo = val('--scena', null);
+  fs.mkdirSync(out, { recursive: true }); if (!flag('--controlli')) fs.writeFileSync(path.join(out, 'storia_risolta.json'), JSON.stringify(storia, null, 1));   // --controlli scrive solo avvisi.json
+  const scene = storia.scene.map((sc, i) => ({ sc, i })).filter(x => (solo === null || x.i === +solo) && (!DA_FARE || DA_FARE.includes(x.i)));
   // [utente 13/11] FLUIDITÀ: la camera non deve mai scattare. Dal profilo di velocità della scena (window.profiloCamera, nessun render) si cercano i cambi bruschi:
   // accelerazione oltre 6 px/f² fuori dai voli (numero di Rick: le sue mosse salgono in ~10 fotogrammi), oltre 18 px/f² dentro un volo, e partenze di scena già oltre 20 px/f.
   const fluidita = async (i, sc) => {
@@ -231,22 +268,29 @@ if (!isStoria) {   // ---- modo B: scena libera
     const R = []; for (const { sc, i } of scene) { await apri(`/web/storia.html?scena=${i}`); const F = await fluidita(i, sc); console.log(F.riga); F.avvisi.forEach(a => console.log('  avviso: FLUIDITÀ ' + a)); if (flag('--numeri')) console.log('   ', F.v.map(x => Math.round(x)).join(' ')); R.push(F); }
     fs.mkdirSync(out, { recursive: true }); fs.writeFileSync(path.join(out, 'fluidita.txt'), R.map(F => F.riga + '\n' + F.avvisi.map(a => '  ' + a + '\n').join('')).join('')); await b.close(); srv.close(); process.exit(0);
   }
-  if (flag('--anteprima')) {   // pochi fotogrammi: inizio e fine di ogni scena, ogni tappa di camera, metà di ogni azione
-    const dir = path.join(out, 'anteprima'); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true }); let n = 0; const CTRL = [], VITA = [], RECIT = [], TESTI = [], SOGLIA_VITA = +(storia.vita_soglia ?? 60);
+  const soloCtrl = flag('--controlli');   // i controlli dell'anteprima senza salvare immagini, file di testo o contact sheet: scrive solo avvisi.json
+  if (flag('--anteprima') || soloCtrl) {   // pochi fotogrammi: inizio e fine di ogni scena, ogni tappa di camera, metà di ogni azione
+    const dir = path.join(out, 'anteprima'); if (!soloCtrl) { fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true }); } let n = 0;
+    const PER = new Map(), KF = new Map(), visto = new Set(), scrivi = (file, txt) => { if (!soloCtrl) fs.writeFileSync(path.join(out, file), txt); };
+    const nota = (i, cat, codice, testo, t = null) => { const k = [i, cat, codice, testo, t].join('|'); if (visto.has(k)) return; visto.add(k); PER.get(i).push({ cat, codice, scena: i, t: t === null ? null : +t.toFixed(2), testo: senzaScena(String(testo)).replace(/\s+/g, ' ') }); };
+    const CTRL = [], VITA = [], RECIT = [], TESTI = [], SOGLIA_VITA = +(storia.vita_soglia ?? 60);
     for (const { sc, i } of scene) {
-      await apri(`/web/storia.html?scena=${i}`);
-      { const F = await fluidita(i, sc); FLU.push(F); F.avvisi.forEach(a => console.log('  avviso: FLUIDITÀ ' + a)); }   // la camera non deve mai scattare (references/movimenti-camera.md §0c)
+      await apri(`/web/storia.html?scena=${i}`); PER.set(i, []); KF.set(i, 0);
+      { const F = await fluidita(i, sc); FLU.push(F); F.avvisi.forEach(a => { console.log('  avviso: FLUIDITÀ ' + a); nota(i, 'FLUIDITA', 'CAMERA_SCATTA', a); }); }   // la camera non deve mai scattare (references/movimenti-camera.md §0c)
       const T = new Set([sc.da + 0.05, sc.a - 0.05]); (sc.camera || []).forEach(k => T.add(k.t)); (sc.attori || []).forEach(a => (a.azioni || []).forEach(z => T.add(z.t + (z.dur || 0.6) / 2))); (sc.oggetti || []).forEach(e => T.add(e.t + 0.4));
       const tt = [...T].filter(t => t >= sc.da && t <= sc.a).sort((x, y) => x - y).filter((t, j, a) => j === 0 || t - a[j - 1] > 0.25);
       for (const t of tt) {
-        await scalda(Math.round((t - sc.da) * fps), fps); await scatta(Math.round((t - sc.da) * fps), 0, fps, path.join(dir, `a${String(n++).padStart(3, '0')}_s${i}_${t.toFixed(2)}s.jpg`));
+        await scalda(Math.round((t - sc.da) * fps), fps); KF.set(i, KF.get(i) + 1);
+        if (soloCtrl) { n++; await pg.evaluate(([f, fps]) => window.renderFrame(f, 0, fps), [Math.round((t - sc.da) * fps), fps]); }   // stesso fotogramma dell'anteprima, ma non si salva
+        else await scatta(Math.round((t - sc.da) * fps), 0, fps, path.join(dir, `a${String(n++).padStart(3, '0')}_s${i}_${t.toFixed(2)}s.jpg`));
         const ci = await pg.evaluate('window.controlloInquadratura ? window.controlloInquadratura() : null');   // controllo dell'inquadratura (references/ricksclips/style-rules.md)
-        if (ci) { CTRL.push({ scena: i, t, ...ci }); for (const [k, c] of ci.flags) console.log(`  CONTROLLO scena ${i} a ${t.toFixed(2)} s: ${k} (${c})`); }
-        { const cr = await pg.evaluate('window.controlloRicchezza ? window.controlloRicchezza() : null'); if (cr) RIC.push({ scena: i, t, luogo: sc.luogo, primo: !RIC.some(x => x.luogo === sc.luogo), ...cr }); }   // MONDO RICCO (references/mondo-da-riferimento.md)
+        if (ci) { CTRL.push({ scena: i, t, ...ci }); for (const [k, c] of ci.flags) { console.log(`  CONTROLLO scena ${i} a ${t.toFixed(2)} s: ${k} (${c})`); nota(i, 'INQUADRATURA', k, c, t); } }
+        { const cr = await pg.evaluate('window.controlloRicchezza ? window.controlloRicchezza() : null'); if (cr) RIC.push({ scena: i, t, luogo: sc.luogo, primo: storia.scene.findIndex(x => x.luogo === sc.luogo) === i && !RIC.some(x => x.luogo === sc.luogo), ...cr });
+            for (const q of (cr && cr.posti) || []) { const k = `${i}|posto|${q.codice}|${q.oggetti ? q.oggetti.join('|') : q.testo}`; if (visto.has(k)) continue; visto.add(k); console.log(`  avviso: ${q.codice} scena ${i} a ${t.toFixed(2)} s: ${q.testo}`); nota(i, 'MONDO', q.codice, q.testo, t); } }   // MONDO RICCO (references/mondo-da-riferimento.md) + COLLOCAZIONE (vita.js)
         { const r2 = await pg.evaluate('window.controlloRecitazione ? window.controlloRecitazione() : null'); if (r2) RECIT.push({ scena: i, t, ...r2 }); }   // RECITAZIONE LIVELLO 3
-        { const lt = await pg.evaluate('window.controlloTesti ? window.controlloTesti() : null'); if (lt) TESTI.push({ scena: i, t, ...lt }); }   // LEGGIBILITA TESTI 3D (Punto 2)
+        { const lt = await pg.evaluate('window.controlloTesti ? window.controlloTesti() : null'); if (lt) TESTI.push({ scena: i, t, ...lt, tk: t }); }   // LEGGIBILITA TESTI 3D (Punto 2)
         const cv = await pg.evaluate('window.controlloVita ? window.controlloVita() : null');   // MONDO VIVO: quanta parte di ciò che si vede si muove
-        if (cv) { VITA.push({ scena: i, t, ...cv }); const q = Math.round(cv.quota * 100); console.log(`  scena ${i}  ${t.toFixed(2)} s   vivo ${q}% (${cv.vivi} vivi, ${cv.fermi} fermi)`); if (q < SOGLIA_VITA) console.log(`  avviso: scena ${i} a ${t.toFixed(2)} s solo ${q}% dell'inquadratura si muove: anima ${cv.elenco.slice(0, 3).join(', ')} (references/mondo-vivo.md)`); }
+        if (cv) { VITA.push({ scena: i, t, ...cv }); const q = Math.round(cv.quota * 100); console.log(`  scena ${i}  ${t.toFixed(2)} s   vivo ${q}% (${cv.vivi} vivi, ${cv.fermi} fermi)`); if (q < SOGLIA_VITA) { console.log(`  avviso: scena ${i} a ${t.toFixed(2)} s solo ${q}% dell'inquadratura si muove: anima ${cv.elenco.slice(0, 3).join(', ')} (references/mondo-vivo.md)`); nota(i, 'MONDO', 'VITA_BASSA', `solo ${q}% dell'inquadratura si muove (soglia ${SOGLIA_VITA}%): anima ${cv.elenco.slice(0, 3).join(', ')}`, t); } }
         else console.log(`  scena ${i}  ${t.toFixed(2)} s`);
       }
     }
@@ -261,15 +305,15 @@ if (!isStoria) {   // ---- modo B: scena libera
           if (a.parla || a.gesto || a.interazione || /^(cammina|passeggiata|fretta|corsa|soppiatto|marcia|zoppia)$/.test(a.posa)) cur.attivo = true;
           stat.set(k, cur);
         }
-        (x.avvisi || []).forEach(w => avvR.push(`scena ${x.scena} a ${x.t.toFixed(2)} s: ${w}`));
+        (x.avvisi || []).forEach(w => { avvR.push(`scena ${x.scena} a ${x.t.toFixed(2)} s: ${w}`); nota(x.scena, 'RECITAZIONE', 'RECITAZIONE', w, x.t); });
         const desc = (x.attori || []).map(a => `${a.id}(${a.testaPct}%,posa=${a.posa}${a.gesto ? ',gesto=' + a.gesto : ''},faccia=${a.faccia}${a.parla ? ',parla' : ''}${a.bocca ? ':' + a.bocca : ''}${a.oggetto ? ',ogg=' + a.oggetto : ''}${a.sguardo ? ',sguardo=' + JSON.stringify(a.sguardo) : ''}${a.vfx ? ',vfx=' + a.vfx : ''})`).join(' | ') || 'nessun attore inquadrato';
         righe.push(`scena ${x.scena}  ${x.t.toFixed(2)} s  ${desc}${(x.avvisi || []).length ? '  AVVISI: ' + x.avvisi.join('; ') : ''}`);
       }
       for (const c of stat.values()) {
-        if ((c.tMax - c.tMin) >= 2.2 && c.stati.size <= 1 && !c.attivo) avvR.push(`scena ${c.scena}: «${c.id}» inquadrato per ${(c.tMax - c.tMin).toFixed(1)} s (${c.n} fotogrammi chiave) con stato identico (STATUA)`);
+        if ((c.tMax - c.tMin) >= 2.2 && c.stati.size <= 1 && !c.attivo) { avvR.push(`scena ${c.scena}: «${c.id}» inquadrato per ${(c.tMax - c.tMin).toFixed(1)} s (${c.n} fotogrammi chiave) con stato identico (STATUA)`); nota(c.scena, 'RECITAZIONE', 'STATUA', `«${c.id}» inquadrato per ${(c.tMax - c.tMin).toFixed(1)} s con stato identico`); }
       }
       const hdr = avvR.length ? ['PROBLEMI RECITAZIONE:', ...avvR.map(w => '  ' + w), ''] : ['RECITAZIONE: nessun problema rilevato', ''];
-      fs.writeFileSync(path.join(out, 'recitazione.txt'), [...hdr, ...righe].join('\n') + '\n');
+      scrivi('recitazione.txt', [...hdr, ...righe].join('\n') + '\n');
       avvR.forEach(w => console.log('  avviso: RECITAZIONE ' + w));
       console.log(`recitazione: ${avvR.length ? avvR.length + ' avvisi' : 'nessun problema'}; dettagli in ${path.join(out, 'recitazione.txt')}`);
     }
@@ -279,35 +323,37 @@ if (!isStoria) {   // ---- modo B: scena libera
         if (r.primo) { if (r.oggetti < 15) P.push(`solo ${r.oggetti} oggetti (servono almeno 15)`); if (r.grandi < 2) P.push(`${r.grandi} oggetti grandi (almeno 2)`); if (r.medi < 4) P.push(`${r.medi} medi (almeno 4)`); if (r.piccoli < 5) P.push(`${r.piccoli} piccoli (almeno 5)`); if (r.celle < 8) P.push(`${r.celle} caselle piene su 12 (almeno 8)`); if (r.tinte < 3) P.push(`${r.tinte} tinte (almeno 3)`); }
         else { if (r.oggetti < 4) P.push(`solo ${r.oggetti} oggetti (almeno 4)`); if (r.celle < 4) P.push(`${r.celle} caselle piene su 12 (almeno 4)`); }
         righe.push(`scena ${r.scena}  ${r.t.toFixed(2)} s  ${r.luogo}${r.primo ? ' (prima vista del luogo)' : ''}  oggetti ${r.oggetti} (grandi ${r.grandi}, medi ${r.medi}, piccoli ${r.piccoli})  caselle ${r.celle}/12  profondità ${r.piani}/3  tinte ${r.tinte}${r.vuote.length ? '  vuoto: ' + r.vuote.join(', ') : ''}${P.length ? '  MONDO_POVERO: ' + P.join('; ') : ''}`);
-        if (P.length) avv.push(`scena ${r.scena} a ${r.t.toFixed(2)} s («${r.luogo}»): ${P.join('; ')}${r.vuote.length ? ' — vuoto ' + r.vuote.slice(0, 4).join(', ') : ''}`);
+        if (P.length) { avv.push(`scena ${r.scena} a ${r.t.toFixed(2)} s («${r.luogo}»): ${P.join('; ')}${r.vuote.length ? ' — vuoto ' + r.vuote.slice(0, 4).join(', ') : ''}`); nota(r.scena, 'MONDO', 'MONDO_POVERO', `«${r.luogo}»${r.primo ? ' (prima vista)' : ''}: ${P.join('; ')}${r.vuote.length ? ' — vuoto ' + r.vuote.slice(0, 4).join(', ') : ''}`, r.t); }
       }
-      fs.writeFileSync(path.join(out, 'ricchezza.txt'), righe.join('\n') + '\n'); avv.forEach(a => console.log('  avviso: MONDO_POVERO ' + a)); console.log(`mondo ricco: ${avv.length ? avv.length + ' inquadrature povere' : 'nessun problema'}; dettagli in ${path.join(out, 'ricchezza.txt')}`);
+      scrivi('ricchezza.txt', righe.join('\n') + '\n'); avv.forEach(a => console.log('  avviso: MONDO_POVERO ' + a)); console.log(`mondo ricco: ${avv.length ? avv.length + ' inquadrature povere' : 'nessun problema'}; dettagli in ${path.join(out, 'ricchezza.txt')}`);
     }
-    if (FLU.length) { fs.writeFileSync(path.join(out, 'fluidita.txt'), FLU.map(F => F.riga + '\n' + F.avvisi.map(a => '  ' + a + '\n').join('')).join('')); const nf = FLU.reduce((s, F) => s + F.avvisi.length, 0); console.log(`fluidità della camera: ${nf ? nf + ' scatti' : 'nessuno scatto'}; dettagli in ${path.join(out, 'fluidita.txt')}`); }
+    if (FLU.length) { scrivi('fluidita.txt', FLU.map(F => F.riga + '\n' + F.avvisi.map(a => '  ' + a + '\n').join('')).join('')); const nf = FLU.reduce((s, F) => s + F.avvisi.length, 0); console.log(`fluidità della camera: ${nf ? nf + ' scatti' : 'nessuno scatto'}; dettagli in ${path.join(out, 'fluidita.txt')}`); }
     if (CTRL.length) {
-      fs.writeFileSync(path.join(out, 'controlli.txt'), CTRL.map(c => `scena ${c.scena}  ${c.t.toFixed(2)} s  luce ${c.media}  testa ${c.testa ? Math.round(c.testa * 100) + '%' : '-'} (${c.soggetto || '-'})  ${c.flags.map(f => f.join(': ')).join('; ') || 'ok'}`).join('\n') + '\n');
+      scrivi('controlli.txt', CTRL.map(c => `scena ${c.scena}  ${c.t.toFixed(2)} s  luce ${c.media}  testa ${c.testa ? Math.round(c.testa * 100) + '%' : '-'} (${c.soggetto || '-'})  ${c.flags.map(f => f.join(': ')).join('; ') || 'ok'}`).join('\n') + '\n');
       const nf = CTRL.reduce((s, c) => s + c.flags.length, 0), te = CTRL.filter(c => c.testa).map(c => c.testa).sort((a, b) => a - b), med = te.length ? Math.round(te[te.length >> 1] * 100) : 0;
       console.log(`controllo inquadrature: ${nf ? nf + ' problemi' : 'nessun problema'}; testa del soggetto mediana ${med}% del quadro (stile Rick 20%, 12-30%); dettagli in ${path.join(out, 'controlli.txt')}`);
     }
     if (VITA.length) {
-      fs.writeFileSync(path.join(out, 'vita.txt'), VITA.map(v => `scena ${v.scena}  ${v.t.toFixed(2)} s  vivo ${Math.round(v.quota * 100)}%  (${v.vivi} vivi / ${v.fermi} fermi)${v.elenco.length ? '  fermi: ' + v.elenco.join('; ') : ''}`).join('\n') + '\n');
+      scrivi('vita.txt', VITA.map(v => `scena ${v.scena}  ${v.t.toFixed(2)} s  vivo ${Math.round(v.quota * 100)}%  (${v.vivi} vivi / ${v.fermi} fermi)${v.elenco.length ? '  fermi: ' + v.elenco.join('; ') : ''}`).join('\n') + '\n');
       const med = VITA.reduce((s, v) => s + v.quota, 0) / VITA.length; console.log(`mondo vivo: media ${Math.round(med * 100)}% (soglia ${SOGLIA_VITA}%), dettagli in ${path.join(out, 'vita.txt')}`);
     }
     if (TESTI.length) {
       const avvT = new Set(), righeT = []; let nP = 0, nTag = 0, nPic = 0;
       for (const x of TESTI) {
-        (x.avvisi || []).forEach(a => avvT.add(`adattaTesto: ${a}`));
+        (x.avvisi || []).forEach(a => { avvT.add(`adattaTesto: ${a}`); nota(x.scena, 'LETTURA', 'ADATTA_TESTO', a); });
         for (const b of x.testi || []) {
           if (b.pass) continue; nP++;
           if (b.clipped) nTag++;
           if (b.linePx < 22) nPic++;
+          if (b.clipped || b.linePx < 22) nota(x.scena, 'LETTURA', b.clipped ? 'TESTO_TAGLIATO' : 'TESTO_PICCOLO', `"${b.text}" riga ${b.linePx} px`, x.tk);   // tk = tempo del fotogramma chiave (x.t qui è il tempo dentro la scena)
           if (b.clipped || b.linePx < 22) righeT.push(`scena ${x.scena}  ${x.t.toFixed(2)} s  "${b.text}"  box=[${b.x0},${b.y0},${b.x1},${b.y1}]  riga=${b.linePx}px${b.clipped ? '  TAGLIATO' : ''}${b.linePx < 22 ? '  TROPPO_PICCOLO' : ''}`);
         }
       }
-      fs.writeFileSync(path.join(out, 'lettura.txt'), [...avvT, ...righeT].join('\n') + (avvT.size || righeT.length ? '\n' : 'TESTI 3D: nessun taglio/testo troppo piccolo sui fotogrammi chiave\n'));
+      scrivi('lettura.txt', [...avvT, ...righeT].join('\n') + (avvT.size || righeT.length ? '\n' : 'TESTI 3D: nessun taglio/testo troppo piccolo sui fotogrammi chiave\n'));
       console.log(`lettura testi 3D: ${nP} campionamenti, ${nTag} tagliati, ${nPic} troppo piccoli (<22 px); per tempo continuo: node kit/tools/readcheck.mjs "${src}"`);
     }
-    try { execSync(`"${FF}" -v error -y -pattern_type glob -i "${dir}/a*.jpg" -vf "scale=360:640,tile=${cols}x${rows}:padding=6:color=white" -frames:v 1 -q:v 3 "${path.join(out, 'contact.jpg')}"`); console.log('anteprima:', path.join(out, 'contact.jpg'), `(${n} fotogrammi, in ordine di tempo; singoli in ${dir})`); }
+    { const d = leggiAvvisi(); for (const { sc, i } of scene) d.scene[i] = { impronta: impronta(sc), fotogrammi: KF.get(i), avvisi: PER.get(i) }; scriviAvvisi(d); console.log(`CANCELLO controlli: ${n} fotogrammi chiave controllati in ${scene.length} scen${scene.length === 1 ? 'a' : 'e'}; avvisi in ${path.join(out, 'avvisi.json')}`); }
+    if (!soloCtrl) try { execSync(`"${FF}" -v error -y -pattern_type glob -i "${dir}/a*.jpg" -vf "scale=360:640,tile=${cols}x${rows}:padding=6:color=white" -frames:v 1 -q:v 3 "${path.join(out, 'contact.jpg')}"`); console.log('anteprima:', path.join(out, 'contact.jpg'), `(${n} fotogrammi, in ordine di tempo; singoli in ${dir})`); }
     catch { console.log('fotogrammi di anteprima in', dir, '(ffmpeg non trovato: niente contact sheet)'); }
   } else {
     const dir = path.join(out, 'fotogrammi'); if (solo === null && !process.env.RESUME) fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });

@@ -213,6 +213,91 @@ export function creaVita(M) {
       for (let c = 0; c < 3; c++) for (let rg = 0; rg < 4; rg++) { const cx0 = -1 + c * 2 / 3, cy1 = 1 - rg * 0.5; if (r[0] < cx0 + 2 / 3 && r[1] > cx0 && r[2] < cy1 && r[3] > cy1 - 0.5) celle[rg * 3 + c]++; }
       for (const o of ms) { const m = [].concat(o.material)[0]; if (m && m.color) { m.color.getHSL(hsl); if (hsl.s > 0.18 && hsl.l > 0.08 && hsl.l < 0.92) tinte.add(Math.floor(hsl.h * 12)); } } }
     const nomi = ['in alto', 'a metà alta', 'a metà bassa', 'in basso'], lati = ['a sinistra', 'al centro', 'a destra'];
-    return { oggetti: n, grandi, medi, piccoli, celle: celle.filter(x => x).length, piani: piani.filter(x => x).length, tinte: tinte.size, vuote: celle.map((x, i) => x ? null : nomi[i / 3 | 0] + ' ' + lati[i % 3]).filter(Boolean) }; };
+    return { oggetti: n, grandi, medi, piccoli, celle: celle.filter(x => x).length, piani: piani.filter(x => x).length, tinte: tinte.size, vuote: celle.map((x, i) => x ? null : nomi[i / 3 | 0] + ' ' + lati[i % 3]).filter(Boolean),
+      posti: (() => { try { return V.collocazione(camera); } catch (e) { return [{ codice: 'COLLOCAZIONE_ERRORE', testo: String(e && e.message || e) }]; } })() }; };
+
+  // ---- CONTROLLO «COLLOCAZIONE» [utente 16/11]: oggetti che si compenetrano e oggetti dove non dovrebbero stare (un lampione in mezzo ai binari).
+  // Il cancello di `run.py video` li tratta come il mondo povero: bloccano e si riscrive lo script del luogo (references/controlli.md §0).
+  //  COMPENETRATI: due oggetti CON NOME di cui il più piccolo ha almeno il 30% della superficie affondato più di 3 cm dentro il solido dell'altro.
+  //    Si misura sui triangoli veri, non sulle scatole: appoggi, incastri, cose affondate di pochi millimetri, oggetti dentro ciotole, vasi, scaffali
+  //    e casse aperte non contano; un oggetto tutto dentro un altro è nascosto e non conta. Voluto? oggetto.userData.sovrapposto_ok = true
+  //    Si confrontano solo oggetti che stanno in rami diversi del mondo (figli diretti diversi di M.root): i pezzi di uno stesso gruppo o modello GLB no.
+  //    Quindi ogni oggetto va aggiunto al mondo per conto suo, non dentro un unico gruppo «stanza».
+  //  FUORI_POSTO: un oggetto alto più di 25 cm col centro dentro una ZONA DI PASSAGGIO. È zona di passaggio la pianta di ogni oggetto marcato
+  //    oggetto.userData.passaggio = { nome: 'binario', per: ['treno'] }   (per = pezzi di nome di ciò che lì può stare)
+  //    e di ogni oggetto il cui nome contiene binari/rotaie (per i treni) o carreggiata/corsia (per i veicoli). Si marca SOLO dove si passa
+  //    (il letto dei binari, la carreggiata, il varco di una porta), non il marciapiede. Ciò che si muove lungo un percorso (comportamento «passa»)
+  //    può starci sempre; le cose appese più di 2,2 m sopra (cartelli, fili) non intralciano. Voluto? oggetto.userData.nel_passaggio = true
+  // Guarda solo ciò che cade nel quadro. Limiti: non vede un palo sottile che buca un piano sottile (poca superficie in comune), né le zone non marcate.
+  const ZONE_NOME = [[/binari|rotai/i, 'binario', ['treno', 'vagone', 'locomotiva', 'tram', 'metro', 'carrello']],
+    [/carreggiata|corsia/i, 'carreggiata', ['auto', 'macchina', 'taxi', 'bus', 'camion', 'furgone', 'moto', 'scooter', 'bici', 'tram', 'ambulanza', 'polizia', 'carro']]];
+  let _comp = null, _firmaComp = null;   // riusa solo se geometria, pose, visibilità e soglie non cambiano
+  V.collocazione = (camera, { grande = 4.5, affondo = 0.03, quota = 0.3, alto = 0.25 } = {}) => {
+    const fr = new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse)), v3 = new THREE.Vector3();
+    const su = (o, f) => { for (let p = o; p && p !== M.root; p = p.parent) if (f(p)) return p; return null; };
+    const visibile = o => { for (let p = o; p; p = p.parent) if (p.visible === false) return false; return true; };
+    const pieno = m => [].concat(m.material).every(x => x && !x.transparent && (x.opacity ?? 1) >= 0.99 && x.side !== THREE.BackSide && x.blending !== THREE.AdditiveBlending);
+    M.root.updateMatrixWorld(true);
+    const G = new Map(), zone = [];
+    M.root.traverse(o => {
+      const pz = o.userData.passaggio, zn = !pz && o.name ? ZONE_NOME.find(z => z[0].test(o.name)) : null;
+      if ((pz || zn) && visibile(o)) { const bb = new THREE.Box3().setFromObject(o); if (!bb.isEmpty()) zone.push({ o, bb, nome: (pz && pz.nome) || (zn ? zn[1] : '') || o.name || 'passaggio', per: (pz && pz.per) || (zn ? zn[2] : []) }); }
+      if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || !visibile(o)) return;
+      let k = o; while (k.parent && k.parent !== M.root && !k.name) k = k.parent; if (!G.has(k)) G.set(k, []); G.get(k).push(o);
+    });
+    const O = [...G].map(([k, ms]) => { const bb = new THREE.Box3().setFromObject(k), s = bb.getSize(new THREE.Vector3()), c = bb.getCenter(new THREE.Vector3()), nome = (k.name || '').replace(/^perno_/, '');
+      return { k, ms, bb, s, c, nome, come: nome ? `«${nome}»` : `un oggetto senza nome (x ${c.x.toFixed(1)}, z ${c.z.toFixed(1)})`, strutt: ms.every(m => m.userData.struttura) || Math.max(s.x, s.y, s.z) > grande * 1.6 }; }).filter(x => !x.bb.isEmpty());
+    const out = [], inTransito = new Set(L.filter(vv => vv.tipo === 'passa').map(vv => vv.o)), passa = x => !!su(x.k, p => inTransito.has(p)) || x.ms.some(m => su(m, p => inTransito.has(p)));
+    // -- FUORI_POSTO: si guarda l'oggetto INTERO (il figlio diretto del mondo), non i suoi pezzi: le porte di un treno non sono «fuori posto» sui binari
+    const cima = x => { let p = x.k; while (p.parent && p.parent !== M.root) p = p.parent; return p; }, interi = new Map();
+    for (const x of O) { const c = cima(x); if (!interi.has(c)) interi.set(c, []); interi.get(c).push(x); }
+    for (const z of zone) for (const [c, parti] of interi) {
+      if (c === z.o || su(z.o, p => p === c) || c.userData.nel_passaggio || parti.some(x => su(x.k, p => p.userData.nel_passaggio) || passa(x))) continue;   // la zona stessa, ciò che è dichiarato, ciò che passa
+      const bb = new THREE.Box3().setFromObject(c), sz = bb.getSize(new THREE.Vector3()), ce = bb.getCenter(new THREE.Vector3()), nomi = [];
+      // Identità del modello intero, anche nei nodi intermedi GLB o nei metadati di un treno senza nome.
+      c.traverse(p => { for (const n of [p.name, p.userData.tipo, p.userData.vivo]) if (typeof n === 'string') nomi.push(n.toLowerCase()); });
+      if (bb.isEmpty() || sz.y < alto || Math.max(sz.x, sz.y, sz.z) > grande * 1.6 || parti.every(x => x.ms.every(m => m.userData.struttura))) continue;   // cose basse (tombini, strisce), strutture e cose enormi
+      if (z.per.some(p => nomi.some(n => n.includes(String(p).toLowerCase())))) continue;
+      if (ce.x < z.bb.min.x || ce.x > z.bb.max.x || ce.z < z.bb.min.z || ce.z > z.bb.max.z) continue;
+      if (bb.min.y > z.bb.max.y + 2.2 || bb.max.y < z.bb.min.y - 0.1 || !fr.intersectsBox(bb)) continue;
+      const come = (c.name || '').replace(/^perno_/, '') ? `«${c.name.replace(/^perno_/, '')}»` : (parti.find(x => x.nome) ? `l'oggetto con «${parti.find(x => x.nome).nome}»` : `un oggetto senza nome (x ${ce.x.toFixed(1)}, z ${ce.z.toFixed(1)})`);
+      out.push({ codice: 'FUORI_POSTO', oggetti: [c.uuid, z.o.uuid], testo: `${come} sta in mezzo a «${z.nome}», che è una zona di passaggio${z.per.length ? ' (lì possono stare solo: ' + z.per.join(', ') + ')' : ''}: spostalo fuori` });
+    }
+    // -- COMPENETRATI: una posa vecchia non può bloccare (o assolvere) il fotogramma corrente.
+    const firma = JSON.stringify([grande, affondo, quota, O.map(x => [x.k.uuid, cima(x).uuid, x.nome,
+      !!su(x.k, p => p.userData.sovrapposto_ok), x.strutt, x.ms.map(m => [m.uuid, m.geometry.uuid,
+        m.geometry.attributes.position?.version, m.geometry.index?.version, pieno(m), ...m.matrixWorld.elements])])]);
+    if (!_comp || firma !== _firmaComp) {
+      _firmaComp = null;
+      _comp = [];
+      const tri = x => { if (x.T !== undefined) return x.T; const T = [];
+        for (const m of x.ms) { const g = m.geometry, p = g && g.attributes && g.attributes.position; if (!p || !pieno(m)) continue; const ix = g.index, n = ix ? ix.count : p.count;
+          for (let i = 0; i + 2 < n; i += 3) for (let j = 0; j < 3; j++) { v3.fromBufferAttribute(p, ix ? ix.getX(i + j) : i + j).applyMatrix4(m.matrixWorld); T.push(v3.x, v3.y, v3.z); } if (T.length > 540000) return x.T = null; }
+        return x.T = T.length ? T : null; };
+      // P è dentro il solido T se TUTTE e 6 le semirette (±x ±y ±z) attraversano un numero dispari di facce (un contenitore aperto ne lascia uscire una) e la faccia più vicina dista almeno `affondo`
+      const dentro = (P, T) => { const cnt = [0, 0, 0, 0, 0, 0]; let dmin = Infinity;
+        for (let i = 0; i < T.length; i += 9) for (let a = 0; a < 3; a++) { const u = (a + 1) % 3, w = (a + 2) % 3;
+          const ax = T[i + u] - P[u], ay = T[i + w] - P[w], bx = T[i + 3 + u] - P[u], by = T[i + 3 + w] - P[w], cx = T[i + 6 + u] - P[u], cy = T[i + 6 + w] - P[w];
+          const d0 = ax * by - ay * bx, d1 = bx * cy - by * cx, d2 = cx * ay - cy * ax; if (!((d0 > 0 && d1 > 0 && d2 > 0) || (d0 < 0 && d1 < 0 && d2 < 0))) continue;
+          const h = (d1 * T[i + a] + d2 * T[i + 3 + a] + d0 * T[i + 6 + a]) / (d0 + d1 + d2) - P[a]; cnt[a * 2 + (h > 0 ? 0 : 1)]++; dmin = Math.min(dmin, Math.abs(h)); }
+        return cnt.every(c => c % 2 === 1) && dmin >= affondo; };
+      const campioni = x => { const T = tri(x); if (!T) return []; const nT = T.length / 9, passo = Math.max(1, Math.ceil(nT / 40)), S = [];
+        for (let t = 0; t < nT; t += passo) for (const w of [[.6, .2, .2], [.2, .6, .2], [.2, .2, .6]]) { const i = t * 9; S.push([0, 1, 2].map(a => w[0] * T[i + a] + w[1] * T[i + 3 + a] + w[2] * T[i + 6 + a])); } return S; };
+      const N = O.filter(x => x.nome && !su(x.k, p => p.userData.sovrapposto_ok)), vol = x => x.s.x * x.s.y * x.s.z;
+      const parente = (a, b) => cima(a) === cima(b);   // pezzi dello stesso oggetto o dello stesso modello GLB (stesso figlio diretto del mondo): sono fatti per incastrarsi
+      for (let i = 0; i < N.length; i++) for (let j = i + 1; j < N.length; j++) {
+        let A = N[i], B = N[j]; if (vol(A) > vol(B)) [A, B] = [B, A]; if (A.strutt || parente(A, B)) continue;
+        const I = A.bb.clone().intersect(B.bb); if (I.isEmpty()) continue; const si = I.getSize(v3); if (Math.min(si.x, si.y, si.z) < affondo * 2) continue;
+        if (B.strutt && B.bb.containsBox(A.bb)) continue;   // stanza fatta a guscio, cielo: contengono tutto per costruzione
+        const TB = tri(B), S = campioni(A); if (!TB || S.length < 9) continue;
+        const f = S.filter(P => B.bb.containsPoint(v3.set(P[0], P[1], P[2])) && dentro(P, TB)).length / S.length;
+        if (f >= quota && f < 0.97) _comp.push({ A, B, f });
+      }
+      _firmaComp = firma;   // un errore non deve lasciare una cache parziale valida
+    }
+    for (const c of _comp) if (visibile(c.A.k) && visibile(c.B.k) && fr.intersectsBox(c.A.bb))
+      out.push({ codice: 'COMPENETRATI', oggetti: [c.A.k.uuid, c.B.k.uuid].sort(), testo: `${c.A.come} è per il ${Math.round(c.f * 100)}% dentro ${c.B.come}: separali (accanto o appoggiato sopra, non uno dentro l'altro)` });
+    return out.slice(0, 12);
+  };
   return V;
 }

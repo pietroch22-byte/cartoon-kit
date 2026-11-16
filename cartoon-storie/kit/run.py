@@ -3,6 +3,8 @@
     python3 kit/run.py setup                                                installa Python privato e librerie (si può rifare)
     python3 kit/run.py anteprima           /percorso/assoluto/storia.json   fotogrammi chiave + contact sheet + controlli
     python3 kit/run.py video               /percorso/assoluto/storia.json   MP4 1080x1920 con voce, musica, effetti, karaoke
+                                           (prima fa i controlli delle scene cambiate, senza salvare immagini: se segnalano problemi
+                                            si ferma. CONTROLLI_OK=1 vale solo per gli altri controlli; gli avvisi sul mondo bloccano sempre)
     python3 kit/run.py da-reference        <video.mp4> <nome_storia>        analisi REA + sheet + bozza nel Mondo di Rick
     python3 kit/run.py confronto-reference <ref.mp4> <nostro.mp4> [out.mp4] affianca reference e ricostruzione Mondo Rick
 
