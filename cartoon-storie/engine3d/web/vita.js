@@ -10,6 +10,7 @@
 // Uso:  const V = creaVita(M);  V.aggiungi(oggetto, 'gira', { asse: 'y', vel: 0.5 });  ogni fotogramma: V.tick(t, { attori })
 // Nei GLB di Blender basta il nome del nodo: VIVO_gira_y_0.5, VIVO_pendola, PORTA_L / PORTA_R, ventola, ruota, lanterna… (V.auto)
 import { THREE } from '/web/look_disegnato.js';
+import { incastroNelVano } from '/web/collocazione_incastri.js';
 
 const TAU = Math.PI * 2, cl = x => Math.min(1, Math.max(0, x)), ss = x => x * x * (3 - 2 * x), ss5 = x => x * x * x * (x * (x * 6 - 15) + 10);
 const ASSE = { x: new THREE.Vector3(1, 0, 0), y: new THREE.Vector3(0, 1, 0), z: new THREE.Vector3(0, 0, 1) };
@@ -219,7 +220,7 @@ export function creaVita(M) {
   // ---- CONTROLLO «COLLOCAZIONE» [utente 16/11]: oggetti che si compenetrano e oggetti dove non dovrebbero stare (un lampione in mezzo ai binari).
   // Il cancello di `run.py video` li tratta come il mondo povero: bloccano e si riscrive lo script del luogo (references/controlli.md §0).
   //  COMPENETRATI: due oggetti CON NOME di cui il più piccolo ha almeno il 30% della superficie affondato più di 3 cm dentro il solido dell'altro.
-  //    Si misura sui triangoli veri, non sulle scatole: appoggi, incastri, cose affondate di pochi millimetri, oggetti dentro ciotole, vasi, scaffali
+  //    Si misura sui triangoli veri, non sulle scatole: appoggi, telai montati nei vani, cose affondate di pochi millimetri, oggetti dentro ciotole, vasi, scaffali
   //    e casse aperte non contano; un oggetto tutto dentro un altro è nascosto e non conta. Voluto? oggetto.userData.sovrapposto_ok = true
   //    Si confrontano solo oggetti che stanno in rami diversi del mondo (figli diretti diversi di M.root): i pezzi di uno stesso gruppo o modello GLB no.
   //    Quindi ogni oggetto va aggiunto al mondo per conto suo, non dentro un unico gruppo «stanza».
@@ -241,7 +242,16 @@ export function creaVita(M) {
     const G = new Map(), zone = [];
     M.root.traverse(o => {
       const pz = o.userData.passaggio, zn = !pz && o.name ? ZONE_NOME.find(z => z[0].test(o.name)) : null;
-      if ((pz || zn) && visibile(o)) { const bb = new THREE.Box3().setFromObject(o); if (!bb.isEmpty()) zone.push({ o, bb, nome: (pz && pz.nome) || (zn ? zn[1] : '') || o.name || 'passaggio', per: (pz && pz.per) || (zn ? zn[2] : []) }); }
+      if ((pz || zn) && visibile(o)) {
+        // Ingombro negli assi della zona: un binario diagonale non occupa tutto il suo AABB mondiale.
+        const locale = new THREE.Box3(), inversa = o.matrixWorld.clone().invert();
+        o.traverse(m => { if (!m.isMesh || !visibile(m) || !m.geometry) return;
+          m.geometry.computeBoundingBox();
+          if (m.geometry.boundingBox) locale.union(m.geometry.boundingBox.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inversa, m.matrixWorld)));
+        });
+        const bb = locale.clone().applyMatrix4(o.matrixWorld);
+        if (!bb.isEmpty()) zone.push({ o, bb, locale, inversa, nome: (pz && pz.nome) || (zn ? zn[1] : '') || o.name || 'passaggio', per: (pz && pz.per) || (zn ? zn[2] : []) });
+      }
       if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || !visibile(o)) return;
       let k = o; while (k.parent && k.parent !== M.root && !k.name) k = k.parent; if (!G.has(k)) G.set(k, []); G.get(k).push(o);
     });
@@ -259,12 +269,14 @@ export function creaVita(M) {
       if (bb.isEmpty() || sz.y < alto || Math.max(sz.x, sz.y, sz.z) > grande * 1.6 || parti.every(x => x.ms.every(m => m.userData.struttura))) continue;   // cose basse (tombini, strisce), strutture e cose enormi
       if (z.per.some(p => nomi.some(n => n.includes(String(p).toLowerCase())))) continue;
       if (ce.x < z.bb.min.x || ce.x > z.bb.max.x || ce.z < z.bb.min.z || ce.z > z.bb.max.z) continue;
+      const verticale = new THREE.Ray(new THREE.Vector3(ce.x, z.bb.max.y + 1, ce.z), new THREE.Vector3(0, -1, 0)).applyMatrix4(z.inversa);
+      if (!verticale.intersectBox(z.locale, v3)) continue;
       if (bb.min.y > z.bb.max.y + 2.2 || bb.max.y < z.bb.min.y - 0.1 || !fr.intersectsBox(bb)) continue;
       const come = (c.name || '').replace(/^perno_/, '') ? `«${c.name.replace(/^perno_/, '')}»` : (parti.find(x => x.nome) ? `l'oggetto con «${parti.find(x => x.nome).nome}»` : `un oggetto senza nome (x ${ce.x.toFixed(1)}, z ${ce.z.toFixed(1)})`);
       out.push({ codice: 'FUORI_POSTO', oggetti: [c.uuid, z.o.uuid], testo: `${come} sta in mezzo a «${z.nome}», che è una zona di passaggio${z.per.length ? ' (lì possono stare solo: ' + z.per.join(', ') + ')' : ''}: spostalo fuori` });
     }
     // -- COMPENETRATI: una posa vecchia non può bloccare (o assolvere) il fotogramma corrente.
-    const firma = JSON.stringify([grande, affondo, quota, O.map(x => [x.k.uuid, cima(x).uuid, x.nome,
+    const firma = JSON.stringify([grande, affondo, quota, O.map(x => [x.k.uuid, cima(x).uuid, x.nome, (() => { const nomi=[]; for(let p=x.k.parent;p && p!==M.root;p=p.parent) nomi.push(p.name); return nomi; })(),
       !!su(x.k, p => p.userData.sovrapposto_ok), x.strutt, x.ms.map(m => [m.uuid, m.geometry.uuid,
         m.geometry.attributes.position?.version, m.geometry.index?.version, pieno(m), ...m.matrixWorld.elements])])]);
     if (!_comp || firma !== _firmaComp) {
@@ -291,7 +303,7 @@ export function creaVita(M) {
         if (B.strutt && B.bb.containsBox(A.bb)) continue;   // stanza fatta a guscio, cielo: contengono tutto per costruzione
         const TB = tri(B), S = campioni(A); if (!TB || S.length < 9) continue;
         const f = S.filter(P => B.bb.containsPoint(v3.set(P[0], P[1], P[2])) && dentro(P, TB)).length / S.length;
-        if (f >= quota && f < 0.97) _comp.push({ A, B, f });
+        if (f >= quota && f < 0.97 && !incastroNelVano(THREE, A, B, tri(A), TB, M.root)) _comp.push({ A, B, f });
       }
       _firmaComp = firma;   // un errore non deve lasciare una cache parziale valida
     }

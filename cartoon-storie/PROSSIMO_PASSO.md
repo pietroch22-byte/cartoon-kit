@@ -9,7 +9,7 @@ Il lavoro che stava scritto qui (il cancello su `run.py video`) è **fatto**: co
 `HANDOFF.md` è il diario: non leggerlo intero, cercaci dentro solo se serve un dettaglio.
 
 ## Cosa viene dopo, solo con l'ok dell'utente
-1. **Collocazione completata nel motore**: `COMPENETRATI` e `FUORI_POSTO` sono collegati al cancello senza deroga; casi e limiti in `references/controlli.md`. Le storie esistenti servono solo come dati di prova: non correggerne i mondi. Restano da progettare il riconoscimento automatico degli incastri tra modelli separati e della coerenza con luogo/epoca.
+1. **Collocazione completata nel motore**: `COMPENETRATI` e `FUORI_POSTO` sono collegati al cancello senza deroga; casi e limiti in `references/controlli.md`. Le storie esistenti servono solo come dati di prova: non correggerne i mondi. Montanti e architravi nei vani sono riconosciuti anche tra modelli separati. Restano da progettare altri tipi di incastro e la coerenza con luogo/epoca.
 2. Camera: prova v12 (soggetti centrati con `"su"` + `"testa"`, riprese uniche nello stesso luogo) → ok → riscrivere `references/movimenti-camera.md` §8.
 3. Rivedere `regia()` in `kit/tools/rendi_disegnato.mjs` (limiti 8/15 s e stacchi): finché non è rivista, quei due avvisi nel cancello avvisano e non fermano.
 4. Le tre domande aperte in fondo a `STATO.md`.

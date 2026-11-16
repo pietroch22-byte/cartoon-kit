@@ -10,7 +10,8 @@ const THREE = await import(threeURL);
 // Usa il codice reale; il renderer browser non serve alle prove geometriche.
 const source = fs.readFileSync(path.join(root, 'engine3d/web/vita.js'), 'utf8')
   .replace("import { THREE } from '/web/look_disegnato.js';", `import * as THREE from '${threeURL}';`);
-const { creaVita } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
+const sourceCompleto = source.replace("'/web/collocazione_incastri.js'", JSON.stringify(pathToFileURL(path.join(root,'engine3d/web/collocazione_incastri.js')).href));
+const { creaVita } = await import('data:text/javascript;base64,' + Buffer.from(sourceCompleto).toString('base64'));
 function setup() {
   const root = new THREE.Group(), V = creaVita({root});
   const camera = new THREE.PerspectiveCamera(80, 1, .1, 100);
@@ -83,4 +84,58 @@ test('un controllo fallito si ritenta; riassemblare un modello invalida il risul
   assert.equal(s.check().length,1);
   const g=new THREE.Group(); s.root.add(g); g.add(b,c);
   assert.deepEqual(s.check(),[]);
+});
+
+function vano(s, {aperto=true, angolo=0, nome='porta_scorrevole'}={}) {
+  const pezzi=aperto ? [[.35,4.525,.3,-1.975,2.2625,0],[.35,4.525,.3,1.975,2.2625,0],[3.6,2.225,.3,0,3.4125,0]] : [[4.3,4.525,.3,0,2.2625,0]];
+  const pos=[];
+  for(const [w,h,d,x,y,z] of pezzi) {
+    const g=new THREE.BoxGeometry(w,h,d).toNonIndexed(); g.translate(x,y,z);
+    pos.push(...g.attributes.position.array); g.dispose();
+  }
+  const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  const parete=new THREE.Mesh(geo,new THREE.MeshBasicMaterial()); parete.name='facciata'; parete.rotation.y=angolo; s.root.add(parete);
+  const porta=new THREE.Group(); porta.name=nome; porta.rotation.y=angolo; s.root.add(porta);
+  s.box('montante',[.092,2.208,.22],[-1.886,1.104,.14],porta);
+  s.box('montante001',[.092,2.208,.22],[1.886,1.104,.14],porta);
+  s.box('architrave',[3.864,.2392,.22],[0,2.3276,.14],porta);
+  return {porta,parete};
+}
+test('telai di GLB separati montati nel vano: riconosciuti anche ruotati',()=>{
+  for(const angolo of [0,Math.PI/4,Math.PI/2]) {
+    const s=setup(); const {porta}=vano(s,{angolo});
+    assert.deepEqual(s.check(),[]);
+    porta.name='altro_modello';
+    assert.ok(s.check().some(a=>a.codice==='COMPENETRATI'),'il caso geometrico deve davvero compenetrarsi');
+  }
+});
+test('nomi da serramento non nascondono pezzi affondati in una parete senza vano',()=>{
+  const s=setup(); vano(s,{aperto:false});
+  assert.ok(s.check().some(a=>a.codice==='COMPENETRATI'));
+});
+test('una cassa al bordo del vano non diventa un incastro',()=>{
+  const s=setup(); const {porta}=vano(s);
+  s.box('cassa',[.3,.6,.3],[1.85,1,.05],porta);
+  assert.ok(s.check().some(a=>a.codice==='COMPENETRATI' && /cassa/.test(a.testo)));
+});
+
+test('architrave tra due montanti: riconosciuti entrambi gli appoggi',()=>{
+  const s=setup(); const {parete}=vano(s);
+  // Alza la parete superiore: il traverso resta agganciato soltanto ai due lati del vano.
+  const p=parete.geometry.attributes.position;
+  for(let i=0;i<p.count;i++) if(i>=72 && p.getY(i)<2.31) p.setY(i,2.65);
+  p.needsUpdate=true; parete.geometry.computeBoundingBox();
+  assert.deepEqual(s.check(),[]);
+});
+test('binari diagonali: lampione nel passaggio segnalato, oggetto laterale ignorato',()=>{
+  const s=setup(); const zona=s.box('binari',[1,.1,8],[0,-.1,0]); zona.rotation.y=Math.PI/4;
+  s.box('lampione_nel_passaggio',[.1,2,.1],[1,1,1]);
+  s.box('lampione_laterale',[.1,2,.1],[2,1,-2]);
+  const a=s.check().filter(x=>x.codice==='FUORI_POSTO');
+  assert.equal(a.length,1); assert.match(a[0].testo,/lampione_nel_passaggio/);
+});
+
+test('il nome del mondo non basta a dichiarare tutti i componenti come serramenti',()=>{
+  const s=setup(); s.root.name='porta'; vano(s,{nome:'altro_modello'});
+  assert.ok(s.check().some(a=>a.codice==='COMPENETRATI'));
 });

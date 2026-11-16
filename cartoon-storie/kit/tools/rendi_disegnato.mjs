@@ -205,7 +205,7 @@ if (isStoria) { const R = risolviTempi(JSON.parse(fs.readFileSync(src, 'utf8')),
 // Limite noto: l'impronta non guarda il codice del motore (engine3d/web): dopo una modifica al motore usa --tutte.
 const OUT_STORIA = isStoria ? path.resolve(val('--out', path.join(process.cwd(), 'out', path.basename(src, '.json')))) : null;
 const NON_SI_VEDE = ['scene', 'luoghi', 'titolo', 'voce', 'musica', 'effetti', 'silenzi', 'ambienti', 'regia_audio', 'j_cut', 'l_cut', 'karaoke', 'karaoke_leggibile', 'mix'];
-const CONTROLLI_V = 3;   // collocazione: identità GLB/metadati e invalidazione delle pose; rifare le impronte vecchie
+const CONTROLLI_V = 4;   // collocazione: telai nel vano e zone ruotate; rifare le impronte vecchie
 const impronta = sc => {
   const h = crypto.createHash('sha1'), LG = (storia.luoghi || {})[sc.luogo] || {}, { mood, bpm, intensita, ...vis } = sc;
   h.update(JSON.stringify([CONTROLLI_V, vis, LG, Object.fromEntries(Object.entries(storia).filter(([k]) => !NON_SI_VEDE.includes(k)))]));

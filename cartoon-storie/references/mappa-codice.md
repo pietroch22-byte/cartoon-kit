@@ -8,4 +8,4 @@ Comandi di `kit/run.py`: `setup`, `anteprima`, `video`, `da-reference`, `confron
 
 ## Collocazione e cancello (16/11)
 
-`vita.js`: `collocazione(camera)` restituisce `COMPENETRATI` / `FUORI_POSTO`; `ricchezza().posti` li passa al render. `rendi_disegnato.mjs`: tutti gli esiti, compreso `COLLOCAZIONE_ERRORE`, entrano nella categoria MONDO di `avvisi.json`. `film_disegnato.py`: MONDO ferma sempre, senza `MONDO_OK`. Test geometrici, test del cancello e regressione sulle storie in sola lettura: `kit/tests/`. Contratto e limiti: `controlli.md` §0.
+`collocazione_incastri.js`: riconoscimento geometrico conservativo dei telai montati nei vani, anche tra modelli separati. `vita.js`: zone di passaggio negli assi locali; `collocazione(camera)` restituisce `COMPENETRATI` / `FUORI_POSTO`; `ricchezza().posti` li passa al render. `rendi_disegnato.mjs`: tutti gli esiti, compreso `COLLOCAZIONE_ERRORE`, entrano nella categoria MONDO di `avvisi.json`. `film_disegnato.py`: MONDO ferma sempre, senza `MONDO_OK`. Test geometrici, test del cancello e regressione sulle storie in sola lettura: `kit/tests/`. Contratto e limiti: `controlli.md` §0.
