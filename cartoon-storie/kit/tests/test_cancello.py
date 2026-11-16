@@ -44,6 +44,11 @@ class CancelloTest(unittest.TestCase):
         self.assertIn('separa gli oggetti',str(cm.exception))
         self.assertNotIn('GLB gratuiti',str(cm.exception))
 
+    def test_regia_ferma_senza_eccezioni_provvisorie(self):
+        with self.assertRaises(SystemExit):
+            self.run_gate('REGIA','REGIA')
+        self.assertEqual(len(self.run_gate('REGIA','REGIA',{'CONTROLLI_OK':'1'})[0]),1)
+
     def test_altri_controlli(self):
         with self.assertRaises(SystemExit):
             self.run_gate('SOGGETTO_FUORI','INQUADRATURA')

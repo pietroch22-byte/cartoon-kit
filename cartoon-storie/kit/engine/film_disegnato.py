@@ -30,11 +30,9 @@ def fotogrammi(story_path, work, preview):
 #   - INQUADRATURA (quello che va in controlli.txt), REGIA, FLUIDITA, RECITAZIONE, LETTURA: fermano; CONTROLLI_OK=1 per andare avanti sapendolo.
 #   - MONDO (povero, fermo, compenetrazioni, passaggi ostruiti o controllo fallito): BLOCCA sempre.
 #     Nessuna variabile d’ambiente permette di saltarlo; si corregge il luogo o il controllo.
-#   - I due limiti REGIA noti come troppo severi (8/15 s nello stesso luogo, uno stacco ogni 12 s: STATO.md, lavoro aperto 2) avvisano ma non fermano,
-#     finché regia() non è rivista. regia() non è stata toccata.
+#   - REGIA non impone più tagli ogni 12 s o permanenze massime di 8/15 s nel luogo.
 #   - STORIA (buchi tra le scene, fov o altezze insolite): solo avviso, com'era.
 _FERMANO = {"INQUADRATURA", "REGIA", "FLUIDITA", "RECITAZIONE", "LETTURA"}
-_REGIA_IN_REVISIONE = re.compile(r"di fila nel luogo «|^solo \d+ stacchi in ")
 
 
 def cancello(story_path, work):
@@ -58,7 +56,7 @@ def cancello(story_path, work):
     for a in tutti:
         if a["cat"] == "MONDO":
             mondo.append(a)
-        elif a["cat"] in _FERMANO and not (a["cat"] == "REGIA" and _REGIA_IN_REVISIONE.search(a["testo"])):
+        elif a["cat"] in _FERMANO:
             fermano.append(a)
         else:
             avvisi.append(a)

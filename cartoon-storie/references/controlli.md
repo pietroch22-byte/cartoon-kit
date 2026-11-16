@@ -10,10 +10,10 @@
   |---|---|---|
   | Inquadrature (quelli di `controlli.txt`), REGIA, FLUIDITÀ, RECITAZIONE, scritte tagliate o piccole (`lettura.txt`) | ferma, codice di uscita 1 | `CONTROLLI_OK=1` |
   | **Mondo**: `MONDO_POVERO`, `VITA_BASSA` (sotto il 60%), `COMPENETRATI`, `FUORI_POSTO`, `COLLOCAZIONE_ERRORE` | ferma sempre: correggere il luogo o il controllo fallito | Nessuna deroga: `MONDO_OK` rimossa; `CONTROLLI_OK=1` non vale |
-  | I due limiti REGIA troppo severi (8/15 s nello stesso luogo, uno stacco ogni 12 s) | solo avviso, finché `regia()` non è rivista (`STATO.md`) | — |
   | Avvisi di formato del JSON (buchi tra scene, fov o altezze insolite) | solo avviso | — |
   | Tremolio (dopo i fotogrammi) | ferma, com'era | `TREMOLIO_OK=1` |
 
+- **REGIA rivista (16/11)**: `kit/tools/controllo_regia.mjs` separa tappe, viste e riprese. Nessun limite di 8/15 s nel luogo o numero minimo di tagli ogni 12 s. Una planata sullo stesso soggetto non genera falsi avvisi di inquadrature/mosse ripetute. Restano le soglie delle tappe (0,65–4 s), campo largo iniziale, rapporto con le parole, varietà tra riprese e tagli ripetuti sullo stesso soggetto. Tolta l’eccezione provvisoria del cancello: gli avvisi REGIA ancora emessi fermano come gli altri. Gli avvisi statici si ricalcolano anche quando si riusano i controlli visivi.
 - **`--controlli` costa poco**: stessi controlli dell'anteprima ma **non salva immagini, contact sheet né i file `.txt`**; scrive solo `kit/out/<nome>/avvisi.json`. Ogni scena ha un'«impronta» (la scena, il suo luogo, lo script del luogo e i file che importa): se non è cambiata i controlli non si rifanno. Misurato: `matita_spazio_v9`, 63 fotogrammi chiave, meno di 20 s la prima volta e 0 s al secondo lancio, 36 KB. Anche l'anteprima normale aggiorna `avvisi.json`. Limite: l'impronta non guarda il codice del motore (`engine3d/web`): dopo una modifica al motore `node kit/tools/rendi_disegnato.mjs <storia> --controlli --tutte`.
 - L'elenco (scena, tempo, codice) resta in `kit/out/<nome>/cancello.txt`. Dopo `--controlli` i file `controlli.txt`, `vita.txt` ecc. sono quelli dell'ultima anteprima, quindi possono essere più vecchi di `avvisi.json`: per il cancello vale `avvisi.json`.
 - **Collocazione nel codice**: `M.vita.collocazione(camera)` in `engine3d/web/vita.js`, raccolta in `ricchezza().posti` e `avvisi.json`. `COMPENETRATI` e `FUORI_POSTO` sono avvisi MONDO. Anche un errore interno (`COLLOCAZIONE_ERRORE`) ferma: un controllo fallito non equivale a un mondo verificato.
@@ -34,7 +34,7 @@
 ### Prove ripetibili, senza modificare le storie
 
 ```sh
-node --test kit/tests/test_collocazione.mjs
+node --test kit/tests/test_collocazione.mjs kit/tests/test_regia.mjs
 python3 -m unittest discover -s kit/tests -p 'test_cancello.py'
 python3 kit/tests/regressione_collocazione.py --out /tmp/cartoon-collocazione
 ```
